@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import Page1 from './Page1';
 
 const Menu = ({ isMenuOpen, setIsMenuOpen }) => {
   const handleMenuToggle = () => {
@@ -13,9 +15,9 @@ const Menu = ({ isMenuOpen, setIsMenuOpen }) => {
             <h5 className="text-white h4">Collapsed content</h5>
             <span className="text-muted">Toggleable via the navbar brand.</span>
             <ul className="menu-list">
-              <li><a href="/page1">Page 1</a></li>
-              <li><a href="/page2">Page 2</a></li>
-              <li><a href="/page3">Page 3</a></li>
+              <li><Link to="/Page1">Page 1_검색</Link></li>
+              <li><Link to="/Page2">Page 2_자세히보기</Link></li>
+              <li><Link to="/Page3">Page 3_메뉴</Link></li>
             </ul>
           </div>
         )}
