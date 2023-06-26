@@ -35,7 +35,7 @@ function App() {
         <div className="search-container">
           <input
             type="text"
-            placeholder="검색어를 입력하세요"
+            placeholder="칵테일 이름을 입력하세요"
             value={searchValue}
             onChange={handleSearchChange}
           />
