@@ -1,0 +1,81 @@
+.app {
+    display: flex;
+  }
+  
+  .content {
+    flex: 1;
+    margin-left: 20px;
+    transition: margin-left 0.3s ease-in-out;
+    z-index: 1;
+    position: relative;
+    padding-top: 20px; /* 메뉴 높이만큼 내용을 아래로 밀어줍니다. */
+    margin-top: 20px;
+  }
+  
+  .menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #f1f1f1;
+    width: 200px;
+    height: 100vh;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+  }
+  
+  .menu button {
+    background-color: transparent;
+    border: none;
+    padding: 10px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .menu button:before {
+    content: '';
+    width: 12px;
+    height: 2px;
+    background-color: #333;
+  }
+  
+  .menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .menu li {
+    margin-bottom: 10px;
+  }
+  
+  .button-container {
+    position: fixed;
+    top: 20px; /* 원하는 위치로 조정 */
+    right: 20px; /* 원하는 위치로 조정 */
+  }
+
+  .search-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+  }
+  
+  .search-container input {
+    padding: 10px;
+    margin-right: 10px;
+  }
+  
+  .search-container button {
+    padding: 10px 20px;
+  }
+  
