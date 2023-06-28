@@ -1,7 +1,6 @@
 package Alchole_free.Cockpybara.repository;
 
 import Alchole_free.Cockpybara.domain.Member;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Transactional
@@ -20,43 +18,64 @@ class MemberRepositoryTest {
     MemberRepository memberRepository;
 
     @BeforeEach
-    public void before(){
+    public void before() {
         generateDummyData();
     }
 
     @Test
     public void shouldFindMember() {
-        Optional<Member> findResult = memberRepository.findById(1L);
+        Member member = new Member("user1@example.com", "1234", "min", "010-1111-2222");
 
-        if(findResult.isEmpty()){
-            throw new IllegalStateException("해당 멤버가 존재하지 않습니다");
+        Member savedMember = memberRepository.save(member);
+
+        Member foundMember
+                = memberRepository.findById(savedMember.getId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 존재하지 않습니다"));
+
+        assertThat(foundMember).isEqualTo(member);
+    }
+
+    @Test
+    public void shouldFindMemberByEmail() {
+        String email = getRandEmail();
+
+        Optional<Member> result = memberRepository.findByEmail(email);
+
+        if (result.isEmpty()) {
+            throw new IllegalStateException("해당 멤버가 존재않습니다");
         }
 
-        Member member = findResult.get();
-
-        assertThat(member.getId()).isEqualTo(1L);
-        assertThat(member.getEmail()).isEqualTo("dummy1@example.com");
-        assertThat(member.getPassword()).isEqualTo("password1");
+        Member member = result.get();
+        assertThat(member.getEmail()).isEqualTo(email);
     }
 
     @Test
     public void shouldFindMemberByEmailAndPassword() {
-        String email="dummy";
-        email+=(int)Math.random()%9+1;
-        email+="@example.com";
-
-        String password="password";
-        password+=(int)Math.random()%10+1;
+        String email = getRandEmail();
+        String password = getRandPW();
 
         Optional<Member> result = memberRepository.findByEmailAndPassword(email, password);
 
-        if(result.isEmpty()){
+        if (result.isEmpty()) {
             throw new IllegalStateException("해당 멤버가 존재하지 않습니다");
         }
 
         Member member = result.get();
         assertThat(member.getEmail()).isEqualTo(email);
         assertThat(member.getPassword()).isEqualTo(password);
+    }
+
+    private String getRandPW() {
+        String password = "password";
+        password += (int) Math.random() % 10 + 1;
+        return password;
+    }
+
+    private String getRandEmail() {
+        String email = "dummy";
+        email += (int) Math.random() % 9 + 1;
+        email += "@example.com";
+        return email;
     }
 
     private void generateDummyData() {
