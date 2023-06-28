@@ -1,0 +1,15 @@
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .login-container label {
+    margin-bottom: 0.5rem;
+  }
+  
+  .login-container input {
+    width: 300px;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+  }
