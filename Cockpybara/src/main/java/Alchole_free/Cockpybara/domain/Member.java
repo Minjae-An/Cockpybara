@@ -36,10 +36,12 @@ public class Member {
     private Date birth;
 
 
-    public Member(String email, String password, String alias, String phoneNumber) {
+    public Member(String email, String password, String alias, String phoneNumber, Gender gender, Date birth) {
         this.email = email;
         this.password = password;
         this.alias = alias;
         this.phoneNumber = phoneNumber;
+        this.gender = gender;
+        this.birth = birth;
     }
 }
