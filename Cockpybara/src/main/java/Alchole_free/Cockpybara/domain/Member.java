@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
+import java.sql.Date;
 
 @Entity
 @Getter
@@ -27,6 +28,13 @@ public class Member {
 
     @NotNull
     private String phoneNumber;
+
+    @NotNull
+    private Gender gender;
+
+    @NotNull
+    private Date birth;
+
 
     public Member(String email, String password, String alias, String phoneNumber) {
         this.email = email;
