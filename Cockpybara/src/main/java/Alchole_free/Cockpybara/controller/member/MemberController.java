@@ -24,8 +24,8 @@ public class MemberController {
 
     @PostMapping("/join")
     public JoinResponse join(@RequestBody @Valid JoinRequest joinRequest){
-        String email = HashingUtil.hashPassword(joinRequest.getEmail());
-        String password = HashingUtil.hashPassword(joinRequest.getPassword());
+        String email = HashingUtil.hashValue(joinRequest.getEmail());
+        String password = HashingUtil.hashValue(joinRequest.getPassword());
         String alias = joinRequest.getAlias();
         String phoneNumber = joinRequest.getPhoneNumber();
 
@@ -35,7 +35,7 @@ public class MemberController {
 
     @GetMapping("/user/detail")
     public DetailResponse getMemberDetails(@RequestBody @Valid DetailRequest detailRequest){
-        String email = detailRequest.getEmail();
+        String email=HashingUtil.hashValue(detailRequest.getEmail());
 
         Member member = memberService.findByEmail(email);
         return new DetailResponse(member);

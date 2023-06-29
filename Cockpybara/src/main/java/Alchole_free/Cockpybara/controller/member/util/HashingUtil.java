@@ -8,7 +8,7 @@ public class HashingUtil {
 
     private static final String HASH_ALGORITHM="SHA-256";
 
-    public static String hashPassword(String value){
+    public static String hashValue(String value){
         try{
             MessageDigest digest = MessageDigest.getInstance(HASH_ALGORITHM);
 
