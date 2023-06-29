@@ -11,7 +11,6 @@ import Alchole_free.Cockpybra.service.IngredientsService;
 public class CocktailController {
     private final IngredientsService ingredientsService;
 
-    @Autowired
     public CocktailController(IngredientsService ingredientsService) {
         this.ingredientsService = ingredientsService;
     }
