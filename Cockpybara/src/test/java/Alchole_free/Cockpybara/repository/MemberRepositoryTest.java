@@ -21,7 +21,7 @@ class MemberRepositoryTest {
 
     @Test
     void shouldFindMemberById() {
-        Member member = new Member("ex@example.com", "1234", "alias1",
+        Member member = new Member("mj3242@naver.com", "12345678", "alias1",
                 "010-1111-2222", Gender.MALE, Date.valueOf("1998-01-01"));
 
         memberRepository.save(member);
@@ -32,7 +32,7 @@ class MemberRepositoryTest {
 
     @Test
     void shouldFindMemberByEmail(){
-        Member member = new Member("ex@example.com", "1234", "alias1",
+        Member member = new Member("ex@example.com", "12345678", "alias1",
                 "010-1111-2222", Gender.MALE, Date.valueOf("1998-01-01"));
 
         memberRepository.save(member);
@@ -44,7 +44,7 @@ class MemberRepositoryTest {
 
     @Test
     void shouldFindMemberByEmailAndPassword(){
-        Member member = new Member("ex@example.com", "1234", "alias1",
+        Member member = new Member("ex@example.com", "12345678", "alias1",
                 "010-1111-2222", Gender.MALE, Date.valueOf("1998-01-01"));
 
         memberRepository.save(member);
