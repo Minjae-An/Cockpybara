@@ -1,13 +1,11 @@
 package Alchole_free.Cockpybara.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
@@ -30,9 +28,11 @@ public class Member {
     private String phoneNumber;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
     @NotNull
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     private Date birth;
 
 
