@@ -1,5 +1,6 @@
 package Alchole_free.Cockpybara.domain;
 
+import Alchole_free.Cockpybara.controller.member.constant.RegexConstant;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -7,6 +8,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.sql.Date;
 
 @Entity
@@ -17,14 +20,17 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
+    @Pattern(regexp = RegexConstant.EMAIL_REGEX, message = "잘못된 이메일 형식입니다.")
     private String email;
     @NotNull
+    @Size(min=8, max = 15)
     private String password;
 
     @NotNull
     private String alias;
 
     @NotNull
+    @Pattern(regexp = RegexConstant.PHONE_NUMBER_REGEX, message = "잘못된 번호 형식입니다.")
     private String phoneNumber;
 
     @NotNull
@@ -32,7 +38,7 @@ public class Member {
     private Gender gender;
 
     @NotNull
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     private Date birth;
 
 
