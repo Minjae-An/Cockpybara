@@ -1,31 +1,30 @@
 package Alchole_free.Cockpybara.controller.member.join;
 
 
+import Alchole_free.Cockpybara.domain.Gender;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotNull;
+import java.sql.Date;
 
 @Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class JoinRequest {
-    @NotNull
     private String email;
-
-    @NotNull
     private String password;
-
-    @NotNull
     private String alias;
-
-    @NotNull
     private String phoneNumber;
+    private Gender gender;
+    private Date birth;
 
-    public JoinRequest(String email, String password, String alias, String phoneNumber) {
+    public JoinRequest(String email, String password,
+                       String alias, String phoneNumber, Gender gender, Date birth) {
         this.email = email;
         this.password = password;
         this.alias = alias;
         this.phoneNumber = phoneNumber;
+        this.gender = gender;
+        this.birth = birth;
     }
 }
