@@ -3,6 +3,8 @@ import { Link, Routes, Route } from 'react-router-dom';
 import Page1 from './Page1';
 import Page2 from './Page2';
 import Page3 from './Page3';
+import Join from '../Join';
+import Login from '../Login' 
 
 const Menu = ({ isMenuOpen, setIsMenuOpen }) => {
   const handleMenuToggle = () => {
@@ -17,9 +19,11 @@ const Menu = ({ isMenuOpen, setIsMenuOpen }) => {
             <h5 className="text-white h4">Collapsed content</h5>
             <span className="text-muted">Toggleable via the navbar brand.</span>
             <ul className="menu-list">
-              <li><Link to="/page1">Page 1_검색</Link></li>
-              <li><Link to="/page2">Page 2_자세히보기</Link></li>
-              <li><Link to="/page3">Page 3_메뉴</Link></li>
+              <li><Link to="/page1">About</Link></li>
+              <li><Link to="/page2">Recipe</Link></li>
+              <li><Link to="/page3">Community</Link></li>
+              <li><Link to="/login">Login</Link></li>
+              <li><Link to="/join">Join</Link></li>
             </ul>
           </div>
         )}
@@ -42,6 +46,8 @@ const Menu = ({ isMenuOpen, setIsMenuOpen }) => {
         <Route path="/page1" element={<Page1 />} />
         <Route path="/page2" element={<Page2 />} />
         <Route path="/page3" element={<Page3 />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/join" element={<Join />} />
       </Routes>
     </div>
   );

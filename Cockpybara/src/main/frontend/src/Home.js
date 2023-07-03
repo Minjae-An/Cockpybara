@@ -28,13 +28,7 @@ function Home() {
   return (
     <div className="home">
       <div className="button-container">
-        <button onClick={handleLoginButtonClick}>로그인</button>
-      </div>
-      <Menu isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
-      <div className={`content ${isMenuOpen ? 'content-shifted' : ''}`}>
-        <h1>Hello, This is Cockpybara Main Domain</h1>
-        <div>We are alcohol-free</div>
-        <div className="search-container">
+      <div className="search-container">
           <input
             type="text"
             placeholder="칵테일 이름을 입력하세요"
@@ -43,6 +37,12 @@ function Home() {
           />
           <button onClick={handleSearch}>검색</button>
         </div>
+        <button onClick={handleLoginButtonClick}>로그인</button>
+      </div>
+      <Menu isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+      <div className={`content ${isMenuOpen ? 'content-shifted' : ''}`}>
+        <h1>Hello, This is Cockpybara Main Domain</h1>
+        <div>We are alcohol-free</div>
       </div>
     </div>
   );

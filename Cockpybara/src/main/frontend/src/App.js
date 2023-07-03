@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import Home from './Home';
 import Login from './Login';
+import Join from './Join';
 import axios from 'axios'; // Import the axios library
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login handleLogin={handleLogin} />} />
+        <Route path="/join" element={<Join />} />
       </Routes>
     </div>
   );
