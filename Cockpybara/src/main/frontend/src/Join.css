@@ -1,0 +1,28 @@
+.join-title {
+    text-align: center;
+  }
+  
+  .join-input,
+  .join-select {
+    display: block;
+    margin: 10px auto;
+    width: 300px;
+    padding: 5px;
+  }
+  
+  .join-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+  }
+  
+  .join-success-message {
+    text-align: center;
+  }
+  
+  .join-login-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+  }
+  

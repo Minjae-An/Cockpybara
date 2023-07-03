@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './Join.css';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Join = () => {
@@ -68,7 +69,7 @@ const Join = () => {
 
   return (
     <div>
-      <h1>회원가입</h1>
+      <h1 className="join-title">회원가입</h1>
       {isJoinSuccess ? (
         <div>
           <p>회원가입이 성공하였습니다. 축하합니다!</p>
@@ -78,32 +79,32 @@ const Join = () => {
         <form onSubmit={handleSubmit}>
           <label>
             이메일:
-            <input type="email" value={email} onChange={handleEmailChange} />
+            <input className="join-input" type="email" value={email} onChange={handleEmailChange} />
           </label>
           <br />
           <label>
             비밀번호:
-            <input type="password" value={password} onChange={handlePasswordChange} />
+            <input className="join-input" type="password" value={password} onChange={handlePasswordChange} />
           </label>
           <br />
           <label>
             비밀번호 확인:
-            <input type="password" value={confirmPassword} onChange={handleConfirmPasswordChange} />
+            <input className="join-input" type="password" value={confirmPassword} onChange={handleConfirmPasswordChange} />
           </label>
           <br />
           <label>
             별명:
-            <input type="text" value={alias} onChange={handleAliasChange} />
+            <input className="join-input" type="text" value={alias} onChange={handleAliasChange} />
           </label>
           <br />
           <label>
             전화번호:
-            <input type="text" value={phoneNumber} onChange={handlePhoneNumberChange} />
+            <input className="join-input" type="text" value={phoneNumber} onChange={handlePhoneNumberChange} />
           </label>
           <br />
           <label>
             성별:
-            <select value={gender} onChange={handleGenderChange}>
+            <select className="join-select" value={gender} onChange={handleGenderChange}>
               <option value="MALE">남성</option>
               <option value="FEMALE">여성</option>
             </select>
@@ -111,10 +112,10 @@ const Join = () => {
           <br />
           <label>
             생년월일:
-            <input type="date" value={birth} onChange={handleBirthChange} />
+            <input className="join-input" type="date" value={birth} onChange={handleBirthChange} />
           </label>
           <br />
-          <button type="submit">가입하기</button>
+          <button className="join-button" type="submit">가입하기</button>
         </form>
       )}
     </div>
