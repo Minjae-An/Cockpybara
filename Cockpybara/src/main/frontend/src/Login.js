@@ -15,6 +15,10 @@ const Login = () => {
     setId(e.target.value);
   };
 
+  const handleJoinButtonClick = () => {
+    navigate('/signup');
+  };
+
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
@@ -39,9 +43,21 @@ const Login = () => {
     setId('');
     setPassword('');
   };
-  
+
   const handleLoginButtonClick = () => {
     navigate('/login');
+  };
+
+  const handleSuccess = () => { //임시 로그인 성공창
+    navigate('/success');
+  };
+
+  const handleFindId = () => { //임시 아이디 찾기창
+    navigate('/findIdSuccess');
+  };
+
+  const handleFindPassword = () => { //임시 비밀번호 찾기창
+    navigate('/findPwSuccess');
   };
 
   const handleLogin = async () => {
@@ -67,18 +83,23 @@ const Login = () => {
 
   return (
     <div className="login-container">
-      <h2>Login</h2>
+      <h2 className="form-title">Cockpybara</h2>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>ID:</label>
-          <input type="id" value={id} onChange={handlIdChange} />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input type="password" value={password} onChange={handlePasswordChange} />
-        </div>
-        <button type="submit">Submit</button>
+        <input type="text" name="userId" value={id} onChange={handlIdChange} placeholder="아이디" className="input-field-id" />
+        <input type="password" name="userPassword" value={password} onChange={handlePasswordChange} placeholder="비밀번호" className="input-field-pw" />
+        <label for="remember-check" className="login-maintain">
+          <input type="checkbox" id="remember-check" /><span>로그인 유지</span>
+        </label>
+        <button type="submit" className="login-field" onClick={handleSuccess}>로그인</button>
       </form>
+      <div className="find-infor">
+        <button onClick={handleFindId}>아이디 찾기</button>
+        <span> | </span>
+        <button onClick={handleFindPassword}>비밀번호 찾기</button>
+      </div>
+      <div className="question">
+        아직 카피바라 회원이 아니세요?  <button onClick={handleJoinButtonClick}>회원가입</button>
+      </div>
     </div>
   );
 };

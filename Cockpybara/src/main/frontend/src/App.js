@@ -40,7 +40,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login handleLogin={handleLogin} />} />
-        <Route path="/join" element={<Join />} />
+        <Route path="/signup" element={<Join />} />
       </Routes>
     </div>
   );
