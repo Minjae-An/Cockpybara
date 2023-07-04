@@ -21,6 +21,8 @@ function Home() {
   };
 
   const handleSearch = () => {
+    //되나?
+    //되나??
     // 검색 로직 작성
     console.log('Search value:', searchValue);
   };
