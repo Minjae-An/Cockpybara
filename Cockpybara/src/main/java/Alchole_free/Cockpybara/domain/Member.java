@@ -19,26 +19,13 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull
-    @Pattern(regexp = RegexConstant.EMAIL_REGEX, message = "잘못된 이메일 형식입니다.")
     private String email;
-    @NotNull
-    @Size(min=8, max = 15)
     private String password;
 
-    @NotNull
     private String alias;
 
-    @NotNull
-    @Pattern(regexp = RegexConstant.PHONE_NUMBER_REGEX, message = "잘못된 번호 형식입니다.")
     private String phoneNumber;
-
-    @NotNull
-    @Enumerated(EnumType.STRING)
     private Gender gender;
-
-    @NotNull
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     private Date birth;
 
 
