@@ -28,7 +28,7 @@ public class MemberService {
                         .orElseThrow(()->new IllegalArgumentException("해당 회원이 존재하지 않습니다."));
     }
 
-    public Member findByEmailAndPassword(String email, String password){
+    public Member login(String email, String password){
         return memberRepository.findByEmailAndPassword(email, password)
                 .orElseThrow(() -> new IllegalArgumentException("해당 회원이 존재하지 않습니다"));
     }
