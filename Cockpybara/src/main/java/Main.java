@@ -33,16 +33,20 @@ public class Main {
                     String measure = nextLine[i + 16];
                     if (measure.equals("\n")) continue;
 
-
                     //단위 변경 코드 추가
-                    // oz로 변경
-                    if (measure.contains("oz")) measure = "oz";
-                    //tblsp로 변경: 큰술
-                    if (measure.contains("tblsp")) measure = "tblsp";
-                    //pinch로 변경: 큰술
-                    if (measure.contains("tblsp")) measure = "tblsp";
-                    //tblsp로 변경: 큰술
-                    if (measure.contains("tblsp")) measure = "tblsp";
+                    if (measure.contains("oz")) measure = "oz"; //온즈(1oz = 30ml)
+                    if (measure.contains("ml")) measure = "ml";
+                    if (measure.contains("tblsp")) measure = "tblsp "; //숟가락(큰술)
+                    if (measure.contains("tsp")) measure = "tsp"; //작은 숟가락
+                    if (measure.contains("cup")) measure = "cup";
+                    if (measure.contains("shot")) measure = "shot";
+                    if (measure.contains("cl")) measure = "cl"; //센티리터
+                    if (measure.contains("shot")) measure = "shot";
+                    if (measure.contains("inch")) measure = "inch";  //길이 inch
+                    if (measure.contains("glass")) measure = "glass";
+                    if (measure.contains("bottle ")) measure = "bottle ";
+                    if (measure.contains("lb")) measure = "lb"; //파운드(1lb = 0.45kg)
+                    if (measure.contains("gal")) measure = "gal";
 
                     ArrayList<String> list;
                     if ((list = map.get(ingredient)) != null) {
