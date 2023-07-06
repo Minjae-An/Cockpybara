@@ -20,7 +20,6 @@ public class Main {
         try (CSVReader reader = new CSVReader(new FileReader(csvFile))) {
             String[] nextLine =  reader.readNext();
 
-
             while ((nextLine = reader.readNext()) != null) {
                 glass.add(nextLine[7]);
                 for (int i = 9; i <= 23; i++) {
@@ -33,6 +32,18 @@ public class Main {
 
                     String measure = nextLine[i + 16];
                     if (measure.equals("\n")) continue;
+
+
+                    //단위 변경 코드 추가
+                    // oz로 변경
+                    if (measure.contains("oz")) measure = "oz";
+                    //tblsp로 변경: 큰술
+                    if (measure.contains("tblsp")) measure = "tblsp";
+                    //pinch로 변경: 큰술
+                    if (measure.contains("tblsp")) measure = "tblsp";
+                    //tblsp로 변경: 큰술
+                    if (measure.contains("tblsp")) measure = "tblsp";
+
                     ArrayList<String> list;
                     if ((list = map.get(ingredient)) != null) {
 
@@ -57,13 +68,8 @@ public class Main {
                         units.add(unit);
                         list.add(unit);
                     }
-
                     map.put(ingredient, list);
-
-
                 }
-
-
 //                int i = 0;
 //                for (String cell : nextLine) {
 //                    System.out.print(i++ + " : " + cell + "\n");
