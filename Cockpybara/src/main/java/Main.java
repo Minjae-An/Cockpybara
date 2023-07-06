@@ -1,7 +1,9 @@
 import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
 
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,6 +16,7 @@ public class Main {
     public static void main(String[] args) throws CsvValidationException, IOException {
         String csvFile = "src\\main\\resources\\all_drinks.csv"; // 읽을 CSV 파일의 경로
 
+        //csv파일 수정 - 비슷한 단위들 단일화
         try (CSVReader reader = new CSVReader(new FileReader(csvFile))) {
             String[] nextLine =  reader.readNext();
 
@@ -70,12 +73,38 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        //시험용 코드 - 파일 잘 바뀌고 출력잘되는지 여기서 확인할것, 코드 추가해야함!
         for (String s : glass) {
             System.out.println(s + ",");
         }
 
         System.out.println(glass.size());
+
+        //위에 수정된 내용을 토대로 새로운 재료 ingredients.csv파일 생성
+        String outputCsvFile = "src/main/resources/all_ingredients.csv"; // 저장할 CSV 파일의 경로
+
+        try (CSVWriter writer = new CSVWriter(new FileWriter(outputCsvFile))) {
+            // 헤더 라인 작성
+            String[] header = { "Ingredient", "Unit" };
+            writer.writeNext(header);
+
+            // 데이터 작성
+            for (HashMap.Entry<String, ArrayList<String>> entry : map.entrySet()) {
+                String ingredient = entry.getKey();
+                ArrayList<String> units = entry.getValue();
+
+                for (String unit : units) {
+                    String[] data = { ingredient, unit };
+                    writer.writeNext(data);
+                }
+            }
+
+            System.out.println("all_ingredients.csv 파일이 생성되었습니다.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //
 
 //        for (String s : units) {
 //            System.out.println(s + ",");
