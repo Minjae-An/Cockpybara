@@ -12,7 +12,7 @@ public class Main {
     private static HashSet<String> units = new HashSet<>();
     private static HashSet<String> glass = new HashSet<>();
     public static void main(String[] args) throws CsvValidationException, IOException {
-        String csvFile = "Cockpybara/src/main/resources/all_drinks.csv"; // 읽을 CSV 파일의 경로
+        String csvFile = "src\\main\\resources\\all_drinks.csv"; // 읽을 CSV 파일의 경로
 
         try (CSVReader reader = new CSVReader(new FileReader(csvFile))) {
             String[] nextLine =  reader.readNext();
