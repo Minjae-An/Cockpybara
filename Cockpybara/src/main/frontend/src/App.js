@@ -3,7 +3,9 @@ import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react
 import Home from './Home';
 import Login from './Login';
 import Join from './Join';
+import Success from './Success';
 import axios from 'axios'; // Import the axios library
+import Recipe from './Recipe';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -39,8 +41,9 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/recipe" element={<Recipe />} />
         <Route path="/login" element={<Login handleLogin={handleLogin} />} />
-        <Route path="/signup" element={<Join />} />
+        <Route path="/join" element={<Join />} />
       </Routes>
     </div>
   );

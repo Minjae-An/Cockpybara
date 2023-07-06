@@ -16,7 +16,7 @@ const Login = () => {
   };
 
   const handleJoinButtonClick = () => {
-    navigate('/signup');
+    navigate('/join');
   };
 
   const handlePasswordChange = (e) => {
@@ -83,7 +83,7 @@ const Login = () => {
 
   return (
     <div className="login-container">
-      <h2 className="form-title">Cockpybara</h2>
+      <h2 className="form-title" onClick={() => navigate('/')}>Cockpybara</h2>
       <form onSubmit={handleSubmit}>
         <input type="text" name="userId" value={id} onChange={handlIdChange} placeholder="아이디" className="input-field-id" />
         <input type="password" name="userPassword" value={password} onChange={handlePasswordChange} placeholder="비밀번호" className="input-field-pw" />

@@ -1,0 +1,52 @@
+li {
+    list-style-type: none;
+  }
+
+.about {
+  color: #2070ad;
+  text-align: left;
+  font: 700 18px "Pretendard", sans-serif;
+  position: absolute;
+  left: 25px;
+  top: 173px;
+}
+.community {
+  color: #2070ad;
+  text-align: left;
+  font: 700 18px "Pretendard", sans-serif;
+  position: absolute;
+  left: 25px;
+  top: 360px;
+}
+.my-page {
+  color: #2070ad;
+  text-align: left;
+  font: 700 18px "Pretendard", sans-serif;
+  position: absolute;
+  left: 25px;
+  top: 454px;
+}
+.recipe {
+  color: #2070ad;
+  text-align: left;
+  font: 700 18px "Pretendard", sans-serif;
+  position: absolute;
+  left: 25px;
+  top: 266px;
+}
+.login {
+  color: #2070ad;
+  text-align: left;
+  font: 700 18px "Pretendard", sans-serif;
+  position: absolute;
+  left: 25px;
+  top: 603px;
+}
+.join {
+  color: #2070ad;
+  text-align: left;
+  font: 700 18px "Pretendard", sans-serif;
+  position: absolute;
+  left: 25px;
+  top: 651px;
+}
