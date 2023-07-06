@@ -1,7 +1,7 @@
 package Alchole_free.Cockpybara.controller.member.join;
 
 
-import Alchole_free.Cockpybara.controller.member.constant.RegexConstant;
+import Alchole_free.Cockpybara.constant.RegexConstant;
 import Alchole_free.Cockpybara.domain.Gender;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AccessLevel;
@@ -15,22 +15,25 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.sql.Date;
 
+import static Alchole_free.Cockpybara.constant.RegexConstant.*;
+
 @Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class JoinRequest {
     @NotNull
-    @Pattern(regexp = RegexConstant.EMAIL_REGEX, message = "잘못된 이메일 형식입니다.")
+    @Pattern(regexp = EMAIL_REGEX, message = "잘못된 이메일 형식입니다.")
     private String email;
 
     @NotNull
-    @Size(min=8, max = 15)
+    @Pattern(regexp = PASSWORD_REGEX, message = "잘못된 비밀번호 형식입니다.")
     private String password;
 
     @NotNull
+    @Pattern(regexp = ALIAS_REGEX, message = "잘못된 별명 형식입니다.")
     private String alias;
 
     @NotNull
-    @Pattern(regexp = RegexConstant.PHONE_NUMBER_REGEX, message = "잘못된 번호 형식입니다.")
+    @Pattern(regexp = PHONE_NUMBER_REGEX, message = "잘못된 번호 형식입니다.")
     private String phoneNumber;
 
     @NotNull
