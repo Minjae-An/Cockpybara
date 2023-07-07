@@ -1,15 +1,13 @@
 package Alchole_free.Cockpybara.domain;
 
-import Alchole_free.Cockpybara.controller.member.constant.RegexConstant;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.sql.Date;
 
 @Entity
@@ -27,7 +25,6 @@ public class Member {
     private String phoneNumber;
     private Gender gender;
     private Date birth;
-
 
     public Member(String email, String password, String alias, String phoneNumber, Gender gender, Date birth) {
         this.email = email;
