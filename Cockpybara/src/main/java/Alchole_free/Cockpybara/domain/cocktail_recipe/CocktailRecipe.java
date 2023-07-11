@@ -1,12 +1,14 @@
 package Alchole_free.Cockpybara.domain.cocktail_recipe;
 
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 public class CocktailRecipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
