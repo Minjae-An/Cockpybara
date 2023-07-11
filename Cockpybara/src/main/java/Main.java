@@ -33,10 +33,11 @@ public class Main {
                     String measure = nextLine[i + 16];
                     if (measure.equals("\n") || measure.trim().isEmpty()) {
                         printMissingIngredient(ingredient, rowNumber); // 단위가 존재하지 않는 재료 출력
-                        measure = "fill"; // 단위가 존재하지 않는 경우 "fill"로 변경
+                        //재료가 있는데 단위가 비어있는경우 -> fill로 채우기
+                        measure = "fill";
                     }
 
-                    measure = normalizeUnit(measure); // 단위 통일화
+                    measure = normalizeUnit(measure); // 단위 통일화(밑에 함수와 주석참고)
 
                     ArrayList<String> list = map.getOrDefault(ingredient, new ArrayList<>());
                     if (!list.contains(measure)) {
@@ -80,8 +81,6 @@ public class Main {
         }
         System.out.println("Total Units: " + units.size());
 
-        // 파운드를 그램으로 변환
-       // convertPoundToGram(outputCsvFile);
     }
 
     private static void printMissingIngredient(String ingredient, int rowNumber) {
@@ -91,7 +90,7 @@ public class Main {
     private static String normalizeUnit(String measure) {
         measure = measure.toLowerCase().trim();
 
-        if (measure.contains("oz") || measure.contains("jigger")) {
+        if (measure.contains("oz") || measure.contains("jigger") || measure.contains("shot")||measure.contains("cl") ||measure.contains("cL")) {
             return "oz";
         }
         else if (measure.contains("ml") || measure.contains("dl") || measure.contains("pint")) {
@@ -106,17 +105,11 @@ public class Main {
         else if (measure.contains("cup")) {
             return "cup";
         }
-        else if (measure.contains("shot")) {
-            return "shot";
-        }
         else if (measure.contains("slice") || measure.contains("wedge")) {
             return "slice";
         }
         else if (measure.contains("scoop")) {
             return "scoop";
-        }
-        else if (measure.contains("cl") ||measure.contains("cL")  ) {
-            return "cl";
         }
         else if (measure.contains("inch")) {
             return "inch";
@@ -127,8 +120,11 @@ public class Main {
         else if (measure.contains("bottle")) {
             return "bottle";
         }
-        else if (measure.contains("gr") || measure.contains("lb")) {
+        else if (measure.contains("gr")) {
             return "gr";
+        }
+        else if (measure.contains("lb")) {
+            return "lb";
         }
         else if (measure.contains("gal")) {
             return "gal";
@@ -170,3 +166,31 @@ public class Main {
     }
 
 }
+
+/*
+  단위 설명관련(총 22가지)
+  단위 변경 코드 추가, 알아둬야할것: 복수형 구분안하고 그냥 다 단수형으로 함(2 counts -> 2 count)
+  - drop 방울
+  - glass 잔(ex. 0.5glass면 잔의 반)
+  - scoop
+  - part 배(2part면 다른 액체보다 2배의 양)
+  - liter 리터(1liter = 1quart = 1qt)
+  - count 개수(count = cube = fifth)
+  - oz 양주세는단위(1oz = 1jigger = 1shot = 3cl = 30ml)
+  - bottle
+  - lb 파운드(1lb = 0.45kg)
+  - gr 그램
+  - tblsp 큰숟가락
+  - fill 나머지, 꾸미기, 장식 (fill, with, taste, top, up, of, garnish, full, chilled 같이묶음)
+  - tsp 작은숟가락
+  - can
+  - gal 3.78리터
+  - slice 비스듬한조각 ex.과일 (slice, wedge 묶음)
+  - piece 조각(piece, chunk, whole 묶음)
+  - stick 가지
+  - inch 길이
+  - dash 소량의 액체(3dash = 1splash)
+  - cup
+  - 500ml = 5dl = 1pint
+
+ */
