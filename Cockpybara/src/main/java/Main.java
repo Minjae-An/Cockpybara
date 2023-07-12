@@ -74,6 +74,29 @@ public class Main {
             e.printStackTrace();
         }
 
+        String outCsvFile = "src/main/resources/ingredients_list.csv"; // 저장할 CSV 파일의 경로
+        try (CSVWriter writer2 = new CSVWriter(new FileWriter(outCsvFile))) {
+            // 헤더 라인 작성
+            String[] header = {"Ingredient", "Unit1","Unit2","Unit3","Unit4","Unit5","Unit6","Unit7","Unit8","Unit9","Unit10","Unit11" };
+            writer2.writeNext(header);
+
+            // 데이터 작성
+            for (HashMap.Entry<String, ArrayList<String>> entry : map.entrySet()) {
+                String ingredient = entry.getKey();
+                ArrayList<String> units = entry.getValue();
+
+                // ingredient와 units를 하나의 배열로 합치기
+                String[] data = new String[12]; // 최대 11개의 단위까지 처리 가능
+                data[0] = ingredient;
+                int i;
+                for (i = 0; i < units.size(); i++) {
+                    data[i + 1] = units.get(i);
+                }
+                writer2.writeNext(data);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         // 정제된 재료와 단위 출력
         System.out.println("Unit List:");
         for (String unit : units) {
@@ -81,8 +104,12 @@ public class Main {
         }
         System.out.println("Total Units: " + units.size());
 
-    }
+        // 원본 칵테일 레시피 CSV 파일의 단위 통일화하여 새로운 CSV 파일 생성
+        String originalCsvFile = "src\\main\\resources\\all_drinks.csv"; // 원본 칵테일 레시피 CSV 파일의 경로
+        String refinedCsvFile = "src\\main\\resources\\refined_drinks.csv"; // 정제된 칵테일 레시피 CSV 파일의 경로
 
+       // refineCocktailCsv(originalCsvFile, refinedCsvFile);  //원본 엑셀파일 단위 정제
+    }
     private static void printMissingIngredient(String ingredient, int rowNumber) {
         System.out.println("Missing Ingredient: " + ingredient + ", Row: " + rowNumber);
     }
@@ -165,6 +192,96 @@ public class Main {
         return measure;
     }
 
+    //데이터 정제된 새로운 엑셀 파일만들기
+    private static void refineCocktailCsv(String originalCsvFile, String refinedCsvFile) {
+        try (CSVReader reader = new CSVReader(new FileReader(originalCsvFile));
+             CSVWriter writer = new CSVWriter(new FileWriter(refinedCsvFile))) {
+
+            String[] nextLine;
+
+            int rowNumber = 1; // 현재 행 번호 - 단위존재x 재료찾는 코드에 사용
+            while ((nextLine = reader.readNext()) != null) {
+                for (int i = 9; i <= 23; i++) {
+                    String ingredient = nextLine[i];
+                    if (ingredient == null || ingredient.trim().isEmpty()) {
+                        continue;
+                    }
+
+                    String measure = nextLine[i + 16];
+                    if (measure.equals("\n") || measure.trim().isEmpty()) {
+                        printMissingIngredient(ingredient, rowNumber); // 단위가 존재하지 않는 재료 출력
+                        //재료가 있는데 단위가 비어있는경우 -> fill로 채우기
+                        measure = "fill";
+                    }
+
+                    measure = normalizeUnit(measure); // 단위 통일화(밑에 함수와 주석참고)
+
+                    ArrayList<String> list = map.getOrDefault(ingredient, new ArrayList<>());
+                    if (!list.contains(measure)) {
+                        units.add(measure);
+                        list.add(measure);
+                    }
+                    map.put(ingredient, list);
+                }
+                rowNumber++;
+            }
+            //이 아래 코드랑 위에 코드랑 합쳐야함...
+            writer.writeNext(reader.readNext()); // Write the header line
+
+            while ((nextLine = reader.readNext()) != null) {
+                String[] refinedLine = new String[nextLine.length];
+
+                for (int i = 0; i < nextLine.length; i++) {
+                    refinedLine[i] = normalizeIngredientUnit(nextLine[i]); //데이터 단위 정제
+                }
+
+                writer.writeNext(refinedLine);
+            }
+
+        } catch (IOException | CsvValidationException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    private static String normalizeIngredientUnit(String ingredient) {
+        if (ingredient.isEmpty()) {
+            return "fill"; // Return "fill" for unit-only ingredient
+        }
+        String[] parts = ingredient.trim().split("\\s+", 2); // Split into quantity and unit
+
+        if (parts.length == 2) {
+            String quantity = parts[0].trim();
+            String unit = parts[1].trim();
+
+            // Handle unit-only case
+
+           /*
+            //양은 소수 둘째자리까지만
+            double quantityValue = Double.parseDouble(quantity);
+
+            try {
+                quantityValue = Double.parseDouble(quantity);
+                quantity = String.format("%.2f", quantityValue);
+            } catch (NumberFormatException e) {
+                // Handle non-numeric quantity, e.g. "fill"
+                quantity = "0";
+                unit = normalizeUnit(unit);
+                return quantity + " " + unit;
+            }
+            */
+            // Normalize unit
+            unit = normalizeUnit(unit);
+
+            return quantity + " " + unit;
+        }
+
+        return ingredient;
+    }
+
+
+
 }
 
 /*
@@ -192,5 +309,4 @@ public class Main {
   - dash 소량의 액체(3dash = 1splash)
   - cup
   - 500ml = 5dl = 1pint
-
  */
