@@ -29,6 +29,7 @@ public class Main {
                     if (ingredient == null || ingredient.trim().isEmpty()) {
                         continue;
                     }
+                    ingredient = normalizeIngredient(ingredient); //재료 통일화
 
                     String measure = nextLine[i + 16];
                     if (measure.equals("\n") || measure.trim().isEmpty()) {
@@ -44,6 +45,7 @@ public class Main {
                         units.add(measure);
                         list.add(measure);
                     }
+                    //map에 key(재료)와 value(단위 리스트) 저장
                     map.put(ingredient, list);
                 }
                 rowNumber++;
@@ -52,7 +54,8 @@ public class Main {
             e.printStackTrace();
         }
 
-        // 칵테일 CSV 파일에서 재료와 단위를 정제하여 새로운 CSV 파일 생성
+        //재료와 단위로 이루어진 all_ingredients.csv 파일 생성
+
         String outputCsvFile = "src/main/resources/all_ingredients.csv"; // 저장할 CSV 파일의 경로
 
         try (CSVWriter writer = new CSVWriter(new FileWriter(outputCsvFile))) {
@@ -61,6 +64,7 @@ public class Main {
             writer.writeNext(header);
 
             // 데이터 작성
+            //map안의 key(재료)의 수만큼 반복돌려주고 재료마다의 단위수만큼 또 반복문 돌리기
             for (HashMap.Entry<String, ArrayList<String>> entry : map.entrySet()) {
                 String ingredient = entry.getKey();
                 ArrayList<String> units = entry.getValue();
@@ -73,6 +77,9 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
+        //재료와 단위들 리스트 형식으로 묶은 ingredients_list.csv 파일 생성
 
         String outCsvFile = "src/main/resources/ingredients_list.csv"; // 저장할 CSV 파일의 경로
         try (CSVWriter writer2 = new CSVWriter(new FileWriter(outCsvFile))) {
@@ -97,6 +104,8 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
         // 정제된 재료와 단위 출력
         System.out.println("Unit List:");
         for (String unit : units) {
@@ -105,8 +114,8 @@ public class Main {
         System.out.println("Total Units: " + units.size());
 
         // 원본 칵테일 레시피 CSV 파일의 단위 통일화하여 새로운 CSV 파일 생성
-        String originalCsvFile = "src\\main\\resources\\all_drinks.csv"; // 원본 칵테일 레시피 CSV 파일의 경로
-        String refinedCsvFile = "src\\main\\resources\\refined_drinks.csv"; // 정제된 칵테일 레시피 CSV 파일의 경로
+        //String originalCsvFile = "src\\main\\resources\\all_drinks.csv"; // 원본 칵테일 레시피 CSV 파일의 경로
+        //String refinedCsvFile = "src\\main\\resources\\refined_drinks.csv"; // 정제된 칵테일 레시피 CSV 파일의 경로
 
        // refineCocktailCsv(originalCsvFile, refinedCsvFile);  //원본 엑셀파일 단위 정제
     }
@@ -193,14 +202,23 @@ public class Main {
     }
 
     //데이터 정제된 새로운 엑셀 파일만들기
-    private static void refineCocktailCsv(String originalCsvFile, String refinedCsvFile) {
+    private static void refineCocktailCsv(String originalCsvFile, String refinedCsvFile) throws CsvValidationException {
         try (CSVReader reader = new CSVReader(new FileReader(originalCsvFile));
              CSVWriter writer = new CSVWriter(new FileWriter(refinedCsvFile))) {
 
             String[] nextLine;
+            int rowNumber = 1;
 
-            int rowNumber = 1; // 현재 행 번호 - 단위존재x 재료찾는 코드에 사용
+            // 헤더 라인 복사
+            if ((nextLine = reader.readNext()) != null) {
+                writer.writeNext(nextLine);
+            }
+
             while ((nextLine = reader.readNext()) != null) {
+                String[] refinedLine = new String[nextLine.length];
+                //기존 라인 복사해서 붙여넣기
+                System.arraycopy(nextLine, 0, refinedLine, 0, nextLine.length);
+
                 for (int i = 9; i <= 23; i++) {
                     String ingredient = nextLine[i];
                     if (ingredient == null || ingredient.trim().isEmpty()) {
@@ -209,45 +227,146 @@ public class Main {
 
                     String measure = nextLine[i + 16];
                     if (measure.equals("\n") || measure.trim().isEmpty()) {
-                        printMissingIngredient(ingredient, rowNumber); // 단위가 존재하지 않는 재료 출력
-                        //재료가 있는데 단위가 비어있는경우 -> fill로 채우기
+                        //비어있는 칸 출력
+                        //printMissingIngredient(ingredient, rowNumber);
                         measure = "fill";
                     }
-
-                    measure = normalizeUnit(measure); // 단위 통일화(밑에 함수와 주석참고)
-
-                    ArrayList<String> list = map.getOrDefault(ingredient, new ArrayList<>());
-                    if (!list.contains(measure)) {
-                        units.add(measure);
-                        list.add(measure);
-                    }
-                    map.put(ingredient, list);
-                }
-                rowNumber++;
-            }
-            //이 아래 코드랑 위에 코드랑 합쳐야함...
-            writer.writeNext(reader.readNext()); // Write the header line
-
-            while ((nextLine = reader.readNext()) != null) {
-                String[] refinedLine = new String[nextLine.length];
-
-                for (int i = 0; i < nextLine.length; i++) {
-                    refinedLine[i] = normalizeIngredientUnit(nextLine[i]); //데이터 단위 정제
+                    measure = normalizeIngredientUnit(measure);
+                    refinedLine[i+16] = measure;
                 }
 
                 writer.writeNext(refinedLine);
+                rowNumber++;
             }
-
-        } catch (IOException | CsvValidationException e) {
+        } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private static String normalizeIngredient(String ingredient) {
+        ingredient = ingredient.toLowerCase().trim();
+
+       if (ingredient.contains("goldschlager") ){
+            return "goldschlager";
+        }
+        else if (ingredient.contains("beer") ||ingredient.contains("corona")|| ingredient.contains("lager")||ingredient.contains("ale")) {
+            return "beer";
+        }
+        else if (ingredient.contains("orange spiral") ){
+            return "orange peel";
+        }
+       else if (ingredient.contains("maraschino cherry") ){
+           return "cherry";
+       }
+       else if (ingredient.contains("almond") ){
+           return "almond";
+       }
+        else if (ingredient.contains("creme de cacao") ){
+            return "creme de cacao";
+        }
+        else if (ingredient.contains("creme de menthe") ){
+            return "creme de menthe";
+        }
+        else if (ingredient.contains("lime juice") ){
+            return "lime juice";
+        }
+        else if (ingredient.contains("soda")|| ingredient.contains("soda water")){
+            return "soda";
+        }
+       else if (ingredient.contains("sirup") ){
+           return "syrup";
+       }
+       else if (ingredient.contains("port") ||ingredient.contains("wine") ){
+           return "wine";
+       }
+        else if (ingredient.contains("lemon-lime soda") ||ingredient.contains("pink lemonade") ){
+            return "lemonade";
+        }
+        else if (ingredient.contains("whiskey") || ingredient.contains("whisky")) {
+            return "whiskey";
+        }
+        else if (ingredient.contains("anise") || ingredient.contains("anis")) {
+            return "anis";
+        }
+        else if (ingredient.contains("egg yolk") || ingredient.contains("egg Yolk")) {
+            return "egg yolk";
+        }
+        else if (ingredient.contains("bitter lemon")) {
+            return "lemon";
+        }
+       else if (ingredient.contains("black sambuca")) {
+           return "sambuca";
+       }
+        else if (ingredient.contains("lemon juice")) {
+            return "lemon juice";
+        }
+        else if (ingredient.contains("egg")) {
+            return "egg";
+        }
+        else if (ingredient.contains("demerara sugar") || ingredient.contains("powdered sugar")) {
+            return "sugar";
+        }
+        else if (ingredient.contains("cherry heering") ) {
+            return "cherry liqueur";
+        }
+        else if (ingredient.contains("milk") ) {
+            return "milk";
+        }
+       else if (ingredient.contains("tea") ) {
+           return "tea";
+       }
+       else if (ingredient.contains("coca")||ingredient.contains("pepsi")) {
+           return "cola";
+       }
+        else if (ingredient.contains("ice-cream") ) {
+            return "ice-cream";
+        }
+        else if (ingredient.contains("bacardi") ) {
+            return "bacardi";
+        }
+        else if (ingredient.contains("blackcurrant") ) {
+            return "blackcurrant";
+        }
+        else if (ingredient.contains("sugar") ) {
+            return "sugar";
+        }
+        else if (ingredient.contains("pepper") ) {
+            return "pepper";
+        }
+        else if (ingredient.contains("firewater") ) {
+            return "water";
+        }
+        else if (ingredient.contains("cider") ) {
+            return "cider";
+        }
+        else if (ingredient.contains("syrup") ) {
+            return "syrup";
+        }
+        else if (ingredient.contains("cream") ) {
+            return "cream";
+        }
+        else if (ingredient.contains("rum") ) {
+            return "rum";
+        }
+        else if (ingredient.contains("carbonated water") ) {
+            return "soda water";
+        }
+        else if (ingredient.contains("absolut")) {
+            return "absolut";
+        }
+        else if (ingredient.contains("vodka")) {
+            return "vodka";
+        }
+        else if (ingredient.contains("gin")) {
+            return "gin";
         }
 
 
+        return ingredient;
     }
-
     private static String normalizeIngredientUnit(String ingredient) {
-        if (ingredient.isEmpty()) {
-            return "fill"; // Return "fill" for unit-only ingredient
+        if (ingredient.equals("\n") || ingredient.trim().isEmpty() || ingredient.contains("fill")) {
+            return "fill";
         }
         String[] parts = ingredient.trim().split("\\s+", 2); // Split into quantity and unit
 
@@ -257,7 +376,7 @@ public class Main {
 
             // Handle unit-only case
 
-           /*
+
             //양은 소수 둘째자리까지만
             double quantityValue = Double.parseDouble(quantity);
 
@@ -270,7 +389,6 @@ public class Main {
                 unit = normalizeUnit(unit);
                 return quantity + " " + unit;
             }
-            */
             // Normalize unit
             unit = normalizeUnit(unit);
 
