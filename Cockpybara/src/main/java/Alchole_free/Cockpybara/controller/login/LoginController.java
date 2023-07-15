@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -43,7 +44,7 @@ public class LoginController {
 
     @PutMapping("/login/help/begin")
     public ResponseEntity<String> setNewPassword
-            (@Valid SetNewPasswordRequest setNewPasswordRequest){
+            (@Valid @RequestBody SetNewPasswordRequest setNewPasswordRequest){
         String email = setNewPasswordRequest.getEmail();
         String password = HashingUtil.hashValue(setNewPasswordRequest.getPassword());
 
