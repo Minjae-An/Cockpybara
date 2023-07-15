@@ -37,6 +37,9 @@ dependencies {
 
 	//csv 읽기 설정
 	implementation 'com.opencsv:opencsv:5.5.2'
+
+	//test에서 lombok 사용
+	testImplementation 'org.projectlombok:lombok'
 }
 
 tasks.named('test') {
