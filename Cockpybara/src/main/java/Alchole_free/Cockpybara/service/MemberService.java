@@ -37,6 +37,14 @@ public class MemberService {
         return memberRepository.findAll();
     }
 
+    @Transactional
+    public void memberLeave(Long id){
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new IllegalStateException("해당 회원이 존재하지 않습니다"));
+
+        memberRepository.delete(member);
+    }
+
     private void validateDuplicationMember(Member member){
         String email = member.getEmail();
         Optional<Member> foundResult = memberRepository.findByEmail(email);
