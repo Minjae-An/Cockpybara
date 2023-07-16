@@ -37,6 +37,14 @@ public class MemberService {
         return memberRepository.findAll();
     }
 
+    @Transactional
+    public void memberLeave(Long id){
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new IllegalStateException("해당 회원이 존재하지 않습니다"));
+
+        memberRepository.delete(member);
+    }
+
     public String findEmail(String alias, String phoneNumber) {
         Member member = memberRepository.findByAliasAndPhoneNumber(alias, phoneNumber)
                 .orElseThrow(() -> new IllegalStateException("일치하는 멤버가 존재하지 않습니다."));
