@@ -37,7 +37,7 @@ public class MemberController {
     }
 
     @GetMapping("/user/detail")
-    public DetailResponse getMemberDetails(@RequestBody @Valid DetailRequest detailRequest){
+    public DetailResponse getMemberDetails(@Valid DetailRequest detailRequest){
         String email=detailRequest.getEmail();
 
         Member member = memberService.findByEmail(email);
