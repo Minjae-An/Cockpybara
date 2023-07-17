@@ -34,4 +34,8 @@ public class Member {
         this.gender = gender;
         this.birth = birth;
     }
+
+    public void updatePassword(String password) {
+        this.password = password;
+    }
 }
