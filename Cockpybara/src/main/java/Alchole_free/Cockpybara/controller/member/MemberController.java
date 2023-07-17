@@ -11,10 +11,7 @@ import Alchole_free.Cockpybara.domain.Gender;
 import Alchole_free.Cockpybara.domain.Member;
 import Alchole_free.Cockpybara.service.MemberService;
 import lombok.RequiredArgsConstructor;
-<<<<<<< HEAD
-=======
 import org.springframework.http.HttpStatus;
->>>>>>> e443372c29cedfb83c4fe940c895493670566786
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
