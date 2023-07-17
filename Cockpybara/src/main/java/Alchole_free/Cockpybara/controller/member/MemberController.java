@@ -11,6 +11,10 @@ import Alchole_free.Cockpybara.domain.Gender;
 import Alchole_free.Cockpybara.domain.Member;
 import Alchole_free.Cockpybara.service.MemberService;
 import lombok.RequiredArgsConstructor;
+<<<<<<< HEAD
+=======
+import org.springframework.http.HttpStatus;
+>>>>>>> e443372c29cedfb83c4fe940c895493670566786
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,6 +49,12 @@ public class MemberController {
         return new DetailResponse(member);
     }
 
+    @DeleteMapping("/user/{userId}/my-page")
+    public ResponseEntity<String> memberLeave(@PathVariable Long userId) {
+        memberService.memberLeave(userId);
+
+        return new ResponseEntity<>("정상 처리 되었습니다", HttpStatus.NO_CONTENT);
+    }
 
     @PutMapping("/user/{userId}/my-page")
     public ResponseEntity<MemberInfoUpdateResponse> updateMemberInfo(@Valid @RequestBody MemberInfoUpdateRequest updateRequest,
