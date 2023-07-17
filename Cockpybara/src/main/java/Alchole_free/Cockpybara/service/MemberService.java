@@ -55,17 +55,7 @@ public class MemberService {
         Member member = memberRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("일치하는 멤버가 존재하지 않습니다."));
 
-        Member newPasswordMember=new Member(
-                member.getEmail(),
-                password,
-                member.getAlias(),
-                member.getPhoneNumber(),
-                member.getGender(),
-                member.getBirth()
-        );
-
-        memberRepository.delete(member);
-        memberRepository.save(newPasswordMember);
+       member.updatePassword(password);
     }
 
     private void validateDuplicationMember(Member member) {
