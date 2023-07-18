@@ -16,7 +16,7 @@ public class Main {
     private static HashSet<String> glass = new HashSet<>();
 
     public static void main(String[] args) throws CsvValidationException, IOException {
-        String csvFile = "src\\main\\resources\\all_drinks.csv"; // 읽을 CSV 파일의 경로
+        String csvFile = "src\\test\\resources\\all_drinks.csv"; // 읽을 CSV 파일의 경로
 
         //csv파일 수정 - 비슷한 단위들 단일화
         try (CSVReader reader = new CSVReader(new FileReader(csvFile))) {
@@ -57,7 +57,7 @@ public class Main {
 
         //재료와 단위로 이루어진 all_ingredients.csv 파일 생성
 
-        String outputCsvFile = "src/main/resources/all_ingredients.csv"; // 저장할 CSV 파일의 경로
+        String outputCsvFile = "src/test/resources/all_ingredients.csv"; // 저장할 CSV 파일의 경로
 
         try (CSVWriter writer = new CSVWriter(new FileWriter(outputCsvFile))) {
             // 헤더 라인 작성
@@ -82,7 +82,7 @@ public class Main {
 
         //재료와 단위들 리스트 형식으로 묶은 ingredients_list.csv 파일 생성
 /*
-        String outCsvFile = "src/main/resources/ingredients_list.csv"; // 저장할 CSV 파일의 경로
+        String outCsvFile = "src/test/resources/ingredients_list.csv"; // 저장할 CSV 파일의 경로
         try (CSVWriter writer2 = new CSVWriter(new FileWriter(outCsvFile))) {
             // 헤더 라인 작성
             String[] header = {"Ingredient", "Unit1","Unit2","Unit3","Unit4","Unit5","Unit6","Unit7","Unit8","Unit9","Unit10","Unit11" };
@@ -115,8 +115,8 @@ public class Main {
         System.out.println("Total Units: " + units.size());
 
         // 원본 칵테일 레시피 CSV 파일의 단위 통일화하여 새로운 CSV 파일 생성
-        String originalCsvFile = "src\\main\\resources\\all_drinks.csv"; // 원본 칵테일 레시피 CSV 파일의 경로
-        String refinedCsvFile = "src\\main\\resources\\refined_drinks.csv"; // 정제된 칵테일 레시피 CSV 파일의 경로
+        String originalCsvFile = "src\\test\\resources\\all_drinks.csv"; // 원본 칵테일 레시피 CSV 파일의 경로
+        String refinedCsvFile = "src\\test\\resources\\refined_drinks.csv"; // 정제된 칵테일 레시피 CSV 파일의 경로
 
         refineCocktailCsv(originalCsvFile, refinedCsvFile);  //원본 엑셀파일 단위 정제
     }
