@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class CSVToObjectMapping {
     public static void main(String[] args) {
-        String csvFile = "C:\\CockpyPj\\Cockpybara\\Cockpybara\\src\\main\\resources\\all_ingredients.csv"; // 읽을 CSV 파일 경로
+        String csvFile = "C:\\CockpyPj\\Cockpybara\\Cockpybara\\src\\test\\resources\\all_ingredients.csv"; // 읽을 CSV 파일 경로
 
         try (CSVReader reader = new CSVReader(new FileReader(csvFile))) {
             CsvToBean<Ingredient> csvToBean = new CsvToBeanBuilder<Ingredient>(reader)

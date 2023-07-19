@@ -1,4 +1,4 @@
-﻿package Alchole_free.Cockpybara.domain.ingredient;
+package Alchole_free.Cockpybara.domain.ingredient;
 
 import java.util.Arrays;
 import java.util.HashMap;
