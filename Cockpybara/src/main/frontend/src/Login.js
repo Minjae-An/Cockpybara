@@ -23,6 +23,11 @@ const Login = () => {
     setPassword(e.target.value);
   };
 
+  const handleSuccess = () => { // 임시 로그인 성공창
+    setIsLoggedIn(true);
+    navigate('/'); // 로그인 성공 시 홈 화면으로 이동
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -31,7 +36,7 @@ const Login = () => {
       .then((response) => {
         // API 응답 처리를 수행합니다.
         console.log(response.data);
-        // 추가적인 로직을 구현할 수 있습니다.
+        handleSuccess(); // 로그인 성공 시 홈으로 이동
       })
       .catch((error) => {
         // API 호출 실패 처리를 수행합니다.
@@ -48,16 +53,12 @@ const Login = () => {
     navigate('/login');
   };
 
-  const handleSuccess = () => { //임시 로그인 성공창
-    navigate('/success');
-  };
-
   const handleFindId = () => { //임시 아이디 찾기창
-    navigate('/findIdSuccess');
+    navigate('/login/help/idInQuiry');
   };
 
   const handleFindPassword = () => { //임시 비밀번호 찾기창
-    navigate('/findPwSuccess');
+    navigate('/login/help/begin');
   };
 
   const handleLogin = async () => {

@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import Home from './Home';
 import Login from './Login';
 import Join from './Join';
 import Success from './Success';
-import axios from 'axios'; // Import the axios library
 import Recipe from './Recipe';
+import CocktailDetail from './CocktailDetail';
+import IDFinder from './IDFinder';
+import PWFinder from './PWFinder';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -44,6 +47,9 @@ function App() {
         <Route path="/recipe" element={<Recipe />} />
         <Route path="/login" element={<Login handleLogin={handleLogin} />} />
         <Route path="/join" element={<Join />} />
+        <Route path="/recipe/detail/:cocktailId" element={<CocktailDetail />} />
+        <Route path="/login/help/idInQuiry" element={<IDFinder />} />
+        <Route path="/login/help/begin" element={<PWFinder />} />
       </Routes>
     </div>
   );
