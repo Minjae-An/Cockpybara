@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react
 import Home from './Home';
 import Login from './Login';
 import Join from './Join';
-import Success from './Success';
 import Recipe from './Recipe';
 import CocktailDetail from './CocktailDetail';
 import IDFinder from './IDFinder';
