@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react
 import Home from './Home';
 import Login from './Login';
 import Join from './Join';
+import AddRecipe from './AddRecipe';
 import Recipe from './Recipe';
 import CocktailDetail from './CocktailDetail';
 import IDFinder from './IDFinder';
@@ -46,6 +47,8 @@ function App() {
         <Route path="/recipe" element={<Recipe />} />
         <Route path="/login" element={<Login handleLogin={handleLogin} />} />
         <Route path="/join" element={<Join />} />
+        <Route path="/user/my-receipe" element={<AddRecipe/>} />
+        <Route path="/recipe" element={<Recipe/>} />
         <Route path="/recipe/detail/:cocktailId" element={<CocktailDetail />} />
         <Route path="/login/help/idInQuiry" element={<IDFinder />} />
         <Route path="/login/help/begin" element={<PWFinder />} />

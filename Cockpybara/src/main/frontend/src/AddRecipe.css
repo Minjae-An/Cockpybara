@@ -1,0 +1,457 @@
+/*구분용 배경 색깔*/
+.receipe {
+    background-color: aqua;
+}
+
+.receipe-detail {
+    background-color: pink;
+}
+
+.receipe-detail-box {
+    background-color: violet;
+}
+
+.receipe-title-box {
+    background-color: green;
+}
+
+.receipe-title-text {
+    background-color: aquamarine;
+}
+
+.receipe-title-input {
+    background-color: orange;
+}
+
+.receipe-explan-box {
+    background-color: bisque;
+}
+
+.receipe-ingredient-box {
+    background-color: yellow;
+}
+
+.receipe-ingredient-box {
+    background-color: skyblue;
+}
+
+.receipe-ingredient-detail-box {
+    background-color: rgb(59, 162, 14);
+}
+
+.receipe-ingredient-name-box {
+    background-color: coral;
+}
+
+.receipe-ingredient-name-input {
+    background-color: gray;
+}
+
+.receipe-ingreient-explan-box {
+    background-color: darkkhaki;
+}
+
+.receipe-ingredient-plus {
+    background-color: darkcyan;
+}
+
+.receipe-ingredinet-plus-detail {
+    background-color: darkorange;
+}
+
+.receipe-ingredinet-plus-img {
+    background-color: aqua;
+}
+
+.receipe-step-box {
+    background-color: sandybrown;
+}
+
+.receipe-step-input {
+    background-color: rebeccapurple;
+}
+
+.receipe-step-box button {
+    background-color: darkred;
+}
+
+/*임시 css*/
+
+.receipe {
+    width: 1420px;
+    margin: 0 auto;
+    /* 수평으로 중앙에 위치하도록 추가 */
+    margin-top: 350px;
+}
+
+.welcome-title {
+    color: #000;
+    font-family: Pretendard;
+    font-size: 45px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.receipe-photo-box {
+    margin-top: 107px;
+    width: 1420px;
+    height: 400px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    border: 1.5px solid #8C8C8C;
+    background: #FFF;
+    display: flex;
+}
+
+.receipe-photo {
+    width: 338px;
+    height: 338px;
+    flex-shrink: 0;
+    border-radius: 20px;
+    border: 1px dashed #8C8C8C;
+    background: #FFF;
+    margin-left: 30px;
+    margin-top: 31px;
+}
+
+.photo-button {
+    width: 53.82px;
+    height: 40.365px;
+    flex-shrink: 0;
+}
+
+.receipe-detail-box {
+    margin-top: 40px;
+}
+
+/*레시피 제목 시작*/
+
+.receipe-title-text {
+    color: #000;
+    font-family: Pretendard;
+    font-size: 27px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.receipe-title-text span {
+    color: #F00;
+    font-family: Pretendard;
+    font-size: 27px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.receipe-title-box {
+    display: flex;
+    align-items: center;
+}
+
+.receipe-title-input {
+    display: flex;
+    justify-content: flex-end;
+    flex: 1;
+    margin-left: 142px;
+}
+
+.receipe-title-input input {
+    flex: 1;
+    height: 78px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    border: 1.5px solid #8C8C8C;
+    background: #FFF;
+}
+
+.receipe-title-input input::placeholder {
+    color: #8C8C8C;
+    font-family: Pretendard;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: 30px;
+}
+
+/*레시피 제목 끝*/
+
+/*레시피 설명 시작*/
+
+.receipe-explan-box {
+    margin-top: 104px;
+    display: flex;
+    align-items: center;
+}
+
+.receipe-explan-text {
+    color: #000;
+    font-family: Pretendard;
+    font-size: 27px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.receipe-explan-text span {
+    color: #F00;
+    font-family: Pretendard;
+    font-size: 27px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.receipe-explan-input {
+    display: flex;
+    justify-content: flex-end;
+    flex: 1;
+    margin-left: 142px;
+}
+
+.receipe-explan-input input {
+    flex: 1;
+    height: 141px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    border: 1.5px solid #8C8C8C;
+    background: #FFF;
+}
+
+.receipe-explan-input input::placeholder {
+    color: #8C8C8C;
+    font-family: Pretendard;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: 30px;
+}
+
+/*레시피 설명 끝*/
+
+/*레시피 재료 시작*/
+
+.receipe-ingredient-box {
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.receipe-ingredient-detail-box {
+    display: flex;
+    justify-content: flex-end;
+    flex: 1;
+    margin-left: 218px;
+    flex-direction: column;
+}
+
+.receipe-ingredient-text {
+    color: #000;
+    font-family: Pretendard;
+    font-size: 27px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.receipe-ingredient-text span {
+    color: #F00;
+    font-family: Pretendard;
+    font-size: 27px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+/*레시피 재료 이름 시작*/
+
+.receipe-ingredient-name-text {
+    color: #000;
+    font-family: Pretendard;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.receipe-ingredient-name-box {
+    display: flex;
+    align-items: center;
+}
+
+.receipe-ingredient-name-input {
+    display: flex;
+    justify-content: flex-end;
+    flex: 1;
+}
+
+.receipe-ingredient-name-box input {
+    height: 78px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    border: 1.5px solid #8C8C8C;
+    background: #FFF;
+    flex: 1;
+    margin-left: 73px;
+}
+
+.receipe-ingredient-name-input input::placeholder {
+    color: #8C8C8C;
+    font-family: Pretendard;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: 30px;
+}
+
+/*레시피 재료 이름 끝*/
+
+/*레시피 재료 용량 시작 */
+
+.receipe-ingredient-amount-text {
+    color: #000;
+    font-family: Pretendard;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.receipe-ingredient-amount-box {
+    display: flex;
+    align-items: center;
+    margin-top: 16px;
+}
+
+.receipe-ingredient-amount-input {
+    display: flex;
+    justify-content: flex-end;
+    flex: 1;
+}
+
+.receipe-ingredient-amount-box input {
+    height: 78px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    border: 1.5px solid #8C8C8C;
+    background: #FFF;
+    flex: 1;
+    margin-left: 73px;
+}
+
+.receipe-ingredient-amount-input input::placeholder {
+    color: #8C8C8C;
+    font-family: Pretendard;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: 30px;
+}
+
+.receipe-ingredient-amount-input select {
+    margin-left: 16px;
+    width: 349px;
+    border-radius: 10px;
+    border: 1.5px solid #8C8C8C;
+    background: #FFF;
+}
+
+.receipe-ingredient-amount-input select option {
+    color: #8C8C8C;
+    font-family: Pretendard;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+/*레시피 재료 용량 끝*/
+
+/*레시피 재료 추가하기 시작*/
+
+.plusbutton {
+    color: #8C8C8C;
+    font-family: Pretendard;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    border-radius: 10px;
+    border: 1.5px solid #8C8C8C;
+    background: #FFF;
+}
+
+/*레시피 재료 추가하기 끝*/
+
+/*레시피 단계 시작*/
+
+
+.receipe-step-box {
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.receipe-step-text {
+    color: #000;
+    font-family: Pretendard;
+    font-size: 27px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.receipe-step-text span {
+    color: #F00;
+    font-family: Pretendard;
+    font-size: 27px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.receipe-step-input {
+    margin-left: 211px;
+    flex: 1;
+    align-items: center;
+  
+
+}
+
+
+.receipe-step-input input {
+    border-radius: 10px;
+    border: 1.5px solid #8C8C8C;
+    background: #FFF;
+    height: 74px;
+    flex-shrink: 0;
+    flex: 1;
+    width: 859px;
+}
+
+
+.receipe-step-input input::placeholder {
+    color: #8C8C8C;
+    font-family: Pretendard;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: 30px;
+}
+
+.receipe-step-input button {
+    margin-left: 22.54px;
+    width: 49.458px;
+    height: 49.458px;
+    flex-shrink: 0;
+}
+
+
+
+/*레시피 단계 끝*/
