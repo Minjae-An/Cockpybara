@@ -92,7 +92,6 @@ const Recipe = () => {
           <input type="checkbox" value="Gin" checked={selectedIngredients.includes('Gin')} onChange={handleIngredientChange} />
           Gin
         </label>
-        {/* Add more ingredient checkboxes as needed */}
       </div>
       <ul>
         {filteredCocktails.map(cocktail => (
