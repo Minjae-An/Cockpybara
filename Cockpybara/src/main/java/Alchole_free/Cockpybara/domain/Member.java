@@ -1,5 +1,6 @@
 package Alchole_free.Cockpybara.domain;
 
+import Alchole_free.Cockpybara.controller.member.update.MemberInfoUpdateRequest;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,5 +34,10 @@ public class Member {
         this.phoneNumber = phoneNumber;
         this.gender = gender;
         this.birth = birth;
+    }
+
+    public void updateMember(String alias, String phoneNumber) {
+        this.alias = alias;
+        this.phoneNumber = phoneNumber;
     }
 }
