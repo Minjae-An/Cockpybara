@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +34,7 @@ public class CocktailRecipe {
     private Boolean isMemberRecipe;
 
     @OneToMany(mappedBy = "cocktailRecipe")
+    @Size(max = 3)
     private List<RecipeTaste> tastes=new ArrayList<>();
 
     public CocktailRecipe(String name, AlcoholicType alcoholicType,
