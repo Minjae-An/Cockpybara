@@ -1,10 +1,13 @@
 package Alchole_free.Cockpybara.domain.cocktail_recipe;
 
+import Alchole_free.Cockpybara.domain.cocktail_recipe.taste.RecipeTaste;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -28,6 +31,9 @@ public class CocktailRecipe {
     @Column(length = 850)
     private String instruction;
     private Boolean isMemberRecipe;
+
+    @OneToMany(mappedBy = "cocktailRecipe")
+    private List<RecipeTaste> tastes=new ArrayList<>();
 
     public CocktailRecipe(String name, AlcoholicType alcoholicType,
                           Category category, String drinkImgPath,
