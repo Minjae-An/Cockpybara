@@ -1,6 +1,6 @@
 package Alchole_free.Cockpybara.service;
 
-import Alchole_free.Cockpybara.domain.Member;
+import Alchole_free.Cockpybara.domain.member.Member;
 import Alchole_free.Cockpybara.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

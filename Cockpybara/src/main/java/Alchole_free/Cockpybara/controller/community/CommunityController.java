@@ -1,7 +1,7 @@
 package Alchole_free.Cockpybara.controller.community;
 
 import Alchole_free.Cockpybara.controller.community.member_info.MemberInfoResponse;
-import Alchole_free.Cockpybara.domain.Member;
+import Alchole_free.Cockpybara.domain.member.Member;
 import Alchole_free.Cockpybara.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

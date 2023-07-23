@@ -8,7 +8,7 @@ import Alchole_free.Cockpybara.controller.member.update.MemberInfoUpdateRequest;
 import Alchole_free.Cockpybara.controller.member.update.MemberInfoUpdateResponse;
 import Alchole_free.Cockpybara.controller.member.util.HashingUtil;
 import Alchole_free.Cockpybara.domain.Gender;
-import Alchole_free.Cockpybara.domain.Member;
+import Alchole_free.Cockpybara.domain.member.Member;
 import Alchole_free.Cockpybara.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
