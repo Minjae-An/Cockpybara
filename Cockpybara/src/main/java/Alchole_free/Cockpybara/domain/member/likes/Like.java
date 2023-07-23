@@ -1,7 +1,7 @@
 package Alchole_free.Cockpybara.domain.member.likes;
 
+import Alchole_free.Cockpybara.domain.Member;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
-import Alchole_free.Cockpybara.domain.member.Member;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
