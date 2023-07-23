@@ -27,6 +27,8 @@ public class Member {
     private Gender gender;
     private Date birth;
 
+    
+
     public Member(String email, String password, String alias, String phoneNumber, Gender gender, Date birth) {
         this.email = email;
         this.password = password;
