@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class CockpybaraApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(CockpybaraApplication.class, args);
 	}
 

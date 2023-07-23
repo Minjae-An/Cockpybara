@@ -1,12 +1,13 @@
 package Alchole_free.Cockpybara.domain.ingredient;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class Ingredient {
     @Id
