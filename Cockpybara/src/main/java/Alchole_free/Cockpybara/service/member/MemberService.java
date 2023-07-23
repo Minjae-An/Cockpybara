@@ -59,21 +59,21 @@ public class MemberService {
     }
 
     @Transactional
-    public void setNewPassword(String email, String password){
+    public void setNewPassword(String email, String password) {
         Member member = memberRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("일치하는 멤버가 존재하지 않습니다."));
 
-        Member newPasswordMember=new Member(
-                member.getEmail(),
-                password,
-                member.getAlias(),
-                member.getPhoneNumber(),
-                member.getGender(),
-                member.getBirth()
-        );
 
-        memberRepository.delete(member);
-        memberRepository.save(newPasswordMember);
+       member.updatePassword(password);
+    }
+
+    @Transactional
+    public Member updateMemberInfo(Long id, String alias, String phoneNumber) {
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new IllegalStateException("해당 회원이 존재하지 않습니다."));
+
+        member.updateMember(alias, phoneNumber);
+        return member;
     }
 
     private void validateDuplicationMember(Member member) {

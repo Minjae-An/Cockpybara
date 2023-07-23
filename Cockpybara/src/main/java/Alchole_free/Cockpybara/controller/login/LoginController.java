@@ -39,7 +39,7 @@ public class LoginController {
 
         memberService.findPassword(email, alias, phoneNumber);
 
-        return new ResponseEntity<>("정상 처리 되었습니다.", HttpStatus.OK);
+        return new ResponseEntity<>("Find Password Success", HttpStatus.OK);
     }
 
     @PutMapping("/login/help/begin")
@@ -50,6 +50,6 @@ public class LoginController {
 
         memberService.setNewPassword(email, password);
 
-        return new ResponseEntity<>("정상 처리 되었습니다.", HttpStatus.OK);
+        return new ResponseEntity<>("Change Password Success", HttpStatus.OK);
     }
 }
