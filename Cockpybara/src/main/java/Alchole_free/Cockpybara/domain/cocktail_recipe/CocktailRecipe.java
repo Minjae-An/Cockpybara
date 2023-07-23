@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -28,6 +29,9 @@ public class CocktailRecipe {
     @Column(length = 850)
     private String instruction;
     private Boolean isMemberRecipe;
+
+    private LocalDateTime createdAt;
+
 
     public CocktailRecipe(String name, AlcoholicType alcoholicType,
                           Category category, String drinkImgPath,
