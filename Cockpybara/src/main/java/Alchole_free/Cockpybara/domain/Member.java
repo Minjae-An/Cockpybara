@@ -36,8 +36,15 @@ public class Member {
         this.birth = birth;
     }
 
-    public void updateMember(String alias, String phoneNumber) {
+    public void updatePassword(String password) {
+        this.password = password;
+    }
+  
+   public void updateMember(String alias, String phoneNumber) {
         this.alias = alias;
         this.phoneNumber = phoneNumber;
-    }
+
+   }
+
+   
 }
