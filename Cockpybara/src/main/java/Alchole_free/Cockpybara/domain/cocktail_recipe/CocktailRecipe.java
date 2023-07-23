@@ -1,10 +1,12 @@
 package Alchole_free.Cockpybara.domain.cocktail_recipe;
 
+import Alchole_free.Cockpybara.domain.cocktail_recipe.review.Review;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -28,6 +30,9 @@ public class CocktailRecipe {
     @Column(length = 850)
     private String instruction;
     private Boolean isMemberRecipe;
+
+    @OneToMany(mappedBy = "cocktailRecipe")
+    private List<Review> reviews;
 
     public CocktailRecipe(String name, AlcoholicType alcoholicType,
                           Category category, String drinkImgPath,
