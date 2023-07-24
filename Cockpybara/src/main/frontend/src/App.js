@@ -11,6 +11,7 @@ import IDFinder from './IDFinder';
 import PWFinder from './PWFinder';
 import About from './About';
 import Community from './Community';
+import MyPage from './MyPage';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -56,6 +57,7 @@ function App() {
         <Route path="/login/help/idInQuiry" element={<IDFinder />} />
         <Route path="/login/help/begin" element={<PWFinder />} />
         <Route path="/community/{userId}" element={<Community />} />
+        <Route path="/user/{userId}/my-page" element={<MyPage />} />
       </Routes>
     </div>
   );
