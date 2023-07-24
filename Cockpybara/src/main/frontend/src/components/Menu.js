@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link, Routes, Route } from 'react-router-dom';
-import Page1 from './Page1';
+import About from '../About';
 import Recipe from '../Recipe';
-import Page3 from './Page3';
+import Community from '../Community';
 import Join from '../Join';
 import Login from '../Login' 
 import './Menu.css'
@@ -18,9 +18,9 @@ const Menu = ({ isMenuOpen, setIsMenuOpen }) => {
         {isMenuOpen && (
           <div className="bg-dark p-4">
             <ul className="menu-list">
-              <li className='about'><Link to="/page1">About</Link></li>
+              <li className='about'><Link to="/about">About</Link></li>
               <li className='recipe'><Link to="/recipe">Recipe</Link></li>
-              <li className='community'><Link to="/page3">Community</Link></li>
+              <li className='community'><Link to="/community/{userId}">Community</Link></li>
               <li className='login'><Link to="/login">Login</Link></li>
               <li className='join'><Link to="/join">Join</Link></li>
             </ul>
@@ -42,9 +42,9 @@ const Menu = ({ isMenuOpen, setIsMenuOpen }) => {
         </div>
       </nav>
       <Routes>
-        <Route path="/page1" element={<Page1 />} />
+        <Route path="/about" element={<About />} />
         <Route path="/recipe" element={<Recipe />} />
-        <Route path="/page3" element={<Page3 />} />
+        <Route path="/community/{userId}" element={<Community />} />
         <Route path="/login" element={<Login />} />
         <Route path="/join" element={<Join />} />
       </Routes>

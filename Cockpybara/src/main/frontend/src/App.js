@@ -9,6 +9,8 @@ import Recipe from './Recipe';
 import CocktailDetail from './CocktailDetail';
 import IDFinder from './IDFinder';
 import PWFinder from './PWFinder';
+import About from './About';
+import Community from './Community';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -43,6 +45,7 @@ function App() {
       )}
 
       <Routes>
+        <Route path="/about" element={<About />} />
         <Route path="/" element={<Home />} />
         <Route path="/recipe" element={<Recipe />} />
         <Route path="/login" element={<Login handleLogin={handleLogin} />} />
@@ -52,6 +55,7 @@ function App() {
         <Route path="/recipe/detail/:cocktailId" element={<CocktailDetail />} />
         <Route path="/login/help/idInQuiry" element={<IDFinder />} />
         <Route path="/login/help/begin" element={<PWFinder />} />
+        <Route path="/community/{userId}" element={<Community />} />
       </Routes>
     </div>
   );

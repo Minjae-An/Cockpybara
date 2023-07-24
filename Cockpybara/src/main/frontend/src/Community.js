@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Page3 = () => {
+const Community = () => {
   return (
     <div>
       <h1>Page 3_메뉴</h1>
@@ -8,4 +8,4 @@ const Page3 = () => {
   );
 };
 
-export default Page3;
+export default Community;
