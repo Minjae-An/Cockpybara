@@ -1,4 +1,11 @@
 import React, { useState } from 'react';
+import { Link, Routes, Route } from 'react-router-dom';
+import About from '../About';
+import Recipe from '../Recipe';
+import Community from '../Community';
+import Join from '../Join';
+import Login from '../Login' 
+import './Menu.css'
 
 const Menu = ({ isMenuOpen, setIsMenuOpen }) => {
   const handleMenuToggle = () => {
@@ -13,9 +20,11 @@ const Menu = ({ isMenuOpen, setIsMenuOpen }) => {
             <h5 className="text-white h4">Collapsed content</h5>
             <span className="text-muted">Toggleable via the navbar brand.</span>
             <ul className="menu-list">
-              <li><a href="/page1">Page 1</a></li>
-              <li><a href="/page2">Page 2</a></li>
-              <li><a href="/page3">Page 3</a></li>
+              <li className='about'><Link to="/about">About</Link></li>
+              <li className='recipe'><Link to="/recipe">Recipe</Link></li>
+              <li className='community'><Link to="/community/{userId}">Community</Link></li>
+              <li className='login'><Link to="/login">Login</Link></li>
+              <li className='join'><Link to="/join">Join</Link></li>
             </ul>
           </div>
         )}
