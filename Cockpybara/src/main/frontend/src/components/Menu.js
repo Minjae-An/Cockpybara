@@ -17,8 +17,6 @@ const Menu = ({ isMenuOpen, setIsMenuOpen }) => {
       <div className={`collapse${isMenuOpen ? ' show' : ''}`} id="navbarToggleExternalContent">
         {isMenuOpen && (
           <div className="bg-dark p-4">
-            <h5 className="text-white h4">Collapsed content</h5>
-            <span className="text-muted">Toggleable via the navbar brand.</span>
             <ul className="menu-list">
               <li className='about'><Link to="/about">About</Link></li>
               <li className='recipe'><Link to="/recipe">Recipe</Link></li>
@@ -43,6 +41,13 @@ const Menu = ({ isMenuOpen, setIsMenuOpen }) => {
           </button>
         </div>
       </nav>
+      <Routes>
+        <Route path="/about" element={<About />} />
+        <Route path="/recipe" element={<Recipe />} />
+        <Route path="/community/{userId}" element={<Community />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/join" element={<Join />} />
+      </Routes>
     </div>
   );
 };
