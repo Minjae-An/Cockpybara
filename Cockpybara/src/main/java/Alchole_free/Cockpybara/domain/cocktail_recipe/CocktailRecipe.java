@@ -1,6 +1,9 @@
 package Alchole_free.Cockpybara.domain.cocktail_recipe;
 
+
+import Alchole_free.Cockpybara.domain.cocktail_recipe.review.Review;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.taste.RecipeTaste;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,6 +37,9 @@ public class CocktailRecipe {
     private String instruction;
     private Boolean isMemberRecipe;
 
+
+    @OneToMany(mappedBy = "cocktailRecipe")
+    private List<Review> reviews;
 
     private LocalDateTime createdAt;
 
