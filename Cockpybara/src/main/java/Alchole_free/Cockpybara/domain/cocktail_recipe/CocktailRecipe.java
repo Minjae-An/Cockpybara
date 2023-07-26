@@ -1,11 +1,17 @@
 package Alchole_free.Cockpybara.domain.cocktail_recipe;
 
+
 import Alchole_free.Cockpybara.domain.cocktail_recipe.review.Review;
+import Alchole_free.Cockpybara.domain.cocktail_recipe.taste.RecipeTaste;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -31,8 +37,15 @@ public class CocktailRecipe {
     private String instruction;
     private Boolean isMemberRecipe;
 
+
     @OneToMany(mappedBy = "cocktailRecipe")
     private List<Review> reviews;
+
+    private LocalDateTime createdAt;
+
+    @OneToMany(mappedBy = "cocktailRecipe")
+    @Size(max = 3)
+    private List<RecipeTaste> tastes=new ArrayList<>();
 
     public CocktailRecipe(String name, AlcoholicType alcoholicType,
                           Category category, String drinkImgPath,

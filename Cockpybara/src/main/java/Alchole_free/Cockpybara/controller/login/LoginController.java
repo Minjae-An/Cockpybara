@@ -5,7 +5,7 @@ import Alchole_free.Cockpybara.controller.login.find_email.FindEmailResponse;
 import Alchole_free.Cockpybara.controller.login.find_password.FindPasswordRequest;
 import Alchole_free.Cockpybara.controller.login.set_new_password.SetNewPasswordRequest;
 import Alchole_free.Cockpybara.controller.member.util.HashingUtil;
-import Alchole_free.Cockpybara.service.MemberService;
+import Alchole_free.Cockpybara.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
