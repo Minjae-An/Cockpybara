@@ -6,6 +6,7 @@ const About = () => {
       <h1>About Us</h1>
       <h2>Our Team</h2>
       <div>
+        <h2>We are team AlcoholFree</h2>
         <h3>안민재</h3>
         <h3>김지수</h3>
         <h3>신승혜</h3>
