@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,9 @@ public class CocktailRecipe {
     @Column(length = 850)
     private String instruction;
     private Boolean isMemberRecipe;
+
+
+    private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "cocktailRecipe")
     @Size(max = 3)
