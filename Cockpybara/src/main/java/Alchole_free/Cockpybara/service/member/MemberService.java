@@ -1,4 +1,4 @@
-package Alchole_free.Cockpybara.service;
+package Alchole_free.Cockpybara.service.member;
 
 import Alchole_free.Cockpybara.domain.Member;
 import Alchole_free.Cockpybara.repository.MemberRepository;
