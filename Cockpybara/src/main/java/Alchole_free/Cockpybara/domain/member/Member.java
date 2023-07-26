@@ -1,15 +1,14 @@
-package Alchole_free.Cockpybara.domain;
+package Alchole_free.Cockpybara.domain.member;
 
-import Alchole_free.Cockpybara.controller.member.update.MemberInfoUpdateRequest;
+import Alchole_free.Cockpybara.domain.Gender;
+import Alchole_free.Cockpybara.domain.member.likes.Like;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -27,7 +26,11 @@ public class Member {
     private Gender gender;
     private Date birth;
 
-    public Member(String email, String password, String alias, String phoneNumber, Gender gender, Date birth) {
+    @OneToMany(mappedBy = "member")
+    private List<Like> likes;
+    
+
+    public Member(String email, String password, String alias, String phoneNumber, Alchole_free.Cockpybara.domain.Gender gender, Date birth) {
         this.email = email;
         this.password = password;
         this.alias = alias;

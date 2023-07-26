@@ -1,6 +1,6 @@
 package Alchole_free.Cockpybara.repository;
 
-import Alchole_free.Cockpybara.domain.Member;
+import Alchole_free.Cockpybara.domain.member.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
