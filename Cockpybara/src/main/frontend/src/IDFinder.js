@@ -59,14 +59,15 @@ const IDFinder = () => {
           <h2 className="idFinder-title">Cockpybara</h2>
           <div className="email">이메일 찾기</div>
           <form>
-          <div className="idFinder-field">
+          <div className="idFinder-nicknameField">
             <input
               type="text"
               name="userNickname"
               placeholder="닉네임"
               className="input-field-nickname"
             />
-            <br></br>
+            </div>
+            <div className="idFinder-telnumField">
             <input
               type="text"
               name="userTelnum"
