@@ -12,6 +12,7 @@ import About from './About';
 import Community from './Community';
 import MyPage from './MyPage';
 import RecipeDetail from './RecipeDetail';
+import Error from './Error';
 
 
 function App() {
@@ -35,7 +36,8 @@ function App() {
       }
     } catch (error) {
       // Handle any errors that occur during the login process
-      console.log('Login error:', error);
+      console.log('error:', error);
+      navigate('/error');
     }
   };
 
@@ -60,6 +62,7 @@ function App() {
         <Route path="/user/my-recipe" element={<AddRecipe/>} />
         <Route path="/recipe/detail/{cocktailId}" element={<RecipeDetail/>} />
         <Route path="/community" element={<Community/>} />
+        <Route path="/error" element={<Error/>} />
       </Routes>
     </div>
   );
