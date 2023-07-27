@@ -18,4 +18,10 @@ public class CocktailRecipeService {
         return cocktailRecipeRepository.findCocktailRecipeByNameContaining(name);
     }
 
+    public CocktailRecipe findById(Long id){
+        return cocktailRecipeRepository
+                .findById(id)
+                .orElseThrow(() -> new IllegalStateException("해당 레시피가 존재하지 않습니다."));
+    }
+
 }
