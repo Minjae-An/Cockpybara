@@ -1,6 +1,7 @@
 package Alchole_free.Cockpybara.controller.cocktailrecipe;
 
 import Alchole_free.Cockpybara.controller.cocktailrecipe.option_list.CocktailRecipeSearchOptionListResponse;
+import Alchole_free.Cockpybara.controller.cocktailrecipe.recipe_detail.CocktailRecipeDetailResponse;
 import Alchole_free.Cockpybara.controller.cocktailrecipe.search_by_name.FindCocktailRecipeByNameResponse;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.AlcoholicType;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.Category;
@@ -49,6 +50,13 @@ public class CocktailRecipeController {
         return Arrays.stream(enumClass.getEnumConstants())
                 .map(enumValue -> enumValue.name())
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping("/recipe/detail")
+    public CocktailRecipeDetailResponse getRecipeDetails(Long cocktailRecipeId){
+        CocktailRecipe cocktailRecipe = cocktailRecipeService.findById(cocktailRecipeId);
+        
+        return new CocktailRecipeDetailResponse(cocktailRecipe);
     }
 
 }
