@@ -2,6 +2,7 @@ package Alchole_free.Cockpybara.domain.member;
 
 import Alchole_free.Cockpybara.domain.Gender;
 import Alchole_free.Cockpybara.domain.member.likes.Like;
+import Alchole_free.Cockpybara.domain.member.my_recipe.MyRecipe;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,9 +29,12 @@ public class Member {
 
     @OneToMany(mappedBy = "member")
     private List<Like> likes;
+
+    @OneToMany(mappedBy = "member")
+    private List<MyRecipe> myRecipes;
     
 
-    public Member(String email, String password, String alias, String phoneNumber, Alchole_free.Cockpybara.domain.Gender gender, Date birth) {
+    public Member(String email, String password, String alias, String phoneNumber, Gender gender, Date birth) {
         this.email = email;
         this.password = password;
         this.alias = alias;
@@ -49,5 +53,7 @@ public class Member {
 
    }
 
-   
+   public void addNewMyRecipe(MyRecipe myRecipe){
+        myRecipes.add(myRecipe);
+   }
 }
