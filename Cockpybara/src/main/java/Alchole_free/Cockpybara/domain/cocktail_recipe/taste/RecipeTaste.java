@@ -19,4 +19,9 @@ public class RecipeTaste {
 
     @Enumerated(value = EnumType.STRING)
     private Taste taste;
+
+    public RecipeTaste(CocktailRecipe cocktailRecipe, Taste taste) {
+        this.cocktailRecipe = cocktailRecipe;
+        this.taste = taste;
+    }
 }
