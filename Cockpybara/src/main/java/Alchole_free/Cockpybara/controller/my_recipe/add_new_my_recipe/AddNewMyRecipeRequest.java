@@ -5,6 +5,7 @@ import Alchole_free.Cockpybara.domain.cocktail_recipe.Category;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.Glass;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.taste.RecipeTaste;
+import Alchole_free.Cockpybara.domain.cocktail_recipe.taste.Taste;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
@@ -13,6 +14,7 @@ import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 public class AddNewMyRecipeRequest {
@@ -35,7 +37,7 @@ public class AddNewMyRecipeRequest {
 
     @NotNull
     @Size(max = 3)
-    private List<RecipeTaste> tastes = new ArrayList<>();
+    private List<Taste> tastes = new ArrayList<>();
 
     public CocktailRecipe to() {
         CocktailRecipe cocktailRecipe = new CocktailRecipe(
@@ -48,7 +50,11 @@ public class AddNewMyRecipeRequest {
                 isMemberRecipe,
                 createdAt
         );
-        cocktailRecipe.setTastes(tastes);
+
+        List<RecipeTaste> recipeTastes = tastes.stream().map(t -> new RecipeTaste(cocktailRecipe, t))
+                .collect(Collectors.toList());
+
+        cocktailRecipe.setTastes(recipeTastes);
         return cocktailRecipe;
     }
 }
