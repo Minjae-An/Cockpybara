@@ -1,0 +1,76 @@
+/*임시 디자인 시작*/
+/*.header {
+    background-color: pink;
+}
+*/
+/*임시 디자인 끝*/
+
+/*디자인*/
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    top: 0;
+    right: 0;
+    padding: 10px;
+}
+
+.menu-container {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    bottom: 0;
+    width: 200px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.search-container {
+    /*검색바 부모 설정*/
+    position: relative;
+}
+
+.search-container input {
+    /*검색바*/
+    width: 515px;
+    height: 45px;
+    flex-shrink: 0;
+    border-radius: 27px;
+    background: rgba(255, 255, 255, 0.59);
+    backdrop-filter: blur(2px);
+    position: relative;
+    border: 0;
+}
+
+.search-container img {
+    /*검색 이미지 안으로*/
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    width: 27px;
+    height: 27px;
+    flex-shrink: 0;
+}
+
+#LoginImage {
+    /*로그인 카피바리*/
+    width: 55px;
+    height: 69px;
+    flex-shrink: 0;
+    margin-left: 40px;
+}
+
+
+
+.header {
+    /* main 위에 header*/
+    position: fixed;
+    /* Fixed position to overlap on top */
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* Make header full-width */
+    padding: 20px;
+    /* Example padding */
+    z-index: 2;
+    /* Set a higher z-index to make it appear above main */
+}

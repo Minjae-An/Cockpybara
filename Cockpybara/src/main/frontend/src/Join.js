@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Join.css'
-import image1 from './photo/image 1.png'; // 이미지 경로
+import image1 from './photo/capybaraIcon.png'; // 이미지 경로
 
 const Join = () => {
   const [email, setEmail] = useState('');
