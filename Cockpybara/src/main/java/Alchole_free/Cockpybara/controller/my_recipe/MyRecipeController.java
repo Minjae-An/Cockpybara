@@ -37,7 +37,7 @@ public class MyRecipeController {
 
     @PostMapping
     public ResponseEntity<CocktailRecipe> addNewMyRecipe(@PathVariable Long userId,
-                                                 @RequestBody AddNewMyRecipeRequest addNewMyRecipeRequest) {
+                                                         @RequestBody AddNewMyRecipeRequest addNewMyRecipeRequest) {
         addNewMyRecipeRequest.setIsMemberRecipe(true);
         addNewMyRecipeRequest.setCreatedAt(LocalDateTime.now());
         CocktailRecipe cocktailRecipe = addNewMyRecipeRequest.to();
@@ -48,5 +48,11 @@ public class MyRecipeController {
         return ResponseEntity.ok(savedMyCocktailRecipe);
     }
 
+    @DeleteMapping("/{recipeId}")
+    public ResponseEntity<String> deleteMyRecipe(@PathVariable Long userId,
+                                                 @PathVariable Long recipeId) {
+        cocktailRecipeService.removeMyRecipe(userId, recipeId);
 
+        return ResponseEntity.ok("successfully delete recipe");
+    }
 }
