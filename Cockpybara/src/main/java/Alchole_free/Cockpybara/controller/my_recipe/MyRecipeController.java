@@ -36,15 +36,16 @@ public class MyRecipeController {
 
 
     @PostMapping
-    public ResponseEntity<String> addNewMyRecipe(@PathVariable Long userId,
+    public ResponseEntity<CocktailRecipe> addNewMyRecipe(@PathVariable Long userId,
                                                  @RequestBody AddNewMyRecipeRequest addNewMyRecipeRequest) {
         addNewMyRecipeRequest.setIsMemberRecipe(true);
         addNewMyRecipeRequest.setCreatedAt(LocalDateTime.now());
         CocktailRecipe cocktailRecipe = addNewMyRecipeRequest.to();
 
-        cocktailRecipeService.saveMyRecipe(userId, cocktailRecipe);
+        CocktailRecipe savedMyCocktailRecipe =
+                cocktailRecipeService.saveMyRecipe(userId, cocktailRecipe).getCocktailRecipe();
 
-        return ResponseEntity.ok("successfully save new my cocktailrecipe");
+        return ResponseEntity.ok(savedMyCocktailRecipe);
     }
 
 
