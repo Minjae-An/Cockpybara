@@ -1,7 +1,7 @@
 package Alchole_free.Cockpybara.repository;
 
 import Alchole_free.Cockpybara.domain.Gender;
-import Alchole_free.Cockpybara.domain.Member;
+import Alchole_free.Cockpybara.domain.member.Member;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
