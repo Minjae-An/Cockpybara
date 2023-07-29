@@ -23,4 +23,9 @@ public class Like {
 
     @ManyToOne
     private CocktailRecipe cocktailRecipe;
+
+    public Like(Member member, CocktailRecipe cocktailRecipe) {
+        this.member = member;
+        this.cocktailRecipe = cocktailRecipe;
+    }
 }
