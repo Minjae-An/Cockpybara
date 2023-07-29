@@ -1,11 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, Routes, Route } from 'react-router-dom';
-import About from '../About';
-import Recipe from '../Recipe';
-import Community from '../Community';
-import Join from '../Join';
-import Login from '../Login' 
 import './Menu.css'
+import menuIcon from '../photo/MenuBar.png'; 
 
 const Menu = ({ isMenuOpen, setIsMenuOpen }) => {
   const handleMenuToggle = () => {
@@ -16,7 +12,6 @@ const Menu = ({ isMenuOpen, setIsMenuOpen }) => {
     <div className="menu-container">
       <div className={`collapse${isMenuOpen ? ' show' : ''}`} id="navbarToggleExternalContent">
         {isMenuOpen && (
-          <div className="bg-dark p-4">
             <ul className="menu-list">
               <li className='about'><Link to="/about">About</Link></li>
               <li className='recipe'><Link to="/recipe">Recipe</Link></li>
@@ -24,30 +19,22 @@ const Menu = ({ isMenuOpen, setIsMenuOpen }) => {
               <li className='login'><Link to="/login">Login</Link></li>
               <li className='join'><Link to="/join">Join</Link></li>
             </ul>
-          </div>
         )}
       </div>
-      <nav className="navbar navbar-dark bg-dark">
-        <div className="container-fluid">
-          <button
-            className="navbar-toggler"
-            type="button"
+
+
+      <div className="container-fluid">
+          <img
+            src={menuIcon} 
+            alt="Menu Toggle"
             onClick={handleMenuToggle}
             aria-controls="navbarToggleExternalContent"
             aria-expanded={isMenuOpen}
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
+            className="menu-icon"
+          />
         </div>
-      </nav>
-      <Routes>
-        <Route path="/about" element={<About />} />
-        <Route path="/recipe" element={<Recipe />} />
-        <Route path="/community/{userId}" element={<Community />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/join" element={<Join />} />
-      </Routes>
+
+
     </div>
   );
 };
