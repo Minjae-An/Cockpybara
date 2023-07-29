@@ -17,15 +17,21 @@ public class LikesController {
     private final CocktailRecipeService cocktailRecipeService;
 
     @PostMapping("/{recipeId}")
-    public ResponseEntity<String> addLike(@PathVariable Long userId, @PathVariable Long recipeId){
+    public ResponseEntity<String> addLike(@PathVariable Long userId, @PathVariable Long recipeId) {
         Member member = memberService.findById(userId);
         CocktailRecipe cocktailRecipe = cocktailRecipeService.findById(recipeId);
 
         member.getLikes().add(new Like(member, cocktailRecipe));
 
-        return ResponseEntity.ok("add like successfully");
+        return ResponseEntity.accepted().body("add like successfully");
     }
 
+    @DeleteMapping("/{recipeId}")
+    public ResponseEntity<String> deleteLike(@PathVariable Long userId, @PathVariable Long recipeId) {
+        Member member = memberService.findById(userId);
 
+        member.getLikes().removeIf(like -> like.getCocktailRecipe().getId().equals(recipeId));
 
+        return ResponseEntity.accepted().body("delete like successfully");
+    }
 }
