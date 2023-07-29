@@ -27,4 +27,12 @@ public class ReviewController {
 
         return ResponseEntity.ok("successfully add new review");
     }
+
+    @DeleteMapping("{reviewId}")
+    public ResponseEntity<String> deleteReview(@PathVariable Long recipeId, @PathVariable Long reviewId){
+        CocktailRecipe cocktailRecipe = cocktailRecipeService.findById(recipeId);
+        cocktailRecipe.getReviews().removeIf(review -> review.getId().equals(reviewId));
+
+        return ResponseEntity.accepted().body("successfully delete review");
+    }
 }
