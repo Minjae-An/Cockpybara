@@ -50,7 +50,7 @@ public class CocktailRecipe {
     public CocktailRecipe(String name, AlcoholicType alcoholicType,
                           Category category, String drinkImgPath,
                           Glass glass, String instruction,
-                          Boolean isMemberRecipe) {
+                          Boolean isMemberRecipe, LocalDateTime createdAt) {
         this.name = name;
         this.alcoholicType = alcoholicType;
         this.category = category;
@@ -58,5 +58,10 @@ public class CocktailRecipe {
         this.glass = glass;
         this.instruction = instruction;
         this.isMemberRecipe = isMemberRecipe;
+        this.createdAt=createdAt;
+    }
+
+    public void setTastes(List<RecipeTaste> tastes) {
+        this.tastes = tastes;
     }
 }
