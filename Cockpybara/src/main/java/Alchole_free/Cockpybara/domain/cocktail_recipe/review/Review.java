@@ -20,4 +20,10 @@ public class Review {
     private Integer stars;
 
     private String review;
+
+    public Review(CocktailRecipe cocktailRecipe, Integer stars, String review) {
+        this.cocktailRecipe = cocktailRecipe;
+        this.stars = stars;
+        this.review = review;
+    }
 }
