@@ -4,6 +4,7 @@ package Alchole_free.Cockpybara.domain.cocktail_recipe;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.review.Review;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.taste.RecipeTaste;
 
+import Alchole_free.Cockpybara.domain.cocktail_recipe.taste.Taste;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -63,5 +65,18 @@ public class CocktailRecipe {
 
     public void setTastes(List<RecipeTaste> tastes) {
         this.tastes = tastes;
+    }
+
+    public void update(AlcoholicType alcoholicType, Category category, String drinkImgPath,
+                       Glass glass, String instruction, List<Taste> tastes){
+        this.alcoholicType=alcoholicType;
+        this.category=category;
+        this.drinkImgPath=drinkImgPath;
+        this.glass=glass;
+        this.instruction=instruction;
+
+        this.tastes.clear();
+        this.tastes=tastes.stream().map(t->new RecipeTaste(this, t))
+                .collect(Collectors.toList());
     }
 }

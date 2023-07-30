@@ -2,6 +2,7 @@ package Alchole_free.Cockpybara.controller.my_recipe;
 
 import Alchole_free.Cockpybara.controller.my_recipe.add_new_my_recipe.AddNewMyRecipeRequest;
 import Alchole_free.Cockpybara.controller.my_recipe.recipe_options.RecipeOptionsResponse;
+import Alchole_free.Cockpybara.controller.my_recipe.update_my_recipe.UpdateMyRecipeRequest;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.AlcoholicType;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.Category;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -54,5 +56,21 @@ public class MyRecipeController {
         cocktailRecipeService.removeMyRecipe(userId, recipeId);
 
         return ResponseEntity.ok("successfully delete recipe");
+    }
+
+    @PutMapping("/{recipeId}")
+    public ResponseEntity<CocktailRecipe> updateMyRecipe(@PathVariable Long recipeId,
+                                                         @RequestBody UpdateMyRecipeRequest updateMyRecipeRequest){
+        AlcoholicType alcoholicType = updateMyRecipeRequest.getAlcoholicType();
+        Category category = updateMyRecipeRequest.getCategory();
+        String drinkImgPath = updateMyRecipeRequest.getDrinkImgPath();
+        Glass glass = updateMyRecipeRequest.getGlass();
+        String instruction = updateMyRecipeRequest.getInstruction();
+        List<Taste> tastes = updateMyRecipeRequest.getTastes();
+
+        CocktailRecipe cocktailRecipe = cocktailRecipeService.updateMyRecipe(recipeId, alcoholicType, category, drinkImgPath,
+                glass, instruction, tastes);
+
+        return ResponseEntity.ok(cocktailRecipe);
     }
 }

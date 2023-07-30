@@ -1,6 +1,10 @@
 package Alchole_free.Cockpybara.service.cocktail_recipe;
 
+import Alchole_free.Cockpybara.domain.cocktail_recipe.AlcoholicType;
+import Alchole_free.Cockpybara.domain.cocktail_recipe.Category;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
+import Alchole_free.Cockpybara.domain.cocktail_recipe.Glass;
+import Alchole_free.Cockpybara.domain.cocktail_recipe.taste.Taste;
 import Alchole_free.Cockpybara.domain.member.Member;
 import Alchole_free.Cockpybara.domain.member.my_recipe.MyRecipe;
 import Alchole_free.Cockpybara.repository.CocktailRecipeRepository;
@@ -45,5 +49,17 @@ public class CocktailRecipeService {
 
         cocktailRecipeRepository.deleteById(cocktailRecipeId);
         member.removeMyRecipe(cocktailRecipe);
+    }
+
+    public CocktailRecipe updateMyRecipe(Long cocktailRecipeId, AlcoholicType alcoholicType,
+                                         Category category, String drinkImgPath,
+                                         Glass glass, String instruction, List<Taste> tastes) {
+        CocktailRecipe cocktailRecipe = cocktailRecipeRepository.findById(cocktailRecipeId)
+                .orElseThrow(() -> new IllegalStateException("해당 레시피가 존재하지 않습니다."));
+
+        cocktailRecipe.update(alcoholicType, category, drinkImgPath,
+                glass, instruction, tastes);
+
+        return cocktailRecipe;
     }
 }
