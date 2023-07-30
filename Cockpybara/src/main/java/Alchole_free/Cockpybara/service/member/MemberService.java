@@ -23,6 +23,11 @@ public class MemberService {
         return savedMember.getId();
     }
 
+    public Member findById(Long id){
+        return memberRepository.findById(id)
+                .orElseThrow(() -> new IllegalStateException("해당 회원이 존재하지 않습니다."));
+    }
+
     public Member findByEmail(String email) {
         return memberRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("해당 회원이 존재하지 않습니다."));
