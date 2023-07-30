@@ -16,7 +16,7 @@ public class ReviewService {
     private final CocktailRecipeRepository cocktailRecipeRepository;
     private final MemberRepository memberRepository;
 
-    public void addReview(Long recipeId, Long memberId, Integer stars, String review){
+    public void addReview(Long recipeId, Long memberId, Integer stars, String review) {
         CocktailRecipe cocktailRecipe = cocktailRecipeRepository.findById(recipeId)
                 .orElseThrow(() -> new IllegalStateException("해당 레시피가 존재하지 않습니다."));
         Member member = memberRepository.findById(memberId)
@@ -27,4 +27,9 @@ public class ReviewService {
         cocktailRecipe.getReviews().add(newReview);
     }
 
+    public void deleteReview(Long recipeId, Long reviewId) {
+        CocktailRecipe cocktailRecipe = cocktailRecipeRepository.findById(recipeId)
+                .orElseThrow(() -> new IllegalStateException("해당 레시피가 존재하지 않습니다."));
+        cocktailRecipe.getReviews().removeIf(review -> review.getId().equals(reviewId));
+    }
 }
