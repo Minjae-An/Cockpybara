@@ -32,14 +32,12 @@ public class CocktailRecipeController {
         List<String> categoryFilterValues = getEnumValueList(Category.class);
         List<String> glassFilterValues = getEnumValueList(Glass.class);
         List<String> ingredientCategoryFilterValues = getEnumValueList(IngredientCategory.class);
-        List<String> ingredientUnitFilterValues = getEnumValueList(Unit.class);
 
         return new CocktailRecipeSearchOptionListResponse(
                 alcoholicTypeFilterValues,
                 categoryFilterValues,
                 glassFilterValues,
-                ingredientCategoryFilterValues,
-                ingredientUnitFilterValues
+                ingredientCategoryFilterValues
         );
     }
 
@@ -59,9 +57,9 @@ public class CocktailRecipeController {
     }
 
     @GetMapping("/recipe/detail")
-    public CocktailRecipeDetailResponse getRecipeDetails(Long cocktailRecipeId){
+    public CocktailRecipeDetailResponse getRecipeDetails(Long cocktailRecipeId) {
         CocktailRecipe cocktailRecipe = cocktailRecipeService.findById(cocktailRecipeId);
-        
+
         return new CocktailRecipeDetailResponse(cocktailRecipe);
     }
 
