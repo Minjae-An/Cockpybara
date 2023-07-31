@@ -5,6 +5,7 @@ import Alchole_free.Cockpybara.domain.cocktail_recipe.review.Review;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.taste.RecipeTaste;
 
 import Alchole_free.Cockpybara.domain.cocktail_recipe.taste.Taste;
+import Alchole_free.Cockpybara.domain.ingredient.RecipeIngredient;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -49,6 +50,9 @@ public class CocktailRecipe {
     @Size(max = 3)
     private List<RecipeTaste> tastes=new ArrayList<>();
 
+    @OneToMany(mappedBy = "cocktailRecipe")
+    private List<RecipeIngredient> ingredients;
+
     public CocktailRecipe(String name, AlcoholicType alcoholicType,
                           Category category, String drinkImgPath,
                           Glass glass, String instruction,
@@ -65,6 +69,10 @@ public class CocktailRecipe {
 
     public void setTastes(List<RecipeTaste> tastes) {
         this.tastes = tastes;
+    }
+
+    public void setIngredients(List<RecipeIngredient> ingredients) {
+        this.ingredients = ingredients;
     }
 
     public void update(AlcoholicType alcoholicType, Category category, String drinkImgPath,
