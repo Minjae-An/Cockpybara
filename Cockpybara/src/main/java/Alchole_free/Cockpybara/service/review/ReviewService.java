@@ -5,9 +5,13 @@ import Alchole_free.Cockpybara.domain.cocktail_recipe.review.Review;
 import Alchole_free.Cockpybara.domain.member.Member;
 import Alchole_free.Cockpybara.repository.CocktailRecipeRepository;
 import Alchole_free.Cockpybara.repository.MemberRepository;
+import Alchole_free.Cockpybara.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -15,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ReviewService {
     private final CocktailRecipeRepository cocktailRecipeRepository;
     private final MemberRepository memberRepository;
+    private final ReviewRepository reviewRepository;
 
     public void addReview(Long recipeId, Long memberId, Integer stars, String review) {
         CocktailRecipe cocktailRecipe = cocktailRecipeRepository.findById(recipeId)
@@ -31,5 +36,15 @@ public class ReviewService {
         CocktailRecipe cocktailRecipe = cocktailRecipeRepository.findById(recipeId)
                 .orElseThrow(() -> new IllegalStateException("해당 레시피가 존재하지 않습니다."));
         cocktailRecipe.getReviews().removeIf(review -> review.getId().equals(reviewId));
+    }
+
+    public List<CocktailRecipe> findCommentedRecipesByMember(Long memberId) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new IllegalStateException("해당 멤버가 존재하지 않습니다."));
+
+        List<Review> reviews = reviewRepository.findReviewByMember(member);
+        return reviews.stream()
+                .map(review -> review.getCocktailRecipe())
+                .collect(Collectors.toList());
     }
 }
