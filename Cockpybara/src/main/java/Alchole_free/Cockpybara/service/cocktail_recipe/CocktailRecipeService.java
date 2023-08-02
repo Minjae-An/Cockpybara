@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -62,4 +63,13 @@ public class CocktailRecipeService {
 
         return cocktailRecipe;
     }
+
+    //주간 칵테일 레시피 조회
+    public List<CocktailRecipe> getWeeklyRecipes(){
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime onWeekAgo = now.minusWeeks(1);
+
+        return cocktailRecipeRepository.findByCreatedAtBetweenOrderByCreatedAtDesc(now, onWeekAgo);
+    }
+
 }
