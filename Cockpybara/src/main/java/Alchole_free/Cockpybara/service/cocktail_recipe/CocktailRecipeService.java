@@ -5,6 +5,7 @@ import Alchole_free.Cockpybara.domain.cocktail_recipe.Category;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.Glass;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.taste.Taste;
+import Alchole_free.Cockpybara.domain.cocktail_recipe.timePeriod.TimePeriod;
 import Alchole_free.Cockpybara.domain.member.Member;
 import Alchole_free.Cockpybara.domain.member.my_recipe.MyRecipe;
 import Alchole_free.Cockpybara.repository.CocktailRecipeRepository;
@@ -64,25 +65,20 @@ public class CocktailRecipeService {
         return cocktailRecipe;
     }
 
-    //주간 칵테일 레시피 조회
-    public List<CocktailRecipe> getWeeklyRecipes(){
+   // 주간, 월간, 전체기간 칵테일레시피 조회
+    public List<CocktailRecipe> getCocktailRecipesByPeriod(TimePeriod timePeriod){
         LocalDateTime now = LocalDateTime.now();
-        LocalDateTime onWeekAgo = now.minusWeeks(1);
+        LocalDateTime startDateTime;
 
-        return cocktailRecipeRepository.findByCreatedAtBetweenOrderByCreatedAtDesc(now, onWeekAgo);
+        switch (timePeriod){
+            case WEEKLY:
+                startDateTime = now.minusWeeks(1);
+                return cocktailRecipeRepository.findByCocktailRecipeCreatedAtBetweenOrderByCreatedAtDesc(startDateTime, now);
+            case MONTLY:
+                startDateTime = now.minusMonths(1);
+                return cocktailRecipeRepository.findByCocktailRecipeCreatedAtBetweenOrderByCreatedAtDesc(startDateTime, now);
+            default:  //ALL은 여기포함
+                return cocktailRecipeRepository.findAllByCocktailRecipeOrderByCreatedAtDesc();
+        }
     }
-
-    //월간 칵테일 레시피 조회
-    public List<CocktailRecipe> getMonthlyRecipes(){
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime onMonthAgo = now.minusMonths(1);
-
-        return cocktailRecipeRepository.findByCreatedAtBetweenOrderByCreatedAtDesc(now, onMonthAgo);
-    }
-
-    //전체 기간 칵테일 레시피 조회
-    public List<CocktailRecipe> getAllRecipes(){
-        return cocktailRecipeRepository.findAllByOrderByCreatedAtDesc();
-    }
-
 }

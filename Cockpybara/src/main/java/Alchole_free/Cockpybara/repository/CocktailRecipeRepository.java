@@ -11,6 +11,6 @@ import java.util.List;
 public interface CocktailRecipeRepository extends JpaRepository<CocktailRecipe, Long>{
 
     List<CocktailRecipe> findCocktailRecipeByNameContaining(String name);
-    List<CocktailRecipe> findByCreatedAtBetweenOrderByCreatedAtDesc(LocalDateTime startDateTime, LocalDateTime endDateTime);
-    List<CocktailRecipe> findAllByOrderByCreatedAtDesc();
+    List<CocktailRecipe> findByCocktailRecipeCreatedAtBetweenOrderByCreatedAtDesc(LocalDateTime startDateTime, LocalDateTime endDateTime);
+    List<CocktailRecipe> findAllByCocktailRecipeOrderByCreatedAtDesc();
 }
