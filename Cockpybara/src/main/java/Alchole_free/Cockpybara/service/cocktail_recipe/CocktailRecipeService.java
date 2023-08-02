@@ -72,4 +72,17 @@ public class CocktailRecipeService {
         return cocktailRecipeRepository.findByCreatedAtBetweenOrderByCreatedAtDesc(now, onWeekAgo);
     }
 
+    //월간 칵테일 레시피 조회
+    public List<CocktailRecipe> getMonthlyRecipes(){
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime onMonthAgo = now.minusMonths(1);
+
+        return cocktailRecipeRepository.findByCreatedAtBetweenOrderByCreatedAtDesc(now, onMonthAgo);
+    }
+
+    //전체 기간 칵테일 레시피 조회
+    public List<CocktailRecipe> getAllRecipes(){
+        return cocktailRecipeRepository.findAllByOrderByCreatedAtDesc();
+    }
+
 }
