@@ -13,6 +13,7 @@ import Community from './Community';
 import MyPage from './MyPage';
 import RecipeDetail from './RecipeDetail';
 import Error from './Error';
+import DetailHeader from './DetailHeader';
 
 
 function App() {
@@ -63,6 +64,7 @@ function App() {
         <Route path="/recipe/detail/{cocktailId}" element={<RecipeDetail/>} />
         <Route path="/community" element={<Community/>} />
         <Route path="/error" element={<Error/>} />
+        <Route path="/DetailHeader" element={<DetailHeader/>} />
       </Routes>
     </div>
   );
