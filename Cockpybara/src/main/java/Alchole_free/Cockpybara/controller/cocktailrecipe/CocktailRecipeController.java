@@ -7,6 +7,8 @@ import Alchole_free.Cockpybara.domain.cocktail_recipe.AlcoholicType;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.Category;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.Glass;
+import Alchole_free.Cockpybara.domain.ingredient.IngredientCategory;
+import Alchole_free.Cockpybara.domain.ingredient.Unit;
 import Alchole_free.Cockpybara.service.cocktail_recipe.CocktailRecipeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,11 +31,13 @@ public class CocktailRecipeController {
         List<String> alcoholicTypeFilterValues = getEnumValueList(AlcoholicType.class);
         List<String> categoryFilterValues = getEnumValueList(Category.class);
         List<String> glassFilterValues = getEnumValueList(Glass.class);
+        List<String> ingredientCategoryFilterValues = getEnumValueList(IngredientCategory.class);
 
         return new CocktailRecipeSearchOptionListResponse(
                 alcoholicTypeFilterValues,
                 categoryFilterValues,
-                glassFilterValues
+                glassFilterValues,
+                ingredientCategoryFilterValues
         );
     }
 
@@ -53,9 +57,9 @@ public class CocktailRecipeController {
     }
 
     @GetMapping("/recipe/detail")
-    public CocktailRecipeDetailResponse getRecipeDetails(Long cocktailRecipeId){
+    public CocktailRecipeDetailResponse getRecipeDetails(Long cocktailRecipeId) {
         CocktailRecipe cocktailRecipe = cocktailRecipeService.findById(cocktailRecipeId);
-        
+
         return new CocktailRecipeDetailResponse(cocktailRecipe);
     }
 

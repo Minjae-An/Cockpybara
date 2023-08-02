@@ -6,14 +6,16 @@ import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.Glass;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.taste.RecipeTaste;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.taste.Taste;
+import Alchole_free.Cockpybara.domain.ingredient.Ingredient;
+import Alchole_free.Cockpybara.domain.ingredient.RecipeIngredient;
+import Alchole_free.Cockpybara.domain.ingredient.Unit;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Data
@@ -39,6 +41,9 @@ public class AddNewMyRecipeRequest {
     @Size(max = 3)
     private List<Taste> tastes = new ArrayList<>();
 
+    @NotNull
+    private Map<Ingredient, Map.Entry<Unit, Double>> ingredients=new HashMap<>();
+
     public CocktailRecipe to() {
         CocktailRecipe cocktailRecipe = new CocktailRecipe(
                 name,
@@ -55,6 +60,18 @@ public class AddNewMyRecipeRequest {
                 .collect(Collectors.toList());
 
         cocktailRecipe.setTastes(recipeTastes);
+
+        List<RecipeIngredient> recipeIngredients = ingredients.entrySet().stream()
+                .map(ingredient -> {
+                    Ingredient key = ingredient.getKey();
+                    Unit unit = ingredient.getValue().getKey();
+                    Double quantity = ingredient.getValue().getValue();
+
+                    return new RecipeIngredient(cocktailRecipe, key, unit, quantity);
+                }).collect(Collectors.toList());
+
+        cocktailRecipe.setIngredients(recipeIngredients);
+
         return cocktailRecipe;
     }
 }

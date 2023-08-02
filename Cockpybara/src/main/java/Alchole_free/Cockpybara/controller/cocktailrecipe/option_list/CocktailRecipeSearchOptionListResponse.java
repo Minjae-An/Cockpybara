@@ -11,4 +11,6 @@ public class CocktailRecipeSearchOptionListResponse {
     private final List<String> alcoholicTypeFilterValues;
     private final List<String> categoryFilterValues;
     private final List<String> glassFilterValues;
+
+    private final List<String> ingredientCategoryFilterValues;
 }
