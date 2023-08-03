@@ -74,7 +74,7 @@ public class CocktailRecipeService {
             case WEEKLY:
                 startDateTime = now.minusWeeks(1);
                 return cocktailRecipeRepository.findByCocktailRecipeCreatedAtBetweenOrderByCreatedAtDesc(startDateTime, now);
-            case MONTLY:
+            case MONTHLY:
                 startDateTime = now.minusMonths(1);
                 return cocktailRecipeRepository.findByCocktailRecipeCreatedAtBetweenOrderByCreatedAtDesc(startDateTime, now);
             default:  //ALL은 여기포함

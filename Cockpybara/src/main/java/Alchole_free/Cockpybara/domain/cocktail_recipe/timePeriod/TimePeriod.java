@@ -2,6 +2,6 @@
 
 public enum TimePeriod {
     WEEKLY,
-    MONTLY,
+    MONTHLY,
     ALL
 }
