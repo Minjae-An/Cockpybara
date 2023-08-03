@@ -17,7 +17,7 @@
   color: #000000;
   text-align: center;
   font: 400 38px "PollerOne", sans-serif;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 /* Additional CSS for elements in the main content section */
@@ -26,8 +26,30 @@
   text-align: center;
   font: 600 20px "Pretendard", sans-serif;
   position: relative;
-  margin-bottom: 15px;
+  margin-bottom: 30px;
 }
+
+/* CSS for when the user is found */
+.foundUser {
+  text-align: center;
+  font: 400 13px "Pretendard", sans-serif;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  color: green;
+}
+
+/* CSS for when the user is not found */
+.NotFoundUser {
+  color: #ff0000;
+  text-align: center;
+  font: 400 13px "Pretendard", sans-serif;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 .idFinder-nicknameField,
 .idFinder-telnumField {
@@ -104,4 +126,8 @@
   text-decoration: underline;
   border: none;
   background-color: #ffffff;
+}
+
+.idFinder-result {
+  margin-bottom: 30px;
 }

@@ -1,30 +1,62 @@
 import React, { useState } from "react";
 import image1 from "./photo/Search.png"; // 이미지 경로
-import './IDFinder.css'
+import { Link } from "react-router-dom";
+import "./IDFinder.css";
 
 const IDFinder = () => {
   // Sample list of users with their names and IDs
   const users = [
-    { id: "user1", name: "John Doe" },
-    { id: "user2", name: "Jane Smith" },
-    { id: "user3", name: "Michael Johnson" },
+    {
+      userId: "user1",
+      id: "ruby1363@naver.com",
+      nickname: "John Doe",
+      phoneNumber: "111-111-1111",
+    },
+    {
+      userId: "user2",
+      id: "jeonsojin1363@naver.com",
+      nickname: "Jane Smith",
+      phoneNumber: "222-222-2222",
+    },
+    {
+      userId: "user3",
+      id: "jeonsojin0313@naver.com",
+      nickname: "Michael Johnson",
+      phoneNumber: "333-333-3333",
+    },
     // Add more users as needed
   ];
 
-  const [name, setName] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [foundID, setFoundID] = useState("");
+  const [isEmailFound, setIsEmailFound] = useState(false);
 
-  const handleNameChange = (e) => {
-    setName(e.target.value);
+  const handleNicknameChange = (e) => {
+    setNickname(e.target.value);
+  };
+
+  const handlePhoneNumberChange = (e) => {
+    setPhoneNumber(e.target.value);
   };
 
   const handleFindID = () => {
-    const foundUser = users.find((user) => user.name === name);
+    const foundUser = users.find(
+      (user) => user.nickname === nickname && user.phoneNumber === phoneNumber
+    );
     if (foundUser) {
       setFoundID(foundUser.id);
+      setIsEmailFound(true); // Set the state to true when email is found
     } else {
-      setFoundID("User not found");
+      setFoundID("입력하신 정보를 다시 확인해주세요!");
+      setIsEmailFound(false); // Set the state to false when email is not found
     }
+  };
+
+  const maskEmail = (email) => {
+    const [prefix, domain] = email.split("@");
+    const maskedPrefix = prefix.slice(0, 2) + "*".repeat(prefix.length - 2);
+    return maskedPrefix + "@" + domain;
   };
 
   return (
@@ -53,38 +85,84 @@ const IDFinder = () => {
         <div class="serch-container">
           <img class="search" src={image1} />
         </div>
+        <Link to="/login">
         <button class="headerLogin">로그인</button>
-        </div>
-        <div className="idFinder-container">
+        </Link>
+      </div>
+      <div className="idFinder-container">
+        <Link to="/">
           <h2 className="idFinder-title">Cockpybara</h2>
-          <div className="email">이메일 찾기</div>
-          <form>
-          <div className="idFinder-nicknameField">
+        </Link>
+        <div className="email">아이디 찾기</div>
+        <form>
+          <div
+            className={`idFinder-nicknameField ${
+              foundID ? "foundUser" : "notFoundUser"
+            }`}
+          >
             <input
               type="text"
               name="userNickname"
+              value={nickname}
+              onChange={handleNicknameChange}
               placeholder="닉네임"
               className="input-field-nickname"
             />
-            </div>
-            <div className="idFinder-telnumField">
+          </div>
+          <div
+            className={`idFinder-telnumField ${
+              foundID ? "foundUser" : "notFoundUser"
+            }`}
+          >
             <input
               type="text"
               name="userTelnum"
+              value={phoneNumber}
+              onChange={handlePhoneNumberChange}
               placeholder="휴대전화"
               className="input-field-telPhone"
             />
-            </div>
-            <label for="remember-check" className="login-maintain">
-              <div className="idFinder-error" />
-              <span>입력하신 휴대전화 번호를 다시 확인해 주세요!</span>
-            </label>
-            <button class="FindIdButton">아이디 찾기</button>
-          </form>
-          <div className="thinkId">
-            이메일이 생각나셨나요? <button>로그인하기</button>
           </div>
+          {/* Display the found ID or "User not found" */}
+          <div
+        className={`idFinder-result ${
+          foundID === "입력하신 정보를 다시 확인해주세요!" || foundID === ""
+            ? "NotFoundUser"
+            : "foundUser"
+        }`}
+      >
+        {foundID !== "" && (
+          <span>
+            {foundID === "입력하신 정보를 다시 확인해주세요!" ||
+            foundID === ""
+              ? "입력하신 정보를 다시 확인해주세요!"
+              : maskEmail(foundID)}
+          </span>
+        )}
+      </div>
+      <button
+        type="button"
+        className="FindIdButton"
+        onClick={() => {
+          if (isEmailFound) {
+            // Navigate to the "/login" page when isEmailFound is true
+            window.location.href = "/login";
+          } else {
+            // Handle the "아이디 찾기" button click when email is not found
+            handleFindID();
+          }
+        }}
+      >
+        {isEmailFound ? "로그인 페이지로" : "아이디 찾기"}
+      </button>
+        </form>
+        <div className="thinkId">
+          이메일이 생각나셨나요? 
+          <Link to="/login">
+          <button>로그인하기</button>
+          </Link>
         </div>
+      </div>
     </div>
   );
 };
