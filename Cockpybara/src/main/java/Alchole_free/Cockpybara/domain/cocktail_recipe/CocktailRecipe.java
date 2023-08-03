@@ -9,6 +9,7 @@ import Alchole_free.Cockpybara.domain.ingredient.RecipeIngredient;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -44,6 +45,8 @@ public class CocktailRecipe {
     @OneToMany(mappedBy = "cocktailRecipe")
     private List<Review> reviews;
 
+    @CreatedDate
+    @Column(updatable = false)  //처음 생성 이후로 LocalDateTime 수정 불가능
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "cocktailRecipe")
