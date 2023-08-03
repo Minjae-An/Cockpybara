@@ -26,6 +26,8 @@ public class QReview extends EntityPathBase<Review> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final Alchole_free.Cockpybara.domain.member.QMember member;
+
     public final StringPath review = createString("review");
 
     public final NumberPath<Integer> stars = createNumber("stars", Integer.class);
@@ -49,6 +51,7 @@ public class QReview extends EntityPathBase<Review> {
     public QReview(Class<? extends Review> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.cocktailRecipe = inits.isInitialized("cocktailRecipe") ? new Alchole_free.Cockpybara.domain.cocktail_recipe.QCocktailRecipe(forProperty("cocktailRecipe")) : null;
+        this.member = inits.isInitialized("member") ? new Alchole_free.Cockpybara.domain.member.QMember(forProperty("member")) : null;
     }
 
 }

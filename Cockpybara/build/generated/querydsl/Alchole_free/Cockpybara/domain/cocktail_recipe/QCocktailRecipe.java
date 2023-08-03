@@ -32,6 +32,8 @@ public class QCocktailRecipe extends EntityPathBase<CocktailRecipe> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final ListPath<Alchole_free.Cockpybara.domain.ingredient.RecipeIngredient, Alchole_free.Cockpybara.domain.ingredient.QRecipeIngredient> ingredients = this.<Alchole_free.Cockpybara.domain.ingredient.RecipeIngredient, Alchole_free.Cockpybara.domain.ingredient.QRecipeIngredient>createList("ingredients", Alchole_free.Cockpybara.domain.ingredient.RecipeIngredient.class, Alchole_free.Cockpybara.domain.ingredient.QRecipeIngredient.class, PathInits.DIRECT2);
+
     public final StringPath instruction = createString("instruction");
 
     public final BooleanPath isMemberRecipe = createBoolean("isMemberRecipe");
