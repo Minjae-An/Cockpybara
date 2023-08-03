@@ -17,7 +17,6 @@ ul.menu-list {
     width: 701px;
     height: 30px;
     flex-shrink: 0;
-    background-color: palevioletred;
 }
 
 .menuClassName {
