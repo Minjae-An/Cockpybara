@@ -7,17 +7,17 @@ import Alchole_free.Cockpybara.domain.cocktail_recipe.AlcoholicType;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.Category;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.Glass;
+import Alchole_free.Cockpybara.domain.cocktail_recipe.timePeriod.TimePeriod;
 import Alchole_free.Cockpybara.domain.ingredient.IngredientCategory;
 import Alchole_free.Cockpybara.domain.ingredient.Unit;
 import Alchole_free.Cockpybara.service.cocktail_recipe.CocktailRecipeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -63,4 +63,25 @@ public class CocktailRecipeController {
         return new CocktailRecipeDetailResponse(cocktailRecipe);
     }
 
+    @GetMapping({"/community/period-cocktails", "/recipe/period-cocktails"})
+    public List<CocktailRecipe> getCocktailRecipesByPeriod(@RequestParam(value = "period", required = false) List<String> periods) {
+        if (periods == null || periods.isEmpty()) {
+            //기간 파라미터가 전달되지 않은 경우 기본값으로 전체 기간 조회
+            return cocktailRecipeService.getCocktailRecipesByPeriod(TimePeriod.ALL);
+        } else {
+            List<CocktailRecipe> resultList = new ArrayList<>();
+            for (String period : periods) {
+                switch (period) {
+                    case "weekly":
+                        resultList.addAll(cocktailRecipeService.getCocktailRecipesByPeriod(TimePeriod.WEEKLY));
+                        break;
+                    case "monthly":
+                        resultList.addAll(cocktailRecipeService.getCocktailRecipesByPeriod(TimePeriod.MONTHLY));
+                        break;
+                    default:resultList.addAll(cocktailRecipeService.getCocktailRecipesByPeriod(TimePeriod.ALL));
+                }
+            }
+            return resultList;
+        }
+    }
 }
