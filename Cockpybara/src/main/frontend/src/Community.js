@@ -12,7 +12,7 @@ function Community() {
       <div className="community-box">
         <div className="left-contents ">
           <MyCommunitySection />
-         {/* <MonthlyPopularSection />*/} 
+          <MonthlyPopularSection />
         </div>
         <div className="right-contents">
           <CocktailListSection />
