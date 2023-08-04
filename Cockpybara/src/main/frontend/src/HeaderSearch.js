@@ -1,25 +1,12 @@
-import './MainHeader.css';
+import './HeaderSearch.css';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Menu from './components/Menu';
-import LoginImage from "./photo/capybaraIcon.png";
-import HeaderSearch from './HeaderSearch';
+import searchImage from "./photo/Search.png";
 
-const MainHeader = () => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+const HeaderSearch = () => {
     const [searchValue, setSearchValue] = useState('');
     const [isLoggedIn] = useState(false); // Add isLoggedIn state
     const navigate = useNavigate();
-
-    const handleLoginButtonClick = () => {
-        if (isLoggedIn) {
-            // If logged in, navigate to the user's profile page (My Page)
-            navigate('/mypage'); // Replace '/mypage' with your actual URL for the user's profile page
-        } else {
-            // If not logged in, navigate to the login page
-            navigate('/login');
-        }
-    };
 
     const handleSearchChange = (e) => {
         setSearchValue(e.target.value);
@@ -45,25 +32,20 @@ const MainHeader = () => {
     };
 
     return (
-        <header className="header">
-            <div className="button-container">
-                <HeaderSearch />
-                {/*이미지 수정해야함*/}
+            <div className="search-container">
+                <input
+                    type="text"
+                    style={{ fontSize: "20px" }}
+                    value={searchValue}
+                    onChange={handleSearchChange}
+                />
                 <img
-                    src={LoginImage}
-                    alt="로그인"
-                    onClick={handleLoginButtonClick}
-                    id="LoginImage"
+                    src={searchImage}
+                    alt="검색"
+                    onClick={handleSearch}
                 />
             </div>
-            {/*검색, 로그인 아이콘 끝*/}
-            {/*메뉴바 시작*/}
-            <Menu isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} /> {/* 버튼을 누르면 Menu Component 호출*/}
-            <div className={`content ${isMenuOpen ? 'content-shifted' : ''}`}>
-
-            </div>
-        </header>
     );
 };
 
-export default MainHeader;
+export default HeaderSearch; 

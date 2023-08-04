@@ -10,7 +10,6 @@ const NewMenu = () => {
                 <li className='new_about'><Link to="/about">About</Link></li>
                 <li className='new_recipe'><Link to="/recipe">Recipe</Link></li>
                 <li className='new_community'><Link to="/community/{userId}">Community</Link></li>
-                <li className='new_MyPage'><Link to="/user/{userId}/my-page">MyPage</Link></li>
             </ul>
         </div>
     );
