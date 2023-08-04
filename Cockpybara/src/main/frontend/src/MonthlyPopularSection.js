@@ -1,6 +1,9 @@
 // MonthlyPopularSection.js
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import './MonthlyPopularSection.css'
+import Clicked from "./photo/Clicked.png";
+import UnClicked from "./photo/UnClicked.png";
 
 const MonthlyPopularSection = () => {
   const [popularData, setPopularData] = useState([]);
@@ -42,25 +45,44 @@ const MonthlyPopularSection = () => {
   const changeRankRange = (start) => {
     setRankStart(start);
   };
+  // 버튼의 선택 상태를 관리하는 상태 변수
+  const [selectedButton, setSelectedButton] = useState(1);
 
+  // 버튼 클릭 시 선택 상태 변경
+  const handleButtonClick = (buttonNumber) => {
+    setSelectedButton(buttonNumber);
+    setRankStart(buttonNumber);
+  };
   // 각 랭킹 범위에 해당하는 칵테일 정보 필터링
   const filteredData = popularData.filter(
     (item) => item.rank >= rankStart && item.rank <= rankStart + 4
   );
 
   return (
-    <div style={{ backgroundColor: 'pink' }}>
-      <h2>월간 인기</h2>
-      <ul>
-        {filteredData.map((item) => (
-          <li key={item.id}>
-            <Link to={`/cocktails/${item.id}`}>{item.rank}. {item.title}</Link>
-          </li>
-        ))}
-      </ul>
-      <button onClick={() => changeRankRange(1)}>1위부터 5위까지</button>
-      <button onClick={() => changeRankRange(6)}>6위부터 10위까지</button>
-      <button onClick={() => changeRankRange(11)}>11위부터 15위까지</button>
+    <div className="MonthlyPopular-box">
+      <div className="MonthlyPopular-serve">
+        <p id="MonthlyPopular-title">월간 인기</p>
+        <div className="rank-box">
+          <ul id="rank-name">
+            {filteredData.map((item) => (
+              <li key={item.id}>
+                <Link to={`/cocktails/${item.id}`}>{item.rank}. {item.title}</Link>
+              </li>
+            ))}
+          </ul>
+          <div className="rank-button-box">
+            <button className={selectedButton === 1 ? 'selected' : ''} onClick={() => handleButtonClick(1)}>
+              <img src={selectedButton === 1 ? Clicked : UnClicked} alt="Image" />
+            </button>
+            <button className={selectedButton === 6 ? 'selected' : ''} onClick={() => handleButtonClick(6)}>
+              <img src={selectedButton === 6 ? Clicked : UnClicked} alt="Image" />
+            </button>
+            <button className={selectedButton === 11 ? 'selected' : ''} onClick={() => handleButtonClick(11)}>
+              <img src={selectedButton === 11 ? Clicked : UnClicked} alt="Image" />
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

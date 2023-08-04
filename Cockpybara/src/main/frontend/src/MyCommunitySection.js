@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './MyCommunitySection.css';
+import arrowPhoto from "./photo/arrow.png";
+import cockIcon from "./photo/CockIcon.png";
 
 const MyCommunitySection = ({ userId }) => {
   // 상태 초기화: 백엔드에서 받아올 때 사용할 사용자 이름과 사진 URL 상태
@@ -26,7 +29,7 @@ const MyCommunitySection = ({ userId }) => {
 
   // 더미 데이터: 테스트를 위해 하드코딩된 사용자 이름과 사진 URL
   useEffect(() => {
-    setUserName('John Doe'); // 더미 데이터로 사용자 이름 상태 초기화
+    setUserName('올리브가 올라간 카피바라'); // 더미 데이터로 사용자 이름 상태 초기화
     setUserPhoto('Cockpybara/Cockpybara/src/main/frontend/src/photo/capybaraIcon.png'); // 더미 데이터로 사용자 사진 상태 초기화
   }, []);
 
@@ -37,12 +40,22 @@ const MyCommunitySection = ({ userId }) => {
   };
 
   return (
-    <div style={{ backgroundColor: 'skyblue' }}>
-      <h2>MY 커뮤니티</h2>
-      <p>사용자 이름: {userName}</p>
-      {/* 사진을 보여줄 이미지 태그 */}
-      <img src={userPhoto} alt="사용자 사진" style={{ width: '200px', height: '200px' }} />
-      <button onClick={handleMyPageButtonClick}>마이 페이지로 이동</button>
+    <div className="myCommunity-box">
+      <div className="myCommunity-serve-box">
+        <p id="community-title">MY 커뮤니티</p>
+        <div className="myPage-box">
+          {/* 사진을 보여줄 이미지 태그 */}
+          <div className="photo-box">
+            <img src={cockIcon} alt="사용자 사진" />
+          </div>
+          <div className="userName-box">
+            <p id="user-name">{userName}</p>
+          </div>
+          <button id="myPagegoButton" onClick={handleMyPageButtonClick}>
+            <img src={arrowPhoto} alt="화살표 사진" />
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
