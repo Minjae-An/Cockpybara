@@ -2,15 +2,15 @@ import './MainHeader.css';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Menu from './components/Menu';
-import searchImage from "./photo/Search.png";
 import LoginImage from "./photo/capybaraIcon.png";
+import HeaderSearch from './HeaderSearch';
 
 const MainHeader = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [searchValue, setSearchValue] = useState('');
     const [isLoggedIn] = useState(false); // Add isLoggedIn state
     const navigate = useNavigate();
-  
+
     const handleLoginButtonClick = () => {
         if (isLoggedIn) {
             // If logged in, navigate to the user's profile page (My Page)
@@ -43,23 +43,11 @@ const MainHeader = () => {
             navigate(`/recipe?search=${encodeURIComponent(searchValue)}`);
         }
     };
-    
+
     return (
         <header className="header">
             <div className="button-container">
-                <div className="search-container">
-                    <input
-                        type="text"
-                        style={{ fontSize: "20px" }}
-                        value={searchValue}
-                        onChange={handleSearchChange}
-                    />
-                    <img
-                        src={searchImage}
-                        alt="검색"
-                        onClick={handleSearch}
-                    />
-                </div>
+                <HeaderSearch />
                 {/*이미지 수정해야함*/}
                 <img
                     src={LoginImage}

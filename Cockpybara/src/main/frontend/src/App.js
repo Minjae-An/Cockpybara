@@ -64,7 +64,7 @@ function App() {
         <Route path="/recipe/detail/{cocktailId}" element={<RecipeDetail/>} />
         <Route path="/community" element={<Community/>} />
         <Route path="/error" element={<Error/>} />
-        <Route path="/DetailHeader" element={<DetailHeader/>} />
+        <Route path="/DetailHeader" element={<DetailHeader/>} />{/*확인용*/}
       </Routes>
     </div>
   );
