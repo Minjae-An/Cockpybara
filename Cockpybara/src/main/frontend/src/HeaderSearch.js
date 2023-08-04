@@ -5,7 +5,7 @@ import searchImage from "./photo/Search.png";
 
 const HeaderSearch = () => {
     const [searchValue, setSearchValue] = useState('');
-    const [isLoggedIn] = useState(false); // Add isLoggedIn state
+    const [isLoggedIn] = useState(false); 
     const navigate = useNavigate();
 
     const handleSearchChange = (e) => {
@@ -13,16 +13,13 @@ const HeaderSearch = () => {
     };
 
     const handleSearch = () => {
-        // 현재 경로를 확인하여 /recipe 페이지인지 검사합니다.
         const currentPath = window.location.pathname;
         if (currentPath === '/recipe') {
-            // /recipe 페이지일 경우, URL 파라미터로 칵테일 검색 쿼리를 넘겨줍니다.
             const queryParams = new URLSearchParams(window.location.search);
             const searchQuery = queryParams.get('search');
             if (searchQuery && searchQuery !== searchValue) {
                 navigate(`/recipe?search=${encodeURIComponent(searchValue)}`);
             } else {
-                // 현재 검색 쿼리와 이전 검색 쿼리가 같으면 검색 쿼리를 리셋합니다.
                 setSearchValue('');
             }
         } else {

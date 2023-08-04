@@ -8,8 +8,8 @@ import './MainHeader.css';
 function DetailHeader() {
 
   return (
-    <header className="header">
-      <div className="button-container">
+    <header className="header-detail">
+      <div className="button-container-detail">
         <NewNavBar /> {/*햄버거 모양*/}
         <NewMenu /> {/*메뉴 4개*/}
         <HeaderSearch /> {/*검색 부분*/}

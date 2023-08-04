@@ -1,4 +1,4 @@
-.header {
+.header-detail{
     position: fixed;
     top: 0;
     left: 0;
@@ -9,7 +9,7 @@
     background-color: skyblue; /*임시 영역 표시*/
 }
 
-.button-container {
+.button-container-detail{
     display: flex;
     justify-content: flex-end;
     top: 0;
@@ -17,7 +17,7 @@
     padding: 10px;
 }
 
-.search-container input{
+.header-detail .search-container input{
     box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(2px);
 }
