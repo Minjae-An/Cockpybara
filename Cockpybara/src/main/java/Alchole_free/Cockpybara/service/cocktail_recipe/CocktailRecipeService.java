@@ -5,6 +5,7 @@ import Alchole_free.Cockpybara.domain.cocktail_recipe.Category;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.Glass;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.taste.Taste;
+import Alchole_free.Cockpybara.domain.cocktail_recipe.timePeriod.TimePeriod;
 import Alchole_free.Cockpybara.domain.member.Member;
 import Alchole_free.Cockpybara.domain.member.my_recipe.MyRecipe;
 import Alchole_free.Cockpybara.repository.cocktail_recipe.CocktailRecipeRepository;
@@ -13,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -61,5 +63,22 @@ public class CocktailRecipeService {
                 glass, instruction, tastes);
 
         return cocktailRecipe;
+    }
+
+   // 주간, 월간, 전체기간 칵테일레시피 조회
+    public List<CocktailRecipe> getCocktailRecipesByPeriod(TimePeriod timePeriod){
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime startDateTime;
+
+        switch (timePeriod){
+            case WEEKLY:
+                startDateTime = now.minusWeeks(1);
+                return cocktailRecipeRepository.findByCocktailRecipeCreatedAtBetweenOrderByCreatedAtDesc(startDateTime, now);
+            case MONTHLY:
+                startDateTime = now.minusMonths(1);
+                return cocktailRecipeRepository.findByCocktailRecipeCreatedAtBetweenOrderByCreatedAtDesc(startDateTime, now);
+            default:  //ALL은 여기포함
+                return cocktailRecipeRepository.findAllByCocktailRecipeOrderByCreatedAtDesc();
+        }
     }
 }

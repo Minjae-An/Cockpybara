@@ -32,7 +32,7 @@ public class ReviewController {
 
     @DeleteMapping("{reviewId}")
     public ResponseEntity<String> deleteReview(@PathVariable Long recipeId, @PathVariable Long reviewId) {
-        deleteReview(recipeId, reviewId);
+        reviewService.deleteReview(recipeId, reviewId);
 
         return ResponseEntity.accepted().body("successfully delete review");
     }
