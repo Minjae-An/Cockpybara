@@ -21,4 +21,3 @@ function DetailHeader() {
 export default DetailHeader;
 
 
-
