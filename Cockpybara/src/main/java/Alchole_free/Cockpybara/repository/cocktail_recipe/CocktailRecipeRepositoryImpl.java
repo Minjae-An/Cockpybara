@@ -1,21 +1,22 @@
 package Alchole_free.Cockpybara.repository.cocktail_recipe;
 
-import Alchole_free.Cockpybara.domain.cocktail_recipe.*;
-import Alchole_free.Cockpybara.domain.cocktail_recipe.taste.QRecipeTaste;
-import Alchole_free.Cockpybara.domain.cocktail_recipe.taste.RecipeTaste;
+import Alchole_free.Cockpybara.domain.cocktail_recipe.AlcoholicType;
+import Alchole_free.Cockpybara.domain.cocktail_recipe.Category;
+import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
+import Alchole_free.Cockpybara.domain.cocktail_recipe.Glass;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.taste.Taste;
+import Alchole_free.Cockpybara.domain.ingredient.IngredientCategory;
 import Alchole_free.Cockpybara.repository.cocktail_recipe.condition.CocktailRecipeSearchCondition;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
-import java.util.Optional;
 
-import static Alchole_free.Cockpybara.domain.cocktail_recipe.QCocktailRecipe.*;
-import static Alchole_free.Cockpybara.domain.cocktail_recipe.taste.QRecipeTaste.*;
-import static org.springframework.util.StringUtils.*;
+import static Alchole_free.Cockpybara.domain.cocktail_recipe.QCocktailRecipe.cocktailRecipe;
+import static Alchole_free.Cockpybara.domain.cocktail_recipe.taste.QRecipeTaste.recipeTaste;
+import static Alchole_free.Cockpybara.domain.ingredient.QRecipeIngredient.recipeIngredient;
+import static org.springframework.util.StringUtils.hasText;
 
 @RequiredArgsConstructor
 public class CocktailRecipeRepositoryImpl implements CocktailRepositoryCustom {
@@ -23,39 +24,46 @@ public class CocktailRecipeRepositoryImpl implements CocktailRepositoryCustom {
 
     @Override
     public List<CocktailRecipe> search(CocktailRecipeSearchCondition searchCondition) {
+
+
         return queryFactory
                 .selectFrom(cocktailRecipe)
-                .leftJoin(cocktailRecipe.tastes, recipeTaste)
-                .where(nameLike(searchCondition.getName()),
-                        alcoholicTypeEq(searchCondition.getAlcoholicType()),
-                        categoryEq(searchCondition.getCategory()),
-                        glassEq(searchCondition.getGlass()),
-                        tasteEq(searchCondition.getRecipeTaste()),
-                        isMemberRecipe(searchCondition.getIsMemberRecipe()))
-                .fetch();
+                .join(cocktailRecipe.tastes, recipeTaste).fetchJoin()
+                .leftJoin(cocktailRecipe.ingredients, recipeIngredient).fetchJoin()
+                .leftJoin(recipeIngredient.ingredient).fetchJoin()
+                .where(
+                        nameLike(searchCondition.getName()),
+                        alcoholicTypeIn(searchCondition.getAlcoholicTypes()),
+                        categoryIn(searchCondition.getCategories()),
+                        glassIn(searchCondition.getGlasses()),
+                        recipeTasteIn(searchCondition.getTastes()),
+                        ingredientCategoryIn(searchCondition.getIngredientCategories())
+                ).fetch();
     }
 
     private BooleanExpression nameLike(String name) {
         return hasText(name) ? cocktailRecipe.name.contains(name) : null;
     }
 
-    private BooleanExpression alcoholicTypeEq(AlcoholicType alcoholicType) {
-        return Optional.of(alcoholicType).isEmpty() ? null : cocktailRecipe.alcoholicType.eq(alcoholicType);
+    private BooleanExpression alcoholicTypeIn(List<AlcoholicType> alcoholicTypes) {
+        return cocktailRecipe.alcoholicType.in(alcoholicTypes);
     }
 
-    private BooleanExpression categoryEq(Category category) {
-        return Optional.of(category).isEmpty() ? null : cocktailRecipe.category.eq(category);
+    private BooleanExpression categoryIn(List<Category> categories) {
+        return cocktailRecipe.category.in(categories);
     }
 
-    private BooleanExpression glassEq(Glass glass) {
-        return Optional.of(glass).isEmpty() ? null : cocktailRecipe.glass.eq(glass);
+    private BooleanExpression glassIn(List<Glass> glasses) {
+        return cocktailRecipe.glass.in(glasses);
     }
 
-    private BooleanExpression tasteEq(RecipeTaste taste) {
-        return Optional.of(taste).isEmpty() ? null : recipeTaste.eq(taste);
+    private BooleanExpression recipeTasteIn(List<Taste> tastes) {
+        return recipeTaste.taste.in(tastes);
     }
 
-    private BooleanExpression isMemberRecipe(Boolean isMemberRecipe) {
-        return isMemberRecipe ? cocktailRecipe.isMemberRecipe.eq(true) : null;
+    private BooleanExpression ingredientCategoryIn(List<IngredientCategory> ingredientCategories) {
+        return recipeIngredient.ingredient.ingredientCategory.in(ingredientCategories);
     }
+
+
 }
