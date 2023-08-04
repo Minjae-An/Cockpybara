@@ -5,7 +5,7 @@ import Alchole_free.Cockpybara.domain.member.Member;
 import Alchole_free.Cockpybara.service.member.MemberService;
 import Alchole_free.Cockpybara.service.cocktail_recipe.CocktailRecipeService;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
-import Alchole_free.Cockpybara.domain.cocktail_recipe.timePeriod.TimePeriod;
+import Alchole_free.Cockpybara.domain.cocktail_recipe.time_period.TimePeriod;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
