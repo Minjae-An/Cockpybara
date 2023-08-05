@@ -27,12 +27,12 @@ import java.util.stream.Collectors;
 
 @SpringBootTest
 @Transactional
-public class CsvToObjectMapping {
+public class CsvToCocktailRecipeMapping {
     @Autowired
     private CocktailRecipeRepository repository;
 
     private final String path="C:\\Cockpybara\\Cockpybara\\src" +
-            "\\test\\java\\Alchole_free\\Cockpybara\\all_drinks.csv";
+            "\\main\\resources\\all_drinks.csv";
 
     @Test
 //    @Rollback(value = false) 데이터 저장 필요시 이 구절 주석 해제
