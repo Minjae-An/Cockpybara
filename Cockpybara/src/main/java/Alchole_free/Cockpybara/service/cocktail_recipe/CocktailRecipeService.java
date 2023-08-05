@@ -73,12 +73,12 @@ public class CocktailRecipeService {
         switch (timePeriod){
             case WEEKLY:
                 startDateTime = now.minusWeeks(1);
-                return cocktailRecipeRepository.findByCocktailRecipeCreatedAtBetweenOrderByCreatedAtDesc(startDateTime, now);
+                return cocktailRecipeRepository.findCocktailRecipeByCreatedAtBetweenOrderByCreatedAtDesc(startDateTime, now);
             case MONTHLY:
                 startDateTime = now.minusMonths(1);
-                return cocktailRecipeRepository.findByCocktailRecipeCreatedAtBetweenOrderByCreatedAtDesc(startDateTime, now);
+                return cocktailRecipeRepository.findCocktailRecipeByCreatedAtBetweenOrderByCreatedAtDesc(startDateTime, now);
             default:  //ALL은 여기포함
-                return cocktailRecipeRepository.findAllByCocktailRecipeOrderByCreatedAtDesc();
+                return cocktailRecipeRepository.findCocktailRecipeByOrderByCreatedAtDesc();
         }
     }
 }
