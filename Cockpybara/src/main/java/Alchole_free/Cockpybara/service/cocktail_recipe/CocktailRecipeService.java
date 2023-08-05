@@ -5,7 +5,7 @@ import Alchole_free.Cockpybara.domain.cocktail_recipe.Category;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.Glass;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.taste.Taste;
-import Alchole_free.Cockpybara.domain.cocktail_recipe.timePeriod.TimePeriod;
+import Alchole_free.Cockpybara.domain.cocktail_recipe.timeperiod.TimePeriod;
 import Alchole_free.Cockpybara.domain.member.Member;
 import Alchole_free.Cockpybara.domain.member.my_recipe.MyRecipe;
 import Alchole_free.Cockpybara.repository.CocktailRecipeRepository;
@@ -73,12 +73,12 @@ public class CocktailRecipeService {
         switch (timePeriod){
             case WEEKLY:
                 startDateTime = now.minusWeeks(1);
-                return cocktailRecipeRepository.findByCocktailRecipeCreatedAtBetweenOrderByCreatedAtDesc(startDateTime, now);
+                return cocktailRecipeRepository.findCocktailRecipeByCreatedAtBetweenOrderByCreatedAtDesc(startDateTime, now);
             case MONTHLY:
                 startDateTime = now.minusMonths(1);
-                return cocktailRecipeRepository.findByCocktailRecipeCreatedAtBetweenOrderByCreatedAtDesc(startDateTime, now);
+                return cocktailRecipeRepository.findCocktailRecipeByCreatedAtBetweenOrderByCreatedAtDesc(startDateTime, now);
             default:  //ALL은 여기포함
-                return cocktailRecipeRepository.findAllByCocktailRecipeOrderByCreatedAtDesc();
+                return cocktailRecipeRepository.findCocktailRecipeByOrderByCreatedAtDesc();
         }
     }
 }

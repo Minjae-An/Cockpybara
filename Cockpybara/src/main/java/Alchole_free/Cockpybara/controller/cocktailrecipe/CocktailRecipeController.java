@@ -7,13 +7,11 @@ import Alchole_free.Cockpybara.domain.cocktail_recipe.AlcoholicType;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.Category;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.Glass;
-import Alchole_free.Cockpybara.domain.cocktail_recipe.timePeriod.TimePeriod;
+import Alchole_free.Cockpybara.domain.cocktail_recipe.timeperiod.TimePeriod;
 import Alchole_free.Cockpybara.domain.ingredient.IngredientCategory;
-import Alchole_free.Cockpybara.domain.ingredient.Unit;
 import Alchole_free.Cockpybara.service.cocktail_recipe.CocktailRecipeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
