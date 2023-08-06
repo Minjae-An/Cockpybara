@@ -1,7 +1,7 @@
 package Alchole_free.Cockpybara.controller.member.join;
 
 
-import Alchole_free.Cockpybara.domain.Gender;
+import Alchole_free.Cockpybara.domain.member.Gender;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AccessLevel;
 import lombok.Data;
