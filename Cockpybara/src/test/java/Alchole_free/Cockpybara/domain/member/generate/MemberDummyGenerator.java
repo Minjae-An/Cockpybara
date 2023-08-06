@@ -1,5 +1,7 @@
 package Alchole_free.Cockpybara.domain.member.generate;
 
+import Alchole_free.Cockpybara.controller.member.join.JoinRequest;
+import Alchole_free.Cockpybara.controller.member.util.HashingUtil;
 import Alchole_free.Cockpybara.domain.member.Member;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,7 +19,11 @@ public abstract class MemberDummyGenerator {
         try {
             File file = new File(path);
             ObjectMapper objectMapper = new ObjectMapper();
-            List<Member> memberList = Arrays.stream(objectMapper.readValue(file, Member[].class)).collect(Collectors.toList());
+            List<JoinRequest> joinRequests = Arrays.stream(objectMapper.readValue(file, JoinRequest[].class)).collect(Collectors.toList());
+
+            List<Member> memberList = joinRequests.stream().map(joinRequest -> new Member(joinRequest.getEmail(), HashingUtil.hashValue(joinRequest.getPassword()),
+                            joinRequest.getAlias(), joinRequest.getPhoneNumber(), joinRequest.getGender(), joinRequest.getBirth()))
+                    .collect(Collectors.toList());
 
             return memberList;
         } catch (JsonProcessingException e) {
