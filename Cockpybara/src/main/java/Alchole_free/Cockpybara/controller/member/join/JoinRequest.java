@@ -1,8 +1,7 @@
 package Alchole_free.Cockpybara.controller.member.join;
 
 
-import Alchole_free.Cockpybara.constant.RegexConstant;
-import Alchole_free.Cockpybara.domain.Gender;
+import Alchole_free.Cockpybara.domain.member.Gender;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -12,7 +11,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import java.sql.Date;
 
 import static Alchole_free.Cockpybara.constant.RegexConstant.*;
