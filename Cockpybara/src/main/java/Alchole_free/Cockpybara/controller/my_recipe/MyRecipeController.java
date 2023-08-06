@@ -23,7 +23,7 @@ import java.util.List;
 public class MyRecipeController {
     private final CocktailRecipeService cocktailRecipeService;
 
-    @GetMapping
+    @GetMapping("/filter-values")
     public ResponseEntity<RecipeOptionsResponse> getRecipeOptionValues() {
         RecipeOptionsResponse recipeOptionsResponse = new RecipeOptionsResponse(
                 Glass.values(),
