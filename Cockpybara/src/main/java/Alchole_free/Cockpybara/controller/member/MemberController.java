@@ -4,7 +4,6 @@ import Alchole_free.Cockpybara.controller.member.detail.DetailRequest;
 import Alchole_free.Cockpybara.controller.member.join.JoinRequest;
 import Alchole_free.Cockpybara.controller.member.join.JoinResponse;
 import Alchole_free.Cockpybara.controller.member.update.MemberInfoUpdateRequest;
-import Alchole_free.Cockpybara.controller.member.update.MemberInfoUpdateResponse;
 import Alchole_free.Cockpybara.controller.member.util.HashingUtil;
 import Alchole_free.Cockpybara.domain.member.Gender;
 
@@ -12,6 +11,7 @@ import Alchole_free.Cockpybara.domain.member.Member;
 import Alchole_free.Cockpybara.service.member.MemberService;
 
 import Alchole_free.Cockpybara.service.member.member_detail.MemberDetailDTO;
+import Alchole_free.Cockpybara.service.member.member_update.MemberUpdateDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -56,14 +56,15 @@ public class MemberController {
     }
 
     @PutMapping("/user/{userId}/my-page")
-    public ResponseEntity<MemberInfoUpdateResponse> updateMemberInfo(@Valid @RequestBody MemberInfoUpdateRequest updateRequest,
-                                                                     @PathVariable("userId") Long userId) {
+    public ResponseEntity<MemberUpdateDTO> updateMemberInfo(@Valid @RequestBody MemberInfoUpdateRequest updateRequest,
+                                                            @PathVariable("userId") Long userId) {
         String alias = updateRequest.getAlias();
         String phoneNumber = updateRequest.getPhoneNumber();
 
-        Member member = memberService.updateMemberInfo(userId, alias, phoneNumber);
+        MemberUpdateDTO memberUpdateDTO
+                = memberService.updateMemberInfo(userId, alias, phoneNumber);
 
         return ResponseEntity.ok()
-                .body(new MemberInfoUpdateResponse(member));
+                .body(memberUpdateDTO);
     }
 }
