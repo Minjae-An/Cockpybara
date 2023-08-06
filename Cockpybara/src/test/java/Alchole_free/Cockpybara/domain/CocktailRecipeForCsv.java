@@ -58,7 +58,8 @@ public class CocktailRecipeForCsv {
                 cocktailRecipeForCsv.getDrinkImgPath(),
                 glass,
                 cocktailRecipeForCsv.getInstruction(),
-                cocktailRecipeForCsv.getIsMemberRecipe()
+                cocktailRecipeForCsv.getIsMemberRecipe(),
+                LocalDateTime.now()
         );
     }
 }
