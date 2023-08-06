@@ -1,6 +1,5 @@
 package Alchole_free.Cockpybara.domain.member;
 
-import Alchole_free.Cockpybara.domain.Gender;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
 import Alchole_free.Cockpybara.domain.member.likes.Like;
 import Alchole_free.Cockpybara.domain.member.my_recipe.MyRecipe;
