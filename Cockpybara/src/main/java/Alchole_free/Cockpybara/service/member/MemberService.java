@@ -2,6 +2,7 @@ package Alchole_free.Cockpybara.service.member;
 
 import Alchole_free.Cockpybara.domain.member.Member;
 import Alchole_free.Cockpybara.repository.MemberRepository;
+import Alchole_free.Cockpybara.service.member.member_detail.MemberDetailDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -80,6 +81,15 @@ public class MemberService {
         member.updateMember(alias, phoneNumber);
         return member;
     }
+
+    public MemberDetailDTO getMemberDetails(String email){
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalStateException("해당 회원이 존재하지 않습니다."));
+
+        MemberDetailDTO memberDetailDTO = new MemberDetailDTO().from(member);
+        return memberDetailDTO;
+    }
+
 
     private void validateDuplicationMember(Member member) {
         String email = member.getEmail();
