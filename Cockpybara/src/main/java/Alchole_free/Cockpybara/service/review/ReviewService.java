@@ -3,7 +3,7 @@ package Alchole_free.Cockpybara.service.review;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.review.Review;
 import Alchole_free.Cockpybara.domain.member.Member;
-import Alchole_free.Cockpybara.repository.CocktailRecipeRepository;
+import Alchole_free.Cockpybara.repository.cocktail_recipe.CocktailRecipeRepository;
 import Alchole_free.Cockpybara.repository.MemberRepository;
 import Alchole_free.Cockpybara.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
