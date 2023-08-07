@@ -26,7 +26,7 @@ public class QMember extends EntityPathBase<Member> {
 
     public final StringPath email = createString("email");
 
-    public final EnumPath<Alchole_free.Cockpybara.domain.Gender> gender = createEnum("gender", Alchole_free.Cockpybara.domain.Gender.class);
+    public final EnumPath<Gender> gender = createEnum("gender", Gender.class);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
