@@ -1,0 +1,144 @@
+
+/* CSS for the main content section */
+.pwFinder-container {
+    box-sizing: border-box;
+    background: #ffffff;
+    width: 100%;
+    padding: 20px;
+    position: relative;
+    overflow-y: auto;
+    display: flex; /* Add flex display */
+    flex-direction: column; /* Arrange items vertically */
+    align-items: center; /* Center align items horizontally */
+    font-family: "Pretendard";
+  }
+  
+  .pwFinder-title {
+    color: #000000;
+    text-align: center;
+    font: 400 38px "PollerOne", sans-serif;
+    margin-bottom: 30px;
+  }
+  
+  /* Additional CSS for elements in the main content section */
+  .email {
+    color: #000000;
+    text-align: center;
+    font: 600 20px "Pretendard", sans-serif;
+    position: relative;
+    margin-bottom: 30px;
+  }
+
+  .pwUpdateMessage {
+    margin-bottom : 15px;
+  }
+
+  /* CSS for when the user is found */
+  .passwordUpdateSuccess,
+  .foundUser {
+    text-align: center;
+    font: 400 13px "Pretendard", sans-serif;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    color: green;
+  }
+  
+  /* CSS for when the user is not found */
+  .passwordUpdateFailed,
+  .notFoundUser {
+    color: #ff0000;
+    text-align: center;
+    font: 400 13px "Pretendard", sans-serif;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .pwFinder-emailField,
+  .pwFinder-nicknameField,
+  .pwFinder-telnumField,
+  .pwFinder-newPassword,
+  .pwFinedr-confirmNewPassword {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+    font-family: "Pretendard";
+  }
+
+  .input-field-email,
+  .input-field-nickname,
+  .input-field-telPhone,
+  .input-field-newPassword,
+  .input-field-confirmNewPassword {
+    font-family: "Pretendard";
+    width: 423px;
+    height: 49px;
+    border-radius: 5px;
+    border: 1px solid #8C8C8C;
+    color: #8C8C8C;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 18px;
+    padding-left: 16px;
+  }
+  
+  /* Other styles for the elements */
+  
+  .FindPwButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 445px;
+    height: 49px;
+    background: #000000;
+    border-radius: 5px;
+    color: #ffffff;
+    text-align: center;
+    font: 600 15px "Pretendard", sans-serif;
+    margin-bottom: 18px;
+  }
+  
+  .login-maintain {
+    font-size: 14px;
+    color: red;
+    text-align: center;
+    font-family: "Pretendard";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .pwFinder-error {
+    color: #ff0000;
+    text-align: center;
+    font: 400 13px "Pretendard", sans-serif;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .thinkPw {
+    color: #8c8c8c;
+    text-align: left;
+    font: 500 12px "Pretendard", sans-serif;
+  }
+  
+  .thinkPw button {
+    color: #2070ad;
+    text-align: left;
+    font: 500 12px "Pretendard", sans-serif;
+    text-decoration: underline;
+    border: none;
+    background-color: #ffffff;
+  }
+  
+  .pwFinder-result {
+    margin-bottom: 30px;
+  }
