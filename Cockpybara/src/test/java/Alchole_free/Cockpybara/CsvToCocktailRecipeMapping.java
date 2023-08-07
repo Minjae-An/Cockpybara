@@ -5,7 +5,7 @@ import Alchole_free.Cockpybara.domain.Category;
 import Alchole_free.Cockpybara.domain.CocktailRecipeForCsv;
 import Alchole_free.Cockpybara.domain.Glass;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
-import Alchole_free.Cockpybara.repository.CocktailRecipeRepository;
+import Alchole_free.Cockpybara.repository.cocktail_recipe.CocktailRecipeRepository;
 import com.opencsv.CSVReader;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
