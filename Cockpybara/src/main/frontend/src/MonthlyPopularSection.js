@@ -4,6 +4,7 @@ import './MonthlyPopularSection.css';
 import Clicked from "./photo/Clicked.png";
 import UnClicked from "./photo/UnClicked.png";
 import arrow from "./photo/arrow.png";
+import image1 from "./photo/image1.png";
 
 const MonthlyPopularSection = () => {
   const [popularData, setPopularData] = useState([]);
@@ -60,7 +61,11 @@ const MonthlyPopularSection = () => {
             <div className="rank-box">
               <Link to={`/cocktails/${item.rank}`}>
                 <div className="item-container">
-                  <span className="cocktail-title">{rankToDisplay(item.rank)} {item.title}</span>
+                  <div className="rank-image-and-title">
+                    <span className="rank">{rankToDisplay(item.rank)}</span>
+                    <img className="middle-image" src={image1} alt="이미지" />
+                    <span className="cocktail-title">{item.title}</span>
+                  </div>
                   <img className="arrow-image" src={arrow} alt="상세 보기" />
                 </div>
               </Link>
