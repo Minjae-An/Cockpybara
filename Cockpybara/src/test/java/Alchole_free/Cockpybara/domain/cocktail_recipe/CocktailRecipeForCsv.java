@@ -1,7 +1,6 @@
-package Alchole_free.Cockpybara.domain;
+package Alchole_free.Cockpybara.domain.cocktail_recipe;
 
 
-import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
 import lombok.Data;
 
 import java.time.LocalDateTime;

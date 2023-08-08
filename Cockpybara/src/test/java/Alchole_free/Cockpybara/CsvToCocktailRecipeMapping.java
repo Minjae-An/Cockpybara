@@ -1,9 +1,9 @@
 package Alchole_free.Cockpybara;
 
-import Alchole_free.Cockpybara.domain.AlcoholicType;
-import Alchole_free.Cockpybara.domain.Category;
-import Alchole_free.Cockpybara.domain.CocktailRecipeForCsv;
-import Alchole_free.Cockpybara.domain.Glass;
+import Alchole_free.Cockpybara.domain.cocktail_recipe.AlcoholicType;
+import Alchole_free.Cockpybara.domain.cocktail_recipe.Category;
+import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipeForCsv;
+import Alchole_free.Cockpybara.domain.cocktail_recipe.Glass;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
 import Alchole_free.Cockpybara.repository.cocktail_recipe.CocktailRecipeRepository;
 import com.opencsv.CSVReader;
@@ -13,7 +13,6 @@ import com.opencsv.exceptions.CsvValidationException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.FileReader;
