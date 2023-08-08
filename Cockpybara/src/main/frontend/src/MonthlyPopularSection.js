@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import './MonthlyPopularSection.css'
 import Clicked from "./photo/Clicked.png";
 import UnClicked from "./photo/UnClicked.png";
+import arrow from "./photo/arrow.png";
+
 
 const MonthlyPopularSection = () => {
   const [popularData, setPopularData] = useState([]);
@@ -28,6 +30,8 @@ const MonthlyPopularSection = () => {
       { id: 15, title: 'Moscow Mule', rank: 15 },
     ];
     setPopularData(dummyData);
+
+ 
 
     // 5초마다 더미 데이터를 업데이트하는 시뮬레이션
     const intervalId = setInterval(() => {
@@ -58,6 +62,7 @@ const MonthlyPopularSection = () => {
     (item) => item.rank >= rankStart && item.rank <= rankStart + 4
   );
 
+
   return (
     <div className="MonthlyPopular-box">
       <div className="MonthlyPopular-serve">
@@ -66,7 +71,15 @@ const MonthlyPopularSection = () => {
           <ul id="rank-name">
             {filteredData.map((item) => (
               <li key={item.id}>
-                <Link to={`/cocktails/${item.id}`}>{item.rank}. {item.title}</Link>
+                <div className="rank-box">
+                  <Link to={`/cocktails/${item.id}`}>
+                    <div className="item-container">
+                      <span className="cocktail-title">{item.rank}. {item.title}</span>
+                      <img className="arrow-image" src={arrow} alt="상세 보기" />
+                      
+                    </div>
+                  </Link>
+                </div>
               </li>
             ))}
           </ul>

@@ -67,3 +67,25 @@
     border: none;
     background-color: transparent;
 }
+
+.arrow-image {
+    width: 17px;
+    height: 29px;
+    flex-shrink: 0;
+    margin-right: 23px;
+
+    background-color: aqua;
+}
+
+.item-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;    /* 아이템들을 컨테이너 양 끝에 정렬 */
+    width: 100%;
+
+    background-color: pink;
+}
+
+.cocktail-title {
+    background-color: orange;
+}
