@@ -1,6 +1,7 @@
 // CocktailListSection.js
 import React, { useState, useEffect } from 'react';
 import './CocktailListSection.css';
+import pinkTea from "./photo/pinkTea.png";
 
 const CocktailListSection = () => {
   const [cocktailList, setCocktailList] = useState([]);
@@ -92,18 +93,30 @@ const CocktailListSection = () => {
         </div>
       </div>
       <div className="cockList-contents">
-        <h2>칵테일 나열</h2>
         <ul>
           {filterCocktails().map((cocktail) => (
             <li key={cocktail.id}>
-              <h3>{cocktail.name}</h3>
-              <p>{cocktail.description}</p>
-              <p>Taste: {cocktail.taste}</p>
-              <p>Recommended: {cocktail.recommended ? 'Yes' : 'No'}</p>
-              {/* 추천 유무에 따른 버튼 표시 */}
-              <button onClick={() => toggleRecommendation(cocktail.id)}>
-                {cocktail.recommended ? '추천 취소' : '추천하기'}
-              </button>
+              <div className="cockList-contents-text">
+                <h3>{cocktail.name}</h3>
+                <p>{cocktail.description}</p>
+                <p>Taste: {cocktail.taste}</p>
+                <p>Recommended: {cocktail.recommended ? 'Yes' : 'No'}</p>
+                {/* 추천 유무에 따른 버튼 표시 */}
+                <button onClick={() => toggleRecommendation(cocktail.id)}>
+                  {cocktail.recommended ? '추천 취소' : '추천하기'}
+                </button>
+              </div>
+              <div className="cockList-contents-image">
+                {/* 이미지를 백엔드에서 가져올 때의 코드 */}
+                {/* <img
+            src={cocktail.imageUrl} // 백엔드에서 이미지 URL을 가져옴
+            alt={cocktail.name}
+          /> */}
+                <img
+                  src={pinkTea}
+                  alt="pinkTea"
+                />
+              </div>
             </li>
           ))}
         </ul>

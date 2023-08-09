@@ -52,3 +52,28 @@
     border-radius: 40px;
     background: #E9F5FF;
 }
+
+.cockList-contents li {
+    margin-left: 63px;
+    margin-right: 77px;
+    margin-top: 41px;
+    border-bottom: 1px solid #8C8C8C;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+    background-color: lightpink;
+}
+
+
+.cockList-contents-text {
+    background-color: khaki;
+}
+
+.cockList-contents-image {
+    margin-left: 175px;
+    width: 227px;
+    height: 227px;
+    flex-shrink: 0;
+}
