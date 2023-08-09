@@ -1,0 +1,36 @@
+.footer {
+    background-color: black;
+    width: 1920px;
+    height: 200px;
+}
+
+.footer-contents {
+    display: flex;
+    justify-content: space-between;
+    /* 가로로 정렬하고 간격을 공간을 균등하게 배치 */
+    align-items: center;
+    /* 세로 중앙 정렬 */
+    width: 100%;
+    /* 최대 너비 설정 */
+    margin: 0 auto;
+    /* 가운데 정렬을 위해 margin 사용 */
+    gap: 642px; /* 요소 사이의 간격 설정 */
+}
+
+.footer-contents #footer-title {
+    color: #FFF;
+    font-family: Poller One;
+    font-size: 38px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.footer-contents #footer-address {
+    color: #FFF;
+    font-family: Pretendard;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
