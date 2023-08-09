@@ -1,10 +1,6 @@
-// Menu.js
-import React from 'react';
-import { Link, Routes, Route } from 'react-router-dom';
-import './Menu.css';
-import menuIcon from '../photo/MenuBar.png'; 
+import React, { useState } from 'react';
 
-const Menu = ({ isMenuOpen, setIsMenuOpen, menuClassName }) => { // 여기에 menuClassName 추가
+const Menu = ({ isMenuOpen, setIsMenuOpen }) => {
   const handleMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -13,26 +9,31 @@ const Menu = ({ isMenuOpen, setIsMenuOpen, menuClassName }) => { // 여기에 me
     <div className="menu-container">
       <div className={`collapse${isMenuOpen ? ' show' : ''}`} id="navbarToggleExternalContent">
         {isMenuOpen && (
-          <ul className={`menu-list ${menuClassName}`}> {/* 여기에 menuClassName 사용 */}
-            <li className='about'><Link to="/about">About</Link></li>
-            <li className='recipe'><Link to="/recipe">Recipe</Link></li>
-            <li className='community'><Link to="/community/{userId}">Community</Link></li>
-            <li className='login'><Link to="/login">Login</Link></li>
-            <li className='join'><Link to="/join">Join</Link></li>
-          </ul>
+          <div className="bg-dark p-4">
+            <h5 className="text-white h4">Collapsed content</h5>
+            <span className="text-muted">Toggleable via the navbar brand.</span>
+            <ul className="menu-list">
+              <li><a href="/page1">Page 1</a></li>
+              <li><a href="/page2">Page 2</a></li>
+              <li><a href="/page3">Page 3</a></li>
+            </ul>
+          </div>
         )}
       </div>
-
-      <div className="container-fluid">
-        <img
-          src={menuIcon} 
-          alt="Menu Toggle"
-          onClick={handleMenuToggle}
-          aria-controls="navbarToggleExternalContent"
-          aria-expanded={isMenuOpen}
-          className="menu-icon"
-        />
-      </div>
+      <nav className="navbar navbar-dark bg-dark">
+        <div className="container-fluid">
+          <button
+            className="navbar-toggler"
+            type="button"
+            onClick={handleMenuToggle}
+            aria-controls="navbarToggleExternalContent"
+            aria-expanded={isMenuOpen}
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+        </div>
+      </nav>
     </div>
   );
 };
