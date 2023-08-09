@@ -1,0 +1,54 @@
+.cockList-box {
+    width: 909px;
+    height: 1720px;
+    flex-shrink: 0;
+    border-radius: 20px;
+    border: 2px solid #D1D1D1;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.selectList-box {
+    height: 132px;
+}
+
+.selectList-contents {
+    padding-top: 38px;
+    margin-bottom: 36px;
+    margin-left: 38px;
+}
+
+.selectList-box::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: #8C8C8C;
+    margin-top: 10px;
+}
+
+.selectList-contents button {
+    width: 169px;
+    height: 58px;
+    flex-shrink: 0;
+    border-radius: 40px;
+    border: 0.5px solid #000;
+    background: #FFF;
+    color: #000;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-right: 20px;
+}
+
+.cockList-contents {
+    background-color: lemonchiffon
+}
+
+button.selected {
+    border: 0.5px solid #E9F5FF;
+    border-radius: 40px;
+    background: #E9F5FF;
+}
