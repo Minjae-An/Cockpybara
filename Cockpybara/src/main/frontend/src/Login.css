@@ -1,0 +1,166 @@
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .input-field-id {
+    width: 423px;
+    height: 49px;
+    flex-shrink: 0;
+    border-radius: 5px;
+    border: 1px solid #8C8C8C;
+    color: #8C8C8C;
+    font-size: 15px;
+    font-family: Pretendard;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 18px;
+  }
+  
+  .input-field-pw {
+    width: 423px;
+    height: 49px;
+    flex-shrink: 0;
+    border-radius: 5px;
+    border: 1px solid #8C8C8C;
+    color: #8C8C8C;
+    font-size: 15px;
+    font-family: Pretendard;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+  
+  .login-field {
+    width: 440px;
+    height: 49px;
+    flex-shrink: 0;
+    border-radius: 5px;
+    background: #000;
+    color: #FFF;
+    text-align: center;
+    font-size: 15px;
+    font-family: Pretendard;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-bottom: 9px;
+  }
+  
+  .login-container input {
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .login-container h2 {
+    color: #000;
+    text-align: center;
+    font-size: 38px;
+    font-family: Poller One;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: 166px;
+    margin-bottom: 53px;
+  }
+  
+  .login-maintain {
+    color: #000;
+    font-size: 12px;
+    font-family: Pretendard;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    display: flex;
+    align-items: center;
+  }
+  
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .form-title {
+    margin-bottom: 53px;
+    /* h2 태그 아래 간격 조정 */
+  }
+  
+  #remember-check {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    border-radius: 2px;
+    border: 1px solid #8C8C8C;
+  }
+  
+  #remember-check span {
+    color: #000;
+    font-size: 12px;
+    font-family: Pretendard;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+  
+  
+  .login-maintain input[type="checkbox"] {
+    margin-right: 8px;
+    /* 체크박스와 텍스트 간격을 위한 마진 */
+  }
+  
+  .question {
+    display: flex;
+    align-items: center;
+    margin-top: 126px;
+    color: #8C8C8C;
+    font-size: 12px;
+    font-family: Pretendard;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 84px;
+  }
+  
+  .question button {
+    color: #2070AD;
+    font-size: 12px;
+    font-family: Pretendard;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-decoration-line: underline;
+    margin-left: 22px;
+    border: 0;
+    background-color: transparent;
+  }
+  
+  
+  .login-container form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* 수정: 요소들을 오른쪽으로 정렬 */
+    /* 추가: 요소들을 수직으로 정렬 */
+    justify-content: center;
+  }
+  
+  .find-infor button {
+    color: rgb(0, 0, 0);
+    font-size: 12px;
+    font-family: Pretendard;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    border: none;
+    background-color: transparent;
+  }
+  
+  .find-infor {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    /* 수정: 요소들을 오른쪽으로 정렬 */
+    margin-left: 300px;
+  }

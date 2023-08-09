@@ -1,0 +1,65 @@
+.container{
+  display: flex;
+  box-sizing: border-box;
+  background: #ffffff;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  left: calc(50% - 960px);
+}
+.polygon-3 {
+  border-radius: 0px;
+  position: absolute;
+  left: calc(50% - 99px);
+  top: 30%;
+  overflow: visible;
+  z-index: 1; /* z-index 값을 추가하여 polygon-3 요소를 뒤로 보냅니다. */
+  pointer-events: none; /* SVG가 마우스 이벤트를 가로채지 않도록 합니다. */
+}
+.error {
+  color: #ffffff;
+  text-align: center;
+  font: 500 75px "Pretendard", sans-serif;
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* 가로 세로 정렬을 위해 transform을 사용합니다. */
+  z-index: 2;
+}
+.errorTitle {
+  color: #000000;
+  text-align: center;
+  font: 700 42px "Pretendard", sans-serif;
+  position: absolute;
+  left: calc(50% - 270px);
+  top: 55%;
+}
+.errorText {
+  color: #5d5d5d;
+  text-align: center;
+  font: 600 22px "Pretendard", sans-serif;
+  position: absolute;
+  left: calc(50% - 190px);
+  top: 65%;
+}
+.backhome {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font: 600 22px "Pretendard", sans-serif;
+  position: absolute;
+  top: 80%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%); /* 세로 가운데 정렬을 위해 translateY를 활용합니다. */
+}
+
+.homebutton {
+  text-align: center;
+  background-color: #000000;
+  border-radius: 100px;
+  width: 193px;
+  height: 50px;
+  color: #ffffff;
+  font: 700 22px "Pretendard", sans-serif;
+}

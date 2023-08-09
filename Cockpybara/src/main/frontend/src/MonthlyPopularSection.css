@@ -1,0 +1,87 @@
+.MonthlyPopular-box {
+    width: 466px;
+    height: 720px;
+    flex-shrink: 0;
+    border-radius: 20px;
+    border: 2px solid #D1D1D1;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    margin-top: 37px;
+}
+
+.MonthlyPopular-serve #MonthlyPopular-title {
+    margin-top: 33px;
+    margin-left: 33px;
+    color: #000;
+    font-family: Pretendard;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.rank-box #rank-name {
+    color: #000;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+#rank-name li {
+    margin-top: 35px;
+    position: relative;
+    padding-bottom: 30px;
+}
+
+#rank-name li::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 406px;
+    height: 0.5px;
+    background: #8C8C8C;
+}
+
+.rank-button-box {
+    margin-top: 15px;
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: center;
+}
+
+.rank-button-box button {
+    margin: 13px;
+    border: none;
+    background-color: transparent;
+}
+
+.arrow-image {
+    width: 17px;
+    height: 29px;
+    flex-shrink: 0;
+    margin-right: 23px;
+}
+
+.item-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.middle-image {
+    width: 49px;
+    height: 49px;
+    flex-shrink: 0;
+    margin-left: 38px;
+    margin-right: 64px;
+}
+
+
+.rank-image-and-title {
+    display: flex;
+    align-items: center;
+}

@@ -1,0 +1,28 @@
+li {
+    list-style-type: none;
+    color: #414141;
+    font-family: Pretendard;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+ul.menu-list {
+    margin: 0;
+    padding: 0;
+}
+
+.menu-container {
+    width: 701px;
+    height: 30px;
+    flex-shrink: 0;
+}
+
+.menuClassName {
+    display: flex;
+}
+
+.menuClassName li {
+    margin-right: 76px;
+}
