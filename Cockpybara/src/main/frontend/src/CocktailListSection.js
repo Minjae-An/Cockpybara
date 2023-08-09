@@ -3,12 +3,19 @@ import React, { useState, useEffect } from 'react';
 import './CocktailListSection.css';
 import image1 from "./photo/image1.png";
 import pinkTea from "./photo/pinkTea.png";
+import good from "./photo/good.png";
+import chat from "./photo/chat.png";
 
 const CocktailListSection = () => {
   const [cocktailList, setCocktailList] = useState([]);
   const [sortBy, setSortBy] = useState('recommended');
   const [selectedButton, setSelectedButton] = useState('recommended');
   const [userData, setUserData] = useState({ username: '핫핑크그린티' }); // 임시 유저 정보
+  const [showCommentPopup, setShowCommentPopup] = useState(false);
+
+  const handleCommentButtonClick = () => {
+    setShowCommentPopup(true);
+  };
 
   useEffect(() => {
     // 더미 데이터를 사용하여 프론트에서 확인할 수 있도록 함
@@ -76,6 +83,36 @@ const CocktailListSection = () => {
   //   }
   // };
 
+  const handleRecommendationToggle = async (cocktailId) => {
+    try {
+      // 백엔드에 추천 상태를 업데이트하는 요청을 보냅니다.
+      // (실제 백엔드와 연결할 때는 주석 해제하고 사용하시면 됩니다)
+      // const response = await fetch(`/api/updateRecommendation/${cocktailId}`, {
+      //   method: 'POST',
+      //   // 필요한 헤더나 데이터를 추가할 수 있습니다.
+      // });
+
+      // if (!response.ok) {
+      //   throw new Error('Network response was not ok');
+      // }
+
+      // 추천 상태를 프론트에서 업데이트합니다.
+      setCocktailList((prevCocktails) =>
+        prevCocktails.map((cocktail) => {
+          if (cocktail.id === cocktailId) {
+            const updatedCocktail = { ...cocktail, recommended: !cocktail.recommended };
+            console.log('Updated Cocktail:', updatedCocktail); // 업데이트된 칵테일 정보 출력
+            return updatedCocktail;
+          } else {
+            return cocktail;
+          }
+        })
+      );
+    } catch (error) {
+      console.error('Error updating recommendation:', error);
+    }
+  };
+
 
   return (
     <div className="cockList-box">
@@ -117,14 +154,22 @@ const CocktailListSection = () => {
                   </div>
                 </div>
                 <div className="cockList-Cockinfo-box">
-                  <h3>{cocktail.name}</h3>
-                  <p>{cocktail.description}</p>
-                  <p>Taste: {cocktail.taste}</p>
-                  <p>Recommended: {cocktail.recommended ? 'Yes' : 'No'}</p>
-                  {/* 추천 유무에 따른 버튼 표시 */}
-                  <button onClick={() => toggleRecommendation(cocktail.id)}>
-                    {cocktail.recommended ? '추천 취소' : '추천하기'}
-                  </button>
+                  <p id="cock-name">{cocktail.name}</p>
+                  <div className="cockList-Cockinfo-explan">
+                    <p id="explan">{cocktail.description}</p>
+                    <p id="taste">{cocktail.taste}</p>
+                  </div>
+                  <div className="cockList-Cockinfo-recommended">
+                    <button
+                      className={`recommend-button ${cocktail.recommended ? 'recommended' : ''}`}
+                      onClick={() => handleRecommendationToggle(cocktail.id)}
+                    >
+                      <img src={good} alt="따봉버튼" />
+                    </button>
+                    <button className="comment-button" onClick={handleCommentButtonClick}>
+                      <img src={chat} alt="댓글 아이콘" />
+                    </button>
+                  </div>
                 </div>
               </div>
               <div className="cockList-contents-image">
@@ -141,6 +186,13 @@ const CocktailListSection = () => {
             </li>
           ))}
         </ul>
+        {showCommentPopup && (
+        <div className="comment-popup">
+          {/* 팝업 창 내용 */}
+          <p>댓글을 작성하세요.</p>
+          <button onClick={() => setShowCommentPopup(false)}>닫기</button>
+        </div>
+      )}
       </div>
     </div>
   );

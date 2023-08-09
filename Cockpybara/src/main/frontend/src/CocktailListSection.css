@@ -43,10 +43,6 @@
     margin-right: 20px;
 }
 
-.cockList-contents {
-    background-color: lemonchiffon
-}
-
 .selectList-contents button.selected {
     border: 0.5px solid #E9F5FF;
     border-radius: 40px;
@@ -61,9 +57,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
-
-    background-color: lightpink;
 }
 
 
@@ -76,6 +69,10 @@
     width: 227px;
     height: 227px;
     flex-shrink: 0;
+}
+
+.user-profile-text {
+    margin-left: 24px;
 }
 
 .cockList-contents-user-info {
@@ -105,7 +102,96 @@
     line-height: normal;
 }
 
-.cockList-Cockinfo-box{ 
+.cockList-Cockinfo-box {
     margin-left: 53px;
-    background-color: aqua;
+}
+
+.cockList-Cockinfo-box #cock-name {
+    color: #000;
+    font-family: Pretendard;
+    font-size: 26px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.cockList-Cockinfo-explan {
+    margin-left: 35px;
+}
+
+.cockList-Cockinfo-explan #explan {
+    color: #525252;
+    font-family: Pretendard;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.cockList-Cockinfo-explan #taste {
+    width: 132px;
+    height: 31px;
+    flex-shrink: 0;
+    border-radius: 50px;
+    border: 1.5px solid #8C8C8C;
+    background: #FFF;
+    color: #525252;
+    font-family: Pretendard;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cockList-Cockinfo-recommended {
+    margin-top: 31px;
+}
+
+.cockList-Cockinfo-recommended button {
+    border: none;
+    margin-right: 22px;
+    outline: none;
+    background-color: transparent;
+}
+
+button.recommend-button {
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+button.recommend-button.recommended {
+    background-color: red;
+    /* 추천된 상태일 때 배경색 임시!!*/
+}
+
+/* ...이전 CSS 스타일... 임시임시임시임시임시임시*/
+
+.comment-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.comment-popup p {
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.comment-popup button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
 }
