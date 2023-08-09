@@ -47,7 +47,7 @@
     background-color: lemonchiffon
 }
 
-button.selected {
+.selectList-contents button.selected {
     border: 0.5px solid #E9F5FF;
     border-radius: 40px;
     background: #E9F5FF;

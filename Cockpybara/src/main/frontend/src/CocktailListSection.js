@@ -32,16 +32,51 @@ const CocktailListSection = () => {
     setSelectedButton(sortType);
   };
 
+  const filterCocktails = () => {
+    let filteredCocktails = cocktailList;
+
+    // 필터링 로직을 적용합니다.
+    if (sortBy === 'popular') {
+      filteredCocktails = filteredCocktails.filter(cocktail => cocktail.recommended);
+    } else if (sortBy === 'latest') {
+      // 최신순 필터링 로직 추가
+      filteredCocktails = filteredCocktails.sort((a, b) => b.id - a.id); // 가장 높은 ID 값부터 정렬
+    } else if (sortBy === 'alphabetical') {
+      // 가나다순 필터링 로직 추가
+      filteredCocktails = filteredCocktails.sort((a, b) => a.name.localeCompare(b.name)); // 이름순으로 정렬
+    }
+
+    // 최대 3개만 표시
+    return filteredCocktails.slice(0, 3);
+  };
+
+  // API 호출로 데이터를 가져오는 부분을 주석처리해둡니다.
+  // fetchCocktailData(); // 가정: API를 호출하여 데이터를 가져오는 함수
+
+  // const fetchCocktailData = async () => {
+  //   try {
+  //     const response = await fetch('your-api-url-here'); // API의 실제 URL을 입력하세요
+  //     if (!response.ok) {
+  //       throw new Error('Network response was not ok');
+  //     }
+  //     const data = await response.json();
+  //     setCocktailList(data); // 가져온 데이터를 상태로 업데이트
+  //   } catch (error) {
+  //     console.error('Error fetching cocktail data:', error);
+  //   }
+  // };
+
+
   return (
     <div className="cockList-box">
       <div className="selectList-box">
-        <div className="selectList-contents"> 
-        <button
-          className={selectedButton === 'popular' ? 'selected' : ''}
-          onClick={() => handleSortByClick('popular')}
-        >
-          인기순
-        </button>
+        <div className="selectList-contents">
+          <button
+            className={selectedButton === 'popular' ? 'selected' : ''}
+            onClick={() => handleSortByClick('popular')}
+          >
+            인기순
+          </button>
           <button
             className={selectedButton === 'latest' ? 'selected' : ''}
             onClick={() => handleSortByClick('latest')}
@@ -59,7 +94,7 @@ const CocktailListSection = () => {
       <div className="cockList-contents">
         <h2>칵테일 나열</h2>
         <ul>
-          {cocktailList.map((cocktail) => (
+          {filterCocktails().map((cocktail) => (
             <li key={cocktail.id}>
               <h3>{cocktail.name}</h3>
               <p>{cocktail.description}</p>
