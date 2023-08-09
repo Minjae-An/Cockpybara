@@ -77,3 +77,35 @@
     height: 227px;
     flex-shrink: 0;
 }
+
+.cockList-contents-user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-profile-text p {
+    margin: 0;
+}
+
+.user-profile-text #name {
+    color: #000;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.user-profile-text #time {
+    color: #8C8C8C;
+    font-family: Pretendard;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.cockList-Cockinfo-box{ 
+    margin-left: 53px;
+    background-color: aqua;
+}

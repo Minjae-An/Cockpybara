@@ -1,12 +1,14 @@
 // CocktailListSection.js
 import React, { useState, useEffect } from 'react';
 import './CocktailListSection.css';
+import image1 from "./photo/image1.png";
 import pinkTea from "./photo/pinkTea.png";
 
 const CocktailListSection = () => {
   const [cocktailList, setCocktailList] = useState([]);
   const [sortBy, setSortBy] = useState('recommended');
   const [selectedButton, setSelectedButton] = useState('recommended');
+  const [userData, setUserData] = useState({ username: '핫핑크그린티' }); // 임시 유저 정보
 
   useEffect(() => {
     // 더미 데이터를 사용하여 프론트에서 확인할 수 있도록 함
@@ -49,6 +51,13 @@ const CocktailListSection = () => {
 
     // 최대 3개만 표시
     return filteredCocktails.slice(0, 3);
+  };
+
+  const getTimeAgo = (postedTime) => {
+    const now = new Date();
+    const diffInMillis = now - new Date(postedTime);
+    const minutes = Math.floor(diffInMillis / (1000 * 60));
+    return `${minutes}분`;
   };
 
   // API 호출로 데이터를 가져오는 부분을 주석처리해둡니다.
@@ -97,14 +106,26 @@ const CocktailListSection = () => {
           {filterCocktails().map((cocktail) => (
             <li key={cocktail.id}>
               <div className="cockList-contents-text">
-                <h3>{cocktail.name}</h3>
-                <p>{cocktail.description}</p>
-                <p>Taste: {cocktail.taste}</p>
-                <p>Recommended: {cocktail.recommended ? 'Yes' : 'No'}</p>
-                {/* 추천 유무에 따른 버튼 표시 */}
-                <button onClick={() => toggleRecommendation(cocktail.id)}>
-                  {cocktail.recommended ? '추천 취소' : '추천하기'}
-                </button>
+                <div className="cockList-contents-user-info">
+                  {/* 백엔드에서 가져온 유저 정보를 표시 */}
+                  <div className="user-profile-image">
+                    <img src={image1} alt={userData.username} />
+                  </div>
+                  <div className="user-profile-text">
+                    <p id="name">{userData.username}</p>
+                    <p id="time">{getTimeAgo("2023-08-09T10:30:00")}전</p>
+                  </div>
+                </div>
+                <div className="cockList-Cockinfo-box">
+                  <h3>{cocktail.name}</h3>
+                  <p>{cocktail.description}</p>
+                  <p>Taste: {cocktail.taste}</p>
+                  <p>Recommended: {cocktail.recommended ? 'Yes' : 'No'}</p>
+                  {/* 추천 유무에 따른 버튼 표시 */}
+                  <button onClick={() => toggleRecommendation(cocktail.id)}>
+                    {cocktail.recommended ? '추천 취소' : '추천하기'}
+                  </button>
+                </div>
               </div>
               <div className="cockList-contents-image">
                 {/* 이미지를 백엔드에서 가져올 때의 코드 */}
