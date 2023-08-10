@@ -16,6 +16,9 @@ public class RecipeIngredient {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ingredient_id")
     private Ingredient ingredient;
+
+    private String ingredientName;
+
     @Enumerated(EnumType.STRING)
     private Unit unit;
     private Double quantity;  //일단은 실수로 설정
@@ -70,4 +73,7 @@ public class RecipeIngredient {
         this.quantity = quantity;
     }
 
+    public void setIngredientName(String ingredientName) {
+        this.ingredientName = ingredientName;
+    }
 }

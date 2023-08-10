@@ -6,6 +6,9 @@ import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipeForCsv;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.Glass;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
 import Alchole_free.Cockpybara.domain.ingredient.Unit;
+import Alchole_free.Cockpybara.domain.ingredient.RecipeIngredient;
+import Alchole_free.Cockpybara.domain.ingredient.Ingredient;
+import Alchole_free.Cockpybara.repository.IngredientRepository;
 import Alchole_free.Cockpybara.repository.cocktail_recipe.CocktailRecipeRepository;
 import com.opencsv.CSVReader;
 import com.opencsv.bean.CsvToBean;
@@ -23,6 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @SpringBootTest
@@ -30,6 +34,8 @@ import java.util.stream.Collectors;
 public class CsvToCoktailRecipeMapPlus {
     @Autowired
     private CocktailRecipeRepository repository;
+
+    private IngredientRepository ingredientRepository;
 
     private final String path = "C:\\Cockpybara\\Cockpybara\\src" +
             "\\main\\resources\\all_drinks.csv";
@@ -56,6 +62,11 @@ public class CsvToCoktailRecipeMapPlus {
             Map<String, Glass> glassMap = Glass.getNameAndValues();
             Map<String, Unit> unitMap = Unit.getNameAndValues();
 
+            List<Ingredient> ingredients = ingredientRepository.findAll();
+            Map<String, Ingredient> ingredientMap = ingredients.stream()
+                    .collect(Collectors.toMap(Ingredient::getName, Function.identity()));
+
+
             List<CocktailRecipeForCsv> list = new ArrayList<>();
             while ((line = reader.readNext()) != null) {
                 CocktailRecipeForCsv cocktailRecipe = new CocktailRecipeForCsv();
@@ -72,6 +83,58 @@ public class CsvToCoktailRecipeMapPlus {
                 cocktailRecipe.setInstruction(line[instructionIndex]);
                 cocktailRecipe.setIsMemberRecipe(false);
                 cocktailRecipe.setCreatedAt(LocalDateTime.now());
+
+                for (int i = 1; i <= 15; i++) {
+                    String ingredientKey = "strIngredient" + i;
+                    String measureKey = "strMeasure" + i;
+
+                    String ingredientName = line[header.get(ingredientKey)];
+                    String measureValue = line[header.get(measureKey)];
+
+                    if (measureValue != null && !measureValue.trim().isEmpty()) {
+                        // Check if measureValue is not "fill"
+                        if (!measureValue.equalsIgnoreCase("fill")) {
+                            RecipeIngredient recipeIngredient = new RecipeIngredient();
+
+                            // Set ingredient using ingredientMap
+                            Ingredient ingredient = ingredientMap.get(ingredientName);
+                            if (ingredient != null) {
+                                recipeIngredient.setIngredient(ingredient);
+                            }
+
+                            // Extract unit and quantity from measureValue
+                            String[] measureParts = measureValue.split(" ");
+                            if (measureParts.length >= 2) {
+                                String unitName = measureParts[1];
+                                Unit unit = unitMap.get(unitName);
+                                recipeIngredient.setUnit(unit);
+                            }
+
+                            // Add the recipeIngredient to the list
+                            cocktailRecipe.getIngredients().add(recipeIngredient);
+                        } else {
+                            // Handle the case where measureValue is "fill"
+                            RecipeIngredient recipeIngredient = new RecipeIngredient();
+                            recipeIngredient.setIngredient(null);
+                            recipeIngredient.setMeasureValue("");
+                            recipeIngredient.setUnit(null);
+
+                            // Add the recipeIngredient to the list
+                            cocktailRecipe.getIngredients().add(recipeIngredient);
+                        }
+                    } else {
+                        // Handle the case where measureValue is null or empty
+                        RecipeIngredient recipeIngredient = new RecipeIngredient();
+                        recipeIngredient.setIngredient(null);
+                        recipeIngredient.setMeasureValue("");
+                        recipeIngredient.setUnit(null);
+
+                        // Add the recipeIngredient to the list
+                        cocktailRecipe.getIngredients().add(recipeIngredient);
+                    }
+                }
+
+
 
                 list.add(cocktailRecipe);
             }
@@ -128,5 +191,10 @@ public class CsvToCoktailRecipeMapPlus {
         }
 
         return null;
+    }
+
+    //예외적인 부분처리 - 메서드 수정하거나 없애거나해야함
+    private String extractUnitName(String measureValue) {
+        return "";
     }
 }
