@@ -1,9 +1,16 @@
 package Alchole_free.Cockpybara.domain.ingredient;
 
 import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
+@Table(name = "recipe_ingredient")
 public class RecipeIngredient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,9 +26,6 @@ public class RecipeIngredient {
     @Enumerated(EnumType.STRING)
     private Unit unit;
     private Double quantity;  //일단은 실수로 설정
-    public RecipeIngredient() {
-        // 기본 생성자
-    }
     public RecipeIngredient(CocktailRecipe cocktailRecipe, Ingredient ingredient, Unit unit, Double quantity) {
         this.cocktailRecipe = cocktailRecipe;
         this.ingredient = ingredient;

@@ -53,7 +53,7 @@ public class CocktailRecipe {
     @Size(max = 3)
     private List<RecipeTaste> tastes=new ArrayList<>();
 
-    @OneToMany(mappedBy = "cocktailRecipe")
+    @OneToMany(mappedBy = "cocktailRecipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RecipeIngredient> ingredients;
 
     public CocktailRecipe(String name, AlcoholicType alcoholicType,
