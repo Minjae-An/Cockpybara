@@ -7,10 +7,12 @@ import Alchole_free.Cockpybara.domain.cocktail_recipe.AlcoholicType;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.Category;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.Glass;
+import Alchole_free.Cockpybara.domain.cocktail_recipe.taste.Taste;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.time_period.TimePeriod;
 import Alchole_free.Cockpybara.domain.ingredient.IngredientCategory;
 import Alchole_free.Cockpybara.service.cocktail_recipe.CocktailRecipeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,18 +27,20 @@ public class CocktailRecipeController {
     private final CocktailRecipeService cocktailRecipeService;
 
     @GetMapping("/recipe/option-list")
-    public CocktailRecipeSearchOptionListResponse getCocktailRecipeSearchOptionList() {
-        List<String> alcoholicTypeFilterValues = getEnumValueList(AlcoholicType.class);
-        List<String> categoryFilterValues = getEnumValueList(Category.class);
-        List<String> glassFilterValues = getEnumValueList(Glass.class);
-        List<String> ingredientCategoryFilterValues = getEnumValueList(IngredientCategory.class);
+    public ResponseEntity<CocktailRecipeSearchOptionListResponse> getCocktailRecipeSearchOptionList() {
+        List<String> alcoholicTypes = getEnumValueList(AlcoholicType.class);
+        List<String> categories = getEnumValueList(Category.class);
+        List<String> glasses = getEnumValueList(Glass.class);
+        List<String> ingredientCategories = getEnumValueList(IngredientCategory.class);
+        List<String> tastes = getEnumValueList(Taste.class);
 
-        return new CocktailRecipeSearchOptionListResponse(
-                alcoholicTypeFilterValues,
-                categoryFilterValues,
-                glassFilterValues,
-                ingredientCategoryFilterValues
-        );
+        return ResponseEntity.ok(new CocktailRecipeSearchOptionListResponse(
+                alcoholicTypes,
+                categories,
+                glasses,
+                ingredientCategories,
+                tastes
+        ));
     }
 
 
