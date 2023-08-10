@@ -1,9 +1,10 @@
 package Alchole_free.Cockpybara.domain.cocktail_recipe;
 
-
+import Alchole_free.Cockpybara.domain.ingredient.RecipeIngredient;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class CocktailRecipeForCsv {
@@ -20,6 +21,17 @@ public class CocktailRecipeForCsv {
     private String instruction;
     private Boolean isMemberRecipe;
     private LocalDateTime createdAt;
+
+    private List<RecipeIngredient> ingredients;
+
+    // ingredients필드 getter과 setter 메서드 추가
+    public List<RecipeIngredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<RecipeIngredient> ingredients) {
+        this.ingredients = ingredients;
+    }
 
     public static CocktailRecipe to(CocktailRecipeForCsv cocktailRecipeForCsv){
         Alchole_free.Cockpybara.domain.cocktail_recipe.Category[] categories = Alchole_free.Cockpybara.domain.cocktail_recipe.Category.values();
