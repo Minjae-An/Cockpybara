@@ -19,6 +19,8 @@ public class RecipeIngredient {
 
     private String ingredientName;
 
+    private String measureValue;
+
     @Enumerated(EnumType.STRING)
     private Unit unit;
     private Double quantity;  //일단은 실수로 설정
@@ -75,5 +77,13 @@ public class RecipeIngredient {
 
     public void setIngredientName(String ingredientName) {
         this.ingredientName = ingredientName;
+    }
+
+    public String getMeasureValue() {
+        return measureValue;
+    }
+
+    public void setMeasureValue(String measureValue) {
+        this.measureValue = measureValue;
     }
 }

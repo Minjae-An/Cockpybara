@@ -108,6 +108,17 @@ public class CsvToCoktailRecipeMapPlus {
                                 String unitName = measureParts[1];
                                 Unit unit = unitMap.get(unitName);
                                 recipeIngredient.setUnit(unit);
+
+                                try {
+                                    double quantity = Double.parseDouble(measureParts[0]);
+                                    recipeIngredient.setQuantity(quantity);
+                                } catch (NumberFormatException e) {
+                                    recipeIngredient.setQuantity(null);
+                                }
+                            }
+                            else {
+                                recipeIngredient.setUnit(null);
+                                recipeIngredient.setQuantity(null);
                             }
 
                             // Add the recipeIngredient to the list
