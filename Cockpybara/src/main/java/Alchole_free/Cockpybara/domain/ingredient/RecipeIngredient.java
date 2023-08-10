@@ -28,4 +28,46 @@ public class RecipeIngredient {
         this.unit = unit;
         this.quantity = quantity;
     }
+
+    //getter setter추가
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public CocktailRecipe getCocktailRecipe() {
+        return cocktailRecipe;
+    }
+
+    public void setCocktailRecipe(CocktailRecipe cocktailRecipe) {
+        this.cocktailRecipe = cocktailRecipe;
+    }
+
+    public Ingredient getIngredient() {
+        return ingredient;
+    }
+
+    public void setIngredient(Ingredient ingredient) {
+        this.ingredient = ingredient;
+    }
+
+    public Unit getUnit() {
+        return unit;
+    }
+
+    public void setUnit(Unit unit) {
+        this.unit = unit;
+    }
+
+    public Double getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Double quantity) {
+        this.quantity = quantity;
+    }
+
 }
