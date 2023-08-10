@@ -1,16 +1,20 @@
 package Alchole_free.Cockpybara.domain.ingredient;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import com.opencsv.bean.CsvBindByName;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+
 public class Ingredient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @CsvBindByName(column = "Ingredient")
     private String name;
@@ -19,10 +23,6 @@ public class Ingredient {
 
     @CsvBindByName(column = "classification")
     private IngredientCategory ingredientCategory;
-
-    // 기본 생성자 추가
-    public Ingredient() {
-    }
 
     public Ingredient(String name, IngredientCategory ingredientCategory){
         this.name = name;
