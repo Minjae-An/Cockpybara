@@ -49,7 +49,7 @@ public class CocktailRecipe {
     @Column(updatable = false)  //처음 생성 이후로 LocalDateTime 수정 불가능
     private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "cocktailRecipe")
+    @OneToMany(mappedBy = "cocktailRecipe", cascade = CascadeType.ALL, orphanRemoval = true)
     @Size(max = 3)
     private List<RecipeTaste> tastes=new ArrayList<>();
 
