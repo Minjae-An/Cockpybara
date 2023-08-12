@@ -12,6 +12,7 @@ import Alchole_free.Cockpybara.domain.member.Member;
 import Alchole_free.Cockpybara.domain.member.my_recipe.MyRecipe;
 import Alchole_free.Cockpybara.repository.cocktail_recipe.CocktailRecipeRepository;
 import Alchole_free.Cockpybara.repository.MemberRepository;
+import Alchole_free.Cockpybara.repository.cocktail_recipe.condition.CocktailRecipeSearchCondition;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -103,4 +104,10 @@ public class CocktailRecipeService {
         return cocktailRecipeDetailDTO;
     }
 
+    public List<CocktailRecipeSearchDTO> search(CocktailRecipeSearchCondition searchCondition){
+        List<CocktailRecipe> searchResult = cocktailRecipeRepository.search(searchCondition);
+
+        return searchResult.stream().map(cocktailRecipe -> CocktailRecipeSearchDTO.from(cocktailRecipe))
+                .collect(Collectors.toList());
+    }
 }
