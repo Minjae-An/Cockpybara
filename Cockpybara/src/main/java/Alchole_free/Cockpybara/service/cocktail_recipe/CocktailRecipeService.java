@@ -1,5 +1,7 @@
 package Alchole_free.Cockpybara.service.cocktail_recipe;
 
+import Alchole_free.Cockpybara.controller.cocktailrecipe.recipe_detail.CocktailRecipeDetailDTO;
+import Alchole_free.Cockpybara.controller.cocktailrecipe.search.CocktailRecipeSearchDTO;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.AlcoholicType;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.Category;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
@@ -10,12 +12,14 @@ import Alchole_free.Cockpybara.domain.member.Member;
 import Alchole_free.Cockpybara.domain.member.my_recipe.MyRecipe;
 import Alchole_free.Cockpybara.repository.cocktail_recipe.CocktailRecipeRepository;
 import Alchole_free.Cockpybara.repository.MemberRepository;
+import Alchole_free.Cockpybara.repository.cocktail_recipe.condition.CocktailRecipeSearchCondition;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -29,9 +33,11 @@ public class CocktailRecipeService {
     }
 
     public CocktailRecipe findById(Long id) {
-        return cocktailRecipeRepository
+        CocktailRecipe cocktailRecipe = cocktailRecipeRepository
                 .findById(id)
                 .orElseThrow(() -> new IllegalStateException("해당 레시피가 존재하지 않습니다."));
+
+        return cocktailRecipe;
     }
 
     public MyRecipe saveMyRecipe(Long memberId, CocktailRecipe cocktailRecipe) {
@@ -65,20 +71,43 @@ public class CocktailRecipeService {
         return cocktailRecipe;
     }
 
-   // 주간, 월간, 전체기간 칵테일레시피 조회
-    public List<CocktailRecipe> getCocktailRecipesByPeriod(TimePeriod timePeriod){
+    // 주간, 월간, 전체기간 칵테일레시피 조회
+    public List<CocktailRecipeSearchDTO> getCocktailRecipesByPeriod(TimePeriod timePeriod) {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime startDateTime;
 
-        switch (timePeriod){
+        List<CocktailRecipe> cocktailRecipes;
+
+        switch (timePeriod) {
             case WEEKLY:
                 startDateTime = now.minusWeeks(1);
-                return cocktailRecipeRepository.findCocktailRecipeByCreatedAtBetweenOrderByCreatedAtDesc(startDateTime, now);
+                cocktailRecipes = cocktailRecipeRepository.findCocktailRecipeByCreatedAtBetweenOrderByCreatedAtDesc(startDateTime, now);
+                break;
             case MONTHLY:
                 startDateTime = now.minusMonths(1);
-                return cocktailRecipeRepository.findCocktailRecipeByCreatedAtBetweenOrderByCreatedAtDesc(startDateTime, now);
+                cocktailRecipes = cocktailRecipeRepository.findCocktailRecipeByCreatedAtBetweenOrderByCreatedAtDesc(startDateTime, now);
+                break;
             default:  //ALL은 여기포함
-                return cocktailRecipeRepository.findCocktailRecipeByOrderByCreatedAtDesc();
+                cocktailRecipes = cocktailRecipeRepository.findCocktailRecipeByOrderByCreatedAtDesc();
         }
+
+        return cocktailRecipes.stream()
+                .map(cocktailRecipe -> CocktailRecipeSearchDTO.from(cocktailRecipe))
+                .collect(Collectors.toList());
+    }
+
+    public CocktailRecipeDetailDTO getDetail(Long id) {
+        CocktailRecipe cocktailRecipe = cocktailRecipeRepository.findById(id)
+                .orElseThrow(() -> new IllegalStateException("해당 레시피가 존재하지 않습니다."));
+
+        CocktailRecipeDetailDTO cocktailRecipeDetailDTO = CocktailRecipeDetailDTO.from(cocktailRecipe);
+        return cocktailRecipeDetailDTO;
+    }
+
+    public List<CocktailRecipeSearchDTO> search(CocktailRecipeSearchCondition searchCondition){
+        List<CocktailRecipe> searchResult = cocktailRecipeRepository.search(searchCondition);
+
+        return searchResult.stream().map(cocktailRecipe -> CocktailRecipeSearchDTO.from(cocktailRecipe))
+                .collect(Collectors.toList());
     }
 }
