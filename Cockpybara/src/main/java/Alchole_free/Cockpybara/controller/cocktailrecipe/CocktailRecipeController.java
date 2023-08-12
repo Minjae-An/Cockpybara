@@ -17,10 +17,7 @@ import Alchole_free.Cockpybara.service.cocktail_recipe.CocktailRecipeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -92,5 +89,12 @@ public class CocktailRecipeController {
         }
 
         return ResponseEntity.ok(resultList);
+    }
+
+    @PostMapping("/recipe/search")
+    public ResponseEntity<List<CocktailRecipeSearchDTO>> search(CocktailRecipeSearchCondition searchCondition){
+        List<CocktailRecipeSearchDTO> searchResult = cocktailRecipeService.search(searchCondition);
+
+        return ResponseEntity.ok(searchResult);
     }
 }
