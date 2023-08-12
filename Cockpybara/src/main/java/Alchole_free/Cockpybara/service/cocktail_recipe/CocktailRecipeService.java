@@ -1,7 +1,6 @@
 package Alchole_free.Cockpybara.service.cocktail_recipe;
 
 import Alchole_free.Cockpybara.controller.cocktailrecipe.recipe_detail.CocktailRecipeDetailDTO;
-import Alchole_free.Cockpybara.controller.cocktailrecipe.recipe_detail.ingredient.IngredientDTO;
 import Alchole_free.Cockpybara.controller.cocktailrecipe.search.CocktailRecipeSearchDTO;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.AlcoholicType;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.Category;
@@ -71,24 +70,32 @@ public class CocktailRecipeService {
         return cocktailRecipe;
     }
 
-   // 주간, 월간, 전체기간 칵테일레시피 조회
-    public List<CocktailRecipe> getCocktailRecipesByPeriod(TimePeriod timePeriod){
+    // 주간, 월간, 전체기간 칵테일레시피 조회
+    public List<CocktailRecipeSearchDTO> getCocktailRecipesByPeriod(TimePeriod timePeriod) {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime startDateTime;
 
-        switch (timePeriod){
+        List<CocktailRecipe> cocktailRecipes;
+
+        switch (timePeriod) {
             case WEEKLY:
                 startDateTime = now.minusWeeks(1);
-                return cocktailRecipeRepository.findCocktailRecipeByCreatedAtBetweenOrderByCreatedAtDesc(startDateTime, now);
+                cocktailRecipes = cocktailRecipeRepository.findCocktailRecipeByCreatedAtBetweenOrderByCreatedAtDesc(startDateTime, now);
+                break;
             case MONTHLY:
                 startDateTime = now.minusMonths(1);
-                return cocktailRecipeRepository.findCocktailRecipeByCreatedAtBetweenOrderByCreatedAtDesc(startDateTime, now);
+                cocktailRecipes = cocktailRecipeRepository.findCocktailRecipeByCreatedAtBetweenOrderByCreatedAtDesc(startDateTime, now);
+                break;
             default:  //ALL은 여기포함
-                return cocktailRecipeRepository.findCocktailRecipeByOrderByCreatedAtDesc();
+                cocktailRecipes = cocktailRecipeRepository.findCocktailRecipeByOrderByCreatedAtDesc();
         }
+
+        return cocktailRecipes.stream()
+                .map(cocktailRecipe -> CocktailRecipeSearchDTO.from(cocktailRecipe))
+                .collect(Collectors.toList());
     }
 
-    public CocktailRecipeDetailDTO getDetail(Long id){
+    public CocktailRecipeDetailDTO getDetail(Long id) {
         CocktailRecipe cocktailRecipe = cocktailRecipeRepository.findById(id)
                 .orElseThrow(() -> new IllegalStateException("해당 레시피가 존재하지 않습니다."));
 
