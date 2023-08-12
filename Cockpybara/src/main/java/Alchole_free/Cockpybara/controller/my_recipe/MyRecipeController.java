@@ -8,6 +8,8 @@ import Alchole_free.Cockpybara.domain.cocktail_recipe.Category;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.Glass;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.taste.Taste;
+import Alchole_free.Cockpybara.domain.ingredient.IngredientCategory;
+import Alchole_free.Cockpybara.domain.ingredient.IngredientUnitMap;
 import Alchole_free.Cockpybara.domain.ingredient.Unit;
 import Alchole_free.Cockpybara.service.cocktail_recipe.CocktailRecipeService;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,12 +28,14 @@ public class MyRecipeController {
 
     @GetMapping("/filter-values")
     public ResponseEntity<RecipeOptionsResponse> getRecipeOptionValues() {
+        Map<IngredientCategory, Unit[]> ingredientUnitMap = IngredientUnitMap.createIngredientUnitMap();
+
         RecipeOptionsResponse recipeOptionsResponse = new RecipeOptionsResponse(
                 Glass.values(),
                 Category.values(),
                 AlcoholicType.values(),
                 Taste.values(),
-                Unit.values()
+                ingredientUnitMap
         );
 
         return ResponseEntity.ok(recipeOptionsResponse);
