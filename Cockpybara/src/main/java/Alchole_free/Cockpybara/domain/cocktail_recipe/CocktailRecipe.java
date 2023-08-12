@@ -42,7 +42,7 @@ public class CocktailRecipe {
     private Boolean isMemberRecipe;
 
 
-    @OneToMany(mappedBy = "cocktailRecipe")
+    @OneToMany(mappedBy = "cocktailRecipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews;
 
     @CreatedDate
