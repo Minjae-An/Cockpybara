@@ -1,5 +1,8 @@
 package Alchole_free.Cockpybara.service.cocktail_recipe;
 
+import Alchole_free.Cockpybara.controller.cocktailrecipe.recipe_detail.CocktailRecipeDetailDTO;
+import Alchole_free.Cockpybara.controller.cocktailrecipe.recipe_detail.ingredient.IngredientDTO;
+import Alchole_free.Cockpybara.controller.cocktailrecipe.search.CocktailRecipeSearchDTO;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.AlcoholicType;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.Category;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
@@ -16,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -29,9 +33,11 @@ public class CocktailRecipeService {
     }
 
     public CocktailRecipe findById(Long id) {
-        return cocktailRecipeRepository
+        CocktailRecipe cocktailRecipe = cocktailRecipeRepository
                 .findById(id)
                 .orElseThrow(() -> new IllegalStateException("해당 레시피가 존재하지 않습니다."));
+
+        return cocktailRecipe;
     }
 
     public MyRecipe saveMyRecipe(Long memberId, CocktailRecipe cocktailRecipe) {
@@ -81,4 +87,13 @@ public class CocktailRecipeService {
                 return cocktailRecipeRepository.findCocktailRecipeByOrderByCreatedAtDesc();
         }
     }
+
+    public CocktailRecipeDetailDTO getDetail(Long id){
+        CocktailRecipe cocktailRecipe = cocktailRecipeRepository.findById(id)
+                .orElseThrow(() -> new IllegalStateException("해당 레시피가 존재하지 않습니다."));
+
+        CocktailRecipeDetailDTO cocktailRecipeDetailDTO = CocktailRecipeDetailDTO.from(cocktailRecipe);
+        return cocktailRecipeDetailDTO;
+    }
+
 }
