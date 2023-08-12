@@ -1,6 +1,7 @@
 package Alchole_free.Cockpybara.controller.cocktailrecipe;
 
 import Alchole_free.Cockpybara.controller.cocktailrecipe.option_list.CocktailRecipeSearchOptionListResponse;
+import Alchole_free.Cockpybara.controller.cocktailrecipe.recipe_detail.CocktailRecipeDetailDTO;
 import Alchole_free.Cockpybara.controller.cocktailrecipe.recipe_detail.CocktailRecipeDetailResponse;
 import Alchole_free.Cockpybara.controller.cocktailrecipe.search_by_name.FindCocktailRecipeByNameResponse;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.AlcoholicType;
@@ -13,6 +14,7 @@ import Alchole_free.Cockpybara.domain.ingredient.IngredientCategory;
 import Alchole_free.Cockpybara.service.cocktail_recipe.CocktailRecipeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -59,10 +61,10 @@ public class CocktailRecipeController {
     }
 
     @GetMapping("/recipe/detail")
-    public CocktailRecipeDetailResponse getRecipeDetails(Long cocktailRecipeId) {
-        CocktailRecipe cocktailRecipe = cocktailRecipeService.findById(cocktailRecipeId);
+    public ResponseEntity<CocktailRecipeDetailDTO> getRecipeDetails(Long cocktailRecipeId) {
+        CocktailRecipeDetailDTO detail = cocktailRecipeService.getDetail(cocktailRecipeId);
 
-        return new CocktailRecipeDetailResponse(cocktailRecipe);
+        return ResponseEntity.ok(detail);
     }
 
     @GetMapping({"/community/period-cocktails", "/recipe/period-cocktails"})
