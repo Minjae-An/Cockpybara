@@ -35,9 +35,16 @@ public class CocktailRecipeDetailDTO {
 
     public static CocktailRecipeDetailDTO from(CocktailRecipe cocktailRecipe) {
         List<ReviewDTO> reviews = cocktailRecipe.getReviews()
-                .stream().map(review -> new ReviewDTO(review.getId(), review.getMember().getId(),
-                        review.getStars(), review.getReview()))
+                .stream().map(review -> {
+                    ReviewDTO reviewDTO = new ReviewDTO(review.getId(), review.getMember().getId(),
+                            review.getStars(), review.getReview());
+                    List<Taste> tastes = review.getReviewTastes().stream().map(reviewTaste -> reviewTaste.getTaste())
+                            .collect(Collectors.toList());
+                    reviewDTO.setTastes(tastes);
+                    return reviewDTO;
+                })
                 .collect(Collectors.toList());
+
         List<Taste> tastes = cocktailRecipe.getTastes()
                 .stream().map(recipeTaste -> recipeTaste.getTaste())
                 .collect(Collectors.toList());

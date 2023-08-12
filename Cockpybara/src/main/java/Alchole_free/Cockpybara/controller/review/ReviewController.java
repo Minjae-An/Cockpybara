@@ -3,6 +3,7 @@ package Alchole_free.Cockpybara.controller.review;
 import Alchole_free.Cockpybara.controller.review.add_review.AddReviewRequest;
 import Alchole_free.Cockpybara.controller.review.commented_recipes.CommentedRecipesResponse;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
+import Alchole_free.Cockpybara.domain.cocktail_recipe.taste.Taste;
 import Alchole_free.Cockpybara.service.review.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +25,9 @@ public class ReviewController {
                                             @RequestBody @Valid AddReviewRequest addReviewRequest) {
         Integer stars = addReviewRequest.getStars();
         String review = addReviewRequest.getReview();
+        List<Taste> tastes = addReviewRequest.getTastes();
 
-        reviewService.addReview(recipeId, memberId, stars, review);
+        reviewService.addReview(recipeId, memberId, stars, review, tastes);
         return ResponseEntity.ok("successfully add new review");
     }
 
