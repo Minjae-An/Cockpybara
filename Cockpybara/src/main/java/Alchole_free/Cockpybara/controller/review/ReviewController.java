@@ -14,12 +14,11 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/recipe/detail/{recipeId}")
 public class ReviewController {
 
     private final ReviewService reviewService;
 
-    @PostMapping("{memberId}")
+    @PostMapping("/recipe/detail/{recipeId}/{memberId}")
     public ResponseEntity<String> addReview(@PathVariable Long recipeId,
                                             @PathVariable Long memberId,
                                             @RequestBody @Valid AddReviewRequest addReviewRequest) {
@@ -30,7 +29,7 @@ public class ReviewController {
         return ResponseEntity.ok("successfully add new review");
     }
 
-    @DeleteMapping("{reviewId}")
+    @DeleteMapping("/recipe/detail/{recipeId}/{reviewId}")
     public ResponseEntity<String> deleteReview(@PathVariable Long recipeId, @PathVariable Long reviewId) {
         reviewService.deleteReview(recipeId, reviewId);
 
@@ -39,11 +38,7 @@ public class ReviewController {
 
     @GetMapping("/user/{userId}/my-page/commented-recipes")
     public ResponseEntity<List<CommentedRecipesResponse>> getCommentedRecipes(@PathVariable Long userId){
-        List<CocktailRecipe> commentedRecipes = reviewService.findCommentedRecipesByMember(userId);
-
-        List<CommentedRecipesResponse> commentedRecipesResponses = commentedRecipes.stream().map(cocktailRecipe ->
-                        new CommentedRecipesResponse(cocktailRecipe.getName(), cocktailRecipe.getDrinkImgPath(), cocktailRecipe.getCreatedAt()))
-                .collect(Collectors.toList());
+        List<CommentedRecipesResponse> commentedRecipesResponses = reviewService.findCommentedRecipesByMember(userId);
 
         return ResponseEntity.ok(commentedRecipesResponses);
     }
