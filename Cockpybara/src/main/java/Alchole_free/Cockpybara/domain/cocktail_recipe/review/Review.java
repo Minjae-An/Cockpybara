@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -26,10 +28,17 @@ public class Review {
 
     private String review;
 
+    @OneToMany(mappedBy = "review", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ReviewTaste> reviewTastes=new ArrayList<>();
+
     public Review(CocktailRecipe cocktailRecipe, Member member, Integer stars, String review) {
         this.cocktailRecipe = cocktailRecipe;
         this.member = member;
         this.stars = stars;
         this.review = review;
+    }
+
+    public void setReviewTastes(List<ReviewTaste> reviewTastes) {
+        this.reviewTastes = reviewTastes;
     }
 }
