@@ -1,5 +1,6 @@
 package Alchole_free.Cockpybara.service.review;
 
+import Alchole_free.Cockpybara.controller.review.commented_recipes.CommentedRecipesResponse;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.review.Review;
 import Alchole_free.Cockpybara.domain.member.Member;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional
 @RequiredArgsConstructor
 public class ReviewService {
     private final CocktailRecipeRepository cocktailRecipeRepository;
@@ -38,13 +39,14 @@ public class ReviewService {
         cocktailRecipe.getReviews().removeIf(review -> review.getId().equals(reviewId));
     }
 
-    public List<CocktailRecipe> findCommentedRecipesByMember(Long memberId) {
+    @Transactional(readOnly = true)
+    public List<CommentedRecipesResponse> findCommentedRecipesByMember(Long memberId) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalStateException("해당 멤버가 존재하지 않습니다."));
 
         List<Review> reviews = reviewRepository.findReviewByMember(member);
         return reviews.stream()
-                .map(review -> review.getCocktailRecipe())
+                .map(review -> CommentedRecipesResponse.from(review.getCocktailRecipe()))
                 .collect(Collectors.toList());
     }
 }
