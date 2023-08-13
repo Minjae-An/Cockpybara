@@ -59,10 +59,15 @@ public class Member {
                 myRecipe.getCocktailRecipe().equals(cocktailRecipe));
     }
 
-    public Like addLike(CocktailRecipe recipe){
+    public Like addLike(CocktailRecipe recipe) {
         Like like = new Like(this, recipe);
         likes.add(like);
         return like;
+    }
+
+    public void removeLike(Long recipeId) {
+        likes.removeIf(like ->
+                like.getCocktailRecipe().getId().equals(recipeId));
     }
 
 }
