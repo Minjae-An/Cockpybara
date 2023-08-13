@@ -1,8 +1,10 @@
 package Alchole_free.Cockpybara.controller.my_recipe;
 
 import Alchole_free.Cockpybara.controller.my_recipe.add_new_my_recipe.AddNewMyRecipeRequest;
+import Alchole_free.Cockpybara.controller.my_recipe.add_new_my_recipe.AddNewMyRecipeResponse;
 import Alchole_free.Cockpybara.controller.my_recipe.recipe_options.RecipeOptionsResponse;
 import Alchole_free.Cockpybara.controller.my_recipe.update_my_recipe.UpdateMyRecipeRequest;
+import Alchole_free.Cockpybara.controller.my_recipe.update_my_recipe.UpdateMyRecipeResponse;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.AlcoholicType;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.Category;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
@@ -16,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -43,16 +46,10 @@ public class MyRecipeController {
 
 
     @PostMapping
-    public ResponseEntity<CocktailRecipe> addNewMyRecipe(@PathVariable Long userId,
-                                                         @RequestBody AddNewMyRecipeRequest addNewMyRecipeRequest) {
-        addNewMyRecipeRequest.setIsMemberRecipe(true);
-        addNewMyRecipeRequest.setCreatedAt(LocalDateTime.now());
-        CocktailRecipe cocktailRecipe = addNewMyRecipeRequest.to();
-
-        CocktailRecipe savedMyCocktailRecipe =
-                cocktailRecipeService.saveMyRecipe(userId, cocktailRecipe).getCocktailRecipe();
-
-        return ResponseEntity.ok(savedMyCocktailRecipe);
+    public ResponseEntity<AddNewMyRecipeResponse> addNewMyRecipe(@PathVariable Long userId,
+                                                                 @RequestBody @Valid AddNewMyRecipeRequest addNewMyRecipeRequest) {
+        AddNewMyRecipeResponse addNewMyRecipeResponse = cocktailRecipeService.saveMyRecipe(userId, addNewMyRecipeRequest);
+        return ResponseEntity.ok(addNewMyRecipeResponse);
     }
 
     @DeleteMapping("/{recipeId}")
@@ -63,19 +60,12 @@ public class MyRecipeController {
         return ResponseEntity.ok("successfully delete recipe");
     }
 
+    //DTO로 변환 작업 필요
     @PutMapping("/{recipeId}")
-    public ResponseEntity<CocktailRecipe> updateMyRecipe(@PathVariable Long recipeId,
-                                                         @RequestBody UpdateMyRecipeRequest updateMyRecipeRequest){
-        AlcoholicType alcoholicType = updateMyRecipeRequest.getAlcoholicType();
-        Category category = updateMyRecipeRequest.getCategory();
-        String drinkImgPath = updateMyRecipeRequest.getDrinkImgPath();
-        Glass glass = updateMyRecipeRequest.getGlass();
-        String instruction = updateMyRecipeRequest.getInstruction();
-        List<Taste> tastes = updateMyRecipeRequest.getTastes();
+    public ResponseEntity<UpdateMyRecipeResponse> updateMyRecipe(@PathVariable Long recipeId,
+                                                                 @RequestBody @Valid UpdateMyRecipeRequest updateMyRecipeRequest) {
 
-        CocktailRecipe cocktailRecipe = cocktailRecipeService.updateMyRecipe(recipeId, alcoholicType, category, drinkImgPath,
-                glass, instruction, tastes);
-
-        return ResponseEntity.ok(cocktailRecipe);
+        UpdateMyRecipeResponse updateMyRecipeResponse = cocktailRecipeService.updateMyRecipe(recipeId, updateMyRecipeRequest);
+        return ResponseEntity.ok(updateMyRecipeResponse);
     }
 }
