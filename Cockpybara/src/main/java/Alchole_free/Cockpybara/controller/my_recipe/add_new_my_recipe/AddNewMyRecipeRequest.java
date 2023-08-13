@@ -42,7 +42,8 @@ public class AddNewMyRecipeRequest {
     private List<Taste> tastes = new ArrayList<>();
 
     @NotNull
-    private Map<Ingredient, Map.Entry<Unit, Double>> ingredients=new HashMap<>();
+    @Size(min = 1, max = 15)
+    private List<MyRecipeIngredientDTO> ingredients;
 
     public CocktailRecipe to() {
         CocktailRecipe cocktailRecipe = new CocktailRecipe(
@@ -60,17 +61,6 @@ public class AddNewMyRecipeRequest {
                 .collect(Collectors.toList());
 
         cocktailRecipe.setTastes(recipeTastes);
-
-        List<RecipeIngredient> recipeIngredients = ingredients.entrySet().stream()
-                .map(ingredient -> {
-                    Ingredient key = ingredient.getKey();
-                    Unit unit = ingredient.getValue().getKey();
-                    Double quantity = ingredient.getValue().getValue();
-
-                    return new RecipeIngredient(cocktailRecipe, key, unit, quantity);
-                }).collect(Collectors.toList());
-
-        cocktailRecipe.setIngredients(recipeIngredients);
 
         return cocktailRecipe;
     }
