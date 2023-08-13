@@ -54,7 +54,7 @@ public class CocktailRecipe {
     private List<RecipeTaste> tastes=new ArrayList<>();
 
     @OneToMany(mappedBy = "cocktailRecipe", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<RecipeIngredient> ingredients;
+    private List<RecipeIngredient> ingredients=new ArrayList<>();
 
     public CocktailRecipe(String name, AlcoholicType alcoholicType,
                           Category category, String drinkImgPath,
@@ -71,11 +71,13 @@ public class CocktailRecipe {
     }
 
     public void setTastes(List<RecipeTaste> tastes) {
-        this.tastes = tastes;
+        this.tastes.clear();
+        this.tastes.addAll(tastes);
     }
 
     public void setIngredients(List<RecipeIngredient> ingredients) {
-        this.ingredients = ingredients;
+        this.ingredients.clear();
+        this.ingredients.addAll(ingredients);
     }
 
     public void update(AlcoholicType alcoholicType, Category category, String drinkImgPath,
@@ -87,7 +89,6 @@ public class CocktailRecipe {
         this.instruction=instruction;
 
         this.tastes.clear();
-        this.tastes=tastes.stream().map(t->new RecipeTaste(this, t))
-                .collect(Collectors.toList());
+        tastes.forEach(taste -> this.tastes.add(new RecipeTaste(this, taste)));
     }
 }

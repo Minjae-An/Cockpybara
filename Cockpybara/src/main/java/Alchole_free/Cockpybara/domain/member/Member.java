@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -30,8 +31,8 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Like> likes;
 
-    @OneToMany(mappedBy = "member")
-    private List<MyRecipe> myRecipes;
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MyRecipe> myRecipes=new ArrayList<>();
 
 
     public Member(String email, String password, String alias, String phoneNumber, Gender gender, Date birth) {
@@ -51,10 +52,6 @@ public class Member {
         this.alias = alias;
         this.phoneNumber = phoneNumber;
 
-    }
-
-    public void addNewMyRecipe(MyRecipe myRecipe) {
-        myRecipes.add(myRecipe);
     }
 
     public void removeMyRecipe(CocktailRecipe cocktailRecipe) {
