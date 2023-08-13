@@ -121,6 +121,9 @@ public class MemberService {
 
     @Transactional
     public void removeLike(Long userId, Long recipeId){
+        Member member = memberRepository.findById(userId)
+                .orElseThrow(() -> new IllegalStateException("해당 멤버가 존재하지 않습니다."));
 
+        member.removeLike(recipeId);
     }
 }
