@@ -4,12 +4,14 @@ import Alchole_free.Cockpybara.controller.cocktailrecipe.recipe_detail.CocktailR
 import Alchole_free.Cockpybara.controller.cocktailrecipe.search.CocktailRecipeSearchDTO;
 import Alchole_free.Cockpybara.controller.my_recipe.add_new_my_recipe.AddNewMyRecipeRequest;
 import Alchole_free.Cockpybara.controller.my_recipe.add_new_my_recipe.AddNewMyRecipeResponse;
+import Alchole_free.Cockpybara.controller.my_recipe.my_recipes.MyRecipeDTO;
 import Alchole_free.Cockpybara.controller.my_recipe.update_my_recipe.UpdateMyRecipeRequest;
 import Alchole_free.Cockpybara.controller.my_recipe.update_my_recipe.UpdateMyRecipeResponse;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.AlcoholicType;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.Category;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.Glass;
+import Alchole_free.Cockpybara.domain.cocktail_recipe.taste.RecipeTaste;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.taste.Taste;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.time_period.TimePeriod;
 import Alchole_free.Cockpybara.domain.ingredient.Ingredient;
@@ -57,6 +59,7 @@ public class CocktailRecipeService {
         CocktailRecipe cocktailRecipe = addNewMyRecipeRequest.to();
         cocktailRecipeRepository.save(cocktailRecipe);
 
+        //recipeIngredient 설정
         List<RecipeIngredient> recipeIngredients = addNewMyRecipeRequest.getIngredients().stream()
                 .map(myRecipeIngredientDTO -> {
                     String name = myRecipeIngredientDTO.getName();
@@ -69,6 +72,11 @@ public class CocktailRecipeService {
                 }).collect(Collectors.toList());
 
         cocktailRecipe.setIngredients(recipeIngredients);
+
+        //recipeTaste 설정
+        List<RecipeTaste> recipeTastes = addNewMyRecipeRequest.getTastes().stream().map(taste -> new RecipeTaste(cocktailRecipe, taste))
+                .collect(Collectors.toList());
+        cocktailRecipe.setTastes(recipeTastes);
 
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalStateException("헤당 멤버가 존재하지 않습니다."));
@@ -105,6 +113,22 @@ public class CocktailRecipeService {
 
         return new UpdateMyRecipeResponse(cocktailRecipe.getId());
     }
+
+    public List<MyRecipeDTO> getMyRecipe(Long userId){
+        Member member = memberRepository.findById(userId)
+                .orElseThrow(() -> new IllegalStateException("해당 멤버가 존재하지 않습니다."));
+        List<MyRecipeDTO> myRecipes = member.getMyRecipes().stream().map(myRecipe -> {
+            Long id = myRecipe.getCocktailRecipe().getId();
+            String name = myRecipe.getCocktailRecipe().getName();
+            String drinkImgPath = myRecipe.getCocktailRecipe().getDrinkImgPath();
+            LocalDateTime createdAt = myRecipe.getCocktailRecipe().getCreatedAt();
+
+            return new MyRecipeDTO(id, name, drinkImgPath, createdAt);
+        }).collect(Collectors.toList());
+
+        return myRecipes;
+    }
+
 
     // 주간, 월간, 전체기간 칵테일레시피 조회
     public List<CocktailRecipeSearchDTO> getCocktailRecipesByPeriod(TimePeriod timePeriod) {
