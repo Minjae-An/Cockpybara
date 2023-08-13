@@ -1,5 +1,6 @@
 package Alchole_free.Cockpybara.controller.my_recipe;
 
+import Alchole_free.Cockpybara.controller.cocktailrecipe.recipe_detail.CocktailRecipeDetailDTO;
 import Alchole_free.Cockpybara.controller.my_recipe.add_new_my_recipe.AddNewMyRecipeRequest;
 import Alchole_free.Cockpybara.controller.my_recipe.add_new_my_recipe.AddNewMyRecipeResponse;
 import Alchole_free.Cockpybara.controller.my_recipe.my_recipes.MyRecipeDTO;
@@ -70,10 +71,16 @@ public class MyRecipeController {
     }
 
     @GetMapping("/user/{userId}/my-page/my-recipes")
-    public ResponseEntity<List<MyRecipeDTO>> getMyRecipe(@PathVariable Long userId){
+    public ResponseEntity<List<MyRecipeDTO>> getMyRecipe(@PathVariable Long userId) {
         List<MyRecipeDTO> myRecipes = cocktailRecipeService.getMyRecipe(userId);
 
         return ResponseEntity.ok(myRecipes);
     }
 
+    @GetMapping("/user/{userId}/my-recipe/details/{myRecipeId}")
+    public ResponseEntity<CocktailRecipeDetailDTO> getMyRecipeDetail(@PathVariable Long myRecipeId) {
+        CocktailRecipeDetailDTO detail = cocktailRecipeService.getDetail(myRecipeId);
+
+        return ResponseEntity.ok(detail);
+    }
 }
