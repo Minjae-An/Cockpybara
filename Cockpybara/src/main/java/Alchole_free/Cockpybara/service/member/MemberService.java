@@ -1,7 +1,11 @@
 package Alchole_free.Cockpybara.service.member;
 
+import Alchole_free.Cockpybara.controller.likes.add_like.AddLikeResponse;
+import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
 import Alchole_free.Cockpybara.domain.member.Member;
+import Alchole_free.Cockpybara.domain.member.likes.Like;
 import Alchole_free.Cockpybara.repository.MemberRepository;
+import Alchole_free.Cockpybara.repository.cocktail_recipe.CocktailRecipeRepository;
 import Alchole_free.Cockpybara.service.member.member_detail.MemberDetailDTO;
 import Alchole_free.Cockpybara.service.member.member_update.MemberUpdateDTO;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +20,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepository;
+    private final CocktailRecipeRepository cocktailRecipeRepository;
 
     @Transactional
     public Long join(Member member) {
@@ -25,7 +30,7 @@ public class MemberService {
         return savedMember.getId();
     }
 
-    public Member findById(Long id){
+    public Member findById(Long id) {
         return memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalStateException("해당 회원이 존재하지 않습니다."));
     }
@@ -45,7 +50,7 @@ public class MemberService {
     }
 
     @Transactional
-    public void memberLeave(Long id){
+    public void memberLeave(Long id) {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalStateException("해당 회원이 존재하지 않습니다"));
 
@@ -71,7 +76,7 @@ public class MemberService {
                 .orElseThrow(() -> new IllegalArgumentException("일치하는 멤버가 존재하지 않습니다."));
 
 
-       member.updatePassword(password);
+        member.updatePassword(password);
     }
 
     @Transactional
@@ -84,7 +89,7 @@ public class MemberService {
         return new MemberUpdateDTO().from(member);
     }
 
-    public MemberDetailDTO getMemberDetails(String email){
+    public MemberDetailDTO getMemberDetails(String email) {
         Member member = memberRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalStateException("해당 회원이 존재하지 않습니다."));
 
@@ -102,4 +107,20 @@ public class MemberService {
         }
     }
 
+    //즐겨찾기 관련 로직들
+    @Transactional
+    public AddLikeResponse addLike(Long userId, Long recipeId) {
+        Member member = memberRepository.findById(userId)
+                .orElseThrow(() -> new IllegalStateException("해당 멤버가 존재하지 않습니다."));
+        CocktailRecipe cocktailRecipe = cocktailRecipeRepository.findById(recipeId)
+                .orElseThrow(() -> new IllegalStateException("해당 레시피가 존재하지 않습니다."));
+
+        member.addLike(cocktailRecipe);
+        return new AddLikeResponse(member.getId(), cocktailRecipe.getId());
+    }
+
+    @Transactional
+    public void removeLike(Long userId, Long recipeId){
+
+    }
 }
