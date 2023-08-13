@@ -2,6 +2,7 @@ package Alchole_free.Cockpybara.controller.my_recipe;
 
 import Alchole_free.Cockpybara.controller.my_recipe.add_new_my_recipe.AddNewMyRecipeRequest;
 import Alchole_free.Cockpybara.controller.my_recipe.add_new_my_recipe.AddNewMyRecipeResponse;
+import Alchole_free.Cockpybara.controller.my_recipe.my_recipes.MyRecipeDTO;
 import Alchole_free.Cockpybara.controller.my_recipe.recipe_options.RecipeOptionsResponse;
 import Alchole_free.Cockpybara.controller.my_recipe.update_my_recipe.UpdateMyRecipeRequest;
 import Alchole_free.Cockpybara.controller.my_recipe.update_my_recipe.UpdateMyRecipeResponse;
@@ -25,11 +26,10 @@ import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/user/{userId}/my-recipe")
 public class MyRecipeController {
     private final CocktailRecipeService cocktailRecipeService;
 
-    @GetMapping("/filter-values")
+    @GetMapping("/user/{userId}/my-page/filter-values")
     public ResponseEntity<RecipeOptionsResponse> getRecipeOptionValues() {
         Map<IngredientCategory, Unit[]> ingredientUnitMap = IngredientUnitMap.createIngredientUnitMap();
 
@@ -45,14 +45,14 @@ public class MyRecipeController {
     }
 
 
-    @PostMapping
+    @PostMapping("/user/{userId}/my-recipe")
     public ResponseEntity<AddNewMyRecipeResponse> addNewMyRecipe(@PathVariable Long userId,
                                                                  @RequestBody @Valid AddNewMyRecipeRequest addNewMyRecipeRequest) {
         AddNewMyRecipeResponse addNewMyRecipeResponse = cocktailRecipeService.saveMyRecipe(userId, addNewMyRecipeRequest);
         return ResponseEntity.ok(addNewMyRecipeResponse);
     }
 
-    @DeleteMapping("/{recipeId}")
+    @DeleteMapping("/user/{userId}/my-recipe/{recipeId}")
     public ResponseEntity<String> deleteMyRecipe(@PathVariable Long userId,
                                                  @PathVariable Long recipeId) {
         cocktailRecipeService.removeMyRecipe(userId, recipeId);
@@ -61,11 +61,19 @@ public class MyRecipeController {
     }
 
     //DTO로 변환 작업 필요
-    @PutMapping("/{recipeId}")
+    @PutMapping("/user/{userId}/my-recipe/{recipeId}")
     public ResponseEntity<UpdateMyRecipeResponse> updateMyRecipe(@PathVariable Long recipeId,
                                                                  @RequestBody @Valid UpdateMyRecipeRequest updateMyRecipeRequest) {
 
         UpdateMyRecipeResponse updateMyRecipeResponse = cocktailRecipeService.updateMyRecipe(recipeId, updateMyRecipeRequest);
         return ResponseEntity.ok(updateMyRecipeResponse);
     }
+
+    @GetMapping("/user/{userId}/my-page/my-recipes")
+    public ResponseEntity<List<MyRecipeDTO>> getMyRecipe(@PathVariable Long userId){
+        List<MyRecipeDTO> myRecipes = cocktailRecipeService.getMyRecipe(userId);
+
+        return ResponseEntity.ok(myRecipes);
+    }
+
 }
