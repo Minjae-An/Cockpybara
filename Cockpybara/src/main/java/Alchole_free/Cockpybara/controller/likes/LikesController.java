@@ -1,5 +1,6 @@
 package Alchole_free.Cockpybara.controller.likes;
 
+import Alchole_free.Cockpybara.controller.likes.add_like.AddLikeResponse;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
 import Alchole_free.Cockpybara.domain.member.Member;
 import Alchole_free.Cockpybara.domain.member.likes.Like;
@@ -14,24 +15,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user/{userId}/likes")
 public class LikesController {
     private final MemberService memberService;
-    private final CocktailRecipeService cocktailRecipeService;
 
     @PostMapping("/{recipeId}")
-    public ResponseEntity<String> addLike(@PathVariable Long userId, @PathVariable Long recipeId) {
-        Member member = memberService.findById(userId);
-        CocktailRecipe cocktailRecipe = cocktailRecipeService.findById(recipeId);
-
-        member.getLikes().add(new Like(member, cocktailRecipe));
-
-        return ResponseEntity.accepted().body("add like successfully");
+    public ResponseEntity<AddLikeResponse> addLike(@PathVariable Long userId, @PathVariable Long recipeId) {
+        AddLikeResponse addLikeResponse = memberService.addLike(userId, recipeId);
+        return ResponseEntity.ok(addLikeResponse);
     }
 
     @DeleteMapping("/{recipeId}")
     public ResponseEntity<String> deleteLike(@PathVariable Long userId, @PathVariable Long recipeId) {
-        Member member = memberService.findById(userId);
-
-        member.getLikes().removeIf(like -> like.getCocktailRecipe().getId().equals(recipeId));
-
-        return ResponseEntity.accepted().body("delete like successfully");
+        return null;
     }
 }
