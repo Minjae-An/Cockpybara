@@ -1,6 +1,7 @@
 package Alchole_free.Cockpybara.service.member;
 
 import Alchole_free.Cockpybara.controller.likes.add_like.AddLikeResponse;
+import Alchole_free.Cockpybara.controller.likes.like_list.LikeDTO;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
 import Alchole_free.Cockpybara.domain.member.Member;
 import Alchole_free.Cockpybara.domain.member.likes.Like;
@@ -12,8 +13,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -125,5 +128,19 @@ public class MemberService {
                 .orElseThrow(() -> new IllegalStateException("해당 멤버가 존재하지 않습니다."));
 
         member.removeLike(recipeId);
+    }
+
+    public List<LikeDTO> getLikes(Long userId){
+        Member member = findById(userId);
+        List<LikeDTO> likes = member.getLikes().stream().map(like -> {
+            Long recipeId = like.getCocktailRecipe().getId();
+            String name = like.getCocktailRecipe().getName();
+            String drinkImgPath = like.getCocktailRecipe().getDrinkImgPath();
+            LocalDateTime createdAt = like.getCocktailRecipe().getCreatedAt();
+
+            return new LikeDTO(recipeId, name, drinkImgPath, createdAt);
+        }).collect(Collectors.toList());
+
+        return likes;
     }
 }
