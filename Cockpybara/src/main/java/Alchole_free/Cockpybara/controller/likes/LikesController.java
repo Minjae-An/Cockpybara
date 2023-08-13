@@ -23,7 +23,9 @@ public class LikesController {
     }
 
     @DeleteMapping("/{recipeId}")
-    public ResponseEntity<String> deleteLike(@PathVariable Long userId, @PathVariable Long recipeId) {
-        return null;
+    public ResponseEntity<String> removeLike(@PathVariable Long userId, @PathVariable Long recipeId) {
+        memberService.removeLike(userId, recipeId);
+
+        return ResponseEntity.ok("successfully remove like");
     }
 }
