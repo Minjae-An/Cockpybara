@@ -39,7 +39,7 @@ public class AddNewMyRecipeRequest {
 
     @NotNull
     @Size(max = 3)
-    private List<Taste> tastes = new ArrayList<>();
+    private List<Taste> tastes;
 
     @NotNull
     @Size(min = 1, max = 15)
