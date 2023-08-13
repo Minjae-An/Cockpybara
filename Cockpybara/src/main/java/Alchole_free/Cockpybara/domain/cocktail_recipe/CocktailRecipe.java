@@ -87,7 +87,6 @@ public class CocktailRecipe {
         this.instruction=instruction;
 
         this.tastes.clear();
-        this.tastes=tastes.stream().map(t->new RecipeTaste(this, t))
-                .collect(Collectors.toList());
+        tastes.forEach(taste -> this.tastes.add(new RecipeTaste(this, taste)));
     }
 }
