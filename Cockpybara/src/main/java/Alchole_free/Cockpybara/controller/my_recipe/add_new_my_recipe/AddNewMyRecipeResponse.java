@@ -1,6 +1,7 @@
 package Alchole_free.Cockpybara.controller.my_recipe.add_new_my_recipe;
 
 import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
+import Alchole_free.Cockpybara.domain.cocktail_recipe.taste.RecipeTaste;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.taste.Taste;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,7 +24,7 @@ public class AddNewMyRecipeResponse {
         String drinkImgPath = cocktailRecipe.getDrinkImgPath();
         String instruction = cocktailRecipe.getInstruction();
         LocalDateTime createdAt = cocktailRecipe.getCreatedAt();
-        List<Taste> tastes = cocktailRecipe.getTastes().stream().map(recipeTaste -> recipeTaste.getTaste())
+        List<Taste> tastes = cocktailRecipe.getTastes().stream().map(RecipeTaste::getTaste)
                 .collect(Collectors.toList());
 
         return AddNewMyRecipeResponse.builder()
