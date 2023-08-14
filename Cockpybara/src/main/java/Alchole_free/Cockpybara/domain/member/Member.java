@@ -28,11 +28,11 @@ public class Member {
     private Gender gender;
     private Date birth;
 
-    @OneToMany(mappedBy = "member")
-    private List<Like> likes;
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Like> likes = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MyRecipe> myRecipes=new ArrayList<>();
+    private List<MyRecipe> myRecipes = new ArrayList<>();
 
 
     public Member(String email, String password, String alias, String phoneNumber, Gender gender, Date birth) {
@@ -58,4 +58,16 @@ public class Member {
         myRecipes.removeIf(myRecipe ->
                 myRecipe.getCocktailRecipe().equals(cocktailRecipe));
     }
+
+    public Like addLike(CocktailRecipe recipe) {
+        Like like = new Like(this, recipe);
+        likes.add(like);
+        return like;
+    }
+
+    public void removeLike(Long recipeId) {
+        likes.removeIf(like ->
+                like.getCocktailRecipe().getId().equals(recipeId));
+    }
+
 }
