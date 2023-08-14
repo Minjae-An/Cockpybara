@@ -1,4 +1,4 @@
-﻿package Alchole_free.Cockpybara;
+package Alchole_free.Cockpybara;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.util.Utils;
