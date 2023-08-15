@@ -55,6 +55,10 @@ dependencies {
 	implementation 'com.fasterxml.jackson.core:jackson-core:2.12.5'
 	implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.5'
 
+	// Google HTTP Client Jackson 라이브러리 추가
+	implementation group: 'com.google.http-client', name: 'google-http-client-jackson2', version: '1.41.0'
+
+
 	//csv 읽기 설정
 	implementation 'com.opencsv:opencsv:5.5.2'
 

@@ -1,4 +1,4 @@
-﻿package Alchole_free.Cockpybara.image;
+package Alchole_free.Cockpybara.image;
 
 import com.google.api.services.drive.Drive;
 import org.springframework.beans.factory.annotation.Autowired;

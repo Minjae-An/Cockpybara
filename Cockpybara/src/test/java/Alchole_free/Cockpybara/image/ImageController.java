@@ -1,4 +1,4 @@
-﻿package Alchole_free.Cockpybara.image;
+package Alchole_free.Cockpybara.image;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
