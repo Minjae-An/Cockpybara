@@ -119,3 +119,16 @@
   margin-left:5%;
   font: 15px "Pretendard", sans-serif;
 }
+
+.recipe-list-horizontal {
+  display: flex;
+  flex-wrap: nowrap; /* 아이템이 줄바꿈되지 않도록 설정 */
+  overflow-x: auto; /* 아이템이 넘치면 스크롤바로 볼 수 있게 설정 */
+}
+
+.recipe-item-horizontal {
+  
+  flex: 0 0 auto; /* 아이템의 크기가 자동으로 조절되도록 설정 */
+  margin-right: 20px; /* 아이템 간격 조정 (원하는 간격으로 수정) */
+  text-align: center;
+}

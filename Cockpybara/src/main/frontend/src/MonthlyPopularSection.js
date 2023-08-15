@@ -59,7 +59,7 @@ const MonthlyPopularSection = () => {
         {dataToDisplay.map((item) => (
           <li key={item.title}>
             <div className="rank-box">
-              <Link to={`/cocktails/${item.rank}`}>
+              <Link to={`/recipe/detail/${item.rank}`}>
                 <div className="item-container">
                   <div className="rank-image-and-title">
                     <span className="rank">{rankToDisplay(item.rank)}</span>

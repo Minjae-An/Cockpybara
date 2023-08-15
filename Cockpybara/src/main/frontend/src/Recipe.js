@@ -15,10 +15,10 @@ const Recipe = () => {
     // API를 통해 칵테일 데이터를 가져옵니다.
     // 예시를 위해 데이터를 직접 설정하지만, 실제로는 백엔드 API를 호출하여 데이터를 가져와야 합니다.
     const mockCocktails = [
-      { id: '1', name: 'Mojito', ingredients: ['Rum', 'Lime', 'Mint', 'Sugar', 'Soda Water'] },
-      { id: '2', name: 'Cosmopolitan', ingredients: ['Vodka', 'Triple Sec', 'Lime Juice', 'Cranberry Juice'] },
-      { id: '3', name: 'Old Fashioned', ingredients: ['Bourbon', 'Sugar', 'Bitters', 'Orange Peel'] },
-      { id: '4', name: 'Martini', ingredients: ['Gin', 'Dry Vermouth', 'Olives'] },
+      { id: '1', title: 'Mojito', ingredient: ['Rum', 'Lime', 'Mint', 'Sugar', 'Soda Water'] },
+      { id: '2', title: 'Cosmopolitan', ingredient: ['Vodka', 'Triple Sec', 'Lime Juice', 'Cranberry Juice'] },
+      { id: '3', title: 'Old Fashioned', ingredient: ['Bourbon', 'Sugar', 'Bitters', 'Orange Peel'] },
+      { id: '4', title: 'Martini', ingredient: ['Gin', 'Dry Vermouth', 'Olives'] },
     ];
     setCocktails(mockCocktails);
   }, []);
@@ -52,18 +52,22 @@ const Recipe = () => {
       navigate(`/recipe?${queryParams.toString()}`);
     }
   };
+  const navigateToMyRecipe = useNavigate();
 
+  const navigateToAddRecipe = () => {
+    navigateToMyRecipe('/user/my-recipe'); // 변경된 경로로 이동
+  };
 
   const filteredCocktails = cocktails.filter((cocktail) => {
     // URL 쿼리 파라미터로 검색어가 주어진 경우, 검색 결과만 보여줍니다.
     if (searchQuery && searchQuery.trim() !== '') {
-      return cocktail.name.toLowerCase().includes(searchQuery.toLowerCase());
+      return cocktail.title.toLowerCase().includes(searchQuery.toLowerCase());
     } else {
       // 검색어가 주어지지 않은 경우, 모든 칵테일을 보여줍니다.
       if (selectedIngredients.length === 0) {
         return true; // If no ingredients are selected, show all cocktails
       } else {
-        return cocktail.ingredients.some((ingredient) => selectedIngredients.includes(ingredient));
+        return cocktail.ingredient.some((ingredient) => selectedIngredients.includes(ingredient));
       }
     }
   });
@@ -94,18 +98,19 @@ const Recipe = () => {
         </label>
       </div>
       <ul>
-        {filteredCocktails.map(cocktail => (
-          <li key={cocktail.name}>
-            {/* Update Link to pass the cocktail ID */}
-            <Link to={`/recipe/detail/${cocktail.id}`}>{cocktail.name}</Link>
-            <ul>
-              {cocktail.ingredients.map(ingredient => (
-                <li key={ingredient}>{ingredient}</li>
-              ))}
-            </ul>
-          </li>
+  {filteredCocktails.map(cocktail => (
+    <li key={cocktail.title}>
+      {/* Update Link to pass the cocktail ID */}
+      <Link to={`/recipe/detail/${cocktail.id}`}>{cocktail.title}</Link>
+      <ul>
+        {cocktail.ingredient.map(ingredient => (
+          <li key={ingredient}>{ingredient}</li>
         ))}
       </ul>
+    </li>
+  ))}
+</ul>
+<button onClick={navigateToAddRecipe}>레시피 추가</button> {/* 버튼 추가 */}
     </div>
   );
 };

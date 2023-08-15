@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useParams} from 'react-router-dom';
 import Home from './Home';
 import Login from './Login';
 import Join from './Join';
@@ -21,7 +21,7 @@ import FooterV2 from './footerV2';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
-
+  const { cocktailId } = useParams();
   const handleLogin = async () => {
     try {
       // Make the API call to login endpoint
@@ -63,7 +63,7 @@ function App() {
         <Route path="/community/{userId}" element={<Community />} />
         <Route path="/user/{userId}/my-page" element={<MyPage />} />
         <Route path="/user/my-recipe" element={<AddRecipe/>} />
-        <Route path="/recipe/detail/{cocktailId}" element={<RecipeDetail/>} />
+        <Route path="/recipe/detail/:cocktailId" element={<RecipeDetail />} />
         <Route path="/community" element={<Community/>} />
         <Route path="/error" element={<Error/>} />
         <Route path="/DetailHeader" element={<DetailHeader/>} />{/*확인용*/}

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './MyPage.css';
 import { Link } from 'react-router-dom';
+import pinkTea from "./photo/pinkTea.png";
+
 
 const MyPage = () => {
   const handleSaveButtonClick = () => {
@@ -61,7 +63,7 @@ const MyPage = () => {
     phone: '555-5555',
     gender: 'Male',
     birthDate: '1990-01-01',
-    profileImage: '/photo/copybara.png',
+    profileImage: 'pinkTea',
     favoriteRecipes: [],
     myRecipes: [],
     commentedRecipes: [],
@@ -74,17 +76,17 @@ const MyPage = () => {
     {
       id: 1,
       name: 'Recipe 1',
-      poster: '/photo/recipe1.png',
+      poster:<img src = {pinkTea} alt="poster" />
     },
     {
       id: 2,
       name: 'Recipe 2',
-      poster: '/photo/recipe2.png',
+      poster: './photo/pinkTea.png',
     },
     {
       id: 3,
       name: 'Recipe 3',
-      poster: '/photo/recipe3.png',
+      poster: './photo/pinkTea.png',
     },
     // Add more dummy recipes as needed
   ];
@@ -231,59 +233,40 @@ const MyPage = () => {
         // Show recipe sections only when not in editing mode
         <div>
           <div>
-            <h2>Favorite Recipes</h2>
-            <div className="recipe-list">
+            <h2>즐겨찾기</h2>
+            <div className="recipe-list-horizontal">
               {dummyRecipes.map(recipe => (
-                <div className="recipe-item" key={recipe.id}>
-                  <img
-                    src={process.env.PUBLIC_URL + recipe.poster}
-                    alt={recipe.name}
-                  />
+                <div className="recipe-item-horizontal" key={recipe.id}>
+                  <img src={pinkTea} alt={recipe.name} />
                   <p>{recipe.name}</p>
                 </div>
               ))}
+              <button>즐겨찾기 더 보기</button>
             </div>
           </div>
-
       <div>
-        <h2>Favorite Recipes</h2>
-        <div className="recipe-list">
-          {dummyRecipes.map(recipe => (
-            <div className="recipe-item" key={recipe.id}>
-              <img src={process.env.PUBLIC_URL + recipe.poster} alt={recipe.name} />
-              <p>{recipe.name}</p>
-            </div>
+        <h2>나만의 레시피</h2>
+        <div className="recipe-list-horizontal">
+              {dummyRecipes.map(recipe => (
+                <div className="recipe-item-horizontal" key={recipe.id}>
+                  <img src={pinkTea} alt={recipe.name} />
+                  <p>{recipe.name}</p>
+                </div>
           ))}
+          <button>나만의 레시피 더 보기</button>
         </div>
       </div>
 
       <div>
-            <h2>My Recipes</h2>
-            <div className="recipe-list">
+            <h2>댓글 단 레시피</h2>
+            <div className="recipe-list-horizontal">
               {dummyRecipes.map(recipe => (
-                <div className="recipe-item" key={recipe.id}>
-                  <img
-                    src={process.env.PUBLIC_URL + recipe.poster}
-                    alt={recipe.name}
-                  />
+                <div className="recipe-item-horizontal" key={recipe.id}>
+                  <img src={pinkTea} alt={recipe.name} />
                   <p>{recipe.name}</p>
                 </div>
               ))}
-            </div>
-          </div>
-
-          <div>
-            <h2>Commented Recipes</h2>
-            <div className="recipe-list">
-              {dummyRecipes.map(recipe => (
-                <div className="recipe-item" key={recipe.id}>
-                  <img
-                    src={process.env.PUBLIC_URL + recipe.poster}
-                    alt={recipe.name}
-                  />
-                  <p>{recipe.name}</p>
-                </div>
-              ))}
+              <button>댓글 단 레시피 더 보기</button>
             </div>
           </div>
         </div>

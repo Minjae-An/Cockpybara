@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './MyCommunitySection.css';
+import { Link } from 'react-router-dom';
 import arrowPhoto from "./photo/arrow.png";
 import cockIcon from "./photo/CockIcon.png";
 
@@ -51,9 +52,11 @@ const MyCommunitySection = ({ userId }) => {
           <div className="userName-box">
             <p id="user-name">{userName}</p>
           </div>
+          <Link to='/user/{userId}/my-page'>
           <button id="myPagegoButton" onClick={handleMyPageButtonClick}>
             <img src={arrowPhoto} alt="화살표 사진" />
           </button>
+          </Link>
         </div>
       </div>
     </div>

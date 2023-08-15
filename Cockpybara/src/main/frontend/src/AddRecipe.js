@@ -78,6 +78,7 @@ const AddRecipe = () => {
   const [ingredient, setIngredient] = useState('');
   const [step, setStep] = useState('');
   const [flavors, setFlavors] = useState([]);
+  const [cocktailId, setId] = useState(5); // 시작 아이디 값 설정
   const [showNameSearch, setShowNameSearch] = useState(false);
 
   const handleFlavorSelection = (selectedFlavor) => {
@@ -102,6 +103,7 @@ const AddRecipe = () => {
     }
 
     // 여기서 입력된 값들을 서버로 보내거나 다른 로직을 처리할 수 있습니다.
+    console.log('Id:', cocktailId);
     console.log('Title:', title);
     console.log('Explan:', explan);
     console.log('Ingredient:', ingredient);
@@ -109,8 +111,9 @@ const AddRecipe = () => {
     console.log('Flavors:', flavors); // 선택된 맛들 출력
 
     // "CocktailDetail" 페이지로 폼 데이터를 전달하여 이동합니다.
-    navigate('/recipe/detail/{cocktailId}', {
+    navigate(`/recipe/detail/${cocktailId}`, {
       state: {
+        cocktailId,
         title,
         explan,
         ingredient,
@@ -119,8 +122,10 @@ const AddRecipe = () => {
       },
     });
 
-    // 선택한 맛 초기화
     setFlavors([]);
+
+    // 아이디 증가시키기
+    setId(prevId => prevId + 1);
   };
 
   const handleNameSearchClick = () => {
@@ -170,7 +175,7 @@ const AddRecipe = () => {
         <div>
           <label htmlFor="explan">레시피설명</label>
           <input
-            type="explan"
+            type="text"
             id="explan"
             value={explan}
             onChange={(e) => setExplan(e.target.value)}
@@ -180,7 +185,7 @@ const AddRecipe = () => {
         <div>
           <label htmlFor="ingredient">재료</label>
           <input
-            type="ingredient"
+            type="text"
             id="ingredient"
             value={ingredient}
             onChange={(e) => setIngredient(e.target.value)}
@@ -193,7 +198,7 @@ const AddRecipe = () => {
         <div>
           <label htmlFor="step">단계</label>
           <input
-            type="step"
+            type="text"
             id="step"
             value={step}
             onChange={(e) => setStep(e.target.value)}
@@ -222,6 +227,16 @@ const AddRecipe = () => {
           </button>
         </div>
         <button type="submit">폼 제출</button>
+        <div>
+          <label htmlFor="cocktailId">칵테일 ID</label>
+          <input
+            type="text"
+            id="cocktailId"
+            value={cocktailId}
+            readOnly // 읽기 전용으로 설정
+            required
+          />
+        </div>
       </form>
     </div>
   );
