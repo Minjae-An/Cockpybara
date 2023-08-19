@@ -4,7 +4,7 @@ import Alchole_free.Cockpybara.controller.likes.add_like.AddLikeResponse;
 import Alchole_free.Cockpybara.controller.likes.like_list.LikeDTO;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
 import Alchole_free.Cockpybara.domain.member.Member;
-import Alchole_free.Cockpybara.domain.member.likes.Like;
+import Alchole_free.Cockpybara.exception.member.DuplicateMemberException;
 import Alchole_free.Cockpybara.repository.MemberRepository;
 import Alchole_free.Cockpybara.repository.cocktail_recipe.CocktailRecipeRepository;
 import Alchole_free.Cockpybara.service.member.member_detail.MemberDetailDTO;
@@ -35,7 +35,7 @@ public class MemberService {
 
     public Member findById(Long id) {
         return memberRepository.findById(id)
-                .orElseThrow(() -> new IllegalStateException("해당 회원이 존재하지 않습니다."));
+                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 존재하지 않습니다."));
     }
 
     public Member findByEmail(String email) {
@@ -55,14 +55,14 @@ public class MemberService {
     @Transactional
     public void memberLeave(Long id) {
         Member member = memberRepository.findById(id)
-                .orElseThrow(() -> new IllegalStateException("해당 회원이 존재하지 않습니다"));
+                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 존재하지 않습니다"));
 
         memberRepository.delete(member);
     }
 
     public String findEmail(String alias, String phoneNumber) {
         Member member = memberRepository.findByAliasAndPhoneNumber(alias, phoneNumber)
-                .orElseThrow(() -> new IllegalStateException("일치하는 멤버가 존재하지 않습니다."));
+                .orElseThrow(() -> new IllegalArgumentException("일치하는 멤버가 존재하지 않습니다."));
 
         return member.getEmail();
     }
@@ -85,7 +85,7 @@ public class MemberService {
     @Transactional
     public MemberUpdateDTO updateMemberInfo(Long id, String alias, String phoneNumber) {
         Member member = memberRepository.findById(id)
-                .orElseThrow(() -> new IllegalStateException("해당 회원이 존재하지 않습니다."));
+                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 존재하지 않습니다."));
 
         member.updateMember(alias, phoneNumber);
 
@@ -94,7 +94,7 @@ public class MemberService {
 
     public MemberDetailDTO getMemberDetails(String email) {
         Member member = memberRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalStateException("해당 회원이 존재하지 않습니다."));
+                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 존재하지 않습니다."));
 
         MemberDetailDTO memberDetailDTO = new MemberDetailDTO().from(member);
         return memberDetailDTO;
@@ -106,7 +106,7 @@ public class MemberService {
         Optional<Member> foundResult = memberRepository.findByEmail(email);
 
         if (foundResult.isPresent()) {
-            throw new IllegalStateException("이미 가입된 회원이 존재합니다");
+            throw new DuplicateMemberException();
         }
     }
 
@@ -114,23 +114,23 @@ public class MemberService {
     @Transactional
     public AddLikeResponse addLike(Long userId, Long recipeId) {
         Member member = memberRepository.findById(userId)
-                .orElseThrow(() -> new IllegalStateException("해당 멤버가 존재하지 않습니다."));
+                .orElseThrow(() -> new IllegalArgumentException("해당 멤버가 존재하지 않습니다."));
         CocktailRecipe cocktailRecipe = cocktailRecipeRepository.findById(recipeId)
-                .orElseThrow(() -> new IllegalStateException("해당 레시피가 존재하지 않습니다."));
+                .orElseThrow(() -> new IllegalArgumentException("해당 레시피가 존재하지 않습니다."));
 
         member.addLike(cocktailRecipe);
         return new AddLikeResponse(member.getId(), cocktailRecipe.getId());
     }
 
     @Transactional
-    public void removeLike(Long userId, Long recipeId){
+    public void removeLike(Long userId, Long recipeId) {
         Member member = memberRepository.findById(userId)
-                .orElseThrow(() -> new IllegalStateException("해당 멤버가 존재하지 않습니다."));
+                .orElseThrow(() -> new IllegalArgumentException("해당 멤버가 존재하지 않습니다."));
 
         member.removeLike(recipeId);
     }
 
-    public List<LikeDTO> getLikes(Long userId){
+    public List<LikeDTO> getLikes(Long userId) {
         Member member = findById(userId);
         List<LikeDTO> likes = member.getLikes().stream().map(like -> {
             Long recipeId = like.getCocktailRecipe().getId();
