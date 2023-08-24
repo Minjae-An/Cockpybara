@@ -27,7 +27,7 @@ function App() {
       // Make the API call to login endpoint
       const response = await axios.post('/login', {
         // Pass the necessary login data in the request body
-        // For example, you can pass the ID and password as follows:
+        // For example, you can pass the ID and password as follows
         id: 'your_id',
         password: 'your_password'
       });
