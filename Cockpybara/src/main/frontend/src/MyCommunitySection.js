@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './MyCommunitySection.css';
+import { Link } from 'react-router-dom';
 import arrowPhoto from "./photo/arrow.png";
 import cockIcon from "./photo/CockIcon.png";
 
@@ -9,8 +10,6 @@ const MyCommunitySection = ({ userId }) => {
   const [userName, setUserName] = useState('');
   const [userPhoto, setUserPhoto] = useState('');
 
-  // 주석 처리: 백엔드와의 통신 코드
-  /*
   useEffect(() => {
     const fetchDataFromBackend = async () => {
       try {
@@ -25,7 +24,6 @@ const MyCommunitySection = ({ userId }) => {
 
     fetchDataFromBackend();
   }, [userId]);
-  */
 
   // 더미 데이터: 테스트를 위해 하드코딩된 사용자 이름과 사진 URL
   useEffect(() => {
@@ -51,9 +49,11 @@ const MyCommunitySection = ({ userId }) => {
           <div className="userName-box">
             <p id="user-name">{userName}</p>
           </div>
+          <Link to='/user/{userId}/my-page'>
           <button id="myPagegoButton" onClick={handleMyPageButtonClick}>
             <img src={arrowPhoto} alt="화살표 사진" />
           </button>
+          </Link>
         </div>
       </div>
     </div>
