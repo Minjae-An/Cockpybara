@@ -88,6 +88,21 @@ const MyPage = () => {
       name: 'Recipe 3',
       poster: './photo/pinkTea.png',
     },
+    {
+      id: 4,
+      name: 'Recipe 4',
+      poster:<img src = {pinkTea} alt="poster" />
+    },
+    {
+      id: 5,
+      name: 'Recipe 5',
+      poster: './photo/pinkTea.png',
+    },
+    {
+      id: 6,
+      name: 'Recipe 6',
+      poster: './photo/pinkTea.png',
+    },
     // Add more dummy recipes as needed
   ];
 
@@ -222,7 +237,6 @@ const MyPage = () => {
               <img src={process.env.PUBLIC_URL + userData.profileImage} alt={userData.name} />
               <p>Name: {userData.name}</p>
               <p>Email: {userData.email}</p>
-              <p>Representative Recipe: {userData.representativeRecipe}</p>
             </div>
             <button onClick={handleEditButtonClick}>Edit Profile</button>
           </div>
@@ -232,6 +246,16 @@ const MyPage = () => {
       {!isEditing && (
         // Show recipe sections only when not in editing mode
         <div>
+          <div className="flexcontainer">
+              <p className="text">
+                <span className="span">
+                  회원님이 등록한 레시피 중<br />
+                </span>
+              </p>
+              <p className="text">
+                <span className="span">프로필에 가장 먼저 뜨면 좋을 레시피를 등록해 주세요.</span>
+              </p>
+            </div>
           <div>
             <h2>즐겨찾기</h2>
             <div className="recipe-list-horizontal">
