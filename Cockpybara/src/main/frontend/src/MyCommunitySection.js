@@ -10,8 +10,6 @@ const MyCommunitySection = ({ userId }) => {
   const [userName, setUserName] = useState('');
   const [userPhoto, setUserPhoto] = useState('');
 
-  // 주석 처리: 백엔드와의 통신 코드
-  /*
   useEffect(() => {
     const fetchDataFromBackend = async () => {
       try {
@@ -26,7 +24,6 @@ const MyCommunitySection = ({ userId }) => {
 
     fetchDataFromBackend();
   }, [userId]);
-  */
 
   // 더미 데이터: 테스트를 위해 하드코딩된 사용자 이름과 사진 URL
   useEffect(() => {
