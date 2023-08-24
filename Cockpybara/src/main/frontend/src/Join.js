@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Join.css'
-import image1 from './photo/capybaraIcon.png'; // 이미지 경로
+import image1 from './photo/capybaraIcon.png'; 
 
 const Join = () => {
   const [email, setEmail] = useState('');
@@ -48,8 +48,9 @@ const Join = () => {
     setIsNextClicked(true);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {  {/* 백엔드 API 요청 코드 */}
     e.preventDefault();
+  
     const formData = {
       email: email,
       password: password,
@@ -58,9 +59,28 @@ const Join = () => {
       gender: gender,
       birth: birth
     };
-    console.log('회원가입 정보:', formData);
-    setIsJoinSuccess(true);
-  };
+  
+    try {
+      const response = await fetch('/join', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+  
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log('회원가입 성공:', responseData);
+        setIsJoinSuccess(true);
+      } else {
+        console.error('회원가입 실패');
+      }
+    } catch (error) {
+      console.error('API 요청 에러:', error);
+    }
+  }; {/* 백엔드 API 요청 코드 */}
+  
 
   const handleLoginButtonClick = () => {
     navigate('/login');
