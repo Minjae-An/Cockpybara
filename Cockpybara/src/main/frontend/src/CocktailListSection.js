@@ -1,5 +1,6 @@
 // CocktailListSection.js
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './CocktailListSection.css';
 import image1 from "./photo/image1.png";
 import pinkTea from "./photo/pinkTea.png";
@@ -154,7 +155,10 @@ const CocktailListSection = () => {
                   </div>
                 </div>
                 <div className="cockList-Cockinfo-box">
-                  <p id="cock-name">{cocktail.name}</p>
+          <p id="cock-name">
+            {/* Wrap the cocktail name in a Link */}
+            <Link to={`/recipe/detail/${cocktail.id}`}>{cocktail.name}</Link>
+          </p>
                   <div className="cockList-Cockinfo-explan">
                     <p id="explan">{cocktail.description}</p>
                     <p id="taste">{cocktail.taste}</p>
