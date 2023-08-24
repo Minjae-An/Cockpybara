@@ -4,6 +4,7 @@ import './Join.css'
 import image1 from './photo/capybaraIcon.png';
 
 const Join = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -14,8 +15,26 @@ const Join = () => {
   const [isJoinSuccess, setIsJoinSuccess] = useState(false);
   const [isNextClicked, setIsNextClicked] = useState(false);
 
+  const [isIdAvailable, setIsIdAvailable] = useState(true); // 상태 변수 추가 (회원가입 아이디 중복확인)
 
-  const navigate = useNavigate();
+  const handleNextClick = async () => {
+    // 아이디 중복 확인을 위한 API 요청 코드
+    try {
+      const response = await fetch(`/check-id/${email}`, { // 이 부분은 백엔드의 실제 엔드포인트에 맞게 수정해야 합니다.
+        method: 'GET',
+      });
+
+      if (response.ok) {
+        const responseData = await response.json();
+        setIsIdAvailable(responseData.isAvailable); // 백엔드에서 넘어온 데이터에 따라 아이디 중복 여부를 업데이트합니다.
+        setIsNextClicked(true);
+      } else {
+        console.error('아이디 중복 확인 실패');
+      }
+    } catch (error) {
+      console.error('API 요청 에러:', error);
+    }
+  };
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -43,10 +62,6 @@ const Join = () => {
 
   const handleBirthChange = (e) => {
     setBirth(e.target.value);
-  };
-
-  const handleNextClick = () => {
-    setIsNextClicked(true);
   };
 
   const handleSubmit = async (e) => {
@@ -121,6 +136,9 @@ const Join = () => {
               <button className={`join-next-button ${password !== confirmPassword ? 'disabled' : ''}`} type="button" onClick={handleNextClick}>
                 다음으로
               </button>
+              {isIdAvailable === false && (
+                <p style={{ color: 'red' }}>이미 사용 중인 아이디입니다.</p>
+              )}
 
             </div>
           ) : (
