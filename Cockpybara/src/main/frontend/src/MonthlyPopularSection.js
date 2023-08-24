@@ -15,15 +15,19 @@ const MonthlyPopularSection = () => {
         const period = 'monthly'; // You can customize the period here (e.g., 'weekly', 'monthly', 'yearly')
         const response = await fetch(`/community/period-cocktails?period=${period}`);
         const data = await response.json();
-        setPopularData(data);
+  
+        // Sort the data by rank or any other popularity metric
+        const sortedData = data.sort((a, b) => a.rank - b.rank);
+  
+        setPopularData(sortedData);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
-
+  
     fetchDataFromBackend();
   }, []);
-
+  
   const handleButtonClick = (buttonNumber) => {
     setSelectedButton(buttonNumber);
   };
