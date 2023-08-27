@@ -50,8 +50,8 @@ public class CocktailRecipeController {
 
 
     @GetMapping("/recipe/search")
-    public CustomPageResponse<CocktailRecipeSearchDTO> findByName(String name, CustomPageRequest pageRequest) {
-        return cocktailRecipeService.findCocktailRecipeByNameContaining(name, pageRequest);
+    public ResponseEntity<CustomPageResponse<CocktailRecipeSearchDTO>> findByName(String name, CustomPageRequest pageRequest) {
+        return ResponseEntity.ok(cocktailRecipeService.findCocktailRecipeByNameContaining(name, pageRequest));
     }
 
     private <T extends Enum<T>> List<String> getEnumValueList(Class<T> enumClass) {
