@@ -1,7 +1,7 @@
 package Alchole_free.Cockpybara.domain.member.generate;
 
 import Alchole_free.Cockpybara.controller.member.join.JoinRequest;
-import Alchole_free.Cockpybara.controller.member.util.HashingUtil;
+import Alchole_free.Cockpybara.util.HashingUtil;
 import Alchole_free.Cockpybara.domain.member.Member;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

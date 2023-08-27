@@ -4,7 +4,7 @@ import Alchole_free.Cockpybara.controller.member.detail.DetailRequest;
 import Alchole_free.Cockpybara.controller.member.join.JoinRequest;
 import Alchole_free.Cockpybara.controller.member.join.JoinResponse;
 import Alchole_free.Cockpybara.controller.member.update.MemberInfoUpdateRequest;
-import Alchole_free.Cockpybara.controller.member.util.HashingUtil;
+import Alchole_free.Cockpybara.util.HashingUtil;
 import Alchole_free.Cockpybara.domain.member.Gender;
 
 import Alchole_free.Cockpybara.domain.member.Member;
