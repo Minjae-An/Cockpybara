@@ -7,7 +7,6 @@ import Alchole_free.Cockpybara.controller.my_recipe.add_new_my_recipe.AddNewMyRe
 import Alchole_free.Cockpybara.controller.my_recipe.my_recipes.MyRecipeDTO;
 import Alchole_free.Cockpybara.controller.my_recipe.update_my_recipe.UpdateMyRecipeRequest;
 import Alchole_free.Cockpybara.controller.my_recipe.update_my_recipe.UpdateMyRecipeResponse;
-import Alchole_free.Cockpybara.controller.pagination.CustomPageRequest;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.AlcoholicType;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.Category;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
@@ -24,6 +23,8 @@ import Alchole_free.Cockpybara.repository.IngredientRepository;
 import Alchole_free.Cockpybara.repository.MemberRepository;
 import Alchole_free.Cockpybara.repository.cocktail_recipe.CocktailRecipeRepository;
 import Alchole_free.Cockpybara.repository.cocktail_recipe.condition.CocktailRecipeSearchCondition;
+import Alchole_free.Cockpybara.util.pagination.CustomPageRequest;
+import Alchole_free.Cockpybara.util.pagination.CustomPageResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -42,14 +43,20 @@ public class CocktailRecipeService {
     private final MemberRepository memberRepository;
     private final IngredientRepository ingredientRepository;
 
-    public Page<CocktailRecipeSearchDTO> findCocktailRecipeByNameContaining(String name, CustomPageRequest pageRequest) {
-        int page = pageRequest.getPage();
-        int size = pageRequest.getSize();
+    public CustomPageResponse<CocktailRecipeSearchDTO> findCocktailRecipeByNameContaining(String name, CustomPageRequest pageRequest) {
+        PageRequest request = PageRequest.of(pageRequest.getPage(), pageRequest.getSize());
+        Page<CocktailRecipe> page = cocktailRecipeRepository.findCocktailRecipeByNameContaining(name, request);
+        List<CocktailRecipeSearchDTO> content = page.get().map(CocktailRecipeSearchDTO::from).collect(Collectors.toList());
+        int currentPage = page.getNumber();
+        int nextPage=page.hasNext()?page.nextPageable().getPageNumber():Integer.MAX_VALUE;
+        int prevPage=page.hasPrevious()?page.previousPageable().getPageNumber():-1;
+        int pageSize=page.getSize();
+        int totalPage=page.getTotalPages();
+        long totalElements=page.getTotalElements();
 
-        Page<CocktailRecipe> cocktailRecipes = cocktailRecipeRepository.findCocktailRecipeByNameContaining(name, PageRequest.of(page, size));
-        Page<CocktailRecipeSearchDTO> searchDTOS = cocktailRecipes.map(CocktailRecipeSearchDTO::from);
-
-        return searchDTOS;
+        CustomPageResponse<CocktailRecipeSearchDTO> response = new CustomPageResponse<>(currentPage, nextPage, prevPage, pageSize, totalPage, totalElements);
+        response.setContent(content);
+        return response;
     }
 
     public CocktailRecipe findById(Long id) {
@@ -122,7 +129,7 @@ public class CocktailRecipeService {
         return new UpdateMyRecipeResponse(cocktailRecipe.getId());
     }
 
-    public List<MyRecipeDTO> getMyRecipe(Long userId) {
+    public List<MyRecipeDTO> getMyRecipe(Long userId){
         Member member = memberRepository.findById(userId)
                 .orElseThrow(() -> new IllegalStateException("해당 멤버가 존재하지 않습니다."));
         List<MyRecipeDTO> myRecipes = member.getMyRecipes().stream().map(myRecipe -> {
