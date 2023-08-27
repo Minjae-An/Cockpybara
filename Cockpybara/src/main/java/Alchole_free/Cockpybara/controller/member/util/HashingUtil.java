@@ -1,4 +1,4 @@
-package Alchole_free.Cockpybara.util;
+package Alchole_free.Cockpybara.controller.member.util;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
