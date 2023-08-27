@@ -17,6 +17,7 @@ public class MemberDetailDTO {
     private String phoneNumber;
     private Gender gender;
     private Date birth;
+    private String imageUrl;
 
     private List<CocktailRecipe> likes;
     private List<CocktailRecipe> myRecipes;
@@ -29,6 +30,7 @@ public class MemberDetailDTO {
         this.phoneNumber=member.getPhoneNumber();
         this.gender=member.getGender();
         this.birth=member.getBirth();
+        this.imageUrl=member.getImageUrl();
 
         likes = member.getLikes().stream()
                 .map(like -> like.getCocktailRecipe())
