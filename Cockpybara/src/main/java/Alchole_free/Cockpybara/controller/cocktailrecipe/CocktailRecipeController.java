@@ -3,8 +3,6 @@ package Alchole_free.Cockpybara.controller.cocktailrecipe;
 import Alchole_free.Cockpybara.controller.cocktailrecipe.option_list.CocktailRecipeSearchOptionListResponse;
 import Alchole_free.Cockpybara.controller.cocktailrecipe.recipe_detail.CocktailRecipeDetailDTO;
 import Alchole_free.Cockpybara.controller.cocktailrecipe.search.CocktailRecipeSearchDTO;
-import Alchole_free.Cockpybara.controller.pagination.CustomPageRequest;
-import Alchole_free.Cockpybara.controller.pagination.CustomPageResponse;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.AlcoholicType;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.Category;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.Glass;
@@ -13,8 +11,9 @@ import Alchole_free.Cockpybara.domain.cocktail_recipe.time_period.TimePeriod;
 import Alchole_free.Cockpybara.domain.ingredient.IngredientCategory;
 import Alchole_free.Cockpybara.repository.cocktail_recipe.condition.CocktailRecipeSearchCondition;
 import Alchole_free.Cockpybara.service.cocktail_recipe.CocktailRecipeService;
+import Alchole_free.Cockpybara.util.pagination.CustomPageRequest;
+import Alchole_free.Cockpybara.util.pagination.CustomPageResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,9 +50,8 @@ public class CocktailRecipeController {
 
 
     @GetMapping("/recipe/search")
-    public ResponseEntity<CustomPageResponse<CocktailRecipeSearchDTO>> findByName(String name, CustomPageRequest pageRequest) {
-        Page<CocktailRecipeSearchDTO> searchDTOS = cocktailRecipeService.findCocktailRecipeByNameContaining(name, pageRequest);
-        return ResponseEntity.ok(new CustomPageResponse<>(searchDTOS));
+    public CustomPageResponse<CocktailRecipeSearchDTO> findByName(String name, CustomPageRequest pageRequest) {
+        return cocktailRecipeService.findCocktailRecipeByNameContaining(name, pageRequest);
     }
 
     private <T extends Enum<T>> List<String> getEnumValueList(Class<T> enumClass) {
