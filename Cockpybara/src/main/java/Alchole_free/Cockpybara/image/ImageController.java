@@ -19,7 +19,6 @@ public class ImageController {
     @PostMapping("/image-upload")
     public String uploadImage(@RequestParam("file") MultipartFile file,
                               @RequestParam("email") String email) {
-        System.out.println(email);
         return imageService.uploadImage(file, email);
     }
 }

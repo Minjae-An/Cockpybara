@@ -44,7 +44,7 @@ public class ImageService {
             uploadedImageUrl = uploadedFile.getWebViewLink();
 
             // MemberService로 url 보내기
-            //sendImageUrlToMemberService(uploadedImageUrl);
+            sendImageUrlToMemberService(email, uploadedImageUrl);
 
             //반환은 MemberService에서 이뤄져야함 - 여기는 빼야함
             return uploadedImageUrl;
