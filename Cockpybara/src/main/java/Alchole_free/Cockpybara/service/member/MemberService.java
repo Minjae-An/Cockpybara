@@ -102,4 +102,12 @@ public class MemberService {
         }
     }
 
+    @Transactional
+    public void updateMemberImageUrl(String email, String imageUrl) {
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalStateException("해당 회원이 존재하지 않습니다."));
+
+        member.updateImageUrl(imageUrl);
+    }
+
 }
