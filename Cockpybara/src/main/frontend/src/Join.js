@@ -63,16 +63,18 @@ const Join = () => {
 
   const handlePasswordChange = (e) => {
     const newPassword = e.target.value;
-
+  
     setPassword(newPassword);
-
+  
     // 비밀번호 조건 검사
-    const hasUpperCase = /[A-Z]/.test(newPassword);
     const hasLowerCase = /[a-z]/.test(newPassword);
     const hasDigit = /\d/.test(newPassword);
-
-    setIsPasswordValid(hasUpperCase && hasLowerCase && hasDigit && newPassword.length >= 8);
+    const hasSpecialChar = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(newPassword);
+    const isValidLength = newPassword.length >= 8 && newPassword.length <= 15;
+  
+    setIsPasswordValid(hasLowerCase && hasDigit && hasSpecialChar && isValidLength);
   };
+  
 
 
   const handleSubmit = async (e) => {
@@ -144,7 +146,7 @@ const Join = () => {
               )}
               {!isPasswordValid && password.length > 0 && (
                 <p style={{ color: 'red' }}>
-                  비밀번호는 8자 이상, 대문자, 소문자, 숫자가 각각 하나 이상 포함되어야 합니다.
+                  비밀번호는 8자 이상 15자 이하, 소문자, 숫자, 특수문자가 각각 하나 이상 포함되어야 합니다.
                 </p>
               )}
               <br />
