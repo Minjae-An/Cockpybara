@@ -18,22 +18,9 @@ const Join = () => {
   const [isIdAvailable, setIsIdAvailable] = useState(true); 
   const [isIdValid, setIsIdValid] = useState(true);
 
-  const handleNextClick = async () => {
-    // 아이디 중복 확인을 위한 API 요청 코드
-    try {
-      const response = await fetch(`/check-id/${email}`, { // 이 부분은 백엔드의 실제 엔드포인트에 맞게 수정해야 합니다.
-        method: 'GET',
-      });
-
-      if (response.ok) {
-        const responseData = await response.json();
-        setIsIdAvailable(responseData.isAvailable); // 백엔드에서 넘어온 데이터에 따라 아이디 중복 여부를 업데이트합니다
-        setIsNextClicked(true);
-      } else {
-        console.error('아이디 중복 확인 실패');
-      }
-    } catch (error) {
-      console.error('API 요청 에러:', error);
+  const handleNextClick = () => {
+    if (isIdValid) {
+      setIsNextClicked(true);
     }
   };
 
@@ -47,26 +34,7 @@ const Join = () => {
     const hasValidChars = /^[a-zA-Z0-9가-힣]+$/.test(newEmail);
 
     setIsIdValid(isValidLength && hasValidChars);
-  };
-
-  const handleConfirmPasswordChange = (e) => {
-    setConfirmPassword(e.target.value);
-  };
-
-  const handleAliasChange = (e) => {
-    setAlias(e.target.value);
-  };
-
-  const handlePhoneNumberChange = (e) => {
-    setPhoneNumber(e.target.value);
-  };
-
-  const handleGenderChange = (e) => {
-    setGender(e.target.value);
-  };
-
-  const handleBirthChange = (e) => {
-    setBirth(e.target.value);
+    setIsIdAvailable(true); // 초기에 중복 가능하다고 가정
   };
 
   const handlePasswordChange = (e) => {
@@ -83,8 +51,6 @@ const Join = () => {
     setIsPasswordValid(hasLowerCase && hasDigit && hasSpecialChar && isValidLength);
   };
   
-
-
   const handleSubmit = async (e) => {
     {/* 백엔드 API 요청 코드 */ }
     e.preventDefault();
@@ -115,13 +81,32 @@ const Join = () => {
         console.error('회원가입 실패');
       }
     } catch (error) {
-      console.error('API 요청 에러:', error);
+      console.error('API 요청 에러(제출버튼):', error);
     }
   }; {/* 백엔드 API 요청 코드 */ }
 
-
   const handleLoginButtonClick = () => {
     navigate('/login');
+  };
+
+  const handleConfirmPasswordChange = (e) => {
+    setConfirmPassword(e.target.value);
+  };
+
+  const handleAliasChange = (e) => {
+    setAlias(e.target.value);
+  };
+
+  const handlePhoneNumberChange = (e) => {
+    setPhoneNumber(e.target.value);
+  };
+
+  const handleGenderChange = (e) => {
+    setGender(e.target.value);
+  };
+
+  const handleBirthChange = (e) => {
+    setBirth(e.target.value);
   };
 
   return (
