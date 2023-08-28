@@ -27,7 +27,7 @@ const Join = () => {
 
       if (response.ok) {
         const responseData = await response.json();
-        setIsIdAvailable(responseData.isAvailable); // 백엔드에서 넘어온 데이터에 따라 아이디 중복 여부를 업데이트합니다.
+        setIsIdAvailable(responseData.isAvailable); // 백엔드에서 넘어온 데이터에 따라 아이디 중복 여부를 업데이트합니다
         setIsNextClicked(true);
       } else {
         console.error('아이디 중복 확인 실패');
