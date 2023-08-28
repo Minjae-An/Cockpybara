@@ -1,7 +1,14 @@
+buildscript {
+	ext {
+		queryDslVersion="5.0.0"
+	}
+}
+
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '2.7.13'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'com.ewerk.gradle.plugins.querydsl' version '1.0.10'
 }
 
 group = 'Alchole_free'
@@ -24,6 +31,12 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	//queryDSL
+	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+	annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}"
+
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 	annotationProcessor 'org.projectlombok:lombok'
@@ -32,8 +45,38 @@ dependencies {
 	//swagger 설정
 	implementation group:'io.springfox', name:'springfox-swagger2', version:'2.8.0'
 	implementation group:'io.springfox', name:'springfox-swagger-ui', version:'2.8.0'
+
+
+
+	//csv 읽기 설정
+	implementation 'com.opencsv:opencsv:5.5.2'
+
+	//test에서 lombok 사용
+	testImplementation 'org.projectlombok:lombok'
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+//queryDSL 빌드 옵션
+def querydslDir="$buildDir/generated/querydsl"
+
+querydsl {
+	jpa=true
+	querydslSourcesDir=querydslDir
+}
+
+sourceSets{
+	main.java.srcDir querydslDir
+}
+
+configurations {
+	querydsl.extendsFrom compileClasspath
+}
+
+compileQuerydsl{
+	options.annotationProcessorPath=configurations.querydsl
+}
+
+
