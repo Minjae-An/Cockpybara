@@ -45,15 +45,14 @@ public class Member {
         this.imageUrl = imageUrl;
     }
 
-    public void updatePassword(String password) {
-        this.password = password;
-    }
+    public void updatePassword(String password) {this.password = password;}
 
     public void updateMember(String alias, String phoneNumber) {
         this.alias = alias;
         this.phoneNumber = phoneNumber;
-
     }
+
+    public void updateImageUrl(String imageUrl){this.imageUrl = imageUrl;}
 
     public void addNewMyRecipe(MyRecipe myRecipe) {
         myRecipes.add(myRecipe);
