@@ -13,16 +13,13 @@ const Join = () => {
   const [birth, setBirth] = useState('');
   const [isJoinSuccess, setIsJoinSuccess] = useState(false);
   const [isNextClicked, setIsNextClicked] = useState(false);
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
 
 
   const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
   };
 
   const handleConfirmPasswordChange = (e) => {
@@ -48,6 +45,20 @@ const Join = () => {
   const handleNextClick = () => {
     setIsNextClicked(true);
   };
+
+  const handlePasswordChange = (e) => {
+    const newPassword = e.target.value;
+
+    setPassword(newPassword);
+
+    // 비밀번호 조건 검사
+    const hasUpperCase = /[A-Z]/.test(newPassword);
+    const hasLowerCase = /[a-z]/.test(newPassword);
+    const hasDigit = /\d/.test(newPassword);
+
+    setIsPasswordValid(hasUpperCase && hasLowerCase && hasDigit && newPassword.length >= 8);
+  };
+
 
   const handleSubmit = async (e) => {
     {/* 백엔드 API 요청 코드 */ }
@@ -115,6 +126,11 @@ const Join = () => {
               <input className="join-input-pw" placeholder="비밀번호 확인" type="password" value={confirmPassword} onChange={handleConfirmPasswordChange} />
               {confirmPassword !== '' && password !== confirmPassword && (
                 <p style={{ color: 'red' }}>비밀번호와 비밀번호 확인이 일치하지 않습니다.</p>
+              )}
+              {!isPasswordValid && password.length > 0 && (
+                <p style={{ color: 'red' }}>
+                  비밀번호는 8자 이상, 대문자, 소문자, 숫자가 각각 하나 이상 포함되어야 합니다.
+                </p>
               )}
               <br />
 
