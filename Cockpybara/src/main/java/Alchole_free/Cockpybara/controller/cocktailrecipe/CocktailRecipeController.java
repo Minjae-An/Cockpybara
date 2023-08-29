@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -68,28 +67,13 @@ public class CocktailRecipeController {
     }
 
     @GetMapping({"/community/period-cocktails", "/recipe/period-cocktails"})
-    public ResponseEntity<List<CocktailRecipeSearchDTO>> getCocktailRecipesByPeriod(@RequestParam(value = "period", required = false) List<String> periods) {
-        List<CocktailRecipeSearchDTO> resultList = new ArrayList<>();
+    public ResponseEntity<CustomPageResponse<CocktailRecipeSearchDTO>> getCocktailRecipesByPeriod(
+            @RequestParam(value = "period", required = false) TimePeriod period,
+            CustomPageRequest pageRequest) {
+        period=period==null?TimePeriod.ALL:period;
 
-        if (periods == null || periods.isEmpty()) {
-            //기간 파라미터가 전달되지 않은 경우 기본값으로 전체 기간 조회
-            resultList = cocktailRecipeService.getCocktailRecipesByPeriod(TimePeriod.ALL);
-        } else {
-            for (String period : periods) {
-                switch (period) {
-                    case "weekly":
-                        resultList.addAll(cocktailRecipeService.getCocktailRecipesByPeriod(TimePeriod.WEEKLY));
-                        break;
-                    case "monthly":
-                        resultList.addAll(cocktailRecipeService.getCocktailRecipesByPeriod(TimePeriod.MONTHLY));
-                        break;
-                    default:
-                        resultList.addAll(cocktailRecipeService.getCocktailRecipesByPeriod(TimePeriod.ALL));
-                }
-            }
-        }
-
-        return ResponseEntity.ok(resultList);
+        CustomPageResponse<CocktailRecipeSearchDTO> response = cocktailRecipeService.getCocktailRecipesByPeriod(period, pageRequest);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/recipe/search")
