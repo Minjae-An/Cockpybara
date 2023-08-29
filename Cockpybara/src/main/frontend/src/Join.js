@@ -17,9 +17,10 @@ const Join = () => {
   const [isPasswordValid, setIsPasswordValid] = useState(false);
   const [isIdAvailable, setIsIdAvailable] = useState(true); 
   const [isIdValid, setIsIdValid] = useState(true);
+  const [isPhoneNumberValid, setIsPhoneNumberValid] = useState(true); 
 
   const handleNextClick = () => {
-    if (isIdValid) {
+    if (isIdValid && isPhoneNumberValid) { // 전화번호 유효성도 체크
       setIsNextClicked(true);
     }
   };
@@ -98,7 +99,15 @@ const Join = () => {
   };
 
   const handlePhoneNumberChange = (e) => {
-    setPhoneNumber(e.target.value);
+    const newPhoneNumber = e.target.value;
+
+    setPhoneNumber(newPhoneNumber);
+
+    // 전화번호 유효성 검사
+    const phoneNumberPattern = /^\d{3}-\d{4}-\d{4}$/;
+    const isValidPhoneNumber = phoneNumberPattern.test(newPhoneNumber);
+
+    setIsPhoneNumberValid(isValidPhoneNumber);
   };
 
   const handleGenderChange = (e) => {
@@ -171,7 +180,10 @@ const Join = () => {
               <br />
               <input className="join-input-alias" placeholder="별명" type="text" value={alias} onChange={handleAliasChange} />
               <br />
-              <input className="join-input-phone" placeholder="전화번호" type="text" value={phoneNumber} onChange={handlePhoneNumberChange} />
+              <input className="join-input-phone" placeholder="전화번호" type="text" value={phoneNumber} onChange={handlePhoneNumberChange}/>
+              {!isPhoneNumberValid && (
+        <p style={{ color: 'red' }}>올바른 전화번호 형식이 아닙니다.</p>
+      )}
               <br />
               <div className="join-select-container">
                 <select className="join-select" value={gender} onChange={handleGenderChange}>
