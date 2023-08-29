@@ -28,9 +28,9 @@ public class CocktailRecipeRepositoryImpl implements CocktailRepositoryCustom {
 
         return queryFactory
                 .selectFrom(cocktailRecipe)
-                .join(cocktailRecipe.tastes, recipeTaste).fetchJoin()
-                .leftJoin(cocktailRecipe.ingredients, recipeIngredient).fetchJoin()
-                .leftJoin(recipeIngredient.ingredient).fetchJoin()
+                .join(cocktailRecipe.tastes, recipeTaste)
+                .leftJoin(cocktailRecipe.ingredients, recipeIngredient)
+                .leftJoin(recipeIngredient.ingredient)
                 .where(
                         nameLike(searchCondition.getName()),
                         alcoholicTypeIn(searchCondition.getAlcoholicTypes()),
@@ -46,23 +46,23 @@ public class CocktailRecipeRepositoryImpl implements CocktailRepositoryCustom {
     }
 
     private BooleanExpression alcoholicTypeIn(List<AlcoholicType> alcoholicTypes) {
-        return cocktailRecipe.alcoholicType.in(alcoholicTypes);
+        return alcoholicTypes==null?null:cocktailRecipe.alcoholicType.in(alcoholicTypes);
     }
 
     private BooleanExpression categoryIn(List<Category> categories) {
-        return cocktailRecipe.category.in(categories);
+        return categories==null?null:cocktailRecipe.category.in(categories);
     }
 
     private BooleanExpression glassIn(List<Glass> glasses) {
-        return cocktailRecipe.glass.in(glasses);
+        return glasses==null?null:cocktailRecipe.glass.in(glasses);
     }
 
     private BooleanExpression recipeTasteIn(List<Taste> tastes) {
-        return recipeTaste.taste.in(tastes);
+        return tastes==null?null:recipeTaste.taste.in(tastes);
     }
 
     private BooleanExpression ingredientCategoryIn(List<IngredientCategory> ingredientCategories) {
-        return recipeIngredient.ingredient.ingredientCategory.in(ingredientCategories);
+        return ingredientCategories==null?null:recipeIngredient.ingredient.ingredientCategory.in(ingredientCategories);
     }
 
 

@@ -8,9 +8,10 @@ import java.util.List;
 @Getter
 @RequiredArgsConstructor
 public class CocktailRecipeSearchOptionListResponse {
-    private final List<String> alcoholicTypeFilterValues;
-    private final List<String> categoryFilterValues;
-    private final List<String> glassFilterValues;
+    private final List<String> alcoholicTypes;
+    private final List<String> categories;
+    private final List<String> glasses;
 
-    private final List<String> ingredientCategoryFilterValues;
+    private final List<String> ingredientCategories;
+    private final List<String> tastes;
 }

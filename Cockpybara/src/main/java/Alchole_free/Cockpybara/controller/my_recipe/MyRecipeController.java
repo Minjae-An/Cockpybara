@@ -1,56 +1,59 @@
 package Alchole_free.Cockpybara.controller.my_recipe;
 
+import Alchole_free.Cockpybara.controller.cocktailrecipe.recipe_detail.CocktailRecipeDetailDTO;
 import Alchole_free.Cockpybara.controller.my_recipe.add_new_my_recipe.AddNewMyRecipeRequest;
+import Alchole_free.Cockpybara.controller.my_recipe.add_new_my_recipe.AddNewMyRecipeResponse;
+import Alchole_free.Cockpybara.controller.my_recipe.my_recipes.MyRecipeDTO;
 import Alchole_free.Cockpybara.controller.my_recipe.recipe_options.RecipeOptionsResponse;
 import Alchole_free.Cockpybara.controller.my_recipe.update_my_recipe.UpdateMyRecipeRequest;
+import Alchole_free.Cockpybara.controller.my_recipe.update_my_recipe.UpdateMyRecipeResponse;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.AlcoholicType;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.Category;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.Glass;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.taste.Taste;
+import Alchole_free.Cockpybara.domain.ingredient.IngredientCategory;
+import Alchole_free.Cockpybara.domain.ingredient.IngredientUnitMap;
 import Alchole_free.Cockpybara.domain.ingredient.Unit;
 import Alchole_free.Cockpybara.service.cocktail_recipe.CocktailRecipeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/user/{userId}/my-recipe")
 public class MyRecipeController {
     private final CocktailRecipeService cocktailRecipeService;
 
-    @GetMapping("/filter-values")
+    @GetMapping("/user/{userId}/my-page/filter-values")
     public ResponseEntity<RecipeOptionsResponse> getRecipeOptionValues() {
+        Map<IngredientCategory, Unit[]> ingredientUnitMap = IngredientUnitMap.createIngredientUnitMap();
+
         RecipeOptionsResponse recipeOptionsResponse = new RecipeOptionsResponse(
                 Glass.values(),
                 Category.values(),
                 AlcoholicType.values(),
                 Taste.values(),
-                Unit.values()
+                ingredientUnitMap
         );
 
         return ResponseEntity.ok(recipeOptionsResponse);
     }
 
 
-    @PostMapping
-    public ResponseEntity<CocktailRecipe> addNewMyRecipe(@PathVariable Long userId,
-                                                         @RequestBody AddNewMyRecipeRequest addNewMyRecipeRequest) {
-        addNewMyRecipeRequest.setIsMemberRecipe(true);
-        addNewMyRecipeRequest.setCreatedAt(LocalDateTime.now());
-        CocktailRecipe cocktailRecipe = addNewMyRecipeRequest.to();
-
-        CocktailRecipe savedMyCocktailRecipe =
-                cocktailRecipeService.saveMyRecipe(userId, cocktailRecipe).getCocktailRecipe();
-
-        return ResponseEntity.ok(savedMyCocktailRecipe);
+    @PostMapping("/user/{userId}/my-recipe")
+    public ResponseEntity<AddNewMyRecipeResponse> addNewMyRecipe(@PathVariable Long userId,
+                                                                 @RequestBody @Valid AddNewMyRecipeRequest addNewMyRecipeRequest) {
+        AddNewMyRecipeResponse addNewMyRecipeResponse = cocktailRecipeService.saveMyRecipe(userId, addNewMyRecipeRequest);
+        return ResponseEntity.ok(addNewMyRecipeResponse);
     }
 
-    @DeleteMapping("/{recipeId}")
+    @DeleteMapping("/user/{userId}/my-recipe/{recipeId}")
     public ResponseEntity<String> deleteMyRecipe(@PathVariable Long userId,
                                                  @PathVariable Long recipeId) {
         cocktailRecipeService.removeMyRecipe(userId, recipeId);
@@ -58,19 +61,26 @@ public class MyRecipeController {
         return ResponseEntity.ok("successfully delete recipe");
     }
 
-    @PutMapping("/{recipeId}")
-    public ResponseEntity<CocktailRecipe> updateMyRecipe(@PathVariable Long recipeId,
-                                                         @RequestBody UpdateMyRecipeRequest updateMyRecipeRequest){
-        AlcoholicType alcoholicType = updateMyRecipeRequest.getAlcoholicType();
-        Category category = updateMyRecipeRequest.getCategory();
-        String drinkImgPath = updateMyRecipeRequest.getDrinkImgPath();
-        Glass glass = updateMyRecipeRequest.getGlass();
-        String instruction = updateMyRecipeRequest.getInstruction();
-        List<Taste> tastes = updateMyRecipeRequest.getTastes();
+    //DTO로 변환 작업 필요
+    @PutMapping("/user/{userId}/my-recipe/{recipeId}")
+    public ResponseEntity<UpdateMyRecipeResponse> updateMyRecipe(@PathVariable Long recipeId,
+                                                                 @RequestBody @Valid UpdateMyRecipeRequest updateMyRecipeRequest) {
 
-        CocktailRecipe cocktailRecipe = cocktailRecipeService.updateMyRecipe(recipeId, alcoholicType, category, drinkImgPath,
-                glass, instruction, tastes);
+        UpdateMyRecipeResponse updateMyRecipeResponse = cocktailRecipeService.updateMyRecipe(recipeId, updateMyRecipeRequest);
+        return ResponseEntity.ok(updateMyRecipeResponse);
+    }
 
-        return ResponseEntity.ok(cocktailRecipe);
+    @GetMapping("/user/{userId}/my-page/my-recipes")
+    public ResponseEntity<List<MyRecipeDTO>> getMyRecipe(@PathVariable Long userId) {
+        List<MyRecipeDTO> myRecipes = cocktailRecipeService.getMyRecipe(userId);
+
+        return ResponseEntity.ok(myRecipes);
+    }
+
+    @GetMapping("/user/{userId}/my-recipe/details/{myRecipeId}")
+    public ResponseEntity<CocktailRecipeDetailDTO> getMyRecipeDetail(@PathVariable Long myRecipeId) {
+        CocktailRecipeDetailDTO detail = cocktailRecipeService.getDetail(myRecipeId);
+
+        return ResponseEntity.ok(detail);
     }
 }

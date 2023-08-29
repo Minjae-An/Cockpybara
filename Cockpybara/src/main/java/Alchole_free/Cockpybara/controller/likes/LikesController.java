@@ -1,5 +1,7 @@
 package Alchole_free.Cockpybara.controller.likes;
 
+import Alchole_free.Cockpybara.controller.likes.add_like.AddLikeResponse;
+import Alchole_free.Cockpybara.controller.likes.like_list.LikeDTO;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
 import Alchole_free.Cockpybara.domain.member.Member;
 import Alchole_free.Cockpybara.domain.member.likes.Like;
@@ -9,29 +11,30 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/user/{userId}/likes")
+@RequestMapping("/user/{userId}")
 public class LikesController {
     private final MemberService memberService;
-    private final CocktailRecipeService cocktailRecipeService;
 
-    @PostMapping("/{recipeId}")
-    public ResponseEntity<String> addLike(@PathVariable Long userId, @PathVariable Long recipeId) {
-        Member member = memberService.findById(userId);
-        CocktailRecipe cocktailRecipe = cocktailRecipeService.findById(recipeId);
-
-        member.getLikes().add(new Like(member, cocktailRecipe));
-
-        return ResponseEntity.accepted().body("add like successfully");
+    @PostMapping("/likes/{recipeId}")
+    public ResponseEntity<AddLikeResponse> addLike(@PathVariable Long userId, @PathVariable Long recipeId) {
+        AddLikeResponse addLikeResponse = memberService.addLike(userId, recipeId);
+        return ResponseEntity.ok(addLikeResponse);
     }
 
-    @DeleteMapping("/{recipeId}")
-    public ResponseEntity<String> deleteLike(@PathVariable Long userId, @PathVariable Long recipeId) {
-        Member member = memberService.findById(userId);
+    @DeleteMapping("/likes/{recipeId}")
+    public ResponseEntity<String> removeLike(@PathVariable Long userId, @PathVariable Long recipeId) {
+        memberService.removeLike(userId, recipeId);
 
-        member.getLikes().removeIf(like -> like.getCocktailRecipe().getId().equals(recipeId));
+        return ResponseEntity.ok("successfully remove like");
+    }
 
-        return ResponseEntity.accepted().body("delete like successfully");
+    @GetMapping("/likes-list")
+    public ResponseEntity<List<LikeDTO>> getLikes(@PathVariable Long userId) {
+        List<LikeDTO> likes = memberService.getLikes(userId);
+        return ResponseEntity.ok(likes);
     }
 }

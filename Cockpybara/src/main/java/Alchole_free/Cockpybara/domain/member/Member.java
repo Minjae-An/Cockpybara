@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -28,11 +29,11 @@ public class Member {
     private Date birth;
     private String imageUrl;
 
-    @OneToMany(mappedBy = "member")
-    private List<Like> likes;
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Like> likes = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member")
-    private List<MyRecipe> myRecipes;
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MyRecipe> myRecipes = new ArrayList<>();
 
 
     public Member(String email, String password, String alias, String phoneNumber, Gender gender, Date birth, String imageUrl) {
@@ -62,4 +63,16 @@ public class Member {
         myRecipes.removeIf(myRecipe ->
                 myRecipe.getCocktailRecipe().equals(cocktailRecipe));
     }
+
+    public Like addLike(CocktailRecipe recipe) {
+        Like like = new Like(this, recipe);
+        likes.add(like);
+        return like;
+    }
+
+    public void removeLike(Long recipeId) {
+        likes.removeIf(like ->
+                like.getCocktailRecipe().getId().equals(recipeId));
+    }
+
 }

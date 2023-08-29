@@ -1,6 +1,7 @@
 package Alchole_free.Cockpybara.domain.ingredient;
 
 import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,6 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Table(name = "recipe_ingredient")
 public class RecipeIngredient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +18,7 @@ public class RecipeIngredient {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cocktail_recipe_id")
+    @JsonIgnore
     private CocktailRecipe cocktailRecipe;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -1,0 +1,20 @@
+.community-box {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 250px; 
+    margin-right: 250px;
+    padding-top: 21px;
+}
+
+.left-contents {
+    width: 466px;
+    height: 1720px;
+    margin-right: 45px;
+    padding-top: 21px;
+}
+
+.right-contents {
+    width: 909px;
+    height: 1720px;
+    padding-top: 21px;
+}

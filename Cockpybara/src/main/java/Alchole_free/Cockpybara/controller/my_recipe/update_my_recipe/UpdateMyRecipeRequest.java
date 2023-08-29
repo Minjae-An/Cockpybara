@@ -25,6 +25,7 @@ public class UpdateMyRecipeRequest {
     private Category category;
 
     @NotNull
+    @Length(max = 255)
     private String drinkImgPath;
 
     @NotNull
@@ -35,6 +36,6 @@ public class UpdateMyRecipeRequest {
     private String instruction;
 
     @NotNull
-    @Size(max = 3)
+    @Size(min=3, max = 3)
     private List<Taste> tastes=new ArrayList<>();
 }

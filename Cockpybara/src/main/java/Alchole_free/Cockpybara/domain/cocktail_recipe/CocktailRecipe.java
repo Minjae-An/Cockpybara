@@ -42,19 +42,19 @@ public class CocktailRecipe {
     private Boolean isMemberRecipe;
 
 
-    @OneToMany(mappedBy = "cocktailRecipe")
+    @OneToMany(mappedBy = "cocktailRecipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews;
 
     @CreatedDate
     @Column(updatable = false)  //처음 생성 이후로 LocalDateTime 수정 불가능
     private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "cocktailRecipe")
+    @OneToMany(mappedBy = "cocktailRecipe", cascade = CascadeType.ALL, orphanRemoval = true)
     @Size(max = 3)
     private List<RecipeTaste> tastes=new ArrayList<>();
 
     @OneToMany(mappedBy = "cocktailRecipe", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<RecipeIngredient> ingredients;
+    private List<RecipeIngredient> ingredients=new ArrayList<>();
 
     public CocktailRecipe(String name, AlcoholicType alcoholicType,
                           Category category, String drinkImgPath,
@@ -71,11 +71,13 @@ public class CocktailRecipe {
     }
 
     public void setTastes(List<RecipeTaste> tastes) {
-        this.tastes = tastes;
+        this.tastes.clear();
+        this.tastes.addAll(tastes);
     }
 
     public void setIngredients(List<RecipeIngredient> ingredients) {
-        this.ingredients = ingredients;
+        this.ingredients.clear();
+        this.ingredients.addAll(ingredients);
     }
 
     public void update(AlcoholicType alcoholicType, Category category, String drinkImgPath,
@@ -87,7 +89,6 @@ public class CocktailRecipe {
         this.instruction=instruction;
 
         this.tastes.clear();
-        this.tastes=tastes.stream().map(t->new RecipeTaste(this, t))
-                .collect(Collectors.toList());
+        tastes.forEach(taste -> this.tastes.add(new RecipeTaste(this, taste)));
     }
 }

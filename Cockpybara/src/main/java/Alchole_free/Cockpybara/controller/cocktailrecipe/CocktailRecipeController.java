@@ -1,19 +1,23 @@
 package Alchole_free.Cockpybara.controller.cocktailrecipe;
 
 import Alchole_free.Cockpybara.controller.cocktailrecipe.option_list.CocktailRecipeSearchOptionListResponse;
+import Alchole_free.Cockpybara.controller.cocktailrecipe.recipe_detail.CocktailRecipeDetailDTO;
 import Alchole_free.Cockpybara.controller.cocktailrecipe.recipe_detail.CocktailRecipeDetailResponse;
+import Alchole_free.Cockpybara.controller.cocktailrecipe.search.CocktailRecipeSearchDTO;
 import Alchole_free.Cockpybara.controller.cocktailrecipe.search_by_name.FindCocktailRecipeByNameResponse;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.AlcoholicType;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.Category;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.Glass;
+import Alchole_free.Cockpybara.domain.cocktail_recipe.taste.Taste;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.time_period.TimePeriod;
 import Alchole_free.Cockpybara.domain.ingredient.IngredientCategory;
+import Alchole_free.Cockpybara.repository.cocktail_recipe.condition.CocktailRecipeSearchCondition;
 import Alchole_free.Cockpybara.service.cocktail_recipe.CocktailRecipeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -25,18 +29,20 @@ public class CocktailRecipeController {
     private final CocktailRecipeService cocktailRecipeService;
 
     @GetMapping("/recipe/option-list")
-    public CocktailRecipeSearchOptionListResponse getCocktailRecipeSearchOptionList() {
-        List<String> alcoholicTypeFilterValues = getEnumValueList(AlcoholicType.class);
-        List<String> categoryFilterValues = getEnumValueList(Category.class);
-        List<String> glassFilterValues = getEnumValueList(Glass.class);
-        List<String> ingredientCategoryFilterValues = getEnumValueList(IngredientCategory.class);
+    public ResponseEntity<CocktailRecipeSearchOptionListResponse> getCocktailRecipeSearchOptionList() {
+        List<String> alcoholicTypes = getEnumValueList(AlcoholicType.class);
+        List<String> categories = getEnumValueList(Category.class);
+        List<String> glasses = getEnumValueList(Glass.class);
+        List<String> ingredientCategories = getEnumValueList(IngredientCategory.class);
+        List<String> tastes = getEnumValueList(Taste.class);
 
-        return new CocktailRecipeSearchOptionListResponse(
-                alcoholicTypeFilterValues,
-                categoryFilterValues,
-                glassFilterValues,
-                ingredientCategoryFilterValues
-        );
+        return ResponseEntity.ok(new CocktailRecipeSearchOptionListResponse(
+                alcoholicTypes,
+                categories,
+                glasses,
+                ingredientCategories,
+                tastes
+        ));
     }
 
 
@@ -55,19 +61,20 @@ public class CocktailRecipeController {
     }
 
     @GetMapping("/recipe/detail")
-    public CocktailRecipeDetailResponse getRecipeDetails(Long cocktailRecipeId) {
-        CocktailRecipe cocktailRecipe = cocktailRecipeService.findById(cocktailRecipeId);
+    public ResponseEntity<CocktailRecipeDetailDTO> getRecipeDetails(Long cocktailRecipeId) {
+        CocktailRecipeDetailDTO detail = cocktailRecipeService.getDetail(cocktailRecipeId);
 
-        return new CocktailRecipeDetailResponse(cocktailRecipe);
+        return ResponseEntity.ok(detail);
     }
 
     @GetMapping({"/community/period-cocktails", "/recipe/period-cocktails"})
-    public List<CocktailRecipe> getCocktailRecipesByPeriod(@RequestParam(value = "period", required = false) List<String> periods) {
+    public ResponseEntity<List<CocktailRecipeSearchDTO>> getCocktailRecipesByPeriod(@RequestParam(value = "period", required = false) List<String> periods) {
+        List<CocktailRecipeSearchDTO> resultList=new ArrayList<>();
+
         if (periods == null || periods.isEmpty()) {
             //기간 파라미터가 전달되지 않은 경우 기본값으로 전체 기간 조회
-            return cocktailRecipeService.getCocktailRecipesByPeriod(TimePeriod.ALL);
+            resultList =  cocktailRecipeService.getCocktailRecipesByPeriod(TimePeriod.ALL);
         } else {
-            List<CocktailRecipe> resultList = new ArrayList<>();
             for (String period : periods) {
                 switch (period) {
                     case "weekly":
@@ -79,7 +86,15 @@ public class CocktailRecipeController {
                     default:resultList.addAll(cocktailRecipeService.getCocktailRecipesByPeriod(TimePeriod.ALL));
                 }
             }
-            return resultList;
         }
+
+        return ResponseEntity.ok(resultList);
+    }
+
+    @PostMapping("/recipe/search")
+    public ResponseEntity<List<CocktailRecipeSearchDTO>> search(CocktailRecipeSearchCondition searchCondition){
+        List<CocktailRecipeSearchDTO> searchResult = cocktailRecipeService.search(searchCondition);
+
+        return ResponseEntity.ok(searchResult);
     }
 }

@@ -1,0 +1,176 @@
+.join-container {
+    text-align: center;
+}
+
+.join-title {
+    color: #000;
+    text-align: center;
+    font-size: 38px;
+    font-family: Poller One;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: 166px;
+    margin-bottom: 51px;
+
+}
+
+.join-button {
+    color: #000;
+    font-size: 15px;
+    font-family: Pretendard;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-right: 380px;
+    background: transparent;
+    border: none;
+}
+
+.join-input-id {
+    color: #8C8C8C;
+    font-size: 15px;
+    font-family: Pretendard;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-top: 22px;
+    width: 423px;
+    height: 49px;
+    flex-shrink: 0;
+    border-radius: 5px;
+    border: 1px solid #8C8C8C;
+    padding-left: 16px;
+}
+
+.join-input-pw {
+    color: #8C8C8C;
+    font-size: 15px;
+    font-family: Pretendard;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-top: 22px;
+    width: 423px;
+    height: 49px;
+    flex-shrink: 0;
+    border-radius: 5px;
+    border: 1px solid #8C8C8C;
+    padding-left: 16px;
+}
+
+.join-next-button {
+    width: 440px;
+    height: 49px;
+    flex-shrink: 0;
+    border-radius: 5px;
+    background: #000;
+    color: #FFF;
+    text-align: center;
+    font-size: 15px;
+    font-family: Pretendard;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    padding-left: 15px;
+    margin-top: 44px;
+}
+
+.join-input-alias {
+    color: #8C8C8C;
+    font-size: 15px;
+    font-family: Pretendard;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-top: 22px;
+    width: 423px;
+    height: 49px;
+    flex-shrink: 0;
+    border-radius: 5px;
+    border: 1px solid #8C8C8C;
+    padding-left: 16px;
+}
+
+.join-input-phone {
+    color: #8C8C8C;
+    font-size: 15px;
+    font-family: Pretendard;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-top: 22px;
+    width: 423px;
+    height: 49px;
+    flex-shrink: 0;
+    border-radius: 5px;
+    border: 1px solid #8C8C8C;
+    padding-left: 16px;
+}
+
+.join-select {
+    color: #8C8C8C;
+    font-size: 15px;
+    font-family: Pretendard;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-top: 22px;
+    width: 445px;
+    height: 49px;
+    flex-shrink: 0;
+    border-radius: 5px;
+    border: 1px solid #8C8C8C;
+    padding-left: 16px;
+    margin-bottom: 7px;
+}
+
+.join-input-birth {
+    color: #8C8C8C;
+    font-size: 15px;
+    font-family: Pretendard;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    width: 415px;
+    height: 49px;
+    flex-shrink: 0;
+    border-radius: 5px;
+    border: 1px solid #8C8C8C;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.join-button-final {
+    width: 440px;
+    height: 49px;
+    flex-shrink: 0;
+    border-radius: 5px;
+    background: #000;
+    color: #FFF;
+    text-align: center;
+    font-size: 15px;
+    font-family: Pretendard;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    padding-left: 15px;
+    margin-top: 44px;
+}
+
+.join-button-login {
+    width: 440px;
+    height: 49px;
+    flex-shrink: 0;
+    border-radius: 5px;
+    background: #000;
+    color: #FFF;
+    text-align: center;
+    font-size: 15px;
+    font-family: Pretendard;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    padding-left: 15px;
+    margin-top: -300px;
+}
