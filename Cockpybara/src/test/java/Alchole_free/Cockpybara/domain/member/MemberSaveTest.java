@@ -31,7 +31,7 @@ class MemberSaveTest {
         memberDummyData.stream()
                 .map(member ->
                         new JoinRequest(member.getEmail(), member.getPassword(), member.getAlias(),
-                                member.getPhoneNumber(), member.getGender(), member.getBirth()))
+                                member.getPhoneNumber(), member.getGender(), member.getBirth(), member.getImageUrl()))
                 .forEach(joinRequest -> System.out.println(joinRequest.getEmail()));
     }
 
