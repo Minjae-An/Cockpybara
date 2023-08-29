@@ -47,14 +47,8 @@ public class CocktailRecipeService {
         PageRequest request = PageRequest.of(pageRequest.getPage(), pageRequest.getSize());
         Page<CocktailRecipe> page = cocktailRecipeRepository.findCocktailRecipeByNameContaining(name, request);
         List<CocktailRecipeSearchDTO> content = page.get().map(CocktailRecipeSearchDTO::from).collect(Collectors.toList());
-        int currentPage = page.getNumber();
-        int nextPage=page.hasNext()?page.nextPageable().getPageNumber():Integer.MAX_VALUE;
-        int prevPage=page.hasPrevious()?page.previousPageable().getPageNumber():-1;
-        int pageSize=page.getSize();
-        int totalPage=page.getTotalPages();
-        long totalElements=page.getTotalElements();
 
-        CustomPageResponse<CocktailRecipeSearchDTO> response = new CustomPageResponse<>(currentPage, nextPage, prevPage, pageSize, totalPage, totalElements);
+        CustomPageResponse<CocktailRecipeSearchDTO> response = new CustomPageResponse<>(page);
         response.setContent(content);
         return response;
     }
@@ -146,28 +140,33 @@ public class CocktailRecipeService {
 
 
     // 주간, 월간, 전체기간 칵테일레시피 조회
-    public List<CocktailRecipeSearchDTO> getCocktailRecipesByPeriod(TimePeriod timePeriod) {
+    public CustomPageResponse<CocktailRecipeSearchDTO> getCocktailRecipesByPeriod(TimePeriod timePeriod, CustomPageRequest pageRequest) {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime startDateTime;
 
-        List<CocktailRecipe> cocktailRecipes;
+        PageRequest request=PageRequest.of(pageRequest.getPage(), pageRequest.getSize());
+
+
+        Page<CocktailRecipe> page;
 
         switch (timePeriod) {
             case WEEKLY:
                 startDateTime = now.minusWeeks(1);
-                cocktailRecipes = cocktailRecipeRepository.findCocktailRecipeByCreatedAtBetweenOrderByCreatedAtDesc(startDateTime, now);
+                page = cocktailRecipeRepository.findCocktailRecipeByCreatedAtBetweenOrderByCreatedAtDesc(startDateTime, now, request);
                 break;
             case MONTHLY:
                 startDateTime = now.minusMonths(1);
-                cocktailRecipes = cocktailRecipeRepository.findCocktailRecipeByCreatedAtBetweenOrderByCreatedAtDesc(startDateTime, now);
+                page = cocktailRecipeRepository.findCocktailRecipeByCreatedAtBetweenOrderByCreatedAtDesc(startDateTime, now, request);
                 break;
             default:  //ALL은 여기포함
-                cocktailRecipes = cocktailRecipeRepository.findCocktailRecipeByOrderByCreatedAtDesc();
+                page = cocktailRecipeRepository.findCocktailRecipeByOrderByCreatedAtDesc(request);
         }
 
-        return cocktailRecipes.stream()
-                .map(cocktailRecipe -> CocktailRecipeSearchDTO.from(cocktailRecipe))
-                .collect(Collectors.toList());
+        CustomPageResponse<CocktailRecipeSearchDTO> pageResponse=new CustomPageResponse<>(page);
+        List<CocktailRecipeSearchDTO> content = page.get().map(CocktailRecipeSearchDTO::from).collect(Collectors.toList());
+        pageResponse.setContent(content);
+
+        return pageResponse;
     }
 
     public CocktailRecipeDetailDTO getDetail(Long id) {
