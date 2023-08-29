@@ -14,6 +14,7 @@ public class MemberUpdateDTO {
     private String phoneNumber;
     private Gender gender;
     private Date birth;
+    private String imageUrl;
 
     public MemberUpdateDTO from(Member member){
         this.email=member.getEmail();
@@ -22,6 +23,7 @@ public class MemberUpdateDTO {
         this.phoneNumber=member.getPhoneNumber();
         this.gender=member.getGender();
         this.birth=member.getBirth();
+        this.imageUrl=member.getImageUrl();
 
         return this;
     }

@@ -30,6 +30,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final StringPath imageUrl = createString("imageUrl");
+
     public final ListPath<Alchole_free.Cockpybara.domain.member.likes.Like, Alchole_free.Cockpybara.domain.member.likes.QLike> likes = this.<Alchole_free.Cockpybara.domain.member.likes.Like, Alchole_free.Cockpybara.domain.member.likes.QLike>createList("likes", Alchole_free.Cockpybara.domain.member.likes.Like.class, Alchole_free.Cockpybara.domain.member.likes.QLike.class, PathInits.DIRECT2);
 
     public final ListPath<Alchole_free.Cockpybara.domain.member.my_recipe.MyRecipe, Alchole_free.Cockpybara.domain.member.my_recipe.QMyRecipe> myRecipes = this.<Alchole_free.Cockpybara.domain.member.my_recipe.MyRecipe, Alchole_free.Cockpybara.domain.member.my_recipe.QMyRecipe>createList("myRecipes", Alchole_free.Cockpybara.domain.member.my_recipe.MyRecipe.class, Alchole_free.Cockpybara.domain.member.my_recipe.QMyRecipe.class, PathInits.DIRECT2);

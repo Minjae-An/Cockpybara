@@ -35,8 +35,9 @@ public class MemberController {
         String phoneNumber = joinRequest.getPhoneNumber();
         Gender gender = joinRequest.getGender();
         Date birth = joinRequest.getBirth();
+        String imageUrl = joinRequest.getImageUrl();
 
-        Long joinedMemberId = memberService.join(new Member(email, password, alias, phoneNumber, gender, birth));
+        Long joinedMemberId = memberService.join(new Member(email, password, alias, phoneNumber, gender, birth, imageUrl));
         return new JoinResponse(joinedMemberId);
     }
 
