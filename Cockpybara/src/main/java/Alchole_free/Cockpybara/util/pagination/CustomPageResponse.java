@@ -1,6 +1,7 @@
 package Alchole_free.Cockpybara.util.pagination;
 
 import lombok.Getter;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -16,14 +17,13 @@ public class CustomPageResponse <T> {
     private int totalPage;
     private long totalElements;
 
-    public CustomPageResponse(int currentPage, int nextPage, int prevPage,
-                              int pageSize, int totalPage, long totalElements) {
-        this.currentPage = currentPage;
-        this.nextPage = nextPage;
-        this.prevPage = prevPage;
-        this.pageSize = pageSize;
-        this.totalPage = totalPage;
-        this.totalElements = totalElements;
+    public CustomPageResponse(Page page){
+        this.currentPage=page.getNumber();
+        this.nextPage=page.hasNext()?page.nextPageable().getPageNumber(): Integer.MAX_VALUE;
+        this.prevPage=page.hasPrevious()?page.previousPageable().getPageNumber():-1;
+        this.pageSize=page.getSize();
+        this.totalPage=page.getTotalPages();
+        this.totalElements=page.getTotalElements();
     }
 
     public void setContent(List<T> content) {
