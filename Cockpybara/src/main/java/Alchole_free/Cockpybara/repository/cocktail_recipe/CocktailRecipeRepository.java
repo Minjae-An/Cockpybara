@@ -7,12 +7,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Repository
-public interface CocktailRecipeRepository extends JpaRepository<CocktailRecipe, Long>, CocktailRepositoryCustom{
+public interface CocktailRecipeRepository extends JpaRepository<CocktailRecipe, Long>, CocktailRepositoryCustom {
 
     Page<CocktailRecipe> findCocktailRecipeByNameContaining(String name, Pageable pageable);
-    List<CocktailRecipe> findCocktailRecipeByCreatedAtBetweenOrderByCreatedAtDesc(LocalDateTime startDateTime, LocalDateTime endDateTime);
-    List<CocktailRecipe> findCocktailRecipeByOrderByCreatedAtDesc();
+
+    Page<CocktailRecipe> findCocktailRecipeByCreatedAtBetweenOrderByCreatedAtDesc(LocalDateTime startDateTime, LocalDateTime endDateTime, Pageable pageable);
+
+    Page<CocktailRecipe> findCocktailRecipeByOrderByCreatedAtDesc(Pageable pageable);
 }
