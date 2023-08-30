@@ -1,13 +1,17 @@
+.arrow-button button {
+    background: none;
+    border: none;
+}
+
 .main-box {
-    width: 88.75rem;
-    height: 60.3125rem;
+    height: 100vh;
     flex-shrink: 0;
     border-radius: 4.8125rem;
     background: #FFF;
     box-shadow: 0px 0px 12px 7px rgba(0, 0, 0, 0.25);
 }
 
-.main-contents{ 
+.main-contents {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -47,9 +51,108 @@
     flex-shrink: 0;
 }
 
-.arrow-button{ 
+.arrow-button {
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top: 10.44rem;
+}
+
+/*메인 박스 끝*/
+/*소개 박스 시작*/
+.introduce-box {
+    height: 100vh;
+    flex-shrink: 0;
+    border-radius: 4.8125rem;
+    background: #FFF;
+    box-shadow: 0px 0px 12px 7px rgba(0, 0, 0, 0.25);
+}
+
+/*서브 박스 시작*/
+.introduce-sub-box {
+    background-color: aquamarine;
+    padding-top: 5.81rem;
+    justify-content: center; /* 가로 중앙 정렬 */
+}
+
+
+/*BE 박스 시작*/
+.be-box{ 
+    background-color: lightcoral;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.be-logo {
+    width: 21.6875rem;
+    height: 4.8125rem;
+    flex-shrink: 0;
+    border-radius: 1.875rem;
+    background: #FFA800;
+    color: #FFF;
+    font-family: Pretendard;
+    font-size: 3.125rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/*FE 박스 시작*/
+.fe-box{ 
+    background-color: lightcoral;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fe-logo {
+    width: 21.6875rem;
+    height: 4.8125rem;
+    flex-shrink: 0;
+    border-radius: 1.875rem;
+    background: #FFA800;
+    color: #FFF;
+    font-family: Pretendard;
+    font-size: 3.125rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/*DESIGN 박스 시작*/
+.design-box{ 
+    background-color: lightcoral;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.design-logo {
+    width: 21.6875rem;
+    height: 4.8125rem;
+    flex-shrink: 0;
+    border-radius: 1.875rem;
+    background: #FFA800;
+    color: #FFF;
+    font-family: Pretendard;
+    font-size: 3.125rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
