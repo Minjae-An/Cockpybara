@@ -53,31 +53,26 @@ const Login = () => {
     navigate('/login');
   };
 
-  const handleFindId = () => { //임시 아이디 찾기창
+  const handleFindId = () => { //아이디 찾기창
     navigate('/login/help/idInQuiry');
   };
 
-  const handleFindPassword = () => { //임시 비밀번호 찾기창
+  const handleFindPassword = () => { //비밀번호 찾기창
     navigate('/login/help/begin');
   };
 
   const handleLogin = async () => {
     try {
-      // Make the API call to login endpoint
       const response = await axios.post('/login', {
-        // Pass the necessary login data in the request body
-        // For example, you can pass the ID and password as follows:
         id: 'your_id',
         password: 'your_password'
       });
 
-      // Check the response and set isLoggedIn to true upon successful login
       if (response.status === 200) {
         setIsLoggedIn(true);
-        navigate('/login'); // Navigate to the Login page after successful login
+        navigate('/login'); 
       }
     } catch (error) {
-      // Handle any errors that occur during the login process
       console.log('Login error:', error);
     }
   };

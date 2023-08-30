@@ -40,7 +40,12 @@ const About = () => {
               BE
             </div>
             <div className="be-top">
-              ㅇ
+              <div className="be-top-photo">
+
+              </div>
+              <div className="be-top-text">
+
+              </div>
             </div>
             <div className="be-bottom">
               ㅇ
