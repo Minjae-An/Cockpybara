@@ -38,18 +38,30 @@ const IDFinder = () => {
     setPhoneNumber(e.target.value);
   };
 
-  const handleFindID = () => {
-    const foundUser = users.find(
-      (user) => user.nickname === nickname && user.phoneNumber === phoneNumber
-    );
-    if (foundUser) {
-      setFoundID(foundUser.id);
-      setIsEmailFound(true);
-    } else {
-      setFoundID("입력하신 정보를 다시 확인해주세요!");
-      setIsEmailFound(false); 
+  const handleFindID = async () => {
+    try {
+      const response = await fetch("/login/help/idInquiry", {
+        method: "GET", // GET 요청 메서드
+        headers: {
+          "Content-Type": "application/json", // 요청 헤더 설정
+        },
+      });
+  
+      const data = await response.json(); // 응답 데이터 파싱
+  
+      if (response.ok) {
+        setFoundID(data.id); // 유효한 아이디를 찾은 경우 상태 업데이트
+        setIsEmailFound(true);
+      } else {
+        setFoundID("입력하신 정보를 다시 확인해주세요!"); // 오류 메시지 설정
+        setIsEmailFound(false);
+      }
+    } catch (error) {
+      console.error("API 요청 오류:", error);
+      // 오류 처리 로직 추가
     }
   };
+  
 
   const maskEmail = (email) => {
     const [prefix, domain] = email.split("@");
