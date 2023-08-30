@@ -72,6 +72,30 @@ const PWFinder = () => {
     }
   };
 
+  const handleBeginRequest = async () => {
+    try {
+      const response = await fetch("/login/help/begin", {
+        method: "GET", // GET 요청 메서드
+        headers: {
+          "Content-Type": "application/json", // 요청 헤더 설정
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json(); // 응답 데이터 파싱
+        console.log("API 응답 데이터:", data);
+        // 응답 데이터 처리
+      } else {
+        console.error("API 요청 오류:", response.status, response.statusText);
+        // 오류 처리 로직 추가
+      }
+    } catch (error) {
+      console.error("API 요청 오류:", error);
+      // 오류 처리 로직 추가
+    }
+  };
+
+
   const editPassword = "비밀번호가 성공적으로 변경되었습니다.";
   const falseEditPassword =
     "새로운 비밀번호와 비밀번호 확인이 일치하지 않습니다.";
@@ -203,7 +227,7 @@ const PWFinder = () => {
                 className={`FindPwButton ${
                   showPasswordUpdate ? "disabled" : ""
                 }`}
-                onClick={handleFindPassword}
+                onClick={handleBeginRequest}
                 disabled={showPasswordUpdate}
               >
                 {showPasswordUpdate ? "비밀번호 수정" : "비밀번호 찾기"}
