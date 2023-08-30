@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import image1 from "./photo/Search.png"; // 이미지 경로
+import image1 from "./photo/Search.png";
 import { Link } from "react-router-dom";
 import "./IDFinder.css";
 
 const IDFinder = () => {
-  // Sample list of users with their names and IDs
   const users = [
     {
       userId: "user1",
@@ -24,7 +23,6 @@ const IDFinder = () => {
       nickname: "Michael Johnson",
       phoneNumber: "333-333-3333",
     },
-    // Add more users as needed
   ];
 
   const [nickname, setNickname] = useState("");
@@ -46,10 +44,10 @@ const IDFinder = () => {
     );
     if (foundUser) {
       setFoundID(foundUser.id);
-      setIsEmailFound(true); // Set the state to true when email is found
+      setIsEmailFound(true);
     } else {
       setFoundID("입력하신 정보를 다시 확인해주세요!");
-      setIsEmailFound(false); // Set the state to false when email is not found
+      setIsEmailFound(false); 
     }
   };
 
@@ -123,7 +121,6 @@ const IDFinder = () => {
               className="input-field-telPhone"
             />
           </div>
-          {/* Display the found ID or "User not found" */}
           <div
         className={`idFinder-result ${
           foundID === "입력하신 정보를 다시 확인해주세요!" || foundID === ""
@@ -145,10 +142,8 @@ const IDFinder = () => {
         className="FindIdButton"
         onClick={() => {
           if (isEmailFound) {
-            // Navigate to the "/login" page when isEmailFound is true
             window.location.href = "/login";
           } else {
-            // Handle the "아이디 찾기" button click when email is not found
             handleFindID();
           }
         }}
