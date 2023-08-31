@@ -10,9 +10,9 @@ import Alchole_free.Cockpybara.repository.cocktail_recipe.CocktailRecipeReposito
 import Alchole_free.Cockpybara.service.member.member_detail.MemberDetailDTO;
 import Alchole_free.Cockpybara.service.member.member_update.MemberUpdateDTO;
 import Alchole_free.Cockpybara.util.pagination.CustomPageResponse;
+import Alchole_free.Cockpybara.util.pagination.PagingUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -51,10 +51,6 @@ public class MemberService {
     public Member login(String email, String password) {
         return memberRepository.findByEmailAndPassword(email, password)
                 .orElseThrow(() -> new IllegalArgumentException("해당 회원이 존재하지 않습니다"));
-    }
-
-    public List<Member> findAll() {
-        return memberRepository.findAll();
     }
 
     @Transactional
@@ -148,9 +144,7 @@ public class MemberService {
             return new LikeDTO(recipeId, name, drinkImgPath, createdAt);
         }).collect(Collectors.toList());
 
-        int start = (int) request.getOffset();
-        int end = Math.min(start + request.getPageSize(), likes.size());
-        Page<LikeDTO> pageResult = new PageImpl<>(likes.subList(start, end), request, likes.size());
+        Page<LikeDTO> pageResult = PagingUtil.listToPage(likes, request);
 
         CustomPageResponse<LikeDTO> response = new CustomPageResponse<>(pageResult);
         response.setContent(pageResult.getContent());
