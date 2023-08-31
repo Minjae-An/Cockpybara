@@ -2,16 +2,15 @@ package Alchole_free.Cockpybara.controller.review;
 
 import Alchole_free.Cockpybara.controller.review.add_review.AddReviewRequest;
 import Alchole_free.Cockpybara.controller.review.commented_recipes.CommentedRecipesResponse;
-import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.taste.Taste;
 import Alchole_free.Cockpybara.service.review.ReviewService;
+import Alchole_free.Cockpybara.util.pagination.CustomPageResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -39,9 +38,8 @@ public class ReviewController {
     }
 
     @GetMapping("/user/{userId}/my-page/commented-recipes")
-    public ResponseEntity<List<CommentedRecipesResponse>> getCommentedRecipes(@PathVariable Long userId){
-        List<CommentedRecipesResponse> commentedRecipesResponses = reviewService.findCommentedRecipesByMember(userId);
-
-        return ResponseEntity.ok(commentedRecipesResponses);
+    public ResponseEntity<CustomPageResponse<CommentedRecipesResponse>> getCommentedRecipes(@PathVariable Long userId, int page){
+        CustomPageResponse<CommentedRecipesResponse> commentedRecipes = reviewService.findCommentedRecipesByMember(userId, page);
+        return ResponseEntity.ok(commentedRecipes);
     }
 }
