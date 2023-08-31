@@ -27,7 +27,7 @@ public class LikesController {
         return ResponseEntity.ok("successfully remove like");
     }
 
-    @GetMapping("/likes-list")
+    @GetMapping("/like-list")
     public ResponseEntity<CustomPageResponse<LikeDTO>> getLikes(@PathVariable Long userId, int page) {
         CustomPageResponse<LikeDTO> likes = memberService.getLikes(userId, page);
         return ResponseEntity.ok(likes);
