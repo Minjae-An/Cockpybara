@@ -9,7 +9,12 @@ import Alchole_free.Cockpybara.repository.MemberRepository;
 import Alchole_free.Cockpybara.repository.cocktail_recipe.CocktailRecipeRepository;
 import Alchole_free.Cockpybara.service.member.member_detail.MemberDetailDTO;
 import Alchole_free.Cockpybara.service.member.member_update.MemberUpdateDTO;
+import Alchole_free.Cockpybara.util.pagination.CustomPageResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -130,8 +135,10 @@ public class MemberService {
         member.removeLike(recipeId);
     }
 
-    public List<LikeDTO> getLikes(Long userId) {
+    public CustomPageResponse<LikeDTO> getLikes(Long userId, int page) {
         Member member = findById(userId);
+        Pageable request = PageRequest.of(page, 3);
+
         List<LikeDTO> likes = member.getLikes().stream().map(like -> {
             Long recipeId = like.getCocktailRecipe().getId();
             String name = like.getCocktailRecipe().getName();
@@ -141,6 +148,12 @@ public class MemberService {
             return new LikeDTO(recipeId, name, drinkImgPath, createdAt);
         }).collect(Collectors.toList());
 
-        return likes;
+        int start = (int) request.getOffset();
+        int end = Math.min(start + request.getPageSize(), likes.size());
+        Page<LikeDTO> pageResult = new PageImpl<>(likes.subList(start, end), request, likes.size());
+
+        CustomPageResponse<LikeDTO> response = new CustomPageResponse<>(pageResult);
+        response.setContent(pageResult.getContent());
+        return response;
     }
 }
