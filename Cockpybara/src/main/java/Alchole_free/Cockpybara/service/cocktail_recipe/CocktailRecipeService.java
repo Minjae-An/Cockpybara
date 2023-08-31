@@ -27,7 +27,9 @@ import Alchole_free.Cockpybara.util.pagination.CustomPageRequest;
 import Alchole_free.Cockpybara.util.pagination.CustomPageResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -123,9 +125,11 @@ public class CocktailRecipeService {
         return new UpdateMyRecipeResponse(cocktailRecipe.getId());
     }
 
-    public List<MyRecipeDTO> getMyRecipe(Long userId){
+    public CustomPageResponse<MyRecipeDTO> getMyRecipe(Long userId, int page) {
         Member member = memberRepository.findById(userId)
                 .orElseThrow(() -> new IllegalStateException("해당 멤버가 존재하지 않습니다."));
+        Pageable request = PageRequest.of(page, 3);
+
         List<MyRecipeDTO> myRecipes = member.getMyRecipes().stream().map(myRecipe -> {
             Long id = myRecipe.getCocktailRecipe().getId();
             String name = myRecipe.getCocktailRecipe().getName();
@@ -135,7 +139,13 @@ public class CocktailRecipeService {
             return new MyRecipeDTO(id, name, drinkImgPath, createdAt);
         }).collect(Collectors.toList());
 
-        return myRecipes;
+        int start = (int) request.getOffset();
+        int end = Math.min(start + request.getPageSize(), myRecipes.size());
+        Page<MyRecipeDTO> pageResult = new PageImpl<>(myRecipes.subList(start, end), request, myRecipes.size());
+
+        CustomPageResponse<MyRecipeDTO> response = new CustomPageResponse<>(pageResult);
+        response.setContent(pageResult.getContent());
+        return response;
     }
 
 
@@ -144,7 +154,7 @@ public class CocktailRecipeService {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime startDateTime;
 
-        PageRequest request=PageRequest.of(pageRequest.getPage(), pageRequest.getSize());
+        PageRequest request = PageRequest.of(pageRequest.getPage(), pageRequest.getSize());
 
 
         Page<CocktailRecipe> page;
@@ -162,7 +172,7 @@ public class CocktailRecipeService {
                 page = cocktailRecipeRepository.findCocktailRecipeByOrderByCreatedAtDesc(request);
         }
 
-        CustomPageResponse<CocktailRecipeSearchDTO> pageResponse=new CustomPageResponse<>(page);
+        CustomPageResponse<CocktailRecipeSearchDTO> pageResponse = new CustomPageResponse<>(page);
         List<CocktailRecipeSearchDTO> content = page.get().map(CocktailRecipeSearchDTO::from).collect(Collectors.toList());
         pageResponse.setContent(content);
 
