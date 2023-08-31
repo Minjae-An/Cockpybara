@@ -9,7 +9,12 @@ import Alchole_free.Cockpybara.domain.member.Member;
 import Alchole_free.Cockpybara.repository.cocktail_recipe.CocktailRecipeRepository;
 import Alchole_free.Cockpybara.repository.MemberRepository;
 import Alchole_free.Cockpybara.repository.ReviewRepository;
+import Alchole_free.Cockpybara.util.pagination.CustomPageResponse;
+import Alchole_free.Cockpybara.util.pagination.PagingUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,13 +51,19 @@ public class ReviewService {
     }
 
     @Transactional(readOnly = true)
-    public List<CommentedRecipesResponse> findCommentedRecipesByMember(Long memberId) {
+    public CustomPageResponse<CommentedRecipesResponse> findCommentedRecipesByMember(Long memberId, int page) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalStateException("해당 멤버가 존재하지 않습니다."));
+        Pageable request= PageRequest.of(page, 3);
 
         List<Review> reviews = reviewRepository.findReviewByMember(member);
-        return reviews.stream()
+        List<CommentedRecipesResponse> commentedRecipes = reviews.stream()
                 .map(review -> CommentedRecipesResponse.from(review.getCocktailRecipe()))
                 .collect(Collectors.toList());
+
+        Page<CommentedRecipesResponse> pageResult = PagingUtil.listToPage(commentedRecipes, request);
+        CustomPageResponse<CommentedRecipesResponse> response = new CustomPageResponse<>(pageResult);
+        response.setContent(pageResult.getContent());
+        return response;
     }
 }
