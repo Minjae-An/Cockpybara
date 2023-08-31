@@ -25,9 +25,9 @@ import Alchole_free.Cockpybara.repository.cocktail_recipe.CocktailRecipeReposito
 import Alchole_free.Cockpybara.repository.cocktail_recipe.condition.CocktailRecipeSearchCondition;
 import Alchole_free.Cockpybara.util.pagination.CustomPageRequest;
 import Alchole_free.Cockpybara.util.pagination.CustomPageResponse;
+import Alchole_free.Cockpybara.util.pagination.PagingUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -139,9 +139,7 @@ public class CocktailRecipeService {
             return new MyRecipeDTO(id, name, drinkImgPath, createdAt);
         }).collect(Collectors.toList());
 
-        int start = (int) request.getOffset();
-        int end = Math.min(start + request.getPageSize(), myRecipes.size());
-        Page<MyRecipeDTO> pageResult = new PageImpl<>(myRecipes.subList(start, end), request, myRecipes.size());
+        Page<MyRecipeDTO> pageResult = PagingUtil.listToPage(myRecipes, request);
 
         CustomPageResponse<MyRecipeDTO> response = new CustomPageResponse<>(pageResult);
         response.setContent(pageResult.getContent());
@@ -190,7 +188,7 @@ public class CocktailRecipeService {
     public List<CocktailRecipeSearchDTO> search(CocktailRecipeSearchCondition searchCondition) {
         List<CocktailRecipe> searchResult = cocktailRecipeRepository.search(searchCondition);
 
-        return searchResult.stream().map(cocktailRecipe -> CocktailRecipeSearchDTO.from(cocktailRecipe))
+        return searchResult.stream().map(CocktailRecipeSearchDTO::from)
                 .collect(Collectors.toList());
     }
 }
