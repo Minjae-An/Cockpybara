@@ -45,16 +45,6 @@ public class CocktailRecipeService {
     private final MemberRepository memberRepository;
     private final IngredientRepository ingredientRepository;
 
-    public CustomPageResponse<CocktailRecipeSearchDTO> findCocktailRecipeByNameContaining(String name, CustomPageRequest pageRequest) {
-        PageRequest request = PageRequest.of(pageRequest.getPage(), pageRequest.getSize());
-        Page<CocktailRecipe> page = cocktailRecipeRepository.findCocktailRecipeByNameContaining(name, request);
-        List<CocktailRecipeSearchDTO> content = page.get().map(CocktailRecipeSearchDTO::from).collect(Collectors.toList());
-
-        CustomPageResponse<CocktailRecipeSearchDTO> response = new CustomPageResponse<>(page);
-        response.setContent(content);
-        return response;
-    }
-
     public CocktailRecipe findById(Long id) {
         CocktailRecipe cocktailRecipe = cocktailRecipeRepository
                 .findById(id)
@@ -185,10 +175,13 @@ public class CocktailRecipeService {
         return cocktailRecipeDetailDTO;
     }
 
-    public List<CocktailRecipeSearchDTO> search(CocktailRecipeSearchCondition searchCondition) {
-        List<CocktailRecipe> searchResult = cocktailRecipeRepository.search(searchCondition);
+    public CustomPageResponse<CocktailRecipeSearchDTO> search(CocktailRecipeSearchCondition searchCondition, CustomPageRequest pageRequest) {
+        PageRequest request = PageRequest.of(pageRequest.getPage(), pageRequest.getSize());
+        Page<CocktailRecipe> page = cocktailRecipeRepository.search(searchCondition, request);
+        List<CocktailRecipeSearchDTO> content = page.map(CocktailRecipeSearchDTO::from).getContent();
 
-        return searchResult.stream().map(CocktailRecipeSearchDTO::from)
-                .collect(Collectors.toList());
+        CustomPageResponse<CocktailRecipeSearchDTO> response = new CustomPageResponse<>(page);
+        response.setContent(content);
+        return response;
     }
 }
