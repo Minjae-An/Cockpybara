@@ -7,10 +7,9 @@ import Alchole_free.Cockpybara.domain.cocktail_recipe.review.Review;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.review.ReviewTaste;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.taste.Taste;
 import Alchole_free.Cockpybara.domain.member.Member;
-import Alchole_free.Cockpybara.repository.cocktail_recipe.CocktailRecipeRepository;
 import Alchole_free.Cockpybara.repository.MemberRepository;
 import Alchole_free.Cockpybara.repository.ReviewRepository;
-import Alchole_free.Cockpybara.util.pagination.CustomPageRequest;
+import Alchole_free.Cockpybara.repository.cocktail_recipe.CocktailRecipeRepository;
 import Alchole_free.Cockpybara.util.pagination.CustomPageResponse;
 import Alchole_free.Cockpybara.util.pagination.PagingUtil;
 import lombok.RequiredArgsConstructor;
@@ -70,11 +69,11 @@ public class ReviewService {
     }
 
     @Transactional(readOnly = true)
-    public CustomPageResponse<ReviewDTO> getReviews(Long recipeId, CustomPageRequest pageRequest){
+    public CustomPageResponse<ReviewDTO> getReviews(Long recipeId, int pageNumber){
         CocktailRecipe cocktailRecipe = cocktailRecipeRepository.findById(recipeId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 레시피가 존재하지 않습니다."));
 
-        PageRequest request = PageRequest.of(pageRequest.getPage(), pageRequest.getSize());
+        PageRequest request = PageRequest.of(pageNumber, 10);
         Page<Review> page = reviewRepository.findReviewByCocktailRecipe(cocktailRecipe, request);
 
         List<ReviewDTO> content = page.get().map(review -> {
