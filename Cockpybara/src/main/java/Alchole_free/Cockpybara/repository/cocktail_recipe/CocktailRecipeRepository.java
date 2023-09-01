@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 
 @Repository
-public interface CocktailRecipeRepository extends JpaRepository<CocktailRecipe, Long>, CocktailRepositoryCustom {
+public interface CocktailRecipeRepository extends JpaRepository<CocktailRecipe, Long>, CocktailRecipeRepositoryCustom {
 
     Page<CocktailRecipe> findCocktailRecipeByNameContaining(String name, Pageable pageable);
 
