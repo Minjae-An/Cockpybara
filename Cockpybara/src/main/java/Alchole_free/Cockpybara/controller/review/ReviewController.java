@@ -1,9 +1,11 @@
 package Alchole_free.Cockpybara.controller.review;
 
+import Alchole_free.Cockpybara.controller.cocktailrecipe.recipe_detail.review.ReviewDTO;
 import Alchole_free.Cockpybara.controller.review.add_review.AddReviewRequest;
 import Alchole_free.Cockpybara.controller.review.commented_recipes.CommentedRecipesResponse;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.taste.Taste;
 import Alchole_free.Cockpybara.service.review.ReviewService;
+import Alchole_free.Cockpybara.util.pagination.CustomPageRequest;
 import Alchole_free.Cockpybara.util.pagination.CustomPageResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -41,5 +43,11 @@ public class ReviewController {
     public ResponseEntity<CustomPageResponse<CommentedRecipesResponse>> getCommentedRecipes(@PathVariable Long userId, int page){
         CustomPageResponse<CommentedRecipesResponse> commentedRecipes = reviewService.findCommentedRecipesByMember(userId, page);
         return ResponseEntity.ok(commentedRecipes);
+    }
+
+    @GetMapping("/recipe/detail/{recipeId}/reviews")
+    public ResponseEntity<CustomPageResponse<ReviewDTO>> getReviews(@PathVariable Long recipeId, CustomPageRequest pageRequest){
+        CustomPageResponse<ReviewDTO> reviews = reviewService.getReviews(recipeId, pageRequest);
+        return ResponseEntity.ok(reviews);
     }
 }
