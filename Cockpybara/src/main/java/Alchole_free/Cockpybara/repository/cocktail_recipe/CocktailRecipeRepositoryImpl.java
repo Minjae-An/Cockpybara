@@ -8,8 +8,12 @@ import Alchole_free.Cockpybara.domain.cocktail_recipe.taste.Taste;
 import Alchole_free.Cockpybara.domain.ingredient.IngredientCategory;
 import Alchole_free.Cockpybara.repository.cocktail_recipe.condition.CocktailRecipeSearchCondition;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.support.PageableExecutionUtils;
 
 import java.util.List;
 
@@ -19,14 +23,12 @@ import static Alchole_free.Cockpybara.domain.ingredient.QRecipeIngredient.recipe
 import static org.springframework.util.StringUtils.hasText;
 
 @RequiredArgsConstructor
-public class CocktailRecipeRepositoryImpl implements CocktailRepositoryCustom {
+public class CocktailRecipeRepositoryImpl implements CocktailRecipeRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<CocktailRecipe> search(CocktailRecipeSearchCondition searchCondition) {
-
-
-        return queryFactory
+    public Page<CocktailRecipe> search(CocktailRecipeSearchCondition searchCondition, Pageable pageable) {
+        List<CocktailRecipe> content = queryFactory
                 .selectFrom(cocktailRecipe)
                 .join(cocktailRecipe.tastes, recipeTaste)
                 .leftJoin(cocktailRecipe.ingredients, recipeIngredient)
@@ -38,7 +40,32 @@ public class CocktailRecipeRepositoryImpl implements CocktailRepositoryCustom {
                         glassIn(searchCondition.getGlasses()),
                         recipeTasteIn(searchCondition.getTastes()),
                         ingredientCategoryIn(searchCondition.getIngredientCategories())
-                ).fetch();
+                )
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        JPAQuery<Long> countQuery = getCount(searchCondition);
+
+        return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
+    }
+
+
+    private JPAQuery<Long> getCount(CocktailRecipeSearchCondition searchCondition){
+        return queryFactory
+                .select(cocktailRecipe.count())
+                .from(cocktailRecipe)
+                .join(cocktailRecipe.tastes, recipeTaste)
+                .leftJoin(cocktailRecipe.ingredients, recipeIngredient)
+                .leftJoin(recipeIngredient.ingredient)
+                .where(
+                        nameLike(searchCondition.getName()),
+                        alcoholicTypeIn(searchCondition.getAlcoholicTypes()),
+                        categoryIn(searchCondition.getCategories()),
+                        glassIn(searchCondition.getGlasses()),
+                        recipeTasteIn(searchCondition.getTastes()),
+                        ingredientCategoryIn(searchCondition.getIngredientCategories())
+                );
     }
 
     private BooleanExpression nameLike(String name) {
