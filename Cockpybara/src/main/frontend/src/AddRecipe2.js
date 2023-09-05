@@ -2,9 +2,36 @@ import React, { useState } from 'react';
 import './AddRecipe2.css'
 
 function AddRecipe2() {
+    const [recipeTitle, setRecipeTitle] = useState("");
     const [stepList, setStepList] = useState([<input key={0} />]);
     const [ingredientList, setIngredientList] = useState([]);
     const [isInputClicked, setIsInputClicked] = useState(false);
+    const [recipeDescription, setRecipeDescription] = useState("");
+    const [ingredientDescription, setIngredientDescription] = useState("");
+
+    const MAX_DESCRIPTION_LENGTH = 300; // 최대 길이
+    const MAX_INGREDIENT_DESCRIPTION_LENGTH = 50; // 최대 길이
+
+    const handleTitleChange = (e) => {
+        const inputValue = e.target.value;
+        if (inputValue.length <= 30) {
+            setRecipeTitle(inputValue);
+        }
+    };
+
+    const handleDescriptionChange = (e) => {
+        const inputValue = e.target.value;
+        if (inputValue.length <= MAX_DESCRIPTION_LENGTH) {
+            setRecipeDescription(inputValue);
+        }
+    };
+
+    const handleIngredientDescriptionChange = (e) => {
+        const inputValue = e.target.value;
+        if (inputValue.length <= MAX_INGREDIENT_DESCRIPTION_LENGTH) {
+            setIngredientDescription(inputValue);
+        }
+    };
 
     const addStep = (e) => {
         e.preventDefault();
@@ -34,6 +61,8 @@ function AddRecipe2() {
                     setIsInputClicked(false);
                 }}
                 placeholder={isInputClicked === true ? "" : "설명을 입력해 주세요. (최대 50자)"}
+                value={ingredientDescription}
+    onChange={handleIngredientDescriptionChange}
             />
             <p>용량</p>
             <input
@@ -85,19 +114,22 @@ function AddRecipe2() {
                                 onBlur={() => {
                                     setIsInputClicked(false);
                                 }}
-                                placeholder={isInputClicked === true ? "" : "제목을 입력해 주세요. (최대 30자)"}></input>
+                                placeholder={isInputClicked === true ? "" : "제목을 입력해 주세요. (최대 30자)"} value={recipeTitle} // 입력한 제목을 보여주기 위해 추가
+                                onChange={handleTitleChange} />
                         </div>
                         <div className="add-explan">
                             <p>레시피 설명<span>*</span></p>
-                            <input // 클릭될 때 작동
+                            <input
                                 onFocus={() => {
                                     setIsInputClicked(true);
                                 }}
-                                // 클릭되어 있지 않을 때 작동input 이외의 영역이 클릭되었을 때)
                                 onBlur={() => {
                                     setIsInputClicked(false);
                                 }}
-                                placeholder={isInputClicked === true ? "" : "설명을 입력해 주세요. (최대 300자)"}></input>
+                                placeholder={isInputClicked === true ? "" : "설명을 입력해 주세요. (최대 300자)"}
+                                value={recipeDescription}
+                                onChange={handleDescriptionChange}
+                            />
                         </div>
                         <div className="add-ingredient">
                             <p>재료<span>*</span></p>
@@ -122,6 +154,8 @@ function AddRecipe2() {
                                         setIsInputClicked(false);
                                     }}
                                     placeholder={isInputClicked === true ? "" : "설명을 입력해 주세요. (최대 50자)"}
+                                    value={ingredientDescription}
+                                    onChange={handleIngredientDescriptionChange}
                                 />
                                 <p>용량</p>
                                 <input
