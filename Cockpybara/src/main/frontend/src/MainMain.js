@@ -7,10 +7,8 @@ import Cock4 from "./photo/Cock4.png";
 import Cock5 from "./photo/Cock5.png";
 
 const MainMain = () => {
-  // 이미지 목록을 배열로 정의합니다.
   const images = [Cock1, Cock2, Cock3, Cock4, Cock5];
 
-  // 이미지에 맞는 제목과 내용을 배열로 정의합니다.
   const contents = [
     {
       title: 'Daiquiri',
@@ -40,8 +38,6 @@ const MainMain = () => {
     }
   ];
   
-
-  // 현재 보여지고 있는 이미지의 인덱스를 상태로 관리합니다.
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   // 3초마다 이미지를 변경하는 함수를 정의합니다.
