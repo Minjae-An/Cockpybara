@@ -159,12 +159,15 @@ function AddRecipe2() {
                             </div>
                             <div>
                                 <button onClick={addIngredient}>+</button>
-
                             </div>
                         </div>
                         <div className="add-step">
                             <p>단계<span>*</span></p>
-                            <input></input>
+                            {stepList.map((step, index) => (
+                                <div key={index}>
+                                    {step}
+                                </div>
+                            ))}
                             <div><button onClick={addStep}>+</button></div>
                         </div>
                         <div className="add-type">
