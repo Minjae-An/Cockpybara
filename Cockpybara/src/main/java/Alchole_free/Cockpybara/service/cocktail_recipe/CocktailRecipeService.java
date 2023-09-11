@@ -20,11 +20,16 @@ import Alchole_free.Cockpybara.domain.ingredient.Unit;
 import Alchole_free.Cockpybara.domain.member.Member;
 import Alchole_free.Cockpybara.domain.member.my_recipe.MyRecipe;
 import Alchole_free.Cockpybara.repository.IngredientRepository;
-import Alchole_free.Cockpybara.repository.cocktail_recipe.CocktailRecipeRepository;
 import Alchole_free.Cockpybara.repository.MemberRepository;
+import Alchole_free.Cockpybara.repository.cocktail_recipe.CocktailRecipeRepository;
 import Alchole_free.Cockpybara.repository.cocktail_recipe.condition.CocktailRecipeSearchCondition;
+import Alchole_free.Cockpybara.util.pagination.CustomPageRequest;
+import Alchole_free.Cockpybara.util.pagination.CustomPageResponse;
+import Alchole_free.Cockpybara.util.pagination.PagingUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cglib.core.Local;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,10 +44,6 @@ public class CocktailRecipeService {
     private final CocktailRecipeRepository cocktailRecipeRepository;
     private final MemberRepository memberRepository;
     private final IngredientRepository ingredientRepository;
-
-    public List<CocktailRecipe> findCocktailRecipeByNameContaining(String name) {
-        return cocktailRecipeRepository.findCocktailRecipeByNameContaining(name);
-    }
 
     public CocktailRecipe findById(Long id) {
         CocktailRecipe cocktailRecipe = cocktailRecipeRepository
@@ -114,9 +115,11 @@ public class CocktailRecipeService {
         return new UpdateMyRecipeResponse(cocktailRecipe.getId());
     }
 
-    public List<MyRecipeDTO> getMyRecipe(Long userId){
+    public CustomPageResponse<MyRecipeDTO> getMyRecipe(Long userId, int page) {
         Member member = memberRepository.findById(userId)
                 .orElseThrow(() -> new IllegalStateException("해당 멤버가 존재하지 않습니다."));
+        Pageable request = PageRequest.of(page, 3);
+
         List<MyRecipeDTO> myRecipes = member.getMyRecipes().stream().map(myRecipe -> {
             Long id = myRecipe.getCocktailRecipe().getId();
             String name = myRecipe.getCocktailRecipe().getName();
@@ -126,33 +129,42 @@ public class CocktailRecipeService {
             return new MyRecipeDTO(id, name, drinkImgPath, createdAt);
         }).collect(Collectors.toList());
 
-        return myRecipes;
+        Page<MyRecipeDTO> pageResult = PagingUtil.listToPage(myRecipes, request);
+
+        CustomPageResponse<MyRecipeDTO> response = new CustomPageResponse<>(pageResult);
+        response.setContent(pageResult.getContent());
+        return response;
     }
 
 
     // 주간, 월간, 전체기간 칵테일레시피 조회
-    public List<CocktailRecipeSearchDTO> getCocktailRecipesByPeriod(TimePeriod timePeriod) {
+    public CustomPageResponse<CocktailRecipeSearchDTO> getCocktailRecipesByPeriod(TimePeriod timePeriod, CustomPageRequest pageRequest) {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime startDateTime;
 
-        List<CocktailRecipe> cocktailRecipes;
+        PageRequest request = PageRequest.of(pageRequest.getPage(), pageRequest.getSize());
+
+
+        Page<CocktailRecipe> page;
 
         switch (timePeriod) {
             case WEEKLY:
                 startDateTime = now.minusWeeks(1);
-                cocktailRecipes = cocktailRecipeRepository.findCocktailRecipeByCreatedAtBetweenOrderByCreatedAtDesc(startDateTime, now);
+                page = cocktailRecipeRepository.findCocktailRecipeByCreatedAtBetweenOrderByCreatedAtDesc(startDateTime, now, request);
                 break;
             case MONTHLY:
                 startDateTime = now.minusMonths(1);
-                cocktailRecipes = cocktailRecipeRepository.findCocktailRecipeByCreatedAtBetweenOrderByCreatedAtDesc(startDateTime, now);
+                page = cocktailRecipeRepository.findCocktailRecipeByCreatedAtBetweenOrderByCreatedAtDesc(startDateTime, now, request);
                 break;
             default:  //ALL은 여기포함
-                cocktailRecipes = cocktailRecipeRepository.findCocktailRecipeByOrderByCreatedAtDesc();
+                page = cocktailRecipeRepository.findCocktailRecipeByOrderByCreatedAtDesc(request);
         }
 
-        return cocktailRecipes.stream()
-                .map(cocktailRecipe -> CocktailRecipeSearchDTO.from(cocktailRecipe))
-                .collect(Collectors.toList());
+        CustomPageResponse<CocktailRecipeSearchDTO> pageResponse = new CustomPageResponse<>(page);
+        List<CocktailRecipeSearchDTO> content = page.get().map(CocktailRecipeSearchDTO::from).collect(Collectors.toList());
+        pageResponse.setContent(content);
+
+        return pageResponse;
     }
 
     public CocktailRecipeDetailDTO getDetail(Long id) {
@@ -163,10 +175,13 @@ public class CocktailRecipeService {
         return cocktailRecipeDetailDTO;
     }
 
-    public List<CocktailRecipeSearchDTO> search(CocktailRecipeSearchCondition searchCondition) {
-        List<CocktailRecipe> searchResult = cocktailRecipeRepository.search(searchCondition);
+    public CustomPageResponse<CocktailRecipeSearchDTO> search(CocktailRecipeSearchCondition searchCondition, CustomPageRequest pageRequest) {
+        PageRequest request = PageRequest.of(pageRequest.getPage(), pageRequest.getSize());
+        Page<CocktailRecipe> page = cocktailRecipeRepository.search(searchCondition, request);
+        List<CocktailRecipeSearchDTO> content = page.map(CocktailRecipeSearchDTO::from).getContent();
 
-        return searchResult.stream().map(cocktailRecipe -> CocktailRecipeSearchDTO.from(cocktailRecipe))
-                .collect(Collectors.toList());
+        CustomPageResponse<CocktailRecipeSearchDTO> response = new CustomPageResponse<>(page);
+        response.setContent(content);
+        return response;
     }
 }

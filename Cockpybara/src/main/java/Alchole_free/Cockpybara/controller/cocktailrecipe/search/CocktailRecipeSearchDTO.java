@@ -1,12 +1,11 @@
 package Alchole_free.Cockpybara.controller.cocktailrecipe.search;
 
-import Alchole_free.Cockpybara.controller.cocktailrecipe.recipe_detail.CocktailRecipeDetailDTO;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
+import Alchole_free.Cockpybara.domain.cocktail_recipe.taste.RecipeTaste;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.taste.Taste;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,11 +17,11 @@ public class CocktailRecipeSearchDTO {
     private String name;
     private String drinkImgPath;
     private String instruction;
-    private List<Taste> tastes = new ArrayList<>();
+    private List<Taste> tastes;
 
     public static CocktailRecipeSearchDTO from(CocktailRecipe cocktailRecipe) {
         List<Taste> tastes = cocktailRecipe.getTastes().stream()
-                .map(recipeTaste -> recipeTaste.getTaste())
+                .map(RecipeTaste::getTaste)
                 .collect(Collectors.toList());
 
         return CocktailRecipeSearchDTO.builder()
