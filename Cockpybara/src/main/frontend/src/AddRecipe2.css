@@ -28,6 +28,18 @@
     background: #FFF;
 }
 
+/* add-photo-detail */
+.add-photo-detail{ 
+    width: 18.125rem;
+    height: 18.1875rem;
+    flex-shrink: 0;
+    border-radius: 1.25rem;
+    border: 1px dashed #8C8C8C;
+    background: #FFF;
+    margin-top: 1.62rem;
+    margin-left: 1.62rem;
+}
+
 /*add-title*/
 .add-title{ 
     background-color: aqua;

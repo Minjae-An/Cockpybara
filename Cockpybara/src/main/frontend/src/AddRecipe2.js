@@ -8,7 +8,8 @@ function AddRecipe2() {
     const [isInputClicked, setIsInputClicked] = useState(false);
     const [recipeDescription, setRecipeDescription] = useState("");
     const [ingredientDescription, setIngredientDescription] = useState("");
-
+    const [selectedFile, setSelectedFile] = useState(null); // 파일 업로드 변수
+    const [imageUrl, setImageUrl] = useState(null);
     const MAX_DESCRIPTION_LENGTH = 300; // 최대 길이
     const MAX_INGREDIENT_DESCRIPTION_LENGTH = 50; // 최대 길이
 
@@ -37,6 +38,18 @@ function AddRecipe2() {
         e.preventDefault();
         setStepList([...stepList, <input key={stepList.length} />]);
     };
+
+    // 파일 업로드 함수
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        setSelectedFile(file);
+    
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          setImageUrl(e.target.result);
+        };
+        reader.readAsDataURL(file);
+    };   
 
     const addIngredient = (e) => {
         e.preventDefault();
@@ -103,7 +116,14 @@ function AddRecipe2() {
                 <div className="recipe-title">당신의 레시피를 소개해 주세요!</div>
                 <form>
                     <div className="add-detail">
-                        <div className="add-photo"></div>
+                        <div className="add-photo">
+                            <div className="add-photo-detail" style={{ position: 'relative' }}>
+                                <label htmlFor="fileInput" style={{ cursor: 'pointer', position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}>
+                                    <input type="file" accept="image/*" onChange={handleFileChange} id="fileInput" style={{ display: 'none' }} />
+                                </label>
+                                {imageUrl && <img src={imageUrl} alt="Uploaded" style={{ width: '100%', height: '100%', maxWidth: '100%' }} />}
+                             </div>
+                        </div>
                         <div className="add-title">
                             <p>레시피 제목<span>*</span></p>
                             <input // 클릭될 때 작동
