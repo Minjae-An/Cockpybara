@@ -46,8 +46,6 @@ function AddRecipe2() {
         const newImageUrls = [...imageUrls];
     
         for (let i = 0; i < files.length && i + selectedFiles.length < 5; i++) {
-          newSelectedFiles.push(files[i]);
-    
           const reader = new FileReader();
           reader.onload = (e) => {
             newImageUrls.push(e.target.result);
@@ -57,7 +55,7 @@ function AddRecipe2() {
         }
     
         setSelectedFiles(newSelectedFiles);
-      };
+    };
       
 
     const addIngredient = (e) => {
@@ -126,15 +124,26 @@ function AddRecipe2() {
                 <form>
                     <div className="add-detail">
                         <div className="add-photo">
-                            <div className="add-photo-detail" style={{ position: 'relative' }}>
-                                <label htmlFor="fileInput" style={{ cursor: 'pointer', position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}>
-                                    <input type="file" accept="image/*" onChange={handleFileChange} id="fileInput" style={{ display: 'none' }} multiple />
-                                </label>
-                                    {imageUrls.map((url, index) => (
-                                    <img key={index} src={url} alt={`Uploaded ${index}`} style={{ width: '100%', height: '100%', maxWidth: '100%', marginBottom: '10px', borderRadius: '1.25rem' }} />
-                                    ))}
-                            </div>
-                        </div>
+                        {imageUrls.map((url, index) => (
+                <div key={index} className="add-photo-detail" style={{ position: 'relative' }}>
+                <img
+                    src={url}
+                    alt={`Uploaded ${index}`}
+                    style={{
+                    width: '100%',
+                    height: '100%',
+                    maxWidth: '100%',
+                    marginBottom: '10px',
+                    borderRadius: '1.25rem'
+                    }}
+                />
+                </div>
+        ))}
+      <label htmlFor="fileInput" style={{ cursor: 'pointer', position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}>
+        <input type="file" accept="image/*" onChange={handleFileChange} id="fileInput" style={{ display: 'none' }} multiple />
+      </label>
+    </div>
+
                         <div className="add-title">
                             <p>레시피 제목<span>*</span></p>
                             <input // 클릭될 때 작동

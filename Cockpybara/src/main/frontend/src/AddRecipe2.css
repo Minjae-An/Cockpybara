@@ -26,6 +26,7 @@
     border-radius: 0.625rem;
     border: 1.5px solid #8C8C8C;
     background: #FFF;
+    display: flex;
 }
 
 /* add-photo-detail */
@@ -38,6 +39,8 @@
     background: #FFF;
     margin-top: 1.62rem;
     margin-left: 1.62rem;
+
+    display: block;
 }
 
 /*add-title*/
