@@ -5,16 +5,15 @@
     height: 100%;
 }
 
-.Cock1-text-box {
+.Cock1-text-box { /*제목 및 내용*/
     position: absolute;
     top: 0;
     left: 0;
-    margin-top: 500px;
-    margin-left: 1000px;
+    margin-top: 30rem;
+    margin-left: 60rem;
     white-space: pre-line;
     /* 개행 문자(\n)를 줄바꿈으로 처리 */
 }
-
 
 .Cock1-title {
     color: #FFF;
@@ -57,6 +56,3 @@
     height: 100%;
     object-fit: cover;
 }
-
-
-

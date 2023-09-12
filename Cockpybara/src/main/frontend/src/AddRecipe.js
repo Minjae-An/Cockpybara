@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './AddRecipe.css'
 
 // 팝업 창 컴포넌트
 const NameSearchModal = ({ onClose, onSearch, setIngredient }) => {
