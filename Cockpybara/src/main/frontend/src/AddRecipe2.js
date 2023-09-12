@@ -159,7 +159,7 @@ function AddRecipe2() {
                                 onChange={handleTitleChange} />
                         </div>
                         <div className="add-explan">
-                            <p>레시피 설명<span>*</span></p>
+                            <p>레시피 설명 <span>*</span></p>
                             <input
                                 onFocus={() => {
                                     setIsInputClicked(true);
