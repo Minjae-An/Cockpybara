@@ -8,8 +8,8 @@ function AddRecipe2() {
     const [isInputClicked, setIsInputClicked] = useState(false);
     const [recipeDescription, setRecipeDescription] = useState("");
     const [ingredientDescription, setIngredientDescription] = useState("");
-    const [selectedFile, setSelectedFile] = useState(null); // 파일 업로드 변수
-    const [imageUrl, setImageUrl] = useState(null);
+    const [selectedFiles, setSelectedFiles] = useState([]); // 파일 업로드 변수
+    const [imageUrls, setImageUrls] = useState([]); // 기본 이미지 URL을 설정합니다.
     const MAX_DESCRIPTION_LENGTH = 300; // 최대 길이
     const MAX_INGREDIENT_DESCRIPTION_LENGTH = 50; // 최대 길이
 
@@ -41,15 +41,24 @@ function AddRecipe2() {
 
     // 파일 업로드 함수
     const handleFileChange = (event) => {
-        const file = event.target.files[0];
-        setSelectedFile(file);
+        const files = event.target.files;
+        const newSelectedFiles = [...selectedFiles];
+        const newImageUrls = [...imageUrls];
     
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          setImageUrl(e.target.result);
-        };
-        reader.readAsDataURL(file);
-    };   
+        for (let i = 0; i < files.length && i + selectedFiles.length < 5; i++) {
+          newSelectedFiles.push(files[i]);
+    
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            newImageUrls.push(e.target.result);
+            setImageUrls([...newImageUrls]);
+          };
+          reader.readAsDataURL(files[i]);
+        }
+    
+        setSelectedFiles(newSelectedFiles);
+      };
+      
 
     const addIngredient = (e) => {
         e.preventDefault();
@@ -119,10 +128,12 @@ function AddRecipe2() {
                         <div className="add-photo">
                             <div className="add-photo-detail" style={{ position: 'relative' }}>
                                 <label htmlFor="fileInput" style={{ cursor: 'pointer', position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}>
-                                    <input type="file" accept="image/*" onChange={handleFileChange} id="fileInput" style={{ display: 'none' }} />
+                                    <input type="file" accept="image/*" onChange={handleFileChange} id="fileInput" style={{ display: 'none' }} multiple />
                                 </label>
-                                {imageUrl && <img src={imageUrl} alt="Uploaded" style={{ width: '100%', height: '100%', maxWidth: '100%' }} />}
-                             </div>
+                                    {imageUrls.map((url, index) => (
+                                    <img key={index} src={url} alt={`Uploaded ${index}`} style={{ width: '100%', height: '100%', maxWidth: '100%', marginBottom: '10px', borderRadius: '1.25rem' }} />
+                                    ))}
+                            </div>
                         </div>
                         <div className="add-title">
                             <p>레시피 제목<span>*</span></p>
