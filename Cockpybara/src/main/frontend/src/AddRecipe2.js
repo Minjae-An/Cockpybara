@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './AddRecipe2.css'
+import camera from "./photo/camera.png";
 
 function AddRecipe2() {
     const [recipeTitle, setRecipeTitle] = useState("");
@@ -125,27 +126,27 @@ function AddRecipe2() {
                     <div className="add-detail">
                         <div className="add-photo">
                         {imageUrls.map((url, index) => (
-                <div key={index} className="add-photo-detail" style={{ position: 'relative' }}>
-                <img
-                    src={url}
-                    alt={`Uploaded ${index}`}
-                    style={{
-                    width: '100%',
-                    height: '100%',
-                    maxWidth: '100%',
-                    marginBottom: '10px',
-                    borderRadius: '1.25rem'
-                    }}
-                />
-                </div>
-        ))}
-      <label htmlFor="fileInput" style={{ cursor: 'pointer', position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}>
-        <input type="file" accept="image/*" onChange={handleFileChange} id="fileInput" style={{ display: 'none' }} multiple />
-      </label>
-    </div>
-
+                                <div key={index} className="add-photo-detail" style={{ position: 'relative' }}>
+                                <img
+                                    src={url}
+                                    alt={`Uploaded ${index}`}
+                                    style={{
+                                    width: '100%',
+                                    height: '100%',
+                                    maxWidth: '100%',
+                                    marginBottom: '10px',
+                                    borderRadius: '1.25rem'
+                                    }}
+                                />
+                                </div>
+                            ))}
+                            <label htmlFor="fileInput" style={{ cursor: 'pointer', position: 'absolute', top: 60, left: 40 }}>
+                                <input type="file" accept="image/*" onChange={handleFileChange} id="fileInput" style={{ display: 'none' }} multiple />
+                                    +
+                            </label>
+                        </div>
                         <div className="add-title">
-                            <p>레시피 제목<span>*</span></p>
+                            <p>레시피 제목 <span>*</span></p>
                             <input // 클릭될 때 작동
                                 onFocus={() => {
                                     setIsInputClicked(true);
