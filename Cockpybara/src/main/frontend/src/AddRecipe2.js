@@ -173,64 +173,70 @@ function AddRecipe2() {
                             />
                         </div>
                         <div className="add-ingredient">
-                            <p>재료<span>*</span></p>
+                            <p>재료 <span>*</span></p>
                             <div className="detail-ingredient">
-                                재료 디테일 입니다.
-                                <p>이름</p>
-                                <input
-                                    onFocus={() => {
-                                        setIsInputClicked(true);
-                                    }}
-                                    onBlur={() => {
-                                        setIsInputClicked(false);
-                                    }}
-                                    placeholder={isInputClicked === true ? "" : "이름을 입력해 주세요."}
-                                />
-                                <p>설명</p>
-                                <input
-                                    onFocus={() => {
-                                        setIsInputClicked(true);
-                                    }}
-                                    onBlur={() => {
-                                        setIsInputClicked(false);
-                                    }}
-                                    placeholder={isInputClicked === true ? "" : "설명을 입력해 주세요. (최대 50자)"}
-                                    value={ingredientDescription}
-                                    onChange={handleIngredientDescriptionChange}
-                                />
-                                <p>용량</p>
-                                <input
-                                    onFocus={() => {
-                                        setIsInputClicked(true);
-                                    }}
-                                    onBlur={() => {
-                                        setIsInputClicked(false);
-                                    }}
-                                    placeholder={isInputClicked === true ? "" : "용량을 입력해 주세요."}
-                                />
-                                <select>
-                                    <option>PIECE</option>
-                                    <option>TBLSP</option>
-                                    <option>TSP</option>
-                                    <option>ML</option>
-                                    <option>COUNT</option>
-                                    <option>OZ</option>
-                                    <option>INCH</option>
-                                    <option>DASH</option>
-                                    <option>GR</option>
-                                    <option>STICK</option>
-                                    <option>FILL</option>
-                                    <option>CUP</option>
-                                    <option>PART</option>
-                                    <option>GLASS</option>
-                                    <option>SCOOP</option>
-                                    <option>SLICE</option>
-                                </select>
-                                {ingredientList.map((ingredient, index) => (
-                                    <div key={index}>
-                                        {ingredient}
-                                    </div>
-                                ))}
+                                <div className="detail-ingredient-name">
+                                    <p>이름</p>
+                                    <input
+                                        onFocus={() => {
+                                            setIsInputClicked(true);
+                                        }}
+                                        onBlur={() => {
+                                            setIsInputClicked(false);
+                                        }}
+                                        placeholder={isInputClicked === true ? "" : "이름을 입력해 주세요."}
+                                    />
+                                </div>
+                                <div className="detail-ingredient-explan">
+                                    <p>설명</p>
+                                    <input
+                                        onFocus={() => {
+                                            setIsInputClicked(true);
+                                        }}
+                                        onBlur={() => {
+                                            setIsInputClicked(false);
+                                        }}
+                                        placeholder={isInputClicked === true ? "" : "설명을 입력해 주세요. (최대 50자)"}
+                                        value={ingredientDescription}
+                                        onChange={handleIngredientDescriptionChange}
+                                    />
+                                </div>
+                                <div className="detail-ingredient-amount">
+                                    <p>용량</p>
+                                    <input
+                                        onFocus={() => {
+                                            setIsInputClicked(true);
+                                        }}
+                                        onBlur={() => {
+                                            setIsInputClicked(false);
+                                        }}
+                                        placeholder={isInputClicked === true ? "" : "용량을 입력해 주세요."}
+                                    />
+                                    <select>
+                                        <option>PIECE</option>
+                                        <option>TBLSP</option>
+                                        <option>TSP</option>
+                                        <option>ML</option>
+                                        <option>COUNT</option>
+                                        <option>OZ</option>
+                                        <option>INCH</option>
+                                        <option>DASH</option>
+                                        <option>GR</option>
+                                        <option>STICK</option>
+                                        <option>FILL</option>
+                                        <option>CUP</option>
+                                        <option>PART</option>
+                                        <option>GLASS</option>
+                                        <option>SCOOP</option>
+                                        <option>SLICE</option>
+                                    </select>
+                                    {ingredientList.map((ingredient, index) => (
+                                        <div key={index}>
+                                            {ingredient}
+                                        </div>
+                                    ))}
+                                </div>
+                                
                             </div>
                             <div>
                                 <button onClick={addIngredient}>+</button>
