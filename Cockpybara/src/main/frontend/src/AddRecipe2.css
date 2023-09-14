@@ -26,7 +26,9 @@
     border-radius: 0.625rem;
     border: 1.5px solid #8C8C8C;
     background: #FFF;
+    display: flex;
 }
+
 
 /* add-photo-detail */
 .add-photo-detail{ 
@@ -38,26 +40,205 @@
     background: #FFF;
     margin-top: 1.62rem;
     margin-left: 1.62rem;
+
+    display: block;
 }
 
 /*add-title*/
 .add-title{ 
     background-color: aqua;
+    display: flex;
+    margin-top: 2.5rem;
+}
+
+.add-title p{ 
+    justify-content: center;
+    align-items: center;
+    margin-top: 1.62rem;
+    color: #000;
+    font-family: Pretendard;
+    font-size: 1.375rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.add-title span{ 
+    color: #F00;
+    font-family: Pretendard;
+    font-size: 1.375rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.add-title input{ 
+    margin-left: 10.56rem;
+    width: 58.375rem;
+    height: 4.875rem;
+    flex-shrink: 0;
+    border-radius: 0.625rem;
+    border: 1.5px solid #8C8C8C;
+    background: #FFF;
+    color: #8C8C8C;
+    font-family: Pretendard;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
 }
 
 /*add-explan*/
 .add-explan {
     background-color: lawngreen;
+    margin-top: 6.5rem;
+    display: flex;
+}
+
+.add-explan p{ 
+    color: #000;
+    font-family: Pretendard;
+    font-size: 1.375rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.add-explan span{ 
+    color: #F00;
+    font-family: Pretendard;
+    font-size: 1.375rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.add-explan input{ 
+    margin-left: 10.56rem;
+    width: 58.375rem;
+    height: 8.8125rem;
+    flex-shrink: 0;
+    border-radius: 0.625rem;
+    border: 1.5px solid #8C8C8C;
+    background: #FFF;
+    color: #8C8C8C;
+    font-family: Pretendard;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
 }
 
 /*add-ingredient*/
 .add-ingredient {
     background-color: lightgray;
+    margin-top: 3.13rem;
+    display: flex;
+}
+
+.add-ingredient p{ 
+    color: #000;
+    font-family: Pretendard;
+    font-size: 1.375rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.add-ingredient span{ 
+    color: #F00;
+    font-family: Pretendard;
+    font-size: 1.375rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
 }
 
 /*detail-ingredient*/
 .detail-ingredient{ 
     background-color: lightgoldenrodyellow;
+    margin-left: 14.44rem;
+}
+
+/* detail-ingredient-name */
+.detail-ingredient-name{ 
+    display: flex;
+}
+
+.detail-ingredient-name input{ 
+    margin-left: 5.13rem;
+    color: #8C8C8C;
+    font-family: Pretendard;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    width: 51.0625rem;
+    height: 4.875rem;
+    flex-shrink: 0;
+    border-radius: 0.625rem;
+    border: 1.5px solid #8C8C8C;
+    background: #FFF;
+}
+
+/* detail-ingredient-explan */
+.detail-ingredient-explan{ 
+    display: flex;
+    margin-top: 1rem;
+}
+
+.detail-ingredient-explan input{ 
+    width: 51.0625rem;
+    height: 4.875rem;
+    flex-shrink: 0;
+    border-radius: 0.625rem;
+    border: 1.5px solid #8C8C8C;
+    background: #FFF;
+    color: #8C8C8C;
+    font-family: Pretendard;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: 5.13rem;
+}
+
+/* detail-ingredient-amount */
+.detail-ingredient-amount{ 
+    display: flex;
+    margin-top: 1rem;
+}
+
+.detail-ingredient-amount input{ 
+    width: 28.25rem;
+    height: 4.625rem;
+    flex-shrink: 0;
+    border-radius: 0.625rem;
+    border: 1.5px solid #8C8C8C;
+    background: #FFF;
+    color: #8C8C8C;
+    font-family: Pretendard;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: 5.13rem;
+}
+
+.detail-ingredient-amount select{ 
+    margin-left: 1rem;
+    width: 21.8125rem;
+    height: 4.925rem;
+    flex-shrink: 0;
+    border-radius: 0.625rem;
+    border: 1.5px solid #8C8C8C;
+    background: #FFF;
+    color: #8C8C8C;
+    font-family: Pretendard;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
 }
 
 /*add-step*/

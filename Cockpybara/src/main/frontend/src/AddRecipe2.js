@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './AddRecipe2.css'
+import camera from "./photo/camera.png";
 
 function AddRecipe2() {
     const [recipeTitle, setRecipeTitle] = useState("");
@@ -8,8 +9,8 @@ function AddRecipe2() {
     const [isInputClicked, setIsInputClicked] = useState(false);
     const [recipeDescription, setRecipeDescription] = useState("");
     const [ingredientDescription, setIngredientDescription] = useState("");
-    const [selectedFile, setSelectedFile] = useState(null); // 파일 업로드 변수
-    const [imageUrl, setImageUrl] = useState(null);
+    const [selectedFiles, setSelectedFiles] = useState([]); // 파일 업로드 변수
+    const [imageUrls, setImageUrls] = useState([]); // 기본 이미지 URL을 설정합니다.
     const MAX_DESCRIPTION_LENGTH = 300; // 최대 길이
     const MAX_INGREDIENT_DESCRIPTION_LENGTH = 50; // 최대 길이
 
@@ -41,15 +42,22 @@ function AddRecipe2() {
 
     // 파일 업로드 함수
     const handleFileChange = (event) => {
-        const file = event.target.files[0];
-        setSelectedFile(file);
+        const files = event.target.files;
+        const newSelectedFiles = [...selectedFiles];
+        const newImageUrls = [...imageUrls];
     
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          setImageUrl(e.target.result);
-        };
-        reader.readAsDataURL(file);
-    };   
+        for (let i = 0; i < files.length && i + selectedFiles.length < 5; i++) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            newImageUrls.push(e.target.result);
+            setImageUrls([...newImageUrls]);
+          };
+          reader.readAsDataURL(files[i]);
+        }
+    
+        setSelectedFiles(newSelectedFiles);
+    };
+      
 
     const addIngredient = (e) => {
         e.preventDefault();
@@ -109,6 +117,41 @@ function AddRecipe2() {
         ]);
     };
 
+    const handleSubmit = async (e) => { //통신 코드 
+        e.preventDefault();
+    
+        const requestData = {
+            recipeTitle,
+            recipeExplan, 
+            recipeIngredientName,
+            receipeIngreientExplan, 
+            receipeIngreientAmount, 
+            recipeStep, 
+            recipeType, 
+            recipeFlavor
+        };
+    
+        try {
+            const response = await fetch(`/user/${userId}/my-recipe`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestData),
+            });
+    
+            if (response.ok) {
+                alert('레시피가 성공적으로 업로드되었습니다!');
+                // 성공적으로 업로드된 경우 수행할 작업 추가
+            } else {
+                alert('레시피 업로드에 실패했습니다.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('오류가 발생했습니다.');
+        }
+    };
+    
 
     return (
         <div className="addrecipe-mainFrame">
@@ -117,15 +160,28 @@ function AddRecipe2() {
                 <form>
                     <div className="add-detail">
                         <div className="add-photo">
-                            <div className="add-photo-detail" style={{ position: 'relative' }}>
-                                <label htmlFor="fileInput" style={{ cursor: 'pointer', position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}>
-                                    <input type="file" accept="image/*" onChange={handleFileChange} id="fileInput" style={{ display: 'none' }} />
-                                </label>
-                                {imageUrl && <img src={imageUrl} alt="Uploaded" style={{ width: '100%', height: '100%', maxWidth: '100%' }} />}
-                             </div>
+                        {imageUrls.map((url, index) => (
+                                <div key={index} className="add-photo-detail" style={{ position: 'relative' }}>
+                                <img
+                                    src={url}
+                                    alt={`Uploaded ${index}`}
+                                    style={{
+                                    width: '100%',
+                                    height: '100%',
+                                    maxWidth: '100%',
+                                    marginBottom: '10px',
+                                    borderRadius: '1.25rem'
+                                    }}
+                                />
+                                </div>
+                            ))}
+                            <label htmlFor="fileInput" style={{ cursor: 'pointer', position: 'absolute', top: 60, left: 40 }}>
+                                <input type="file" accept="image/*" onChange={handleFileChange} id="fileInput" style={{ display: 'none' }} multiple />
+                                    +
+                            </label>
                         </div>
                         <div className="add-title">
-                            <p>레시피 제목<span>*</span></p>
+                            <p>레시피 제목 <span>*</span></p>
                             <input // 클릭될 때 작동
                                 onFocus={() => {
                                     setIsInputClicked(true);
@@ -138,7 +194,7 @@ function AddRecipe2() {
                                 onChange={handleTitleChange} />
                         </div>
                         <div className="add-explan">
-                            <p>레시피 설명<span>*</span></p>
+                            <p>레시피 설명 <span>*</span></p>
                             <input
                                 onFocus={() => {
                                     setIsInputClicked(true);
@@ -152,64 +208,70 @@ function AddRecipe2() {
                             />
                         </div>
                         <div className="add-ingredient">
-                            <p>재료<span>*</span></p>
+                            <p>재료 <span>*</span></p>
                             <div className="detail-ingredient">
-                                재료 디테일 입니다.
-                                <p>이름</p>
-                                <input
-                                    onFocus={() => {
-                                        setIsInputClicked(true);
-                                    }}
-                                    onBlur={() => {
-                                        setIsInputClicked(false);
-                                    }}
-                                    placeholder={isInputClicked === true ? "" : "이름을 입력해 주세요."}
-                                />
-                                <p>설명</p>
-                                <input
-                                    onFocus={() => {
-                                        setIsInputClicked(true);
-                                    }}
-                                    onBlur={() => {
-                                        setIsInputClicked(false);
-                                    }}
-                                    placeholder={isInputClicked === true ? "" : "설명을 입력해 주세요. (최대 50자)"}
-                                    value={ingredientDescription}
-                                    onChange={handleIngredientDescriptionChange}
-                                />
-                                <p>용량</p>
-                                <input
-                                    onFocus={() => {
-                                        setIsInputClicked(true);
-                                    }}
-                                    onBlur={() => {
-                                        setIsInputClicked(false);
-                                    }}
-                                    placeholder={isInputClicked === true ? "" : "용량을 입력해 주세요."}
-                                />
-                                <select>
-                                    <option>PIECE</option>
-                                    <option>TBLSP</option>
-                                    <option>TSP</option>
-                                    <option>ML</option>
-                                    <option>COUNT</option>
-                                    <option>OZ</option>
-                                    <option>INCH</option>
-                                    <option>DASH</option>
-                                    <option>GR</option>
-                                    <option>STICK</option>
-                                    <option>FILL</option>
-                                    <option>CUP</option>
-                                    <option>PART</option>
-                                    <option>GLASS</option>
-                                    <option>SCOOP</option>
-                                    <option>SLICE</option>
-                                </select>
-                                {ingredientList.map((ingredient, index) => (
-                                    <div key={index}>
-                                        {ingredient}
-                                    </div>
-                                ))}
+                                <div className="detail-ingredient-name">
+                                    <p>이름</p>
+                                    <input
+                                        onFocus={() => {
+                                            setIsInputClicked(true);
+                                        }}
+                                        onBlur={() => {
+                                            setIsInputClicked(false);
+                                        }}
+                                        placeholder={isInputClicked === true ? "" : "이름을 입력해 주세요."}
+                                    />
+                                </div>
+                                <div className="detail-ingredient-explan">
+                                    <p>설명</p>
+                                    <input
+                                        onFocus={() => {
+                                            setIsInputClicked(true);
+                                        }}
+                                        onBlur={() => {
+                                            setIsInputClicked(false);
+                                        }}
+                                        placeholder={isInputClicked === true ? "" : "설명을 입력해 주세요. (최대 50자)"}
+                                        value={ingredientDescription}
+                                        onChange={handleIngredientDescriptionChange}
+                                    />
+                                </div>
+                                <div className="detail-ingredient-amount">
+                                    <p>용량</p>
+                                    <input
+                                        onFocus={() => {
+                                            setIsInputClicked(true);
+                                        }}
+                                        onBlur={() => {
+                                            setIsInputClicked(false);
+                                        }}
+                                        placeholder={isInputClicked === true ? "" : "용량을 입력해 주세요."}
+                                    />
+                                    <select>
+                                        <option>PIECE</option>
+                                        <option>TBLSP</option>
+                                        <option>TSP</option>
+                                        <option>ML</option>
+                                        <option>COUNT</option>
+                                        <option>OZ</option>
+                                        <option>INCH</option>
+                                        <option>DASH</option>
+                                        <option>GR</option>
+                                        <option>STICK</option>
+                                        <option>FILL</option>
+                                        <option>CUP</option>
+                                        <option>PART</option>
+                                        <option>GLASS</option>
+                                        <option>SCOOP</option>
+                                        <option>SLICE</option>
+                                    </select>
+                                    {ingredientList.map((ingredient, index) => (
+                                        <div key={index}>
+                                            {ingredient}
+                                        </div>
+                                    ))}
+                                </div>
+                                
                             </div>
                             <div>
                                 <button onClick={addIngredient}>+</button>
@@ -255,7 +317,7 @@ function AddRecipe2() {
                             </div>
                         </div>
                     </div>
-                    <div className="add-button">
+                    <div className="add-button" onSubmit={handleSubmit}>
                         <button type="submit">올리기</button>
                     </div>
                 </form>
