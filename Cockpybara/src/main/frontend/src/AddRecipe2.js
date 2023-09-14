@@ -117,6 +117,41 @@ function AddRecipe2() {
         ]);
     };
 
+    const handleSubmit = async (e) => { //통신 코드 
+        e.preventDefault();
+    
+        const requestData = {
+            recipeTitle,
+            recipeExplan, 
+            recipeIngredientName,
+            receipeIngreientExplan, 
+            receipeIngreientAmount, 
+            recipeStep, 
+            recipeType, 
+            recipeFlavor
+        };
+    
+        try {
+            const response = await fetch(`/user/${userId}/my-recipe`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestData),
+            });
+    
+            if (response.ok) {
+                alert('레시피가 성공적으로 업로드되었습니다!');
+                // 성공적으로 업로드된 경우 수행할 작업 추가
+            } else {
+                alert('레시피 업로드에 실패했습니다.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('오류가 발생했습니다.');
+        }
+    };
+    
 
     return (
         <div className="addrecipe-mainFrame">
@@ -282,7 +317,7 @@ function AddRecipe2() {
                             </div>
                         </div>
                     </div>
-                    <div className="add-button">
+                    <div className="add-button" onSubmit={handleSubmit}>
                         <button type="submit">올리기</button>
                     </div>
                 </form>
