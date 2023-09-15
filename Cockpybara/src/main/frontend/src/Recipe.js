@@ -344,16 +344,6 @@ const Recipe = () => {
         popularity: 4,
         date: "2023-07-21",
       },
-      {
-        id: "31",
-        title: "Moscow Mule",
-        image: pinkTea,
-        description: "A refreshing cocktail with vodka, ginger beer, and lime juice.",
-        ingredient: ["Vodka", "Ginger Beer", "Lime Juice"],
-        tastes: ["신맛", "톡쏘는 맛"],
-        popularity: 4,
-        date: "2023-07-20",
-      },
     ];
 
     // filteredCocktails를 정의합니다.
