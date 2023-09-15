@@ -9,7 +9,12 @@ import Alchole_free.Cockpybara.repository.MemberRepository;
 import Alchole_free.Cockpybara.repository.cocktail_recipe.CocktailRecipeRepository;
 import Alchole_free.Cockpybara.service.member.member_detail.MemberDetailDTO;
 import Alchole_free.Cockpybara.service.member.member_update.MemberUpdateDTO;
+import Alchole_free.Cockpybara.util.pagination.CustomPageResponse;
+import Alchole_free.Cockpybara.util.pagination.PagingUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,10 +51,6 @@ public class MemberService {
     public Member login(String email, String password) {
         return memberRepository.findByEmailAndPassword(email, password)
                 .orElseThrow(() -> new IllegalArgumentException("해당 회원이 존재하지 않습니다"));
-    }
-
-    public List<Member> findAll() {
-        return memberRepository.findAll();
     }
 
     @Transactional
@@ -140,8 +141,10 @@ public class MemberService {
         member.removeLike(recipeId);
     }
 
-    public List<LikeDTO> getLikes(Long userId) {
+    public CustomPageResponse<LikeDTO> getLikes(Long userId, int page) {
         Member member = findById(userId);
+        Pageable request = PageRequest.of(page, 3);
+
         List<LikeDTO> likes = member.getLikes().stream().map(like -> {
             Long recipeId = like.getCocktailRecipe().getId();
             String name = like.getCocktailRecipe().getName();
@@ -151,7 +154,11 @@ public class MemberService {
             return new LikeDTO(recipeId, name, drinkImgPath, createdAt);
         }).collect(Collectors.toList());
 
-        return likes;
+        Page<LikeDTO> pageResult = PagingUtil.listToPage(likes, request);
+
+        CustomPageResponse<LikeDTO> response = new CustomPageResponse<>(pageResult);
+        response.setContent(pageResult.getContent());
+        return response;
     }
 
 }

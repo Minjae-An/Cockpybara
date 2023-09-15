@@ -16,7 +16,6 @@ import Alchole_free.Cockpybara.util.pagination.CustomPageResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -47,15 +46,9 @@ public class CocktailRecipeController {
         ));
     }
 
-
-    @GetMapping("/recipe/search")
-    public ResponseEntity<CustomPageResponse<CocktailRecipeSearchDTO>> findByName(String name, CustomPageRequest pageRequest) {
-        return ResponseEntity.ok(cocktailRecipeService.findCocktailRecipeByNameContaining(name, pageRequest));
-    }
-
     private <T extends Enum<T>> List<String> getEnumValueList(Class<T> enumClass) {
         return Arrays.stream(enumClass.getEnumConstants())
-                .map(enumValue -> enumValue.name())
+                .map(Enum::name)
                 .collect(Collectors.toList());
     }
 
@@ -76,10 +69,9 @@ public class CocktailRecipeController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/recipe/search")
-    public ResponseEntity<List<CocktailRecipeSearchDTO>> search(CocktailRecipeSearchCondition searchCondition) {
-        List<CocktailRecipeSearchDTO> searchResult = cocktailRecipeService.search(searchCondition);
-
-        return ResponseEntity.ok(searchResult);
+    @GetMapping("/recipe/search")
+    public ResponseEntity<CustomPageResponse<CocktailRecipeSearchDTO>> search(CocktailRecipeSearchCondition searchCondition, CustomPageRequest pageRequest) {
+        CustomPageResponse<CocktailRecipeSearchDTO> response = cocktailRecipeService.search(searchCondition, pageRequest);
+        return ResponseEntity.ok(response);
     }
 }

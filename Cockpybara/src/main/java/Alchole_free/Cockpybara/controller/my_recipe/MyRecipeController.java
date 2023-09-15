@@ -9,20 +9,18 @@ import Alchole_free.Cockpybara.controller.my_recipe.update_my_recipe.UpdateMyRec
 import Alchole_free.Cockpybara.controller.my_recipe.update_my_recipe.UpdateMyRecipeResponse;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.AlcoholicType;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.Category;
-import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.Glass;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.taste.Taste;
 import Alchole_free.Cockpybara.domain.ingredient.IngredientCategory;
 import Alchole_free.Cockpybara.domain.ingredient.IngredientUnitMap;
 import Alchole_free.Cockpybara.domain.ingredient.Unit;
 import Alchole_free.Cockpybara.service.cocktail_recipe.CocktailRecipeService;
+import Alchole_free.Cockpybara.util.pagination.CustomPageResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -71,9 +69,8 @@ public class MyRecipeController {
     }
 
     @GetMapping("/user/{userId}/my-page/my-recipes")
-    public ResponseEntity<List<MyRecipeDTO>> getMyRecipe(@PathVariable Long userId) {
-        List<MyRecipeDTO> myRecipes = cocktailRecipeService.getMyRecipe(userId);
-
+    public ResponseEntity<CustomPageResponse<MyRecipeDTO>> getMyRecipe(@PathVariable Long userId, int page) {
+        CustomPageResponse<MyRecipeDTO> myRecipes = cocktailRecipeService.getMyRecipe(userId, page);
         return ResponseEntity.ok(myRecipes);
     }
 
