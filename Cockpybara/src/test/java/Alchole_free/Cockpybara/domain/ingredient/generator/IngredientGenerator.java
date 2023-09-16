@@ -2,7 +2,6 @@ package Alchole_free.Cockpybara.domain.ingredient.generator;
 
 import Alchole_free.Cockpybara.domain.ingredient.Ingredient;
 import com.fasterxml.jackson.core.exc.StreamReadException;
-import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
@@ -22,8 +21,6 @@ public abstract class IngredientGenerator {
             List<Ingredient> ingredients = Arrays.stream(objectMapper.readValue(file, Ingredient[].class)).collect(Collectors.toList());
             return ingredients;
         } catch (StreamReadException e) {
-            throw new RuntimeException(e);
-        } catch (DatabindException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
