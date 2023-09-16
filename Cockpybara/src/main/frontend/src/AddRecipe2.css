@@ -1,11 +1,15 @@
 /*mainFrame*/
-.addrecipe-mainFrame {
+/* .addrecipe-mainFrame {
     background-color: lightcoral;
-}
+} */
 
 /*subFrame*/
 .addrecipe-subFrame {
-    background-color: lightskyblue;
+    /* background-color: lightskyblue; */
+    /* display: grid;
+    place-items: center; */
+    margin-left: 25rem;
+
 }
 
 /*당신의 레시피를 소개해 주세요!*/
@@ -46,7 +50,7 @@
 
 /*add-title*/
 .add-title{ 
-    background-color: aqua;
+    /* background-color: aqua; */
     display: flex;
     margin-top: 2.5rem;
 }
@@ -90,7 +94,7 @@
 
 /*add-explan*/
 .add-explan {
-    background-color: lawngreen;
+    /* background-color: lawngreen; */
     margin-top: 6.5rem;
     display: flex;
 }
@@ -131,9 +135,9 @@
 
 /*add-ingredient*/
 .add-ingredient {
-    background-color: lightgray;
+    /* background-color: lightgray; */
     margin-top: 3.13rem;
-    display: flex;
+    display: flex; 
 }
 
 .add-ingredient p{ 
@@ -143,6 +147,17 @@
     font-style: normal;
     font-weight: 600;
     line-height: normal;
+    display: block;
+}
+
+.detail-ingredient p{ 
+    color: #000;
+    font-family: Pretendard;
+    font-size: 1.375rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    display: block;
 }
 
 .add-ingredient span{ 
@@ -154,9 +169,24 @@
     line-height: normal;
 }
 
+.ingredient-btn{
+    /* background-color: pink; */
+    margin-left: 4.5rem;
+    display: block;
+    align-items: center;
+    justify-content: center;
+    margin-top: 6.3rem;
+} 
+
+.ingredient-btn button{ 
+    background: none;
+    border: none;
+}
+
+
 /*detail-ingredient*/
 .detail-ingredient{ 
-    background-color: lightgoldenrodyellow;
+    /* background-color: lightgoldenrodyellow; */
     margin-left: 14.44rem;
 }
 
@@ -173,7 +203,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    width: 51.0625rem;
+    width: 41.0625rem;
     height: 4.875rem;
     flex-shrink: 0;
     border-radius: 0.625rem;
@@ -188,7 +218,7 @@
 }
 
 .detail-ingredient-explan input{ 
-    width: 51.0625rem;
+    width: 41.0625rem;
     height: 4.875rem;
     flex-shrink: 0;
     border-radius: 0.625rem;
@@ -210,7 +240,7 @@
 }
 
 .detail-ingredient-amount input{ 
-    width: 28.25rem;
+    width: 18.25rem;
     height: 4.625rem;
     flex-shrink: 0;
     border-radius: 0.625rem;
@@ -243,32 +273,161 @@
 
 /*add-step*/
 .add-step {
-    background-color: rgb(206, 151, 246);
+    /* background-color: rgb(206, 151, 246); */
+    display: flex;
+    margin-top: 3.13rem;
+}
+
+.add-step p{ 
+    color: #000;
+    font-family: Pretendard;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-right: 14.44rem;
+}
+
+.add-step span{ 
+    color: #F00;
+    font-family: Pretendard;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.step-input input{ 
+    /* background-color: rebeccapurple; */
+    width: 47.375rem;
+    height: 4.625rem;
+    flex-shrink: 0;
+    border-radius: 0.625rem;
+    border: 1.5px solid #8C8C8C;
+    background: #FFF;
+    color: #8C8C8C;
+    font-family: Pretendard;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-right: 1.41rem;
+}
+
+.step-btn{ 
+    background: none;
+    border: none;
+    /* background-color: lightcoral; */
+    margin-left: 4.5rem;
 }
 
 /*add-type*/
 .add-type {
-    background-color: lightsalmon;
+    /* background-color: lightsalmon; */
+    display: flex;
+    margin-top: 3.13rem;
+}
+
+.add-type p{
+    color: #000;
+    font-family: Pretendard;
+    font-size: 1.375rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-right: 15.44rem;
+}
+
+.add-type select{ 
+    width: 58.375rem;
+    height: 4.875rem;
+    flex-shrink: 0;
+    border-radius: 0.625rem;
+    border: 1.5px solid #8C8C8C;
+    background: #FFF;
+    color: #8C8C8C;
+    font-family: Pretendard;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
 }
 
 /*add-flavor*/
 .add-flavor {
-    background-color: lightslategray;
+    /* background-color: lightslategray; */
+    display: flex;
+    margin-top: 3.12rem;
+}
+
+.add-flavor p{ 
+    color: #000;
+    font-family: Pretendard;
+    font-size: 1.375rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-right: 15.62rem;
+}
+
+.add-flavor span{ 
+    color: #F00;
+    font-family: Pretendard;
+    font-size: 1.375rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.add-flavor button{ 
+    width: 11.125rem;
+    height: 2.8125rem;
+    flex-shrink: 0;
+    border-radius: 3.125rem;
+    border: 1.5px solid #8C8C8C;
+    background: #FFF;
+    color: #000;
+    font-family: Pretendard;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.flavor-btn{ 
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1.12rem;
+}
+
+.flavor-top{ 
+    display: flex;
+    justify-content: flex-start;
+    gap: 1.12rem;
+}
+
+.flavor-bottom{ 
+    margin-top: 1.25rem;
+    display: flex;
+    justify-content: flex-start;
+    gap: 1.12rem;
 }
 
 /*올리기*/
 .add-button {
-    width: 18.75rem;
-    height: 5rem;
     flex-shrink: 0;
-    border-radius: 0.9375rem;
-    background: #000;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 8.75rem;
+    display: flex;
 }
 
 .add-button button {
+    width: 18.75rem;
+    border-radius: 0.9375rem;
+    height: 5rem;
     background: none;
     border: none;
     color: #FFF;
@@ -277,4 +436,12 @@
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+    background: #000;
+    display: block;
+    margin: 0 auto;
+}
+
+.submit-button {
+    display: block;
+    margin: 0 auto;
 }
