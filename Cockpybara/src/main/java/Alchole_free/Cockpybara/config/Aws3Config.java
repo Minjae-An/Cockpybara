@@ -1,4 +1,4 @@
-package Alchole_free.Cockpybara.image;
+package Alchole_free.Cockpybara.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -10,7 +10,7 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 
 @Configuration
-public class Aws3Configuration {
+public class Aws3Config {
 
     @Value("${aws.s3.endpoint}")
     private String awsS3Endpoint;
