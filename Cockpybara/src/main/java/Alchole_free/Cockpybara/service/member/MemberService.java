@@ -111,7 +111,7 @@ public class MemberService {
         }
     }
 
-
+    //프로필 이미지 관련 로직들
     @Transactional
     public void updateMemberImageUrl(String email, String imageUrl) {
         Member member = memberRepository.findByEmail(email)
@@ -120,6 +120,19 @@ public class MemberService {
         member.updateImageUrl(imageUrl);
     }
 
+    public String getMemberImageurl(String email){
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalStateException("해당 회원이 존재하지 않습니다."));
+        String[] parts = member.getImageUrl().split("/");
+        String imageObjectKey = parts[parts.length - 1];
+        return imageObjectKey;
+    }
+
+    public String getMemberFullImageUrl(String email){
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalStateException("해당 회원이 존재하지 않습니다."));
+        return member.getImageUrl();
+    }
 
     //즐겨찾기 관련 로직들
     @Transactional
@@ -160,5 +173,4 @@ public class MemberService {
         response.setContent(pageResult.getContent());
         return response;
     }
-
 }

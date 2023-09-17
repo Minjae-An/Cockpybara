@@ -17,6 +17,6 @@ public class CommunityController {
     public ResponseEntity<MemberInfoResponse> getMemberInfo(String email) {
         Member member = memberService.findByEmail(email);
 
-        return ResponseEntity.ok(new MemberInfoResponse(member.getId(), member.getAlias()));
+        return ResponseEntity.ok(new MemberInfoResponse(member.getId(), member.getAlias(), member.getImageUrl()));
     }
 }
