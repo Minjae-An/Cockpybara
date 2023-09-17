@@ -41,9 +41,9 @@ public class ImageController {
             //객체의 ACL 모든 사용자에게 공개
             objectAclToAllUser(bucketName, objectKey);
 
-            //기존 프로필 이미지 삭제
+            //사용자 기존 프로필 이미지 삭제, default 칵피바라 프로필이미지이면 삭제는 안함
             String originalObjectName ="profileImage/" + getMemberImageUrlFromMemberService(email);
-            s3.deleteObject(bucketName, originalObjectName);
+            if(!originalObjectName.contains("cockpybaraImage"))s3.deleteObject(bucketName, originalObjectName);
 
             // 이미지 URL 생성 -> 이미지파일이름(objectKey) 관련해서 uuid사용하기(완료)
             String imageUrl = "https://kr.object.ncloudstorage.com/" + bucketName+"/"+ objectKey;
