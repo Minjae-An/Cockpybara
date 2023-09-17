@@ -127,7 +127,11 @@ public class MemberService {
         return imageObjectKey;
     }
 
-
+    public String getMemberFullImageUrl(String email){
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalStateException("해당 회원이 존재하지 않습니다."));
+        return member.getImageUrl();
+    }
 
     //즐겨찾기 관련 로직들
     @Transactional
