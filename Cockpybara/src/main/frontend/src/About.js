@@ -2,6 +2,12 @@ import React, { useRef } from 'react';
 import './About.css'
 import mainCopybara from "./photo/cock-circle.png";
 import arrowButton from "./photo/arrow-bottom.png";
+import mj from "./photo/mj.png"
+import js from "./photo/js.png"
+import sj from "./photo/sj.png"
+import sh from "./photo/sh.png"
+import uinon from "./photo/Union.png"
+import uinon2 from "./photo/Union2.png"
 
 const About = () => {
   const introduceBoxRef = useRef(null);
@@ -27,7 +33,7 @@ const About = () => {
           </div>
         </div>
         <div className="arrow-button">
-          <button>
+          <button onClick={handleScrollToIntroduction}>
             <img src={arrowButton} alt="버튼"></img>
           </button>
         </div>
@@ -40,10 +46,26 @@ const About = () => {
               BE
             </div>
             <div className="be-top">
-              ㅇ
+              <div className="be-top-img-box">
+                <img src={mj}/>
+              </div>
+              <div className="be-top-explan-box">
+                <img src={uinon}/>
+                <div className="text-over-image">
+                  안민재소개문구안민재소개문구안민재소개문구안민재소개문구안민재소개문구안민재소개문구안민재소개문구안민재소개문구안민재소개문구안민재소개문구
+                </div>
+              </div>
             </div>
             <div className="be-bottom">
-              ㅇ
+              <div className="be-bottom-explan-box">
+              <img src={uinon2}/>
+                <div className="text-over-image">
+                  김지수소개문구김지수소개문구김지수소개문구김지수소개문구김지수소개문구김지수소개문구김지수소개문구김지수소개문구김지수소개문구김지수소개문구
+                </div>
+              </div>
+              <div className="be-bottom-img-box">
+                <img src={js}/>
+              </div>
             </div>
           </div>
           <div className="fe-box">
@@ -51,23 +73,49 @@ const About = () => {
               FE
             </div>
             <div className="fe-top">
-              ㅇ
+              <div className="fe-top-img-box">
+                <img src={sj}/>
+              </div>
+              <div className="fe-top-explan-box">
+              <img src={uinon}/>
+                <div className="text-over-image">
+                  전소진소개문구전소진소개문구전소진소개문구전소진소개문구전소진소개문구전소진소개문구전소진소개문구전소진소개문구전소진소개문구전소진소개문구
+                </div>
+              </div>
             </div>
             <div className="fe-bottom">
-              ㅇ
+              <div className="fe-bottom-explan-box">
+              <img src={uinon2}/>
+                <div className="text-over-image">
+                  신승헤소개문구신승헤소개문구신승헤소개문구신승헤소개문구신승헤소개문구신승헤소개문구신승헤소개문구신승헤소개문구신승헤소개문구신승헤소개문구
+                </div>
+              </div>
+              <div className="fe-bottom-img-box">
+                <img src={sh}/>
+              </div>
             </div>
           </div>
-          <div className="design-box">
+          {/* <div className="design-box">
             <div className="design-logo">
               DESIGN
             </div>
             <div children="design-top">
-              o
+              <div className="design-top-img-box">
+
+              </div>
+              <div className="design-top-explan-box">
+
+              </div>
             </div>
             <div className="design-bottom">
-              o
+              <div className="design-bottom-img-box">
+
+              </div>
+              <div className="design-bottom-explan-box">
+
+              </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
