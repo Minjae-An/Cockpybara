@@ -1,45 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './MyPage.css';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import pinkTea from "./photo/pinkTea.png";
 
 
 const MyPage = () => {
-  const handleSaveButtonClick = () => {
-    // Update the user data in the state with the changes
-    setUserData({
-      ...userData,
-      name: userData.name, // Keep the name as it is
-      email: userData.email,
-      password: userData.password,
-      nickname: userData.nickname,
-      phone: userData.phone,
-      gender: userData.gender,
-      birthDate: userData.birthDate,
-      profileImage: userData.profileImage,
-      favoriteRecipes: userData.favoriteRecipes,
-      myRecipes: userData.myRecipes,
-      commentedRecipes: userData.commentedRecipes,
-      background: userData.background,
-      representativeRecipe: userData.representativeRecipe,
-    });
-  
-    setIsEditing(false); // Disable editing mode immediately
-  
-    // Save the updated user data to the server
-    // For example, you can send a PUT request to update the user data
-    axios
-      .put('/user/api/my-page', userData)
-      .then(response => {
-        console.log('User data updated successfully:', response.data);
-        // You can perform additional actions here if needed after a successful update
-      })
-      .catch(error => {
-        console.error('Error updating user data:', error);
-        // You can handle the error here if needed
-      });
-  };
+  const [selectedProfileImage, setSelectedProfileImage] = useState(null);
+  const { userId } = useParams();
   
   useEffect(() => {
     // Fetch user data from the API and update the state
@@ -105,6 +73,37 @@ const MyPage = () => {
     },
     // Add more dummy recipes as needed
   ];
+  
+
+  const handleProfileImageChange = (e) => {
+    const file = e.target.files[0];
+    setSelectedProfileImage(file);
+  };
+  // Function to handle the "Save" button click
+  const handleSaveButtonClick = () => {
+    const formData = new FormData();
+    formData.append('alias', userData.alias);
+    formData.append('phoneNumber', userData.phoneNumber);
+
+    if (selectedProfileImage) {
+      formData.append('profileImage', selectedProfileImage);
+    }
+
+    axios
+      .put(`/user/${userId}/my-page`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then((response) => {
+        console.log('Member information updated successfully:', response.data);
+        setUserData(response.data);
+        setIsEditing(false);
+      })
+      .catch((error) => {
+        console.error('Error updating member information:', error);
+      });
+  };
 
   
   // State for controlling the editing mode of the profile
@@ -131,12 +130,6 @@ const MyPage = () => {
     });
   };
   
-  const handleProfileImageChange = (e) => {
-    // Handle profile image file change
-    // For example, you can upload the image to the server and update the profileImage state
-    console.log('Profile image changed:', e.target.files[0]);
-  };
-
   const handleBackgroundImageChange = (e) => {
     // Handle background image file change
     // For example, you can upload the image to the server and update the background state
@@ -163,18 +156,18 @@ const MyPage = () => {
       {isEditing ? (
         // Show editable profile information
         <div>
-          <h1>My Page / Edit</h1>
-          <h2 className='myPageTitle'>프로필 수정</h2>
-          <div className='myPagePhotoContainer'>
-            <label className='myPagePhoto'>프로필 사진</label>
-            <input
-              className='myPageFieldPhoto'
-              type="file"
-              name="profileImage"
-              onChange={handleProfileImageChange}
-              accept=".png, .jpg, .jpeg"
-            />
-          </div>
+        <h1>My Page / Edit</h1>
+        <h2 className="myPageTitle">프로필 수정</h2>
+        <div className="myPagePhotoContainer">
+          <label className="myPagePhoto">프로필 사진</label>
+          <input
+            className="myPageFieldPhoto"
+            type="file"
+            name="profileImage"
+            onChange={handleProfileImageChange}
+            accept=".png, .jpg, .jpeg"
+          />
+        </div>
           <div className='myPageIDContainer'>
             <label className='myPageID'>아이디</label>
             <input className='myPageFieldID' type="email" name="email" value={userData.email} readOnly />
@@ -234,7 +227,7 @@ const MyPage = () => {
           <div>
             <h2>Profile Information</h2>
             <div>
-              <img src={process.env.PUBLIC_URL + userData.profileImage} alt={userData.name} />
+            <img src={userData.profileImage} alt={userData.name} />
               <p>Name: {userData.name}</p>
               <p>Email: {userData.email}</p>
             </div>
