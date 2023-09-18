@@ -15,50 +15,27 @@ const Join = () => {
   const [isJoinSuccess, setIsJoinSuccess] = useState(false);
   const [isNextClicked, setIsNextClicked] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
+  const [isIdAvailable, setIsIdAvailable] = useState(true); 
+  const [isIdValid, setIsIdValid] = useState(true);
+  const [isPhoneNumberValid, setIsPhoneNumberValid] = useState(true); 
 
-  const [isIdAvailable, setIsIdAvailable] = useState(true); // 상태 변수 추가 (회원가입 아이디 중복확인)
-
-  const handleNextClick = async () => {
-    // 아이디 중복 확인을 위한 API 요청 코드
-    try {
-      const response = await fetch(`/check-id/${email}`, { // 이 부분은 백엔드의 실제 엔드포인트에 맞게 수정해야 합니다.
-        method: 'GET',
-      });
-
-      if (response.ok) {
-        const responseData = await response.json();
-        setIsIdAvailable(responseData.isAvailable); // 백엔드에서 넘어온 데이터에 따라 아이디 중복 여부를 업데이트합니다
-        setIsNextClicked(true);
-      } else {
-        console.error('아이디 중복 확인 실패');
-      }
-    } catch (error) {
-      console.error('API 요청 에러:', error);
+  const handleNextClick = () => {
+    if (isIdValid && isPhoneNumberValid) { // 전화번호 유효성도 체크
+      setIsNextClicked(true);
     }
   };
 
   const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
+    const newEmail = e.target.value;
 
-  const handleConfirmPasswordChange = (e) => {
-    setConfirmPassword(e.target.value);
-  };
+    setEmail(newEmail);
 
-  const handleAliasChange = (e) => {
-    setAlias(e.target.value);
-  };
+    // 아이디 유효성 검사
+    const isValidLength = newEmail.length >= 2 && newEmail.length <= 10;
+    const hasValidChars = /^[a-zA-Z0-9가-힣]+$/.test(newEmail);
 
-  const handlePhoneNumberChange = (e) => {
-    setPhoneNumber(e.target.value);
-  };
-
-  const handleGenderChange = (e) => {
-    setGender(e.target.value);
-  };
-
-  const handleBirthChange = (e) => {
-    setBirth(e.target.value);
+    setIsIdValid(isValidLength && hasValidChars);
+    setIsIdAvailable(true); // 초기에 중복 가능하다고 가정
   };
 
   const handlePasswordChange = (e) => {
@@ -75,8 +52,6 @@ const Join = () => {
     setIsPasswordValid(hasLowerCase && hasDigit && hasSpecialChar && isValidLength);
   };
   
-
-
   const handleSubmit = async (e) => {
     {/* 백엔드 API 요청 코드 */ }
     e.preventDefault();
@@ -107,13 +82,40 @@ const Join = () => {
         console.error('회원가입 실패');
       }
     } catch (error) {
-      console.error('API 요청 에러:', error);
+      console.error('API 요청 에러(제출버튼):', error);
     }
   }; {/* 백엔드 API 요청 코드 */ }
 
-
   const handleLoginButtonClick = () => {
     navigate('/login');
+  };
+
+  const handleConfirmPasswordChange = (e) => {
+    setConfirmPassword(e.target.value);
+  };
+
+  const handleAliasChange = (e) => {
+    setAlias(e.target.value);
+  };
+
+  const handlePhoneNumberChange = (e) => {
+    const newPhoneNumber = e.target.value;
+
+    setPhoneNumber(newPhoneNumber);
+
+    // 전화번호 유효성 검사
+    const phoneNumberPattern = /^\d{3}-\d{4}-\d{4}$/;
+    const isValidPhoneNumber = phoneNumberPattern.test(newPhoneNumber);
+
+    setIsPhoneNumberValid(isValidPhoneNumber);
+  };
+
+  const handleGenderChange = (e) => {
+    setGender(e.target.value);
+  };
+
+  const handleBirthChange = (e) => {
+    setBirth(e.target.value);
   };
 
   return (
@@ -136,7 +138,18 @@ const Join = () => {
                 &lt; BACK
               </button>
               <br />
-              <input className="join-input-id" placeholder="아이디" type="email" value={email} onChange={handleEmailChange} />
+              <input
+              className={`join-input-id ${!isIdValid ? 'invalid' : ''}`}
+              placeholder="아이디"
+              type="text"
+              value={email}
+              onChange={handleEmailChange}
+            />
+            {!isIdValid && email.length > 0 && (
+              <p style={{ color: 'red' }}>
+                아이디는 2자 이상 10자 이하의 영어, 숫자, 한글로만 구성되어야 합니다.
+              </p>
+            )}
               <br />
               <input className="join-input-pw" placeholder="비밀번호" type="password" value={password} onChange={handlePasswordChange} />
               <br />
@@ -167,7 +180,10 @@ const Join = () => {
               <br />
               <input className="join-input-alias" placeholder="별명" type="text" value={alias} onChange={handleAliasChange} />
               <br />
-              <input className="join-input-phone" placeholder="전화번호" type="text" value={phoneNumber} onChange={handlePhoneNumberChange} />
+              <input className="join-input-phone" placeholder="전화번호" type="text" value={phoneNumber} onChange={handlePhoneNumberChange}/>
+              {!isPhoneNumberValid && (
+        <p style={{ color: 'red' }}>올바른 전화번호 형식이 아닙니다.</p>
+      )}
               <br />
               <div className="join-select-container">
                 <select className="join-select" value={gender} onChange={handleGenderChange}>
