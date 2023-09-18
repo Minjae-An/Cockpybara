@@ -4,7 +4,10 @@ import Alchole_free.Cockpybara.controller.likes.add_like.AddLikeResponse;
 import Alchole_free.Cockpybara.controller.likes.like_list.LikeDTO;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
 import Alchole_free.Cockpybara.domain.member.Member;
+import Alchole_free.Cockpybara.exception.ErrorCode;
+import Alchole_free.Cockpybara.exception.cocktail_recipe.CocktailRecipeNotFoundException;
 import Alchole_free.Cockpybara.exception.member.DuplicateMemberException;
+import Alchole_free.Cockpybara.exception.member.MemberNotFoundException;
 import Alchole_free.Cockpybara.repository.MemberRepository;
 import Alchole_free.Cockpybara.repository.cocktail_recipe.CocktailRecipeRepository;
 import Alchole_free.Cockpybara.service.member.member_detail.MemberDetailDTO;
@@ -40,30 +43,30 @@ public class MemberService {
 
     public Member findById(Long id) {
         return memberRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 존재하지 않습니다."));
+                .orElseThrow(() -> new MemberNotFoundException("해당 회원이 존재하지 않습니다.", ErrorCode.MEMBER_NOT_FOUND));
     }
 
     public Member findByEmail(String email) {
         return memberRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 존재하지 않습니다."));
+                .orElseThrow(() -> new MemberNotFoundException("해당 회원이 존재하지 않습니다.", ErrorCode.MEMBER_NOT_FOUND));
     }
 
     public Member login(String email, String password) {
         return memberRepository.findByEmailAndPassword(email, password)
-                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 존재하지 않습니다"));
+                .orElseThrow(() -> new MemberNotFoundException("해당 회원이 존재하지 않습니다.", ErrorCode.MEMBER_NOT_FOUND));
     }
 
     @Transactional
     public void memberLeave(Long id) {
         Member member = memberRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 존재하지 않습니다"));
+                .orElseThrow(() -> new MemberNotFoundException("해당 회원이 존재하지 않습니다.", ErrorCode.MEMBER_NOT_FOUND));
 
         memberRepository.delete(member);
     }
 
     public String findEmail(String alias, String phoneNumber) {
         Member member = memberRepository.findByAliasAndPhoneNumber(alias, phoneNumber)
-                .orElseThrow(() -> new IllegalArgumentException("일치하는 멤버가 존재하지 않습니다."));
+                .orElseThrow(() -> new MemberNotFoundException("해당 회원이 존재하지 않습니다.", ErrorCode.MEMBER_NOT_FOUND));
 
         return member.getEmail();
     }
@@ -71,13 +74,13 @@ public class MemberService {
     public void findPassword(String email, String alias, String phoneNumber) {
         memberRepository
                 .findByEmailAndAliasAndPhoneNumber(email, alias, phoneNumber)
-                .orElseThrow(() -> new IllegalArgumentException("일치하는 멤버가 존재하지 않습니다."));
+                .orElseThrow(() -> new MemberNotFoundException("해당 회원이 존재하지 않습니다.", ErrorCode.MEMBER_NOT_FOUND));
     }
 
     @Transactional
     public void setNewPassword(String email, String password) {
         Member member = memberRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("일치하는 멤버가 존재하지 않습니다."));
+                .orElseThrow(() -> new MemberNotFoundException("해당 회원이 존재하지 않습니다.", ErrorCode.MEMBER_NOT_FOUND));
 
 
         member.updatePassword(password);
@@ -86,7 +89,7 @@ public class MemberService {
     @Transactional
     public MemberUpdateDTO updateMemberInfo(Long id, String alias, String phoneNumber) {
         Member member = memberRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 존재하지 않습니다."));
+                .orElseThrow(() -> new MemberNotFoundException("해당 회원이 존재하지 않습니다.", ErrorCode.MEMBER_NOT_FOUND));
 
         member.updateMember(alias, phoneNumber);
 
@@ -95,7 +98,7 @@ public class MemberService {
 
     public MemberDetailDTO getMemberDetails(String email) {
         Member member = memberRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 존재하지 않습니다."));
+                .orElseThrow(() -> new MemberNotFoundException("해당 회원이 존재하지 않습니다.", ErrorCode.MEMBER_NOT_FOUND));
 
         MemberDetailDTO memberDetailDTO = new MemberDetailDTO().from(member);
         return memberDetailDTO;
@@ -107,7 +110,7 @@ public class MemberService {
         Optional<Member> foundResult = memberRepository.findByEmail(email);
 
         if (foundResult.isPresent()) {
-            throw new DuplicateMemberException();
+            throw new DuplicateMemberException("이미 가입된 회웝입니다.", ErrorCode.DUPLICATE_JOIN);
         }
     }
 
@@ -115,7 +118,7 @@ public class MemberService {
     @Transactional
     public void updateMemberImageUrl(String email, String imageUrl) {
         Member member = memberRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalStateException("해당 회원이 존재하지 않습니다."));
+                .orElseThrow(() -> new MemberNotFoundException("해당 회원이 존재하지 않습니다.", ErrorCode.MEMBER_NOT_FOUND));
 
         member.updateImageUrl(imageUrl);
     }
@@ -138,9 +141,9 @@ public class MemberService {
     @Transactional
     public AddLikeResponse addLike(Long userId, Long recipeId) {
         Member member = memberRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 멤버가 존재하지 않습니다."));
+                .orElseThrow(() -> new MemberNotFoundException("해당 회원이 존재하지 않습니다.", ErrorCode.MEMBER_NOT_FOUND));
         CocktailRecipe cocktailRecipe = cocktailRecipeRepository.findById(recipeId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 레시피가 존재하지 않습니다."));
+                .orElseThrow(() -> new CocktailRecipeNotFoundException("해당 레시피가 존재하지 않습니다.", ErrorCode.RECIPE_NOT_FOUND));
 
         member.addLike(cocktailRecipe);
         return new AddLikeResponse(member.getId(), cocktailRecipe.getId());
@@ -149,7 +152,7 @@ public class MemberService {
     @Transactional
     public void removeLike(Long userId, Long recipeId) {
         Member member = memberRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 멤버가 존재하지 않습니다."));
+                .orElseThrow(() -> new MemberNotFoundException("해당 회원이 존재하지 않습니다.", ErrorCode.MEMBER_NOT_FOUND));
 
         member.removeLike(recipeId);
     }
