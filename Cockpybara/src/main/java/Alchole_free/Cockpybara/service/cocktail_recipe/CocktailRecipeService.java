@@ -19,6 +19,10 @@ import Alchole_free.Cockpybara.domain.ingredient.RecipeIngredient;
 import Alchole_free.Cockpybara.domain.ingredient.Unit;
 import Alchole_free.Cockpybara.domain.member.Member;
 import Alchole_free.Cockpybara.domain.member.my_recipe.MyRecipe;
+import Alchole_free.Cockpybara.exception.ErrorCode;
+import Alchole_free.Cockpybara.exception.cocktail_recipe.CocktailRecipeNotFoundException;
+import Alchole_free.Cockpybara.exception.ingredient.IngredientNotFoundException;
+import Alchole_free.Cockpybara.exception.member.MemberNotFoundException;
 import Alchole_free.Cockpybara.repository.IngredientRepository;
 import Alchole_free.Cockpybara.repository.MemberRepository;
 import Alchole_free.Cockpybara.repository.cocktail_recipe.CocktailRecipeRepository;
@@ -48,7 +52,7 @@ public class CocktailRecipeService {
     public CocktailRecipe findById(Long id) {
         CocktailRecipe cocktailRecipe = cocktailRecipeRepository
                 .findById(id)
-                .orElseThrow(() -> new IllegalStateException("해당 레시피가 존재하지 않습니다."));
+                .orElseThrow(() -> new CocktailRecipeNotFoundException("해당 레시피가 존재하지 않습니다.", ErrorCode.RECIPE_NOT_FOUND));
 
         return cocktailRecipe;
     }
@@ -65,7 +69,7 @@ public class CocktailRecipeService {
                 .map(myRecipeIngredientDTO -> {
                     String name = myRecipeIngredientDTO.getName();
                     Ingredient ingredient = ingredientRepository.findByName(name)
-                            .orElseThrow(() -> new IllegalStateException("해당 재료가 존재하지 않습니다."));
+                            .orElseThrow(() -> new IngredientNotFoundException("해당 재료가 존재하지 않습니다.", ErrorCode.INGREDIENT_NOT_FOUND));
                     Double quantity = myRecipeIngredientDTO.getQuantity();
                     Unit unit = myRecipeIngredientDTO.getUnit();
 
@@ -80,7 +84,7 @@ public class CocktailRecipeService {
         cocktailRecipe.setTastes(recipeTastes);
 
         Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new IllegalStateException("헤당 멤버가 존재하지 않습니다."));
+                .orElseThrow(() -> new MemberNotFoundException("해당 멤버가 존재하지 않습니다.", ErrorCode.MEMBER_NOT_FOUND));
         MyRecipe newMyRecipe = new MyRecipe(member, cocktailRecipe);
         member.getMyRecipes().add(newMyRecipe);
 
@@ -90,7 +94,7 @@ public class CocktailRecipeService {
     @Transactional
     public void removeMyRecipe(Long memberId, Long cocktailRecipeId) {
         Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new IllegalStateException("해당 멤버가 존재하지 않습니다."));
+                .orElseThrow(() -> new MemberNotFoundException("해당 멤버가 존재하지 않습니다.", ErrorCode.MEMBER_NOT_FOUND));
         CocktailRecipe cocktailRecipe = findById(cocktailRecipeId);
 
         cocktailRecipeRepository.deleteById(cocktailRecipeId);
@@ -107,7 +111,7 @@ public class CocktailRecipeService {
         List<Taste> tastes = updateMyRecipeRequest.getTastes();
 
         CocktailRecipe cocktailRecipe = cocktailRecipeRepository.findById(cocktailRecipeId)
-                .orElseThrow(() -> new IllegalStateException("해당 레시피가 존재하지 않습니다."));
+                .orElseThrow(() -> new CocktailRecipeNotFoundException("해당 레시피가 존재하지 않습니다.", ErrorCode.RECIPE_NOT_FOUND));
 
         cocktailRecipe.update(alcoholicType, category, drinkImgPath,
                 glass, instruction, tastes);
@@ -117,7 +121,7 @@ public class CocktailRecipeService {
 
     public CustomPageResponse<MyRecipeDTO> getMyRecipe(Long userId, int page) {
         Member member = memberRepository.findById(userId)
-                .orElseThrow(() -> new IllegalStateException("해당 멤버가 존재하지 않습니다."));
+                .orElseThrow(() -> new MemberNotFoundException("해당 멤버가 존재하지 않습니다.", ErrorCode.MEMBER_NOT_FOUND));
         Pageable request = PageRequest.of(page, 3);
 
         List<MyRecipeDTO> myRecipes = member.getMyRecipes().stream().map(myRecipe -> {
@@ -169,7 +173,7 @@ public class CocktailRecipeService {
 
     public CocktailRecipeDetailDTO getDetail(Long id) {
         CocktailRecipe cocktailRecipe = cocktailRecipeRepository.findById(id)
-                .orElseThrow(() -> new IllegalStateException("해당 레시피가 존재하지 않습니다."));
+                .orElseThrow(() -> new CocktailRecipeNotFoundException("해당 레시피가 존재하지 않습니다.", ErrorCode.RECIPE_NOT_FOUND));
 
         CocktailRecipeDetailDTO cocktailRecipeDetailDTO = CocktailRecipeDetailDTO.from(cocktailRecipe);
         return cocktailRecipeDetailDTO;
