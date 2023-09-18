@@ -6,6 +6,7 @@ import arrowPhoto from "./photo/arrow.png";
 import cockIcon from "./photo/CockIcon.png";
 import searchImage from "./photo/Search.png";
 import Menu from "./components/Menu";
+import axios from 'axios';
 
 const MyCommunitySection = ({ userId }) => {
   // 상태 초기화: 백엔드에서 받아올 때 사용할 사용자 이름과 사진 URL 상태
@@ -54,6 +55,18 @@ const MyCommunitySection = ({ userId }) => {
     fetchDataFromBackend();
   }, [userId]);
 
+  useEffect(() => {
+    // 사용자의 아이디 (예: 123)에 해당하는 정보를 가져오는 요청
+    axios.get(`/api/user/${userId}`)
+      .then(response => {
+        setUserName(response.data.name);
+      })
+      .catch(error => {
+        console.error('Error fetching user data:', error);
+      });
+  }, []);
+  
+
   // 더미 데이터: 테스트를 위해 하드코딩된 사용자 이름과 사진 URL
   useEffect(() => {
     setUserName('올리브가 올라간 카피바라'); // 더미 데이터로 사용자 이름 상태 초기화
@@ -65,6 +78,8 @@ const MyCommunitySection = ({ userId }) => {
   const handleMyPageButtonClick = () => {
     navigate(`/user/${userId}/my-page`);
   };
+
+
 
   return (
     <div>
@@ -121,9 +136,11 @@ const MyCommunitySection = ({ userId }) => {
             <img src={cockIcon} alt="사용자 사진" />
           </div>
           <div className="userName-box">
-            <p id="user-name">{userName}</p>
+            <p id="user-name">{userName}</p> 
+            {/* API-user name 받아오기 */}
           </div>
           <Link to='/user/{userId}/my-page'>
+            {/* 사용자 상세 페이지 연결하기 */}
           <button id="myPagegoButton" onClick={handleMyPageButtonClick}>
             <img src={arrowPhoto} alt="화살표 사진" />
           </button>
