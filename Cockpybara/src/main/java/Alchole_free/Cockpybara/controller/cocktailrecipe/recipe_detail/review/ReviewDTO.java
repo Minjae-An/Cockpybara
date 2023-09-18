@@ -12,12 +12,14 @@ public class ReviewDTO {
     private Integer stars;
     private String review;
     private List<Taste> tastes;
+    private String imageUrl;
 
-    public ReviewDTO(Long id, Long memberId, Integer stars, String review) {
+    public ReviewDTO(Long id, Long memberId, Integer stars, String review, String imageUrl) {
         this.id = id;
         this.memberId = memberId;
         this.stars = stars;
         this.review = review;
+        this.imageUrl = imageUrl;
     }
 
     public void setTastes(List<Taste> tastes) {
