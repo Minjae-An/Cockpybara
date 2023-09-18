@@ -27,6 +27,7 @@ public class Member {
     private String phoneNumber;
     private Gender gender;
     private Date birth;
+    private String imageUrl;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Like> likes = new ArrayList<>();
@@ -35,23 +36,27 @@ public class Member {
     private List<MyRecipe> myRecipes = new ArrayList<>();
 
 
-    public Member(String email, String password, String alias, String phoneNumber, Gender gender, Date birth) {
+    public Member(String email, String password, String alias, String phoneNumber, Gender gender, Date birth, String imageUrl) {
         this.email = email;
         this.password = password;
         this.alias = alias;
         this.phoneNumber = phoneNumber;
         this.gender = gender;
         this.birth = birth;
+        this.imageUrl = imageUrl;
     }
 
-    public void updatePassword(String password) {
-        this.password = password;
-    }
+    public void updatePassword(String password) {this.password = password;}
 
     public void updateMember(String alias, String phoneNumber) {
         this.alias = alias;
         this.phoneNumber = phoneNumber;
+    }
 
+    public void updateImageUrl(String imageUrl){this.imageUrl = imageUrl;}
+
+    public void addNewMyRecipe(MyRecipe myRecipe) {
+        myRecipes.add(myRecipe);
     }
 
     public void removeMyRecipe(CocktailRecipe cocktailRecipe) {

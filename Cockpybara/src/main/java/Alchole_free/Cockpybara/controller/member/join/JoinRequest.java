@@ -43,13 +43,16 @@ public class JoinRequest {
 
     private Date birth;
 
+    private String imageUrl;
+
     public JoinRequest(String email, String password,
-                       String alias, String phoneNumber, Gender gender, Date birth) {
+                       String alias, String phoneNumber, Gender gender, Date birth, String imageUrl) {
         this.email = email;
         this.password = password;
         this.alias = alias;
         this.phoneNumber = phoneNumber;
         this.gender = gender;
         this.birth = birth;
+        this.imageUrl = imageUrl;
     }
 }

@@ -8,4 +8,5 @@ import lombok.RequiredArgsConstructor;
 public class MemberInfoResponse {
     private final Long userId;
     private final String alias;
+    private final String imageUrl;
 }

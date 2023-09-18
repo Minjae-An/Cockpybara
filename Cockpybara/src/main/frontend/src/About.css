@@ -58,19 +58,29 @@
     margin-top: 10.44rem;
 }
 
+/* 말풍선 겹치기 */
+.text-over-image {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: black; 
+    font-size: 1rem;
+    text-align: center;
+}
+  
 /*메인 박스 끝*/
 /*소개 박스 시작*/
 .introduce-box {
-    height: 100vh;
     flex-shrink: 0;
     border-radius: 4.8125rem;
     background: #FFF;
     box-shadow: 0px 0px 12px 7px rgba(0, 0, 0, 0.25);
+    scroll-behavior: smooth;
 }
 
 /*서브 박스 시작*/
 .introduce-sub-box {
-    background-color: aquamarine;
     padding-top: 5.81rem;
     justify-content: center; /* 가로 중앙 정렬 */
 }
@@ -78,11 +88,10 @@
 
 /*BE 박스 시작*/
 .be-box{ 
-    background-color: lightcoral;
-
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 }
 
 .be-logo {
@@ -103,13 +112,52 @@
     justify-content: center;
 }
 
-/*FE 박스 시작*/
-.fe-box{ 
-    background-color: lightcoral;
+.be-top{ 
+    margin-top: 2rem;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.be-top-explan-box{ 
+    width: 43.75rem;
+    height: 14.84375rem;
+    flex-shrink: 0;
+
+    fill: #FFF;
+    /* opacity: 0.2; */
+    filter: drop-shadow(18px 16px 12px rgba(0, 0, 0, 0.25));
 
     display: flex;
     align-items: center;
+}
+
+.be-bottom{ 
+    margin-top: 4.31rem;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.be-bottom-explan-box{ 
+    width: 43.75rem;
+    height: 14.84375rem;
+    flex-shrink: 0;
+    fill: #FFF;
+    /* opacity: 0.2; */
+    filter: drop-shadow(18px 16px 12px rgba(0, 0, 0, 0.25));
+
+    display: flex;
+    align-items: center;
+}
+
+/*FE 박스 시작*/
+.fe-box{ 
+    display: flex;
+    align-items: center;
     justify-content: center;
+    margin-top: 8.13rem;
+    flex-direction: column;
 }
 
 .fe-logo {
@@ -130,6 +178,46 @@
     justify-content: center;
 }
 
+.fe-top{ 
+    margin-top: 2rem;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.fe-top-explan-box{ 
+    width: 43.75rem;
+    height: 14.84375rem;
+    flex-shrink: 0;
+    fill: #FFF;
+
+    /* opacity: 0.2; */
+    filter: drop-shadow(18px 16px 12px rgba(0, 0, 0, 0.25));
+
+    display: flex;
+    align-items: center;
+}
+
+.fe-bottom{ 
+    margin-top: 4.31rem;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.fe-bottom-explan-box{ 
+    width: 43.75rem;
+    height: 14.84375rem;
+    flex-shrink: 0;
+    fill: #FFF;
+
+    /* opacity: 0.2; */
+
+    filter: drop-shadow(18px 16px 12px rgba(0, 0, 0, 0.25));
+    display: flex;
+    align-items: center;
+}
+
 /*DESIGN 박스 시작*/
 .design-box{ 
     background-color: lightcoral;
@@ -137,6 +225,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 8.13rem;
+    flex-direction: column;
 }
 
 .design-logo {
@@ -155,4 +245,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.design-top{ 
+    margin-top: 2rem;
+}
+
+.design-bottom{ 
+    margin-top: 4.31rem;
 }

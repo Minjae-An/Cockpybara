@@ -27,6 +27,7 @@ public class MemberController {
 
     private final MemberService memberService;
 
+
     @PostMapping("/join")
     public JoinResponse join(@RequestBody @Valid JoinRequest joinRequest) {
         String email = joinRequest.getEmail();
@@ -35,8 +36,9 @@ public class MemberController {
         String phoneNumber = joinRequest.getPhoneNumber();
         Gender gender = joinRequest.getGender();
         Date birth = joinRequest.getBirth();
+        String imageUrl = "https://kr.object.ncloudstorage.com/cockpybara/profileImage/cockpybaraImage.JPG";
 
-        Long joinedMemberId = memberService.join(new Member(email, password, alias, phoneNumber, gender, birth));
+        Long joinedMemberId = memberService.join(new Member(email, password, alias, phoneNumber, gender, birth, imageUrl));
         return new JoinResponse(joinedMemberId);
     }
 
