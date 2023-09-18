@@ -195,7 +195,7 @@ const Recipe = () => {
 
   return (
     <div className="Recipe">
-      <div className="headerContainer">
+    <div className="headerContainer">
       <Menu isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
       <div className={`menuBar ${isMenuOpen ? "menuBar-open" : ""}`}>
           <div className="headerbox">

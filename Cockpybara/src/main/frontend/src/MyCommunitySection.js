@@ -92,48 +92,7 @@ const MyCommunitySection = ({ userId }) => {
 
   return (
     <div>
-    <div className="headerContainer">
-    <Menu isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
-    <div className={`menuBar ${isMenuOpen ? "menuBar-open" : ""}`}>
-        <div className="headerbox">
-        <svg
-          class="vector"
-          width="35"
-          height="50"
-          viewBox="0 0 50 50"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          onClick={handleVectorClick} // 클릭 이벤트 리스너 추가
-        >
-          <path
-            d="M0 38.25H37.5V32H0V38.25ZM0 0.75V7H56.25V0.75H0ZM0 22.625H56.25V16.375H0V22.625Z"
-            fill="black"
-          />
-        </svg>
-        <Link to="/about">
-          <div className="menuAbout">About</div>
-          </Link>
-          <Link to="/recipe">
-          <div className="menuRecipe">Recipe</div>
-          </Link>
-          <Link to="/community">
-          <div className="menuCommunity">Community</div>
-          </Link>
-        </div>
-        <div className="rightComponent">
-        <div className="search-wrap">
-          <input
-            type="text"
-            style={{ fontSize: "20px" }}
-            value={searchValue}
-            onChange={handleSearchChange}
-          />
-          <img src={searchImage} alt="검색" onClick={handleSearch} />
-        </div>
-        <div className="detailLogin">로그인</div>
-        </div>
-      </div>
-      </div>
+    
       <div className={`content ${isMenuOpen ? "content-shifted" : ""}`}>
         </div>
         <div className="myCommunity-box"> 

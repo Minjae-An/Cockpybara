@@ -1,3 +1,7 @@
+.ruru{ 
+    margin-top: 10.44rem;
+}
+
 .community-box {
     display: flex;
     justify-content: space-between;
@@ -5,7 +9,6 @@
     margin-right: 250px;
     padding-top: 21px;
 
-    background-color: lightcoral;
 }
 
 .left-contents {
@@ -14,7 +17,6 @@
     margin-right: 45px;
     padding-top: 21px;
 
-    background-color: skyblue;
 }
 
 .right-contents {
@@ -22,5 +24,4 @@
     height: 1720px;
     padding-top: 21px;
 
-    background-color: yellow;
 }
