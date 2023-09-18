@@ -6,6 +6,7 @@
     padding: 20px;
     z-index: 2;
 
+    background-color: skyblue; /*임시 영역 표시*/
 }
 
 .button-container-detail{
