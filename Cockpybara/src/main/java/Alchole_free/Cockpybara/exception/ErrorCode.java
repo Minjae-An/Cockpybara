@@ -13,7 +13,15 @@ public enum ErrorCode {
     HANDLE_ACCESS_DENIED(403, "C006", "Access is Denied"),
 
     // Member
-    MEMBER_NOT_FOUND_EXCEPTION(400, "M001", "Member Not Found");
+    MEMBER_NOT_FOUND(400, "M001", "Member Not Found"),
+    DUPLICATE_JOIN(400, "M002", "Duplicate Join"),
+
+    // CocktailRecipe
+    RECIPE_NOT_FOUND(400, "R001", "Recipe Not Found"),
+
+    // Ingredient
+    INGREDIENT_NOT_FOUND(400, "I001", "Ingredient Not Found");
+
 
     private final String code;
     private final String message;
