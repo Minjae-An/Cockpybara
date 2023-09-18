@@ -3,12 +3,12 @@ import './MainMain.css';
 import Cock1 from "./photo/Cock1.png";
 import Cock2 from "./photo/Cock2.png";
 import Cock3 from "./photo/Cock3.png";
+import Cock4 from "./photo/Cock4.png";
+import Cock5 from "./photo/Cock5.png";
 
 const MainMain = () => {
-  // 이미지 목록을 배열로 정의합니다.
-  const images = [Cock1, Cock2, Cock3];
+  const images = [Cock1, Cock2, Cock3, Cock4, Cock5];
 
-  // 이미지에 맞는 제목과 내용을 배열로 정의합니다.
   const contents = [
     {
       title: 'Daiquiri',
@@ -25,11 +25,19 @@ const MainMain = () => {
       description: `칵테일의 고전이자 매우 유명한 레시피다.
       외양과 맛이 아이스 티와 비슷해서 이러한 이름이 붙었다.
       시원한 맛이 일품이므로 더운 여름에 마시면 좋다.`,
+    },
+    {
+      title: 'Morning Cocktail',
+      description: `마라스키노 체리와 브랜디의 조합으로 선명한 노란색을 띄는 것이 특징인 칵테일.`,
+    },
+    {
+      title: 'Margarita',
+      description: `데킬라 베이스 칵테일로, ‘마르가리타’라고 부르기도 한다.
+      라임을 씹고 소금을 핥은 후 데킬라를 한 모금 마시는 음용법인 멕시칸 스타일을
+      세련되게 변화시키기 위해 개발된 칵테일로 알려져 있다.`,
     }
   ];
   
-
-  // 현재 보여지고 있는 이미지의 인덱스를 상태로 관리합니다.
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   // 3초마다 이미지를 변경하는 함수를 정의합니다.
@@ -37,9 +45,9 @@ const MainMain = () => {
     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
   };
 
-  // 컴포넌트가 마운트될 때마다 3초마다 이미지를 변경하는 이벤트를 등록합니다.
+  // 컴포넌트가 마운트될 때마다 5초마다 이미지를 변경하는 이벤트를 등록합니다.
   useEffect(() => {
-    const interval = setInterval(changeImage, 3000);
+    const interval = setInterval(changeImage, 5000);
 
     // 컴포넌트가 언마운트될 때 이벤트를 해제합니다.
     return () => clearInterval(interval);

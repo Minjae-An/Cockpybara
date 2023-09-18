@@ -16,6 +16,7 @@ import Error from './Error';
 import DetailHeader from './DetailHeader';
 import Footer from './footer';
 import FooterV2 from './footerV2';
+import AddRecipe2 from './AddRecipe2';
 
 
 function App() {
@@ -69,6 +70,7 @@ function App() {
         <Route path="/DetailHeader" element={<DetailHeader/>} />{/*확인용*/}
         <Route path="/footer" element={<Footer/>} />{/*확인용*/}
         <Route path="/footerV2" element={<FooterV2/>} />{/*확인용*/}
+        <Route path="/user/my-recipe-2" element={<AddRecipe2/>} />{/*확인용*/}
       </Routes>
     </div>
   );

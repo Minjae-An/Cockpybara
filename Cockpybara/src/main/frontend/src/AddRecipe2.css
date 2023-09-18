@@ -1,0 +1,447 @@
+/*mainFrame*/
+/* .addrecipe-mainFrame {
+    background-color: lightcoral;
+} */
+
+/*subFrame*/
+.addrecipe-subFrame {
+    /* background-color: lightskyblue; */
+    /* display: grid;
+    place-items: center; */
+    margin-left: 25rem;
+
+}
+
+/*당신의 레시피를 소개해 주세요!*/
+.recipe-title {
+    color: #000;
+    font-family: Pretendard;
+    font-size: 2.8125rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+/*add-photo*/
+.add-photo {
+    width: 76.25rem;
+    height: 21.4375rem;
+    flex-shrink: 0;
+    border-radius: 0.625rem;
+    border: 1.5px solid #8C8C8C;
+    background: #FFF;
+    display: flex;
+}
+
+
+/* add-photo-detail */
+.add-photo-detail{ 
+    width: 18.125rem;
+    height: 18.1875rem;
+    flex-shrink: 0;
+    border-radius: 1.25rem;
+    border: 1px dashed #8C8C8C;
+    background: #FFF;
+    margin-top: 1.62rem;
+    margin-left: 1.62rem;
+
+    display: block;
+}
+
+/*add-title*/
+.add-title{ 
+    /* background-color: aqua; */
+    display: flex;
+    margin-top: 2.5rem;
+}
+
+.add-title p{ 
+    justify-content: center;
+    align-items: center;
+    margin-top: 1.62rem;
+    color: #000;
+    font-family: Pretendard;
+    font-size: 1.375rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.add-title span{ 
+    color: #F00;
+    font-family: Pretendard;
+    font-size: 1.375rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.add-title input{ 
+    margin-left: 10.56rem;
+    width: 58.375rem;
+    height: 4.875rem;
+    flex-shrink: 0;
+    border-radius: 0.625rem;
+    border: 1.5px solid #8C8C8C;
+    background: #FFF;
+    color: #8C8C8C;
+    font-family: Pretendard;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+/*add-explan*/
+.add-explan {
+    /* background-color: lawngreen; */
+    margin-top: 6.5rem;
+    display: flex;
+}
+
+.add-explan p{ 
+    color: #000;
+    font-family: Pretendard;
+    font-size: 1.375rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.add-explan span{ 
+    color: #F00;
+    font-family: Pretendard;
+    font-size: 1.375rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.add-explan input{ 
+    margin-left: 10.56rem;
+    width: 58.375rem;
+    height: 8.8125rem;
+    flex-shrink: 0;
+    border-radius: 0.625rem;
+    border: 1.5px solid #8C8C8C;
+    background: #FFF;
+    color: #8C8C8C;
+    font-family: Pretendard;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+/*add-ingredient*/
+.add-ingredient {
+    /* background-color: lightgray; */
+    margin-top: 3.13rem;
+    display: flex; 
+}
+
+.add-ingredient p{ 
+    color: #000;
+    font-family: Pretendard;
+    font-size: 1.375rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    display: block;
+}
+
+.detail-ingredient p{ 
+    color: #000;
+    font-family: Pretendard;
+    font-size: 1.375rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    display: block;
+}
+
+.add-ingredient span{ 
+    color: #F00;
+    font-family: Pretendard;
+    font-size: 1.375rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.ingredient-btn{
+    /* background-color: pink; */
+    margin-left: 4.5rem;
+    display: block;
+    align-items: center;
+    justify-content: center;
+    margin-top: 6.3rem;
+} 
+
+.ingredient-btn button{ 
+    background: none;
+    border: none;
+}
+
+
+/*detail-ingredient*/
+.detail-ingredient{ 
+    /* background-color: lightgoldenrodyellow; */
+    margin-left: 14.44rem;
+}
+
+/* detail-ingredient-name */
+.detail-ingredient-name{ 
+    display: flex;
+}
+
+.detail-ingredient-name input{ 
+    margin-left: 5.13rem;
+    color: #8C8C8C;
+    font-family: Pretendard;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    width: 41.0625rem;
+    height: 4.875rem;
+    flex-shrink: 0;
+    border-radius: 0.625rem;
+    border: 1.5px solid #8C8C8C;
+    background: #FFF;
+}
+
+/* detail-ingredient-explan */
+.detail-ingredient-explan{ 
+    display: flex;
+    margin-top: 1rem;
+}
+
+.detail-ingredient-explan input{ 
+    width: 41.0625rem;
+    height: 4.875rem;
+    flex-shrink: 0;
+    border-radius: 0.625rem;
+    border: 1.5px solid #8C8C8C;
+    background: #FFF;
+    color: #8C8C8C;
+    font-family: Pretendard;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: 5.13rem;
+}
+
+/* detail-ingredient-amount */
+.detail-ingredient-amount{ 
+    display: flex;
+    margin-top: 1rem;
+}
+
+.detail-ingredient-amount input{ 
+    width: 18.25rem;
+    height: 4.625rem;
+    flex-shrink: 0;
+    border-radius: 0.625rem;
+    border: 1.5px solid #8C8C8C;
+    background: #FFF;
+    color: #8C8C8C;
+    font-family: Pretendard;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: 5.13rem;
+}
+
+.detail-ingredient-amount select{ 
+    margin-left: 1rem;
+    width: 21.8125rem;
+    height: 4.925rem;
+    flex-shrink: 0;
+    border-radius: 0.625rem;
+    border: 1.5px solid #8C8C8C;
+    background: #FFF;
+    color: #8C8C8C;
+    font-family: Pretendard;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+/*add-step*/
+.add-step {
+    /* background-color: rgb(206, 151, 246); */
+    display: flex;
+    margin-top: 3.13rem;
+}
+
+.add-step p{ 
+    color: #000;
+    font-family: Pretendard;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-right: 14.44rem;
+}
+
+.add-step span{ 
+    color: #F00;
+    font-family: Pretendard;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.step-input input{ 
+    /* background-color: rebeccapurple; */
+    width: 47.375rem;
+    height: 4.625rem;
+    flex-shrink: 0;
+    border-radius: 0.625rem;
+    border: 1.5px solid #8C8C8C;
+    background: #FFF;
+    color: #8C8C8C;
+    font-family: Pretendard;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-right: 1.41rem;
+}
+
+.step-btn{ 
+    background: none;
+    border: none;
+    /* background-color: lightcoral; */
+    margin-left: 4.5rem;
+}
+
+/*add-type*/
+.add-type {
+    /* background-color: lightsalmon; */
+    display: flex;
+    margin-top: 3.13rem;
+}
+
+.add-type p{
+    color: #000;
+    font-family: Pretendard;
+    font-size: 1.375rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-right: 15.44rem;
+}
+
+.add-type select{ 
+    width: 58.375rem;
+    height: 4.875rem;
+    flex-shrink: 0;
+    border-radius: 0.625rem;
+    border: 1.5px solid #8C8C8C;
+    background: #FFF;
+    color: #8C8C8C;
+    font-family: Pretendard;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+/*add-flavor*/
+.add-flavor {
+    /* background-color: lightslategray; */
+    display: flex;
+    margin-top: 3.12rem;
+}
+
+.add-flavor p{ 
+    color: #000;
+    font-family: Pretendard;
+    font-size: 1.375rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-right: 15.62rem;
+}
+
+.add-flavor span{ 
+    color: #F00;
+    font-family: Pretendard;
+    font-size: 1.375rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.add-flavor button{ 
+    width: 11.125rem;
+    height: 2.8125rem;
+    flex-shrink: 0;
+    border-radius: 3.125rem;
+    border: 1.5px solid #8C8C8C;
+    background: #FFF;
+    color: #000;
+    font-family: Pretendard;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.flavor-btn{ 
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1.12rem;
+}
+
+.flavor-top{ 
+    display: flex;
+    justify-content: flex-start;
+    gap: 1.12rem;
+}
+
+.flavor-bottom{ 
+    margin-top: 1.25rem;
+    display: flex;
+    justify-content: flex-start;
+    gap: 1.12rem;
+}
+
+/*올리기*/
+.add-button {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 8.75rem;
+    display: flex;
+}
+
+.add-button button {
+    width: 18.75rem;
+    border-radius: 0.9375rem;
+    height: 5rem;
+    background: none;
+    border: none;
+    color: #FFF;
+    font-family: Pretendard;
+    font-size: 1.875rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    background: #000;
+    display: block;
+    margin: 0 auto;
+}
+
+.submit-button {
+    display: block;
+    margin: 0 auto;
+}
