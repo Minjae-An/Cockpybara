@@ -14,6 +14,7 @@ const MyCommunitySection = ({ userId }) => {
   const [userPhoto, setUserPhoto] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
+  
 
 
   const handleSearchChange = (e) => {
@@ -79,7 +80,15 @@ const MyCommunitySection = ({ userId }) => {
     navigate(`/user/${userId}/my-page`);
   };
 
-
+  useEffect(() => {
+    axios.get(`/api/user/${userId}/my-page`)
+      .then(response => {
+        setUserPhoto(response.data.imageUrl);
+      })
+      .catch(error => {
+        console.error('Error fetching user photo:', error);
+      });
+  }, [userId]);
 
   return (
     <div>
@@ -133,7 +142,7 @@ const MyCommunitySection = ({ userId }) => {
         <div className="myPage-box">
           {/* 사진을 보여줄 이미지 태그 */}
           <div className="photo-box">
-            <img src={cockIcon} alt="사용자 사진" />
+            <img src={userPhoto} alt="사용자 사진" />
           </div>
           <div className="userName-box">
             <p id="user-name">{userName}</p> 
