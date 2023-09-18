@@ -15,11 +15,21 @@ const CocktailListSection = () => {
   const [showCommentPopup, setShowCommentPopup] = useState(false);
   const [userData, setUserData] = useState({ username: '' }); // 초기값을 비워둡니다.
 
+
   const handleCommentButtonClick = () => {
     setShowCommentPopup(true);
   };
 
   useEffect(() => {
+    const fetchCocktailData = async () => {
+      try {
+        const response = await axios.get('/community/period-cocktails');
+        setCocktailList(response.data);
+      } catch (error) {
+        console.error('Error fetching cocktail data:', error);
+      }
+    };
+
     const fetchUserData = async () => {
       try {
         const response = await axios.get('/community'); // 백엔드 API에서 사용자 데이터를 가져옵니다.
@@ -30,7 +40,8 @@ const CocktailListSection = () => {
     };
 
     fetchUserData(); 
-    
+    fetchCocktailData();
+
     // 더미 데이터를 사용하여 프론트에서 확인할 수 있도록 함
     const dummyData = [
       { id: 1, name: 'Mojito', description: 'Refreshing cocktail with mint and lime', taste: 'Sweet', recommended: true },
@@ -55,6 +66,7 @@ const CocktailListSection = () => {
     setSelectedButton(sortType);
   };
 
+  
   const filterCocktails = () => {
     let filteredCocktails = cocktailList;
 
@@ -159,7 +171,7 @@ const CocktailListSection = () => {
                 <div className="cockList-contents-user-info">
                   {/* 백엔드에서 가져온 유저 정보를 표시 */}
                   <div className="user-profile-image">
-                    <img src={image1} alt={userData.username} />
+                    <img src={cocktail.userImage} alt={userData.username} />
                   </div>
                   <div className="user-profile-text">
                     <p id="name">{userData.username}</p>
@@ -167,10 +179,10 @@ const CocktailListSection = () => {
                   </div>
                 </div>
                 <div className="cockList-Cockinfo-box">
-          <p id="cock-name">
-            {/* Wrap the cocktail name in a Link */}
-            <Link to={`/recipe/detail/${cocktail.id}`}>{cocktail.name}</Link>
-          </p>
+                  <p id="cock-name">
+                    {/* Wrap the cocktail name in a Link */}
+                    <Link to={`/recipe/detail/${cocktail.id}`}>{cocktail.name}</Link>
+                  </p>
                   <div className="cockList-Cockinfo-explan">
                     <p id="explan">{cocktail.description}</p>
                     <p id="taste">{cocktail.taste}</p>
@@ -194,10 +206,7 @@ const CocktailListSection = () => {
             src={cocktail.imageUrl} // 백엔드에서 이미지 URL을 가져옴
             alt={cocktail.name}
           /> */}
-                <img
-                  src={pinkTea}
-                  alt="pinkTea"
-                />
+                <img src={cocktail.imageUrl} alt={cocktail.name} />
               </div>
             </li>
           ))}
