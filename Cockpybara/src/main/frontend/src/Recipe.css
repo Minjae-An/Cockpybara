@@ -1,13 +1,25 @@
-/* Add your existing styles */
-
+.popularTitle {
+  margin-top: 5rem;
+}
 .popular-cocktails {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
+    margin-bottom : 5rem;
   }
   
   .cocktail-item {
+    background: radial-gradient(
+    closest-side,
+    rgba(233, 245, 255, 1) 0%,
+    rgba(233, 245, 255, 0) 100%
+  );
+  border-radius: 20px;
+  width: 13rem;
+  height: 19rem;
+  position: relative;
+  box-shadow: 0px 0px 30px 3px rgba(140, 140, 140, 0.17);
     text-align: center;
     border: 1px solid #ccc;
     padding: 10px;
@@ -17,6 +29,10 @@
     display: block;
     font-size: 16px;
     margin-top: 10px;
+    color: #000000;
+    text-align: center;
+    font: 600 1.3rem "Pretendard", sans-serif;
+    position: relative;
   }
   
   .cocktail-ranking {
@@ -24,21 +40,210 @@
     font-size: 18px;
     display: block;
     margin-top: 10px;
+    color: #797979;
+  text-align: center;
+  font: 600 1.3rem "Pretendard", sans-serif;
+  position: relative;
   }
   .cocktail-item img {
     margin-top: 10px;
     border-radius: 50%;
     max-width: 170px; /* Adjust the size of the circle as needed */
   }
-  /* 카테고리 레이아웃 스타일 */
-.categories {
+  /* 移댄뀒怨좊━ �덉씠�꾩썐 �ㅽ��� */
+.categories-container {
+  display: flex;
+  gap: 10px;
+  background: #ffffff;
+  border-color: #a6a6a6;
+  border-width: 1px;
+  width: 100%; /* 議곗젙 */
+  max-width: 60%; /* 理쒕� �� 議곗젙 */
+  margin: 0 auto; /* 以묒븰 �뺣젹 */
+}
 
-    gap: 20px;
-    justify-content: center;
-  }
-  
-  .category {
+.category {
+  border-radius: 5px;
+  flex: 1;
+  background: #f5fbfe;
+  border-style: solid;
+  border-color: #8c8c8c;
+  border-width: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 700 1rem "Pretendard", sans-serif;
+  position: relative;
+  height: 5rem;
+  margin-bottom : 0.5rem;
+}
+
+.categories {
+  flex: 6;
+  display: flex;
+  gap: 10px;
+  background: #ffffff;
+  border-style: solid;
+  border-color: #a6a6a6;
+  border-width: 1px;
+  align-items: center;
+  padding-left: 10px; /* �쇱そ �щ갚 異붽� */
+  font: 300 1rem "Pretendard", sans-serif;
+  position: relative;
+  border-radius: 5px;
+  margin-bottom : 0.5rem;
+}
+.sort-container {
+  display: flex;
+  align-items: center; /* �섏쭅 �뺣젹 */
+  gap: 10px; /* �꾩씠�� �ъ씠 媛꾧꺽 */
+}
+.sort-options {
+  margin-left:37%;
+}
+  .popularTitle {
+    color: #000000;
+    text-align: center; /* 媛��대뜲 �뺣젹 */
+    font: 700 50px "Pretendard", sans-serif;
+    position: relative;
     text-align: center;
-    border: 1px solid #ccc;
-    padding: 20px;
   }
+  .more {
+  color: #000000;
+  text-align: right;
+  margin-right: 20%;
+  margin-bottom: 1.5rem;
+  font: 300 15px "Pretendard", sans-serif;
+  position: relative;
+  }
+  .cocktail-taste {
+    color: #000000;
+  text-align: center;
+  font: 300 0.9rem "Pretendard", sans-serif;
+  position: relative;
+}
+.arrow {
+  margin-left: 0.5rem;
+}
+.categoryCocktail {
+  color: #000000;
+  text-align: left;
+  font: 700 1.5rem "Pretendard", sans-serif;
+  position: relative;
+  margin-left: 22%;
+  margin-top: 2rem;
+}
+.line{
+  border-style: solid;
+  border-color: #8c8c8c;
+  border-width: 1px 0 0 0;
+  width: 100%;
+  height: 0px;
+  position: relative;
+  margin-top: 1.4rem;
+}
+/* 移듯뀒�� 由ъ뒪�� 而⑦뀒�대꼫 */
+.cocktailBox {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 5rem;
+  overflow-x: auto; /* �덈퉬 珥덇낵 �� 媛�濡� �ㅽ겕濡� �쒖떆 */
+}
+/* 移듯뀒�� 由ъ뒪�� �꾩씠�� 而⑦뀒�대꼫 */
+.cocktail-list-item {
+  display: flex;
+  align-items: center; /* �꾩씠�쒖쓣 �몃줈 以묒븰 �뺣젹 */
+  border-radius: 20px;
+  width: 45rem;
+  height: 10rem;
+  position: relative;
+  box-shadow: 0px 0px 30px 3px rgba(140, 140, 140, 0.17);
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 20px; /* 媛� 移듯뀒�� �ъ씠�� 媛꾧꺽 議곗젙 */
+}
+
+/* 移듯뀒�� �ъ뒪�� */
+.cocktail-poster {
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  width: 8rem;
+  height: 8rem;
+  margin-right: 2rem; /* �ъ뒪�곗� �뺣낫 �ъ씠 媛꾧꺽 議곗젙 */
+  margin-left: 2rem;
+}
+
+/* 移듯뀒�� �뺣낫 而⑦뀒�대꼫 */
+.cocktail-info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+/* 移듯뀒�� �쒕ぉ */
+.cocktail-title2 {
+  font-weight: bold;
+  font-size: 1.6rem;
+  color: #000000;
+  font-family: "Pretendard", sans-serif;
+  margin-bottom: 10px;
+}
+
+/* 移듯뀒�� 留� �뺣낫 */
+.cocktail-tastes {
+  font-size: 0.9rem;
+  color: #000000;
+  font-family: "Pretendard", sans-serif;
+  margin-bottom: 10px;
+}
+
+.add-recipe-button {
+  position: fixed; /* �붾㈃ �ㅽ겕濡ㅼ뿉 �곹뼢�� 諛쏆� �딅룄濡� 怨좎젙 �꾩튂 �ㅼ젙 */
+  bottom: 50px; /* �섎떒 �щ갚 議곗젅 (�먰븯�� �꾩튂濡� 議곗젙 媛���) */
+  right: 100px; /* �ㅻⅨ履� �щ갚 議곗젅 (�먰븯�� �꾩튂濡� 議곗젙 媛���) */
+  background-color: #007bff; /* 諛곌꼍�� �ㅼ젙 (�먰븯�� �됱긽�쇰줈 蹂�寃� 媛���) */
+  color: #fff; /* 湲��먯깋 �ㅼ젙 (�먰븯�� �됱긽�쇰줈 蹂�寃� 媛���) */
+  border: none; /* �뚮몢由� �쒓굅 */
+  border-radius: 5px; /* �κ렐 紐⑥꽌由� �ㅼ젙 (�먰븯�� 媛믪쓣 �ъ슜 媛���) */
+  padding: 10px 20px; /* �덉そ �щ갚 議곗젅 (�먰븯�� �ш린濡� 議곗젙 媛���) */
+  cursor: pointer; /* 而ㅼ꽌 �ㅽ��� �ㅼ젙 (�먰븯�� �ㅽ��쇰줈 蹂�寃� 媛���) */
+  z-index: 999; /* �ㅻⅨ �붿냼 �꾩뿉 �쒖떆�섎룄濡� �ㅼ젙 */
+}
+
+/* �덉떆�� 異붽� 踰꾪듉 �몃쾭 �④낵 (�좏깮 �ы빆) */
+.add-recipe-button:hover {
+  background-color: #0056b3; /* �몃쾭 �� 諛곌꼍�� 蹂�寃� (�먰븯�� �됱긽�쇰줈 蹂�寃� 媛���) */
+}
+
+.pagination-container{
+  display: flex;
+  align-items: center;
+  margin-bottom: 3rem;
+  position:relative;
+  justify-content: center;
+}
+
+.pagination {
+  color: #000000;
+  text-align: left;
+  font: 300 1rem "Pretendard", sans-serif;
+  position: relative;
+  margin-right: 1rem;
+}
+/* 利먭꺼李얘린 踰꾪듉�� 湲곕낯 �ㅽ��� */
+.favorite-button {
+  background-color: white;
+  color: #f00; /* 鍮④컙�� �띿뒪�� �됱긽 */
+  border: 2px solid #f00; /* 鍮④컙�� �뚮몢由� */
+  padding: 5px 5px;
+  cursor: pointer;
+  margin-right: 2rem;
+}
+
+/* 利먭꺼李얘린媛� �쒖꽦�붾맂 寃쎌슦�� �ㅽ��� */
+.favorite-button.favorite {
+  background-color: #f00; /* 鍮④컙�� 諛곌꼍�� */
+  color: white; /* �곗깋 �띿뒪�� �됱긽 */
+}

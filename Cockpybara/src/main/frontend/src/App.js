@@ -64,7 +64,7 @@ function App() {
         <Route path="/community/{userId}" element={<Community />} />
         <Route path="/user/{userId}/my-page" element={<MyPage />} />
         <Route path="/user/my-recipe" element={<AddRecipe/>} />
-        <Route path="/recipe/detail/:cocktailId" element={<RecipeDetail />} />
+        <Route path="/recipe/detail" element={<RecipeDetail />} />
         <Route path="/community" element={<Community/>} />
         <Route path="/error" element={<Error/>} />
         <Route path="/DetailHeader" element={<DetailHeader/>} />{/*확인용*/}
