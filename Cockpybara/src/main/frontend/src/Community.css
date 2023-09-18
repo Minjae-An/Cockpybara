@@ -4,6 +4,8 @@
     margin-left: 250px; 
     margin-right: 250px;
     padding-top: 21px;
+
+    background-color: lightcoral;
 }
 
 .left-contents {
@@ -11,10 +13,14 @@
     height: 1720px;
     margin-right: 45px;
     padding-top: 21px;
+
+    background-color: skyblue;
 }
 
 .right-contents {
     width: 909px;
     height: 1720px;
     padding-top: 21px;
+
+    background-color: yellow;
 }
