@@ -52,13 +52,13 @@ const CocktailListSection = () => {
     fetchCocktailData();
 
     // 더미 데이터를 사용하여 프론트에서 확인할 수 있도록 함
-    const dummyData = [
-      { id: 1, name: 'Mojito', description: 'Refreshing cocktail with mint and lime', taste: 'Sweet', recommended: true },
-      { id: 2, name: 'Cosmopolitan', description: 'Classic cocktail with vodka and cranberry juice', taste: 'Sour', recommended: true },
-      { id: 3, name: 'Martini', description: 'Sophisticated cocktail with gin and vermouth', taste: 'Dry', recommended: false },
-      // 더 많은 칵테일들...
-    ];
-    setCocktailList(dummyData);
+    // const dummyData = [
+    //   { id: 1, name: 'Mojito', description: 'Refreshing cocktail with mint and lime', taste: 'Sweet', recommended: true },
+    //   { id: 2, name: 'Cosmopolitan', description: 'Classic cocktail with vodka and cranberry juice', taste: 'Sour', recommended: true },
+    //   { id: 3, name: 'Martini', description: 'Sophisticated cocktail with gin and vermouth', taste: 'Dry', recommended: false },
+    //   // 더 많은 칵테일들...
+    // ];
+    // setCocktailList(dummyData);
   }, []);
 
   // 추천 상태 변경 함수

@@ -17,10 +17,12 @@ ul.menu-list {
     width: 701px;
     height: 30px;
     flex-shrink: 0;
+    
 }
 
 .menuClassName {
     display: flex;
+    margin-left: 9.3rem;
 }
 
 .menuClassName li {
