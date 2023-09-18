@@ -50,16 +50,16 @@
     border-radius: 50%;
     max-width: 170px; /* Adjust the size of the circle as needed */
   }
-  /* 移댄뀒怨좊━ �덉씠�꾩썐 �ㅽ��� */
+  /* 카테고리 레이아웃 스타일 */
 .categories-container {
   display: flex;
   gap: 10px;
   background: #ffffff;
   border-color: #a6a6a6;
   border-width: 1px;
-  width: 100%; /* 議곗젙 */
-  max-width: 60%; /* 理쒕� �� 議곗젙 */
-  margin: 0 auto; /* 以묒븰 �뺣젹 */
+  width: 100%; /* 조정 */
+  max-width: 60%; /* 최대 폭 조정 */
+  margin: 0 auto; /* 중앙 정렬 */
 }
 
 .category {
@@ -87,7 +87,7 @@
   border-color: #a6a6a6;
   border-width: 1px;
   align-items: center;
-  padding-left: 10px; /* �쇱そ �щ갚 異붽� */
+  padding-left: 10px; /* 왼쪽 여백 추가 */
   font: 300 1rem "Pretendard", sans-serif;
   position: relative;
   border-radius: 5px;
@@ -95,15 +95,15 @@
 }
 .sort-container {
   display: flex;
-  align-items: center; /* �섏쭅 �뺣젹 */
-  gap: 10px; /* �꾩씠�� �ъ씠 媛꾧꺽 */
+  align-items: center; /* 수직 정렬 */
+  gap: 10px; /* 아이템 사이 간격 */
 }
 .sort-options {
   margin-left:37%;
 }
   .popularTitle {
     color: #000000;
-    text-align: center; /* 媛��대뜲 �뺣젹 */
+    text-align: center; /* 가운데 정렬 */
     font: 700 50px "Pretendard", sans-serif;
     position: relative;
     text-align: center;
@@ -142,19 +142,19 @@
   position: relative;
   margin-top: 1.4rem;
 }
-/* 移듯뀒�� 由ъ뒪�� 而⑦뀒�대꼫 */
+/* 칵테일 리스트 컨테이너 */
 .cocktailBox {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
   margin-bottom: 5rem;
-  overflow-x: auto; /* �덈퉬 珥덇낵 �� 媛�濡� �ㅽ겕濡� �쒖떆 */
+  overflow-x: auto; /* 너비 초과 시 가로 스크롤 표시 */
 }
-/* 移듯뀒�� 由ъ뒪�� �꾩씠�� 而⑦뀒�대꼫 */
+/* 칵테일 리스트 아이템 컨테이너 */
 .cocktail-list-item {
   display: flex;
-  align-items: center; /* �꾩씠�쒖쓣 �몃줈 以묒븰 �뺣젹 */
+  align-items: center; /* 아이템을 세로 중앙 정렬 */
   border-radius: 20px;
   width: 45rem;
   height: 10rem;
@@ -162,27 +162,27 @@
   box-shadow: 0px 0px 30px 3px rgba(140, 140, 140, 0.17);
   border: 1px solid #ccc;
   padding: 10px;
-  margin-bottom: 20px; /* 媛� 移듯뀒�� �ъ씠�� 媛꾧꺽 議곗젙 */
+  margin-bottom: 20px; /* 각 칵테일 사이의 간격 조정 */
 }
 
-/* 移듯뀒�� �ъ뒪�� */
+/* 칵테일 포스터 */
 .cocktail-poster {
   border-radius: 50%;
   border: 1px solid rgba(0, 0, 0, 0.35);
   width: 8rem;
   height: 8rem;
-  margin-right: 2rem; /* �ъ뒪�곗� �뺣낫 �ъ씠 媛꾧꺽 議곗젙 */
+  margin-right: 2rem; /* 포스터와 정보 사이 간격 조정 */
   margin-left: 2rem;
 }
 
-/* 移듯뀒�� �뺣낫 而⑦뀒�대꼫 */
+/* 칵테일 정보 컨테이너 */
 .cocktail-info {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
 }
 
-/* 移듯뀒�� �쒕ぉ */
+/* 칵테일 제목 */
 .cocktail-title2 {
   font-weight: bold;
   font-size: 1.6rem;
@@ -191,7 +191,7 @@
   margin-bottom: 10px;
 }
 
-/* 移듯뀒�� 留� �뺣낫 */
+/* 칵테일 맛 정보 */
 .cocktail-tastes {
   font-size: 0.9rem;
   color: #000000;
@@ -200,21 +200,21 @@
 }
 
 .add-recipe-button {
-  position: fixed; /* �붾㈃ �ㅽ겕濡ㅼ뿉 �곹뼢�� 諛쏆� �딅룄濡� 怨좎젙 �꾩튂 �ㅼ젙 */
-  bottom: 50px; /* �섎떒 �щ갚 議곗젅 (�먰븯�� �꾩튂濡� 議곗젙 媛���) */
-  right: 100px; /* �ㅻⅨ履� �щ갚 議곗젅 (�먰븯�� �꾩튂濡� 議곗젙 媛���) */
-  background-color: #007bff; /* 諛곌꼍�� �ㅼ젙 (�먰븯�� �됱긽�쇰줈 蹂�寃� 媛���) */
-  color: #fff; /* 湲��먯깋 �ㅼ젙 (�먰븯�� �됱긽�쇰줈 蹂�寃� 媛���) */
-  border: none; /* �뚮몢由� �쒓굅 */
-  border-radius: 5px; /* �κ렐 紐⑥꽌由� �ㅼ젙 (�먰븯�� 媛믪쓣 �ъ슜 媛���) */
-  padding: 10px 20px; /* �덉そ �щ갚 議곗젅 (�먰븯�� �ш린濡� 議곗젙 媛���) */
-  cursor: pointer; /* 而ㅼ꽌 �ㅽ��� �ㅼ젙 (�먰븯�� �ㅽ��쇰줈 蹂�寃� 媛���) */
-  z-index: 999; /* �ㅻⅨ �붿냼 �꾩뿉 �쒖떆�섎룄濡� �ㅼ젙 */
+  position: fixed; /* 화면 스크롤에 영향을 받지 않도록 고정 위치 설정 */
+  bottom: 50px; /* 하단 여백 조절 (원하는 위치로 조정 가능) */
+  right: 100px; /* 오른쪽 여백 조절 (원하는 위치로 조정 가능) */
+  background-color: #007bff; /* 배경색 설정 (원하는 색상으로 변경 가능) */
+  color: #fff; /* 글자색 설정 (원하는 색상으로 변경 가능) */
+  border: none; /* 테두리 제거 */
+  border-radius: 5px; /* 둥근 모서리 설정 (원하는 값을 사용 가능) */
+  padding: 10px 20px; /* 안쪽 여백 조절 (원하는 크기로 조정 가능) */
+  cursor: pointer; /* 커서 스타일 설정 (원하는 스타일로 변경 가능) */
+  z-index: 999; /* 다른 요소 위에 표시되도록 설정 */
 }
 
-/* �덉떆�� 異붽� 踰꾪듉 �몃쾭 �④낵 (�좏깮 �ы빆) */
+/* 레시피 추가 버튼 호버 효과 (선택 사항) */
 .add-recipe-button:hover {
-  background-color: #0056b3; /* �몃쾭 �� 諛곌꼍�� 蹂�寃� (�먰븯�� �됱긽�쇰줈 蹂�寃� 媛���) */
+  background-color: #0056b3; /* 호버 시 배경색 변경 (원하는 색상으로 변경 가능) */
 }
 
 .pagination-container{
@@ -232,18 +232,18 @@
   position: relative;
   margin-right: 1rem;
 }
-/* 利먭꺼李얘린 踰꾪듉�� 湲곕낯 �ㅽ��� */
+/* 즐겨찾기 버튼의 기본 스타일 */
 .favorite-button {
   background-color: white;
-  color: #f00; /* 鍮④컙�� �띿뒪�� �됱긽 */
-  border: 2px solid #f00; /* 鍮④컙�� �뚮몢由� */
+  color: #f00; /* 빨간색 텍스트 색상 */
+  border: 2px solid #f00; /* 빨간색 테두리 */
   padding: 5px 5px;
   cursor: pointer;
   margin-right: 2rem;
 }
 
-/* 利먭꺼李얘린媛� �쒖꽦�붾맂 寃쎌슦�� �ㅽ��� */
+/* 즐겨찾기가 활성화된 경우의 스타일 */
 .favorite-button.favorite {
-  background-color: #f00; /* 鍮④컙�� 諛곌꼍�� */
-  color: white; /* �곗깋 �띿뒪�� �됱긽 */
+  background-color: #f00; /* 빨간색 배경색 */
+  color: white; /* 흰색 텍스트 색상 */
 }
