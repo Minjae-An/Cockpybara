@@ -77,7 +77,7 @@ public class ReviewService {
         Page<Review> page = reviewRepository.findReviewByCocktailRecipe(cocktailRecipe, request);
 
         List<ReviewDTO> content = page.get().map(review -> {
-            ReviewDTO reviewDTO = new ReviewDTO(review.getId(), review.getMember().getId(), review.getStars(), review.getReview());
+            ReviewDTO reviewDTO = new ReviewDTO(review.getId(), review.getMember().getId(), review.getStars(), review.getReview(), review.getMember().getImageUrl());
             List<Taste> tastes = review.getReviewTastes().stream().map(ReviewTaste::getTaste).collect(Collectors.toList());
             reviewDTO.setTastes(tastes);
             return reviewDTO;
