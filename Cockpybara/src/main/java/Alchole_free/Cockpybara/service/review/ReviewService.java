@@ -7,6 +7,9 @@ import Alchole_free.Cockpybara.domain.cocktail_recipe.review.Review;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.review.ReviewTaste;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.taste.Taste;
 import Alchole_free.Cockpybara.domain.member.Member;
+import Alchole_free.Cockpybara.exception.ErrorCode;
+import Alchole_free.Cockpybara.exception.cocktail_recipe.CocktailRecipeNotFoundException;
+import Alchole_free.Cockpybara.exception.member.MemberNotFoundException;
 import Alchole_free.Cockpybara.repository.MemberRepository;
 import Alchole_free.Cockpybara.repository.ReviewRepository;
 import Alchole_free.Cockpybara.repository.cocktail_recipe.CocktailRecipeRepository;
@@ -32,9 +35,9 @@ public class ReviewService {
 
     public void addReview(Long recipeId, Long memberId, Integer stars, String review, List<Taste> tastes) {
         CocktailRecipe cocktailRecipe = cocktailRecipeRepository.findById(recipeId)
-                .orElseThrow(() -> new IllegalStateException("해당 레시피가 존재하지 않습니다."));
+                .orElseThrow(() -> new CocktailRecipeNotFoundException("해당 레시피가 존재하지 않습니다.", ErrorCode.RECIPE_NOT_FOUND));
         Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new IllegalStateException("해당 멤버가 존재하지 않습니다."));
+                .orElseThrow(() -> new MemberNotFoundException("해당 멤버가 존재하지 않습니다.", ErrorCode.MEMBER_NOT_FOUND));
 
         Review newReview = new Review(cocktailRecipe, member, stars, review);
         List<ReviewTaste> reviewTastes = tastes.stream()
@@ -47,15 +50,15 @@ public class ReviewService {
 
     public void deleteReview(Long recipeId, Long reviewId) {
         CocktailRecipe cocktailRecipe = cocktailRecipeRepository.findById(recipeId)
-                .orElseThrow(() -> new IllegalStateException("해당 레시피가 존재하지 않습니다."));
+                .orElseThrow(() -> new CocktailRecipeNotFoundException("해당 레시피가 존재하지 않습니다.", ErrorCode.RECIPE_NOT_FOUND));
         cocktailRecipe.getReviews().removeIf(review -> review.getId().equals(reviewId));
     }
 
     @Transactional(readOnly = true)
     public CustomPageResponse<CommentedRecipesResponse> findCommentedRecipesByMember(Long memberId, int page) {
         Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new IllegalStateException("해당 멤버가 존재하지 않습니다."));
-        Pageable request= PageRequest.of(page, 3);
+                .orElseThrow(() -> new MemberNotFoundException("해당 멤버가 존재하지 않습니다.", ErrorCode.MEMBER_NOT_FOUND));
+        Pageable request = PageRequest.of(page, 3);
 
         List<Review> reviews = reviewRepository.findReviewByMember(member);
         List<CommentedRecipesResponse> commentedRecipes = reviews.stream()
@@ -69,9 +72,9 @@ public class ReviewService {
     }
 
     @Transactional(readOnly = true)
-    public CustomPageResponse<ReviewDTO> getReviews(Long recipeId, int pageNumber){
+    public CustomPageResponse<ReviewDTO> getReviews(Long recipeId, int pageNumber) {
         CocktailRecipe cocktailRecipe = cocktailRecipeRepository.findById(recipeId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 레시피가 존재하지 않습니다."));
+                .orElseThrow(() -> new CocktailRecipeNotFoundException("해당 레시피가 존재하지 않습니다.", ErrorCode.RECIPE_NOT_FOUND));
 
         PageRequest request = PageRequest.of(pageNumber, 10);
         Page<Review> page = reviewRepository.findReviewByCocktailRecipe(cocktailRecipe, request);
