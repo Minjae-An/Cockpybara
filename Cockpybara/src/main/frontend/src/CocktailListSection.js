@@ -6,19 +6,31 @@ import image1 from "./photo/image1.png";
 import pinkTea from "./photo/pinkTea.png";
 import good from "./photo/good.png";
 import chat from "./photo/chat.png";
+import axios from 'axios'; 
 
 const CocktailListSection = () => {
   const [cocktailList, setCocktailList] = useState([]);
   const [sortBy, setSortBy] = useState('recommended');
   const [selectedButton, setSelectedButton] = useState('recommended');
-  const [userData, setUserData] = useState({ username: '핫핑크그린티' }); // 임시 유저 정보
   const [showCommentPopup, setShowCommentPopup] = useState(false);
+  const [userData, setUserData] = useState({ username: '' }); // 초기값을 비워둡니다.
 
   const handleCommentButtonClick = () => {
     setShowCommentPopup(true);
   };
 
   useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get('/community'); // 백엔드 API에서 사용자 데이터를 가져옵니다.
+        setUserData({ username: response.data.username }); // 사용자 데이터를 업데이트합니다.
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchUserData(); 
+    
     // 더미 데이터를 사용하여 프론트에서 확인할 수 있도록 함
     const dummyData = [
       { id: 1, name: 'Mojito', description: 'Refreshing cocktail with mint and lime', taste: 'Sweet', recommended: true },
