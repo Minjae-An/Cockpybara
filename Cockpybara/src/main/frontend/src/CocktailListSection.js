@@ -21,6 +21,15 @@ const CocktailListSection = () => {
   };
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('/community/period-cocktails');
+        setCocktailList(response.data);
+      } catch (error) {
+        console.error('Error fetching cocktail data:', error);
+      }
+    };
+
     const fetchCocktailData = async () => {
       try {
         const response = await axios.get('/community/period-cocktails');
@@ -64,8 +73,14 @@ const CocktailListSection = () => {
   const handleSortByClick = (sortType) => {
     setSortBy(sortType);
     setSelectedButton(sortType);
-  };
 
+    if (sortType === 'alphabetical') {
+      // 가나다순으로 정렬하는 로직을 추가합니다.
+      setCocktailList(prevCocktails =>
+        prevCocktails.slice().sort((a, b) => a.name.localeCompare(b.name))
+      );
+    }
+  };
   
   const filterCocktails = () => {
     let filteredCocktails = cocktailList;
@@ -138,6 +153,7 @@ const CocktailListSection = () => {
     }
   };
 
+  
 
   return (
     <div className="cockList-box">
