@@ -2,24 +2,25 @@ package Alchole_free.Cockpybara.controller.cocktailrecipe;
 
 import Alchole_free.Cockpybara.controller.cocktailrecipe.option_list.CocktailRecipeSearchOptionListResponse;
 import Alchole_free.Cockpybara.controller.cocktailrecipe.recipe_detail.CocktailRecipeDetailDTO;
-import Alchole_free.Cockpybara.controller.cocktailrecipe.recipe_detail.CocktailRecipeDetailResponse;
 import Alchole_free.Cockpybara.controller.cocktailrecipe.search.CocktailRecipeSearchDTO;
-import Alchole_free.Cockpybara.controller.cocktailrecipe.search_by_name.FindCocktailRecipeByNameResponse;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.AlcoholicType;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.Category;
-import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.Glass;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.taste.Taste;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.time_period.TimePeriod;
 import Alchole_free.Cockpybara.domain.ingredient.IngredientCategory;
 import Alchole_free.Cockpybara.repository.cocktail_recipe.condition.CocktailRecipeSearchCondition;
 import Alchole_free.Cockpybara.service.cocktail_recipe.CocktailRecipeService;
+import Alchole_free.Cockpybara.util.pagination.CustomPageRequest;
+import Alchole_free.Cockpybara.util.pagination.CustomPageResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
@@ -45,18 +46,9 @@ public class CocktailRecipeController {
         ));
     }
 
-
-    @GetMapping("/recipe/search")
-    public FindCocktailRecipeByNameResponse findByName(String name) {
-        List<CocktailRecipe> foundList =
-                cocktailRecipeService.findCocktailRecipeByNameContaining(name);
-
-        return new FindCocktailRecipeByNameResponse(foundList);
-    }
-
     private <T extends Enum<T>> List<String> getEnumValueList(Class<T> enumClass) {
         return Arrays.stream(enumClass.getEnumConstants())
-                .map(enumValue -> enumValue.name())
+                .map(Enum::name)
                 .collect(Collectors.toList());
     }
 
@@ -68,33 +60,18 @@ public class CocktailRecipeController {
     }
 
     @GetMapping({"/community/period-cocktails", "/recipe/period-cocktails"})
-    public ResponseEntity<List<CocktailRecipeSearchDTO>> getCocktailRecipesByPeriod(@RequestParam(value = "period", required = false) List<String> periods) {
-        List<CocktailRecipeSearchDTO> resultList=new ArrayList<>();
+    public ResponseEntity<CustomPageResponse<CocktailRecipeSearchDTO>> getCocktailRecipesByPeriod(
+            @RequestParam(value = "period", required = false) TimePeriod period,
+            CustomPageRequest pageRequest) {
+        period=period==null?TimePeriod.ALL:period;
 
-        if (periods == null || periods.isEmpty()) {
-            //기간 파라미터가 전달되지 않은 경우 기본값으로 전체 기간 조회
-            resultList =  cocktailRecipeService.getCocktailRecipesByPeriod(TimePeriod.ALL);
-        } else {
-            for (String period : periods) {
-                switch (period) {
-                    case "weekly":
-                        resultList.addAll(cocktailRecipeService.getCocktailRecipesByPeriod(TimePeriod.WEEKLY));
-                        break;
-                    case "monthly":
-                        resultList.addAll(cocktailRecipeService.getCocktailRecipesByPeriod(TimePeriod.MONTHLY));
-                        break;
-                    default:resultList.addAll(cocktailRecipeService.getCocktailRecipesByPeriod(TimePeriod.ALL));
-                }
-            }
-        }
-
-        return ResponseEntity.ok(resultList);
+        CustomPageResponse<CocktailRecipeSearchDTO> response = cocktailRecipeService.getCocktailRecipesByPeriod(period, pageRequest);
+        return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/recipe/search")
-    public ResponseEntity<List<CocktailRecipeSearchDTO>> search(CocktailRecipeSearchCondition searchCondition){
-        List<CocktailRecipeSearchDTO> searchResult = cocktailRecipeService.search(searchCondition);
-
-        return ResponseEntity.ok(searchResult);
+    @GetMapping("/recipe/search")
+    public ResponseEntity<CustomPageResponse<CocktailRecipeSearchDTO>> search(CocktailRecipeSearchCondition searchCondition, CustomPageRequest pageRequest) {
+        CustomPageResponse<CocktailRecipeSearchDTO> response = cocktailRecipeService.search(searchCondition, pageRequest);
+        return ResponseEntity.ok(response);
     }
 }

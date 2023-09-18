@@ -4,12 +4,20 @@ import Alchole_free.Cockpybara.controller.likes.add_like.AddLikeResponse;
 import Alchole_free.Cockpybara.controller.likes.like_list.LikeDTO;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.CocktailRecipe;
 import Alchole_free.Cockpybara.domain.member.Member;
-import Alchole_free.Cockpybara.domain.member.likes.Like;
+import Alchole_free.Cockpybara.exception.ErrorCode;
+import Alchole_free.Cockpybara.exception.cocktail_recipe.CocktailRecipeNotFoundException;
+import Alchole_free.Cockpybara.exception.member.DuplicateMemberException;
+import Alchole_free.Cockpybara.exception.member.MemberNotFoundException;
 import Alchole_free.Cockpybara.repository.MemberRepository;
 import Alchole_free.Cockpybara.repository.cocktail_recipe.CocktailRecipeRepository;
 import Alchole_free.Cockpybara.service.member.member_detail.MemberDetailDTO;
 import Alchole_free.Cockpybara.service.member.member_update.MemberUpdateDTO;
+import Alchole_free.Cockpybara.util.pagination.CustomPageResponse;
+import Alchole_free.Cockpybara.util.pagination.PagingUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,34 +43,30 @@ public class MemberService {
 
     public Member findById(Long id) {
         return memberRepository.findById(id)
-                .orElseThrow(() -> new IllegalStateException("해당 회원이 존재하지 않습니다."));
+                .orElseThrow(() -> new MemberNotFoundException("해당 회원이 존재하지 않습니다.", ErrorCode.MEMBER_NOT_FOUND));
     }
 
     public Member findByEmail(String email) {
         return memberRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 존재하지 않습니다."));
+                .orElseThrow(() -> new MemberNotFoundException("해당 회원이 존재하지 않습니다.", ErrorCode.MEMBER_NOT_FOUND));
     }
 
     public Member login(String email, String password) {
         return memberRepository.findByEmailAndPassword(email, password)
-                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 존재하지 않습니다"));
-    }
-
-    public List<Member> findAll() {
-        return memberRepository.findAll();
+                .orElseThrow(() -> new MemberNotFoundException("해당 회원이 존재하지 않습니다.", ErrorCode.MEMBER_NOT_FOUND));
     }
 
     @Transactional
     public void memberLeave(Long id) {
         Member member = memberRepository.findById(id)
-                .orElseThrow(() -> new IllegalStateException("해당 회원이 존재하지 않습니다"));
+                .orElseThrow(() -> new MemberNotFoundException("해당 회원이 존재하지 않습니다.", ErrorCode.MEMBER_NOT_FOUND));
 
         memberRepository.delete(member);
     }
 
     public String findEmail(String alias, String phoneNumber) {
         Member member = memberRepository.findByAliasAndPhoneNumber(alias, phoneNumber)
-                .orElseThrow(() -> new IllegalStateException("일치하는 멤버가 존재하지 않습니다."));
+                .orElseThrow(() -> new MemberNotFoundException("해당 회원이 존재하지 않습니다.", ErrorCode.MEMBER_NOT_FOUND));
 
         return member.getEmail();
     }
@@ -70,13 +74,13 @@ public class MemberService {
     public void findPassword(String email, String alias, String phoneNumber) {
         memberRepository
                 .findByEmailAndAliasAndPhoneNumber(email, alias, phoneNumber)
-                .orElseThrow(() -> new IllegalArgumentException("일치하는 멤버가 존재하지 않습니다."));
+                .orElseThrow(() -> new MemberNotFoundException("해당 회원이 존재하지 않습니다.", ErrorCode.MEMBER_NOT_FOUND));
     }
 
     @Transactional
     public void setNewPassword(String email, String password) {
         Member member = memberRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("일치하는 멤버가 존재하지 않습니다."));
+                .orElseThrow(() -> new MemberNotFoundException("해당 회원이 존재하지 않습니다.", ErrorCode.MEMBER_NOT_FOUND));
 
 
         member.updatePassword(password);
@@ -85,7 +89,7 @@ public class MemberService {
     @Transactional
     public MemberUpdateDTO updateMemberInfo(Long id, String alias, String phoneNumber) {
         Member member = memberRepository.findById(id)
-                .orElseThrow(() -> new IllegalStateException("해당 회원이 존재하지 않습니다."));
+                .orElseThrow(() -> new MemberNotFoundException("해당 회원이 존재하지 않습니다.", ErrorCode.MEMBER_NOT_FOUND));
 
         member.updateMember(alias, phoneNumber);
 
@@ -94,7 +98,7 @@ public class MemberService {
 
     public MemberDetailDTO getMemberDetails(String email) {
         Member member = memberRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalStateException("해당 회원이 존재하지 않습니다."));
+                .orElseThrow(() -> new MemberNotFoundException("해당 회원이 존재하지 않습니다.", ErrorCode.MEMBER_NOT_FOUND));
 
         MemberDetailDTO memberDetailDTO = new MemberDetailDTO().from(member);
         return memberDetailDTO;
@@ -106,32 +110,57 @@ public class MemberService {
         Optional<Member> foundResult = memberRepository.findByEmail(email);
 
         if (foundResult.isPresent()) {
-            throw new IllegalStateException("이미 가입된 회원이 존재합니다");
+            throw new DuplicateMemberException("이미 가입된 회웝입니다.", ErrorCode.DUPLICATE_JOIN);
         }
+    }
+
+    //프로필 이미지 관련 로직들
+    @Transactional
+    public void updateMemberImageUrl(String email, String imageUrl) {
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new MemberNotFoundException("해당 회원이 존재하지 않습니다.", ErrorCode.MEMBER_NOT_FOUND));
+
+        member.updateImageUrl(imageUrl);
+    }
+
+    public String getMemberImageurl(String email){
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalStateException("해당 회원이 존재하지 않습니다."));
+        String[] parts = member.getImageUrl().split("/");
+        String imageObjectKey = parts[parts.length - 1];
+        return imageObjectKey;
+    }
+
+    public String getMemberFullImageUrl(String email){
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalStateException("해당 회원이 존재하지 않습니다."));
+        return member.getImageUrl();
     }
 
     //즐겨찾기 관련 로직들
     @Transactional
     public AddLikeResponse addLike(Long userId, Long recipeId) {
         Member member = memberRepository.findById(userId)
-                .orElseThrow(() -> new IllegalStateException("해당 멤버가 존재하지 않습니다."));
+                .orElseThrow(() -> new MemberNotFoundException("해당 회원이 존재하지 않습니다.", ErrorCode.MEMBER_NOT_FOUND));
         CocktailRecipe cocktailRecipe = cocktailRecipeRepository.findById(recipeId)
-                .orElseThrow(() -> new IllegalStateException("해당 레시피가 존재하지 않습니다."));
+                .orElseThrow(() -> new CocktailRecipeNotFoundException("해당 레시피가 존재하지 않습니다.", ErrorCode.RECIPE_NOT_FOUND));
 
         member.addLike(cocktailRecipe);
         return new AddLikeResponse(member.getId(), cocktailRecipe.getId());
     }
 
     @Transactional
-    public void removeLike(Long userId, Long recipeId){
+    public void removeLike(Long userId, Long recipeId) {
         Member member = memberRepository.findById(userId)
-                .orElseThrow(() -> new IllegalStateException("해당 멤버가 존재하지 않습니다."));
+                .orElseThrow(() -> new MemberNotFoundException("해당 회원이 존재하지 않습니다.", ErrorCode.MEMBER_NOT_FOUND));
 
         member.removeLike(recipeId);
     }
 
-    public List<LikeDTO> getLikes(Long userId){
+    public CustomPageResponse<LikeDTO> getLikes(Long userId, int page) {
         Member member = findById(userId);
+        Pageable request = PageRequest.of(page, 3);
+
         List<LikeDTO> likes = member.getLikes().stream().map(like -> {
             Long recipeId = like.getCocktailRecipe().getId();
             String name = like.getCocktailRecipe().getName();
@@ -141,6 +170,10 @@ public class MemberService {
             return new LikeDTO(recipeId, name, drinkImgPath, createdAt);
         }).collect(Collectors.toList());
 
-        return likes;
+        Page<LikeDTO> pageResult = PagingUtil.listToPage(likes, request);
+
+        CustomPageResponse<LikeDTO> response = new CustomPageResponse<>(pageResult);
+        response.setContent(pageResult.getContent());
+        return response;
     }
 }
