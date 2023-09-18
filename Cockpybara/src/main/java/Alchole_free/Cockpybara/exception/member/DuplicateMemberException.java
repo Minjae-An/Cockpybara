@@ -1,7 +1,14 @@
 package Alchole_free.Cockpybara.exception.member;
 
-public class DuplicateMemberException extends RuntimeException {
-    public DuplicateMemberException() {
-        super("이미 가입한 계정이 존재합니다.");
+import Alchole_free.Cockpybara.exception.BusinessException;
+import Alchole_free.Cockpybara.exception.ErrorCode;
+
+public class DuplicateMemberException extends BusinessException {
+    public DuplicateMemberException(String message, ErrorCode errorCode) {
+        super(message, errorCode);
+    }
+
+    public DuplicateMemberException(ErrorCode errorCode) {
+        super(errorCode);
     }
 }
