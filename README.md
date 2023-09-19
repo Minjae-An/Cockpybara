@@ -46,9 +46,11 @@ Cockpybara는 Cocktail과 사람들에게 친근감 있는 동물로 알려진 c
 
 ### 실행 방법
 - 터미널 창에 `npm run build`를 입력해 빌드해준뒤, `npm run start`로 실행한다
-<br/><br/>  
+<br/><br/><br/>    
 
-## 기술
+<div>
+	<h2>📚 기술 📚</h2>
+</div>
 - HTML/CSS/JavaScript
 - React.js
 - Java
