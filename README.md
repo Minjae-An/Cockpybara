@@ -1,4 +1,4 @@
-<p align="center"><img src="https://kr.object.ncloudstorage.com/cockpybara/profileImage/cockpybaraImage.JPG" height="40px"></p>
+<p align="center"><img src="https://github.com/Minjae-An/Cockpybara/blob/feature/%23190/Cockpybara/src/main/resources/assests/main.JPG" height="200px"></p>
 
 <div align="center">  
 
@@ -29,11 +29,11 @@ Cockpybara는 Cocktail과 사람들에게 친근감 있는 동물로 알려진 c
 #### 프론트
 |전소진                                    | 신승혜                                |
 |-------------------------------------|-------------------------------------|
-|---------------------------------------|---------------------------------------|
+|<img src="https://github.com/Minjae-An/Cockpybara/blob/feature/%23190/Cockpybara/src/main/resources/assests/pjJun.jpg" height="200px">|<img src="https://github.com/Minjae-An/Cockpybara/blob/feature/%23190/Cockpybara/src/main/resources/assests/pjSin.jpg" height="200px">|
 #### 백엔드
 | 안민재                                   | 김지수                               |      
 |---------------------------------------|---------------------------------------|
-|---------------------------------------|---------------------------------------|
+|<img src="https://github.com/Minjae-An/Cockpybara/blob/feature/%23190/Cockpybara/src/main/resources/assests/pjAn.jpg" height="200px">|<img src="https://github.com/Minjae-An/Cockpybara/blob/feature/%23190/Cockpybara/src/main/resources/assests/pjKim.jpg" height="200px">|
 
 <br/>  
 
@@ -48,7 +48,7 @@ Cockpybara는 Cocktail과 사람들에게 친근감 있는 동물로 알려진 c
 - 터미널 창에 `npm run build`를 입력해 빌드해준뒤, `npm run start`로 실행한다
 <br/>  
 
-### Tech Stack
+### 기술
 - HTML/CSS/JavaScript
 - React.js
 - Java
@@ -56,7 +56,7 @@ Cockpybara는 Cocktail과 사람들에게 친근감 있는 동물로 알려진 c
 - Spring data JPA
 - MariaDB
 
-#### Dev Tools
+#### 개발툴
 - Git & Github
 - Github Projects & Issues
 - Swagger
