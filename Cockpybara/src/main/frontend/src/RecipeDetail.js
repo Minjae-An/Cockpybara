@@ -22,6 +22,7 @@ const RecipeDetail = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [drinkImgPath, setDrinkImgPath] = useState("");
   const [cocktailName, setCocktailName] = useState(""); // 상태 추가
+  const [ingredients, setIngredients] = useState([]);
 
   const navigate = useNavigate();
 
@@ -157,6 +158,15 @@ const RecipeDetail = () => {
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
+  useEffect(() => {
+    axios.get("/api/ingredients") // 해당 API 엔드포인트로 GET 요청 보내기
+      .then((response) => {
+        const ingredientsData = response.data; // API에서 받은 재료 데이터
+        setIngredients(ingredientsData); // 상태 업데이트
+      })
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
+
   console.log("Selected Cocktail:", selectedCocktail); // 선택된 칵테일 로깅
   console.log("Recipe Detail:", state); // 전달된 레시피 디테일 로깅
 
@@ -228,10 +238,10 @@ const RecipeDetail = () => {
               {instruction}
                 </p>
               {/* 소개 */}
-              <div className="text-wrapper-3">칵테일 사진</div>
+              {/* <div className="text-wrapper-3">칵테일 사진</div> */}
 
               {/* 재료 */}
-              <h2 className="indeTitle">재료</h2>
+              {/* <h2 className="indeTitle">재료</h2>
               <div className="indelist">
                 <div className="indegroup">
                   <div className="overlap-2">
@@ -292,7 +302,22 @@ const RecipeDetail = () => {
                     </div>
                   </div>
                 </div>
+              </div> */}
+              {/* 일단 각주 처리  밑에 자료 코드 다시 짬 */}
+              <h2 className="indeTitle">재료</h2>
+      <div className="indelist">
+        {ingredients.map((ingredient, index) => (
+          <div className="indegroup" key={index}>
+            <div className="overlap-2">
+              <div className="ellipse-wrapper">
+                <div className="ellipse-3" />
+                <div className="textWrapper">{ingredient.name}</div>
+                <div className="text-wrapper">{`${ingredient.quantity} ${ingredient.unit}`}</div>
               </div>
+            </div>
+          </div>
+        ))}
+      </div>
               {/* 레시피 */}
               <h2 className="recipeRecipe">레시피</h2>
               <div className="recipeWrapper">
