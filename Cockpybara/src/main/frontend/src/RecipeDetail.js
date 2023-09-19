@@ -20,6 +20,7 @@ const RecipeDetail = () => {
   const [searchValue, setSearchValue] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [drinkImgPath, setDrinkImgPath] = useState("");
+  const [cocktailName, setCocktailName] = useState(""); // 상태 추가
 
   const navigate = useNavigate();
 
@@ -134,6 +135,17 @@ const RecipeDetail = () => {
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
+  useEffect(() => {
+    // Axios를 사용하여 API 호출
+    axios
+      .get("/recipe/detail")
+      .then((response) => {
+        const name = response.data.name; // API에서 받은 데이터의 'name' 필드
+        setCocktailName(name); // 상태 업데이트
+      })
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
+
   console.log("Selected Cocktail:", selectedCocktail); // 선택된 칵테일 로깅
   console.log("Recipe Detail:", state); // 전달된 레시피 디테일 로깅
 
@@ -199,7 +211,7 @@ const RecipeDetail = () => {
         />
 
               {/* 칵테일 이름 */}
-              <div className="text-wrapper-1">Morning Cocktail</div>
+              <div className="text-wrapper-1">{cocktailName}</div>
               <div className="text-wrapper-2">모닝 칵테일</div>
               <p className="text-wrapper-16">
                   새콤달콤한 칵테일. 아주 약간의 탄산이 있고 목넘김이 부드럽다.
