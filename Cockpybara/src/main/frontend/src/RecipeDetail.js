@@ -6,6 +6,7 @@ import "./RecipeDetail.css";
 import searchImage from "./photo/Search.png";
 import Menu from "./components/Menu";
 import pinkTea from "./photo/pinkTea.png";
+import axios from "axios";
 
 const RecipeDetail = () => {
   const { state } = useLocation(); // 전달된 상태를 가져옴
@@ -18,6 +19,7 @@ const RecipeDetail = () => {
   const [comments, setComments] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [drinkImgPath, setDrinkImgPath] = useState("");
 
   const navigate = useNavigate();
 
@@ -122,6 +124,16 @@ const RecipeDetail = () => {
     (cocktail) => cocktail.id === parseInt(cocktailId)
   );
 
+  useEffect(() => {
+    // Axios를 사용하여 API 호출
+    axios.get("/recipe/detail")
+      .then((response) => {
+        const imgPath = response.data.drinkImgPath;
+        setDrinkImgPath(imgPath);
+      })
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
+
   console.log("Selected Cocktail:", selectedCocktail); // 선택된 칵테일 로깅
   console.log("Recipe Detail:", state); // 전달된 레시피 디테일 로깅
 
@@ -179,12 +191,12 @@ const RecipeDetail = () => {
           <div className="bg" />
           <div className="bg-2">
             <div className="cocktialInfo">
-              {/* 포스터 이미지 */}
+              {/* 포스터 이미지 불러오기 API */}
               <img
-                className="rectangle"
-                alt="Rectangle"
-                src="rectangle-59.png"
-              />
+          className="rectangle"
+          alt="Rectangle"
+          src={drinkImgPath}
+        />
 
               {/* 칵테일 이름 */}
               <div className="text-wrapper-1">Morning Cocktail</div>
