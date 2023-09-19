@@ -511,10 +511,15 @@ const goToNextPage = () => {
       </button>
     </li>
   ))}
-  <button className="add-recipe-button" onClick={navigateToAddRecipe}>
-    레시피 추가
-  </button>
+  
 </ul>
+<div>
+<button className="add-recipe-button" onClick={navigateToAddRecipe}>
+    레시피 추가
+    {/* 링크 수정, css 수정 */}
+  </button>
+</div>
+
 <div className="pagination-container">
         <button className="pagination" onClick={goToPreviousPage} disabled={currentPage === 1}>
           이전 페이지
