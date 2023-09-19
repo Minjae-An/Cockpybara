@@ -8,9 +8,10 @@ import Menu from "./components/Menu";
 import pinkTea from "./photo/pinkTea.png";
 import axios from "axios";
 
+
 const RecipeDetail = () => {
   const { state } = useLocation(); // 전달된 상태를 가져옴
-
+  const [instruction, setInstruction] = useState("");
   const [commentPopupVisible, setCommentPopupVisible] = useState(false);
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(0);
@@ -146,6 +147,16 @@ const RecipeDetail = () => {
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
+  useEffect(() => {
+    // Axios를 사용하여 API 호출
+    axios.get("/recipe/detail")
+      .then((response) => {
+        const apiInstruction = response.data.instruction; // API에서 받은 데이터의 'instruction' 필드
+        setInstruction(apiInstruction); // 상태 업데이트
+      })
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
+
   console.log("Selected Cocktail:", selectedCocktail); // 선택된 칵테일 로깅
   console.log("Recipe Detail:", state); // 전달된 레시피 디테일 로깅
 
@@ -212,11 +223,9 @@ const RecipeDetail = () => {
 
               {/* 칵테일 이름 */}
               <div className="text-wrapper-1">{cocktailName}</div>
-              <div className="text-wrapper-2">모닝 칵테일</div>
+              {/* <div className="text-wrapper-2">모닝 칵테일</div> */}
               <p className="text-wrapper-16">
-                  새콤달콤한 칵테일. 아주 약간의 탄산이 있고 목넘김이 부드럽다.
-                  위스키가 들어가 강한 맛이 느껴질 것<br />
-                  같지만 생각보다 쎄지 않다.
+              {instruction}
                 </p>
               {/* 소개 */}
               <div className="text-wrapper-3">칵테일 사진</div>
