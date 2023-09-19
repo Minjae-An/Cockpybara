@@ -6,27 +6,59 @@ import image1 from "./photo/image1.png";
 import pinkTea from "./photo/pinkTea.png";
 import good from "./photo/good.png";
 import chat from "./photo/chat.png";
+import axios from 'axios'; 
 
 const CocktailListSection = () => {
   const [cocktailList, setCocktailList] = useState([]);
   const [sortBy, setSortBy] = useState('recommended');
   const [selectedButton, setSelectedButton] = useState('recommended');
-  const [userData, setUserData] = useState({ username: '핫핑크그린티' }); // 임시 유저 정보
   const [showCommentPopup, setShowCommentPopup] = useState(false);
+  const [userData, setUserData] = useState({ username: '' }); // 초기값을 비워둡니다.
+
 
   const handleCommentButtonClick = () => {
     setShowCommentPopup(true);
   };
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('/community/period-cocktails');
+        setCocktailList(response.data);
+      } catch (error) {
+        console.error('Error fetching cocktail data:', error);
+      }
+    };
+
+    const fetchCocktailData = async () => {
+      try {
+        const response = await axios.get('/community/period-cocktails');
+        setCocktailList(response.data);
+      } catch (error) {
+        console.error('Error fetching cocktail data:', error);
+      }
+    };
+
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get('/community'); // 백엔드 API에서 사용자 데이터를 가져옵니다.
+        setUserData({ username: response.data.username }); // 사용자 데이터를 업데이트합니다.
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchUserData(); 
+    fetchCocktailData();
+
     // 더미 데이터를 사용하여 프론트에서 확인할 수 있도록 함
-    const dummyData = [
-      { id: 1, name: 'Mojito', description: 'Refreshing cocktail with mint and lime', taste: 'Sweet', recommended: true },
-      { id: 2, name: 'Cosmopolitan', description: 'Classic cocktail with vodka and cranberry juice', taste: 'Sour', recommended: true },
-      { id: 3, name: 'Martini', description: 'Sophisticated cocktail with gin and vermouth', taste: 'Dry', recommended: false },
-      // 더 많은 칵테일들...
-    ];
-    setCocktailList(dummyData);
+    // const dummyData = [
+    //   { id: 1, name: 'Mojito', description: 'Refreshing cocktail with mint and lime', taste: 'Sweet', recommended: true },
+    //   { id: 2, name: 'Cosmopolitan', description: 'Classic cocktail with vodka and cranberry juice', taste: 'Sour', recommended: true },
+    //   { id: 3, name: 'Martini', description: 'Sophisticated cocktail with gin and vermouth', taste: 'Dry', recommended: false },
+    //   // 더 많은 칵테일들...
+    // ];
+    // setCocktailList(dummyData);
   }, []);
 
   // 추천 상태 변경 함수
@@ -41,8 +73,15 @@ const CocktailListSection = () => {
   const handleSortByClick = (sortType) => {
     setSortBy(sortType);
     setSelectedButton(sortType);
-  };
 
+    if (sortType === 'alphabetical') {
+      // 가나다순으로 정렬하는 로직을 추가합니다.
+      setCocktailList(prevCocktails =>
+        prevCocktails.slice().sort((a, b) => a.name.localeCompare(b.name))
+      );
+    }
+  };
+  
   const filterCocktails = () => {
     let filteredCocktails = cocktailList;
 
@@ -114,6 +153,7 @@ const CocktailListSection = () => {
     }
   };
 
+  
 
   return (
     <div className="cockList-box">
@@ -147,7 +187,7 @@ const CocktailListSection = () => {
                 <div className="cockList-contents-user-info">
                   {/* 백엔드에서 가져온 유저 정보를 표시 */}
                   <div className="user-profile-image">
-                    <img src={image1} alt={userData.username} />
+                    <img src={cocktail.userImage} alt={userData.username} />
                   </div>
                   <div className="user-profile-text">
                     <p id="name">{userData.username}</p>
@@ -155,10 +195,10 @@ const CocktailListSection = () => {
                   </div>
                 </div>
                 <div className="cockList-Cockinfo-box">
-          <p id="cock-name">
-            {/* Wrap the cocktail name in a Link */}
-            <Link to={`/recipe/detail/${cocktail.id}`}>{cocktail.name}</Link>
-          </p>
+                  <p id="cock-name">
+                    {/* Wrap the cocktail name in a Link */}
+                    <Link to={`/recipe/detail/${cocktail.id}`}>{cocktail.name}</Link>
+                  </p>
                   <div className="cockList-Cockinfo-explan">
                     <p id="explan">{cocktail.description}</p>
                     <p id="taste">{cocktail.taste}</p>
@@ -182,10 +222,7 @@ const CocktailListSection = () => {
             src={cocktail.imageUrl} // 백엔드에서 이미지 URL을 가져옴
             alt={cocktail.name}
           /> */}
-                <img
-                  src={pinkTea}
-                  alt="pinkTea"
-                />
+                <img src={cocktail.imageUrl} alt={cocktail.name} />
               </div>
             </li>
           ))}

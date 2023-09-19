@@ -1,6 +1,7 @@
 .search-container {
     /*검색바 부모 설정*/
     position: relative;
+    margin-right: 11.25rem;
 }
 
 .search-container input {
@@ -24,3 +25,4 @@
     height: 27px;
     flex-shrink: 0;
 }
+
