@@ -146,6 +146,7 @@ public class MemberService {
                 .orElseThrow(() -> new CocktailRecipeNotFoundException("해당 레시피가 존재하지 않습니다.", ErrorCode.RECIPE_NOT_FOUND));
 
         member.addLike(cocktailRecipe);
+        cocktailRecipe.increaseLikes();
         return new AddLikeResponse(member.getId(), cocktailRecipe.getId());
     }
 
@@ -153,8 +154,11 @@ public class MemberService {
     public void removeLike(Long userId, Long recipeId) {
         Member member = memberRepository.findById(userId)
                 .orElseThrow(() -> new MemberNotFoundException("해당 회원이 존재하지 않습니다.", ErrorCode.MEMBER_NOT_FOUND));
+        CocktailRecipe cocktailRecipe=cocktailRecipeRepository.findById(recipeId)
+                .orElseThrow(() -> new CocktailRecipeNotFoundException("해당 레시피가 존재하지 않습니다.", ErrorCode.RECIPE_NOT_FOUND));
 
         member.removeLike(recipeId);
+        cocktailRecipe.decreaseLikes();
     }
 
     public CustomPageResponse<LikeDTO> getLikes(Long userId, int page) {
