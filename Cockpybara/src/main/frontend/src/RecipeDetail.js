@@ -6,10 +6,12 @@ import "./RecipeDetail.css";
 import searchImage from "./photo/Search.png";
 import Menu from "./components/Menu";
 import pinkTea from "./photo/pinkTea.png";
+import axios from "axios";
+
 
 const RecipeDetail = () => {
   const { state } = useLocation(); // 전달된 상태를 가져옴
-
+  const [instruction, setInstruction] = useState("");
   const [commentPopupVisible, setCommentPopupVisible] = useState(false);
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(0);
@@ -18,6 +20,9 @@ const RecipeDetail = () => {
   const [comments, setComments] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [drinkImgPath, setDrinkImgPath] = useState("");
+  const [cocktailName, setCocktailName] = useState(""); // 상태 추가
+  const [ingredients, setIngredients] = useState([]);
 
   const navigate = useNavigate();
 
@@ -122,6 +127,46 @@ const RecipeDetail = () => {
     (cocktail) => cocktail.id === parseInt(cocktailId)
   );
 
+  useEffect(() => {
+    // Axios를 사용하여 API 호출
+    axios.get("/recipe/detail")
+      .then((response) => {
+        const imgPath = response.data.drinkImgPath;
+        setDrinkImgPath(imgPath);
+      })
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
+
+  useEffect(() => {
+    // Axios를 사용하여 API 호출
+    axios
+      .get("/recipe/detail")
+      .then((response) => {
+        const name = response.data.name; // API에서 받은 데이터의 'name' 필드
+        setCocktailName(name); // 상태 업데이트
+      })
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
+
+  useEffect(() => {
+    // Axios를 사용하여 API 호출
+    axios.get("/recipe/detail")
+      .then((response) => {
+        const apiInstruction = response.data.instruction; // API에서 받은 데이터의 'instruction' 필드
+        setInstruction(apiInstruction); // 상태 업데이트
+      })
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
+
+  useEffect(() => {
+    axios.get("/api/ingredients") // 해당 API 엔드포인트로 GET 요청 보내기
+      .then((response) => {
+        const ingredientsData = response.data; // API에서 받은 재료 데이터
+        setIngredients(ingredientsData); // 상태 업데이트
+      })
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
+
   console.log("Selected Cocktail:", selectedCocktail); // 선택된 칵테일 로깅
   console.log("Recipe Detail:", state); // 전달된 레시피 디테일 로깅
 
@@ -179,26 +224,24 @@ const RecipeDetail = () => {
           <div className="bg" />
           <div className="bg-2">
             <div className="cocktialInfo">
-              {/* 포스터 이미지 */}
+              {/* 포스터 이미지 불러오기 API */}
               <img
-                className="rectangle"
-                alt="Rectangle"
-                src="rectangle-59.png"
-              />
+          className="rectangle"
+          alt="Rectangle"
+          src={drinkImgPath}
+        />
 
               {/* 칵테일 이름 */}
-              <div className="text-wrapper-1">Morning Cocktail</div>
-              <div className="text-wrapper-2">모닝 칵테일</div>
+              <div className="text-wrapper-1">{cocktailName}</div>
+              {/* <div className="text-wrapper-2">모닝 칵테일</div> */}
               <p className="text-wrapper-16">
-                  새콤달콤한 칵테일. 아주 약간의 탄산이 있고 목넘김이 부드럽다.
-                  위스키가 들어가 강한 맛이 느껴질 것<br />
-                  같지만 생각보다 쎄지 않다.
+              {instruction}
                 </p>
               {/* 소개 */}
-              <div className="text-wrapper-3">칵테일 사진</div>
+              {/* <div className="text-wrapper-3">칵테일 사진</div> */}
 
               {/* 재료 */}
-              <h2 className="indeTitle">재료</h2>
+              {/* <h2 className="indeTitle">재료</h2>
               <div className="indelist">
                 <div className="indegroup">
                   <div className="overlap-2">
@@ -259,7 +302,22 @@ const RecipeDetail = () => {
                     </div>
                   </div>
                 </div>
+              </div> */}
+              {/* 일단 각주 처리  밑에 자료 코드 다시 짬 */}
+              <h2 className="indeTitle">재료</h2>
+      <div className="indelist">
+        {ingredients.map((ingredient, index) => (
+          <div className="indegroup" key={index}>
+            <div className="overlap-2">
+              <div className="ellipse-wrapper">
+                <div className="ellipse-3" />
+                <div className="textWrapper">{ingredient.name}</div>
+                <div className="text-wrapper">{`${ingredient.quantity} ${ingredient.unit}`}</div>
               </div>
+            </div>
+          </div>
+        ))}
+      </div>
               {/* 레시피 */}
               <h2 className="recipeRecipe">레시피</h2>
               <div className="recipeWrapper">
