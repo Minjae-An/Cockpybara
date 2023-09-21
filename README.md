@@ -21,7 +21,7 @@ Cockpybara는 Cocktail과 사람들에게 친근감 있는 동물로 알려진 c
 지향하는 문화를 촉발시켰고, 다양한 주류와 재료를 취향에 따라 혼합하여 즐기는
 칵테일 분야가 폭발적인 성장세를 보였습니다. 하지만, 시장의 성장세에 비해 관련된 정보를 얻을 수
 있는 플랫폼, 커뮤니티는 대단히 한정적이고 많은 사람들이 다양한 레시피와 조합을 알지 못하거나
-익숙하지 않아 항상 같은 칵테일을 선택하는 경우가 다반사이다. 이에 따라 칵테일 레시피 조회/추천
+익숙하지 않아 항상 같은 칵테일을 선택하는 경우가 다반사입니다. 이에 따라 칵테일 레시피 조회/추천
 웹서비스를 제안하고자 합니다.
 <br/><br/>  
 
@@ -38,10 +38,10 @@ Cockpybara는 Cocktail과 사람들에게 친근감 있는 동물로 알려진 c
 <br/><br/>    
 
 ## 셋업
-- mariaDB에 프로젝트를 생성, 필요한 키값(url, username, password)를 properties에서 추가한다
-- JPA사용을 위한, JPA관련된 설정 properties에 추가한다
-- Naver Object Storage 연결을 위한 endpoint, region을 환경변수에 저장하고 properties에서 추가한다
-- 이미지 업로딩에 필요한 AWS S3 액세스 키와 시크릿 키를 환경변수에 저장하고 properties에서 추가한다
+- mariaDB에 프로젝트를 생성, 필요한 키값(url, username, password)를 properties에서 추가한다.
+- JPA사용을 위한, JPA관련된 설정 properties에 추가한다.
+- Naver Object Storage 연결을 위한 endpoint, region을 환경변수에 저장하고 properties에서 추가한다.
+- 이미지 업로딩에 필요한 AWS S3 액세스 키와 시크릿 키를 환경변수에 저장하고 properties에서 추가한다.
 <br/><br/>     
 
 ### 실행 방법
@@ -51,6 +51,7 @@ Cockpybara는 Cocktail과 사람들에게 친근감 있는 동물로 알려진 c
 <div>
 	<h2>📚 기술 📚</h2>
 </div>
+
 - HTML/CSS/JavaScript
 - React.js
 - Java
