@@ -3,7 +3,6 @@ package Alchole_free.Cockpybara.domain.cocktail_recipe;
 
 import Alchole_free.Cockpybara.domain.cocktail_recipe.review.Review;
 import Alchole_free.Cockpybara.domain.cocktail_recipe.taste.RecipeTaste;
-
 import Alchole_free.Cockpybara.domain.cocktail_recipe.taste.Taste;
 import Alchole_free.Cockpybara.domain.ingredient.RecipeIngredient;
 import lombok.AccessLevel;
@@ -12,11 +11,10 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -56,6 +54,9 @@ public class CocktailRecipe {
     @OneToMany(mappedBy = "cocktailRecipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RecipeIngredient> ingredients=new ArrayList<>();
 
+
+    private int likes=0;
+
     public CocktailRecipe(String name, AlcoholicType alcoholicType,
                           Category category, String drinkImgPath,
                           Glass glass, String instruction,
@@ -90,5 +91,13 @@ public class CocktailRecipe {
 
         this.tastes.clear();
         tastes.forEach(taste -> this.tastes.add(new RecipeTaste(this, taste)));
+    }
+
+    public void increaseLikes(){
+        likes++;
+    }
+
+    public void decreaseLikes(){
+        likes= Math.max(likes - 1, 0);
     }
 }
