@@ -4,28 +4,103 @@ import './MonthlyPopularSection.css';
 import Clicked from "./photo/Clicked.png";
 import UnClicked from "./photo/UnClicked.png";
 import arrow from "./photo/arrow.png";
+import image1 from "./photo/image1.png"; 
 
 const MonthlyPopularSection = () => {
-  const [popularData, setPopularData] = useState([]);
-  const [selectedButton, setSelectedButton] = useState(1);
+  const [popularData, setPopularData] = useState([
+    {
+      id: 1,
+      drinkImgPath: image1,
+      name: 'Mojito',
+      likes: 10
+    },
+    {
+      id: 2,
+      drinkImgPath: image1,
+      name: 'Pina Colada',
+      likes: 8
+    },
+    {
+      id: 3,
+      drinkImgPath: image1,
+      name: 'Martini',
+      likes: 12
+    },
+    {
+      id: 4,
+      drinkImgPath: image1,
+      name: 'Cosmopolitan',
+      likes: 15
+    },
+    {
+      id: 5,
+      drinkImgPath: image1,
+      name: 'Bloody Mary',
+      likes: 13
+    },
+    {
+      id: 6,
+      drinkImgPath: image1,
+      name: 'Old Fashioned',
+      likes: 11
+    },
+    {
+      id: 7,
+      drinkImgPath: image1,
+      name: 'Margarita',
+      likes: 9
+    },
+    {
+      id: 8,
+      drinkImgPath: image1,
+      name: 'Daiquiri',
+      likes: 14
+    },
+    {
+      id: 9,
+      drinkImgPath: image1,
+      name: 'Moscow Mule',
+      likes: 12
+    },
+    {
+      id: 10,
+      drinkImgPath: image1,
+      name: 'Whiskey Sour',
+      likes: 10
+    },
+    {
+      id: 11,
+      drinkImgPath: image1,
+      name: 'Tequila Sunrise',
+      likes: 9
+    },
+    {
+      id: 12,
+      drinkImgPath: image1,
+      name: 'Gin and Tonic',
+      likes: 11
+    },
+    {
+      id: 13,
+      drinkImgPath: image1,
+      name: 'Manhattan',
+      likes: 13
+    },
+    {
+      id: 14,
+      drinkImgPath: image1,
+      name: 'Blue Lagoon',
+      likes: 8
+    },
+    {
+      id: 15,
+      drinkImgPath: image1,
+      name: 'Singapore Sling',
+      likes: 10
+    },
+  ]);
 
-  const fetchDataFromBackend = async () => {
-    try {
-      const period = 'monthly'; // Customize the period here (e.g., 'weekly', 'monthly', 'yearly')
-      const response = await fetch(`/community/period-cocktails?period=${period}`);
-      const data = await response.json();
-  
-      // Sort the data by likes (popularity) in descending order
-      const sortedData = data.sort((a, b) => b.likes - a.likes);
-  
-      setPopularData(sortedData);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
-  
-  fetchDataFromBackend();
-  
+  const [selectedButton, setSelectedButton] = useState(1);
 
   const handleButtonClick = (buttonNumber) => {
     setSelectedButton(buttonNumber);
@@ -35,11 +110,41 @@ const MonthlyPopularSection = () => {
     return `${rank}.`;
   };
 
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setPopularData(prevData => {
+  //       const newData = [...prevData].sort(() => Math.random() - 0.5);
+  //       return newData;
+  //     });
+  //   }, 10000); // 30초마다 실행
+
+  //   return () => clearInterval(interval); // 컴포넌트가 언마운트될 때 타이머 해제
+  // }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setPopularData(prevData => {
+        const newData = prevData.map(item => {
+          if (item.id === selectedButton * 5) {
+            return {
+              ...item,
+              name: item.name // 현재 이름을 그대로 반환합니다.
+            };
+          }
+          return item;
+        });
+        return newData;
+      });
+    }, 10000);
+  
+    return () => clearInterval(interval);
+  }, [selectedButton]);
+  
+
   const renderData = () => {
     const startIndex = (selectedButton - 1) * 5;
     const endIndex = startIndex + 5;
     const dataToDisplay = popularData.slice(startIndex, endIndex);
-
     return (
       <ul id="rank-name">
         {dataToDisplay.map((item) => (

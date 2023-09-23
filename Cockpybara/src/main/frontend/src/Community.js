@@ -33,9 +33,7 @@ function Community() {
           </div>
         </div>
       </div>
-      <div className={`detail-header-container ${isHeaderFixed ? 'fixed' : ''}`}>
         <DetailHeader />
-      </div>
     </div>
   );
 }
