@@ -18,6 +18,7 @@ public class CocktailRecipeSearchDTO {
     private String drinkImgPath;
     private String instruction;
     private List<Taste> tastes;
+    private int likes;
 
     public static CocktailRecipeSearchDTO from(CocktailRecipe cocktailRecipe) {
         List<Taste> tastes = cocktailRecipe.getTastes().stream()
@@ -30,6 +31,7 @@ public class CocktailRecipeSearchDTO {
                 .drinkImgPath(cocktailRecipe.getDrinkImgPath())
                 .instruction(cocktailRecipe.getInstruction())
                 .tastes(tastes)
+                .likes(cocktailRecipe.getLikes())
                 .build();
     }
 }
