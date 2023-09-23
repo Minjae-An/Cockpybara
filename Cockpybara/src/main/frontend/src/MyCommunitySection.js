@@ -101,7 +101,7 @@ const MyCommunitySection = ({ userId }) => {
         <div className="myPage-box">
           {/* 사진을 보여줄 이미지 태그 */}
           <div className="photo-box">
-            <img src={userPhoto} alt="사용자 사진" />
+            <img src={cockIcon} alt="사용자 사진" />
           </div>
           <div className="userName-box">
             <p id="user-name">{userName}</p> 

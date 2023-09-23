@@ -1,45 +1,44 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom"; // Import the Link, useLocation, and useNavigate hooks
 import pinkTea from "./photo/pinkTea.png";
 import "./Recipe.css";
 import searchImage from "./photo/Search.png";
 import Menu from "./components/Menu";
 
+
 const Recipe = () => {
-  const [userId, setUserId] = useState("");
   const [searchValue, setSearchValue] = useState("");
   const [selectedIngredients, setSelectedIngredients] = useState([]);
   const [cocktails, setCocktails] = useState([]);
+  const location = useLocation();
+  const searchQuery = new URLSearchParams(location.search).get("search");
+  const navigate = useNavigate();
   const [sortOption, setSortOption] = useState("name");
+  const [recipeCount, setRecipeCount] = useState(31);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(20);
+  const [itemsPerPage, setItemsPerPage] = useState(10); // 페이지 당 표시할 항목 수
   const [favoriteCocktails, setFavoriteCocktails] = useState([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [recipeCount, setRecipeCount] = useState(20);
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const searchQuery = queryParams.get("name");
-  const page = parseInt(queryParams.get("page") || "0");
-  const size = parseInt(queryParams.get("size") || "20");
-  const navigate = useNavigate();
+
 
   const handleSearchChange = (e) => {
     setSearchValue(e.target.value);
   };
 
   const handleVectorClick = () => {
-    setIsMenuOpen((prevIsMenuOpen) => !prevIsMenuOpen);
+    setIsMenuOpen((prevIsMenuOpen) => !prevIsMenuOpen); // 이전 상태 값을 이용하여 토글
   };
-
+  
   const handlePageChange = (newPage) => {
-    const queryParams = new URLSearchParams(location.search);
-    queryParams.set("page", newPage.toString());
-    navigate(`/recipe?${queryParams.toString()}`);
+    setCurrentPage(newPage);
+    // 페이지 변경 시 스크롤을 가장 위로 이동
     window.scrollTo(0, 900);
   };
 
+  // sortedCocktails를 sortCocktails 함수를 사용하여 정의합니다.
   const sortCocktails = (option, cocktailsToSort) => {
+    // 칵테일을 소팅하는 함수
     const sortedCocktails = [...cocktailsToSort];
 
     if (option === "name") {
@@ -54,31 +53,78 @@ const Recipe = () => {
   };
 
   useEffect(() => {
-    // Fetch filter options from the server
-    axios.get("/recipe/option-list")
-      .then((response) => {
-        setFilterOptions(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching filter options:", error);
-      });
-  }, []);
+    // API를 통해 칵테일 데이터를 가져옵니다.
+    // 예시를 위해 데이터를 직접 설정하지만, 실제로는 백엔드 API를 호출하여 데이터를 가져와야 합니다.
+    const mockCocktails = [
+      {
+        id: "1",
+        title: "Mojito",
+        image: pinkTea,
+        description: "A refreshing cocktail with rum, lime, mint, and soda water.",
+        ingredient: ["Rum", "Lime", "Mint", "Sugar", "Soda Water"],
+        tastes: ["신맛", "달달한 맛", "짠 맛"],
+        popularity: 5,
+        date: "2023-09-07",
+      },
+      {
+        id: "2",
+        title: "Cosmopolitan",
+        image: pinkTea,
+        description: "A classic cocktail with vodka, triple sec, and cranberry juice.",
+        ingredient: ["Vodka", "Triple Sec", "Lime Juice", "Cranberry Juice"],
+        tastes: ["짠 맛"],
+        popularity: 3,
+        date: "2023-09-06",
+      },
+      {
+        id: "3",
+        title: "Old Fashioned",
+        image: pinkTea,
+        description: "A timeless cocktail with bourbon, sugar, and bitters.",
+        ingredient: ["Bourbon", "Sugar", "Bitters", "Orange Peel"],
+        tastes: ["달달한 맛"],
+        popularity: 4,
+        date: "2023-09-05",
+      },
+      {
+        id: "4",
+        title: "Martini",
+        image: pinkTea,
+        description: "A classic cocktail with gin, dry vermouth, and olives.",
+        ingredient: ["Gin", "Dry Vermouth", "Olives"],
+        tastes: ["달달한 맛"],
+        popularity: 2,
+        date: "2023-09-04",
+      },
+    ];
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost:8080/recipe/search?name=${searchQuery}&page=${page}&size=${size}`)
-      .then((response) => {
-        const responseData = response.data;
-        const sortedCocktails = sortCocktails(sortOption, responseData.content);
-        setCocktails(sortedCocktails);
-        setCurrentPage(responseData.currentPage);
-      })
-      .catch((error) => {
-        console.error("API 호출 중 오류 발생:", error);
-      });
-  }, [searchQuery, sortOption, page, size]);
+    // filteredCocktails를 정의합니다.
+    const filteredCocktails = mockCocktails.filter((cocktail) => {
+      // URL 쿼리 파라미터로 검색어가 주어진 경우, 검색 결과만 보여줍니다.
+      if (searchQuery && searchQuery.trim() !== "") {
+        return cocktail.title.toLowerCase().includes(searchQuery.toLowerCase());
+      } else {
+        // 검색어가 주어지지 않은 경우, 모든 칵테일을 보여줍니다.
+        if (selectedIngredients.length === 0) {
+          return true;
+        } else {
+          return cocktail.ingredient.some((ingredient) =>
+            selectedIngredients.includes(ingredient)
+          );
+        }
+      }
+    });
 
+    // filteredCocktails를 기반으로 sortedCocktails를 정의합니다.
+    const sortedCocktails = sortCocktails(sortOption, filteredCocktails).slice(
+      0,
+      recipeCount
+    );
 
+    setCocktails(sortedCocktails);
+  }, [searchQuery, selectedIngredients, sortOption, recipeCount]);
+
+  // 인기 칵테일 데이터
   const popularCocktails = [
     {
       id: "1",
@@ -105,18 +151,23 @@ const Recipe = () => {
     if (checked) {
       setSelectedIngredients([...selectedIngredients, value]);
     } else {
-      setSelectedIngredients(selectedIngredients.filter((ingredient) => ingredient !== value));
+      setSelectedIngredients(
+        selectedIngredients.filter((ingredient) => ingredient !== value)
+      );
     }
   };
 
   const handleSearch = () => {
+    // 현재 검색어를 정리합니다.
     const trimmedSearchValue = searchValue.trim();
 
+    // 검색어가 비어있으면 URL 파라미터에서 검색어를 제거하고 해당 페이지로 이동합니다.
     if (trimmedSearchValue === "") {
       const queryParams = new URLSearchParams(window.location.search);
       queryParams.delete("search");
       navigate(`/recipe?${queryParams.toString()}`);
     } else {
+      // 검색어가 있는 경우, URL 파라미터에 검색어를 추가하고 해당 페이지로 이동합니다.
       const queryParams = new URLSearchParams(window.location.search);
       queryParams.set("search", trimmedSearchValue);
       navigate(`/recipe?${queryParams.toString()}`);
@@ -126,72 +177,63 @@ const Recipe = () => {
   const navigateToMyRecipe = useNavigate();
 
   const navigateToAddRecipe = () => {
-    navigateToMyRecipe("/user/my-recipe");
+    navigateToMyRecipe("/user/my-recipe"); // 변경된 경로로 이동
   };
 
   const handleSortChange = (e) => {
+    // 소트 옵션 변경 핸들러
     const newSortOption = e.target.value;
     setSortOption(newSortOption);
   };
 
   const handleRecipeCountChange = (e) => {
     const newRecipeCount = parseInt(e.target.value);
-    setRecipeCount(newRecipeCount);
+    setRecipeCount(newRecipeCount); // 레시피 개수 상태 업데이트
   };
 
+  // 현재 페이지에 표시할 칵테일 목록
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const displayedCocktails = cocktails.slice(startIndex, endIndex);
 
   const totalPages = Math.ceil(cocktails.length / itemsPerPage);
 
-  const goToPreviousPage = () => {
-    if (currentPage > 1) {
-      handlePageChange(currentPage - 1);
+
+// 이전 페이지로 이동하는 함수
+const goToPreviousPage = () => {
+  if (currentPage > 1) {
+    handlePageChange(currentPage - 1);
+  }
+};
+
+// 다음 페이지로 이동하는 함수
+const goToNextPage = () => {
+  if (currentPage < totalPages) {
+    handlePageChange(currentPage + 1);
+  }
+};
+  const handleFavoriteToggle = (cocktailId) => {
+    // 칵테일의 인덱스를 찾습니다.
+    const cocktailIndex = cocktails.findIndex((cocktail) => cocktail.id === cocktailId);
+  
+    if (cocktailIndex !== -1) {
+      const updatedCocktails = [...cocktails];
+      const isFavorite = favoriteCocktails.includes(cocktailId);
+  
+      if (isFavorite) {
+        // 이미 즐겨찾기한 경우, 즐겨찾기 목록에서 제거
+        updatedCocktails[cocktailIndex].favorite = false;
+        setFavoriteCocktails(favoriteCocktails.filter((id) => id !== cocktailId));
+      } else {
+        // 즐겨찾기하지 않은 경우, 즐겨찾기 목록에 추가
+        updatedCocktails[cocktailIndex].favorite = true;
+        setFavoriteCocktails([...favoriteCocktails, cocktailId]);
+      }
+  
+      // 칵테일 목록 업데이트
+      setCocktails(updatedCocktails);
     }
   };
-
-  const goToNextPage = () => {
-    if (currentPage < totalPages) {
-      handlePageChange(currentPage + 1);
-    }
-  };
-
-  const handleFavoriteToggle = (recipeId) => {
-    const isFavorite = cocktails.some((cocktail) => cocktail.id === recipeId && cocktail.favorite);
-
-    if (isFavorite) {
-      // Remove from favorites
-      axios.delete(`/favorite?userId=${userId}&recipeId=${recipeId}`)
-        .then((response) => {
-          // Handle success, update the state or show a message
-          console.log("Recipe removed from favorites:", response.data);
-          // You can update the favorite state here
-        })
-        .catch((error) => {
-          console.error("Error removing recipe from favorites:", error);
-        });
-    } else {
-      // Add to favorites
-      axios.post(`/favorite?userId=${userId}&recipeId=${recipeId}`)
-        .then((response) => {
-          // Handle success, update the state or show a message
-          console.log("Recipe added to favorites:", response.data);
-          // You can update the favorite state here
-        })
-        .catch((error) => {
-          console.error("Error adding recipe to favorites:", error);
-        });
-    }
-  };
-
-  const [filterOptions, setFilterOptions] = useState({
-    alcoholicTypes: [],
-    categories: [],
-    glasses: [],
-    ingredientCategories: [],
-    tastes: [],
-  });
 
   return (
     <div className="Recipe">
@@ -286,55 +328,137 @@ const Recipe = () => {
           <div>알콜 유무</div>
         </div>
         <div className="categories">
-          {filterOptions.alcoholicTypes.map((option) => (
-            <label key={option}>
-              <input
-                type="checkbox"
-                value={option}
-                checked={selectedIngredients.includes(option)}
-                onChange={handleIngredientChange}
-              />
-              {option}
-            </label>
-          ))}
+          <label>
+            <input
+              type="checkbox"
+              value="Rum"
+              checked={selectedIngredients.includes("Rum")}
+              onChange={handleIngredientChange}
+            />
+            Rum
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              value="Vodka"
+              checked={selectedIngredients.includes("Vodka")}
+              onChange={handleIngredientChange}
+            />
+            Vodka
+          </label>
         </div>
       </div>
-
       <div className="categories-container">
         <div className="category">
           <div>재료</div>
         </div>
         <div className="categories">
-          {filterOptions.ingredientCategories.map((option) => (
-            <label key={option}>
-              <input
-                type="checkbox"
-                value={option}
-                checked={selectedIngredients.includes(option)}
-                onChange={handleIngredientChange}
-              />
-              {option}
-            </label>
-          ))}
+          <label>
+            <input
+              type="checkbox"
+              value="LIQUID"
+              checked={selectedIngredients.includes("LIQUID")}
+              onChange={handleIngredientChange}
+            />
+            LIQUID
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              value="SYRUP"
+              checked={selectedIngredients.includes("SYRUP")}
+              onChange={handleIngredientChange}
+            />
+            SYRUP
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              value="FRUIT"
+              checked={selectedIngredients.includes("FRUIT")}
+              onChange={handleIngredientChange}
+            />
+            FRUIT
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              value="ETC"
+              checked={selectedIngredients.includes("ETC")}
+              onChange={handleIngredientChange}
+            />
+            ETC
+          </label>
         </div>
       </div>
-
       <div className="categories-container">
         <div className="category">
           <div>맛</div>
         </div>
         <div className="categories">
-          {filterOptions.tastes.map((option) => (
-            <label key={option}>
-              <input
-                type="checkbox"
-                value={option}
-                checked={selectedIngredients.includes(option)}
-                onChange={handleIngredientChange}
-              />
-              {option}
-            </label>
-          ))}
+          <label>
+            <input
+              type="checkbox"
+              value="REFRESH"
+              checked={selectedIngredients.includes("REFRESH")}
+              onChange={handleIngredientChange}
+            />
+            상큼한 맛
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              value="SWEET"
+              checked={selectedIngredients.includes("SWEET")}
+              onChange={handleIngredientChange}
+            />
+            달달한 맛
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              value="SOFT"
+              checked={selectedIngredients.includes("SOFT")}
+              onChange={handleIngredientChange}
+            />
+            부드러운 맛
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              value="SOUR"
+              checked={selectedIngredients.includes("SOUR")}
+              onChange={handleIngredientChange}
+            />
+            새콤한 맛
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              value="BITTER"
+              checked={selectedIngredients.includes("BITTER")}
+              onChange={handleIngredientChange}
+            />
+            쓴 맛
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              value="SALTY"
+              checked={selectedIngredients.includes("SALTY")}
+              onChange={handleIngredientChange}
+            />
+            짠 맛
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              value="SPARKING"
+              checked={selectedIngredients.includes("SPARKING")}
+              onChange={handleIngredientChange}
+            />
+            톡쏘는 맛
+          </label>
         </div>
       </div>
       <div className="sort-container">
@@ -360,36 +484,36 @@ const Recipe = () => {
       </div>
       <div className="line"></div>
       <ul className="cocktailBox">
-        {cocktails.map((cocktail) => (
-          <li key={cocktail.id} className="cocktail-list-item">
-            {/* 칵테일 포스터 */}
-            <img src={cocktail.drinkImgPath} alt={cocktail.name} className="cocktail-poster" />
-            {/* 칵테일 제목 */}
-            <div className="cocktail-info">
-              <Link to={`/recipe/detail/${cocktail.id}`} className="cocktail-title2">
-                {cocktail.name}
-              </Link>
-              {/* 칵테일 맛 정보 */}
-              <div className="cocktail-tastes">
-                {cocktail.tastes.map((taste, index) => (
-                  <span key={index} className="cocktail-taste">
-                    {taste}
-                    {index !== cocktail.tastes.length - 1 && ", "}
-                  </span>
-                ))}
-              </div>
-            </div>
-            <button
-              className={`favorite-button ${cocktail.favorite ? "favorite" : ""}`}
-              onClick={() => handleFavoriteToggle(cocktail.id)}
-            >
-              즐겨찾기
-            </button>
+  {displayedCocktails.map((cocktail) => (
+    <li key={cocktail.id} className="cocktail-list-item">
+      {/* 칵테일 포스터 */}
+      <img src={cocktail.image} alt={cocktail.title} className="cocktail-poster" />
+      {/* 칵테일 제목 */}
+      <div className="cocktail-info">
+        <Link to={`/recipe/detail/${cocktail.id}`} className="cocktail-title2">
+          {cocktail.title}
+        </Link>
+        {/* 칵테일 맛 정보 */}
+        <div className="cocktail-tastes">
+          {cocktail.tastes.map((taste, index) => (
+            <span key={index} className="cocktail-taste">
+              {taste}
+              {index !== cocktail.tastes.length - 1 && ", "}
+            </span>
+          ))}
+        </div>
+      </div>
+      <button
+        className={`favorite-button ${cocktail.favorite ? "favorite" : ""}`}
+        onClick={() => handleFavoriteToggle(cocktail.id)}
+      >
+        즐겨찾기
+      </button>
     </li>
   ))}
   
 </ul>
-<div>
+<div className="add-recipe-button-box">
 <button className="add-recipe-button" onClick={navigateToAddRecipe}>
     레시피 추가
     {/* 링크 수정, css 수정 */}

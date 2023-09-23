@@ -7,7 +7,7 @@ import searchImage from "./photo/Search.png";
 import Menu from "./components/Menu";
 import pinkTea from "./photo/pinkTea.png";
 import axios from "axios";
-
+import CommentForm from "./CommentForm";
 
 const RecipeDetail = () => {
   const { state } = useLocation(); // 전달된 상태를 가져옴
@@ -23,6 +23,21 @@ const RecipeDetail = () => {
   const [drinkImgPath, setDrinkImgPath] = useState("");
   const [cocktailName, setCocktailName] = useState(""); // 상태 추가
   const [ingredients, setIngredients] = useState([]);
+  const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
+
+  const handleSubmitComment = (commentData) => {
+    setComments([...comments, commentData]);
+    setIsCommentModalOpen(false);
+  };
+
+  const handleCommentButtonClick = () => {
+    setIsCommentModalOpen(true);
+  };
+
+  const handleCommentChange = (e) => {
+    setComment(e.target.value);
+  };
+
 
   const navigate = useNavigate();
 
@@ -52,10 +67,6 @@ const RecipeDetail = () => {
 
   const handleCommentPopupToggle = () => {
     setCommentPopupVisible(!commentPopupVisible);
-  };
-
-  const handleCommentChange = (e) => {
-    setComment(e.target.value);
   };
 
   const handleRatingChange = (e) => {
@@ -346,7 +357,25 @@ const RecipeDetail = () => {
               {/* 코멘트 */}
               <div className="commentBox">
                 <h2 className="comment">코멘트</h2>
-            <button className="commentButton">코멘트 달기</button>
+                <button className="commentButton" onClick={handleCommentButtonClick}>
+        코멘트 달기
+      </button>
+
+      {isCommentModalOpen && (
+        <div className="commentModal">
+          <textarea value={comment} onChange={handleCommentChange} />
+          <button onClick={handleCommentSubmit}>Submit</button>
+        </div>
+      )}
+
+      <div className="comments">
+        {comments.map((c, index) => (
+          <div key={index} className="commentItem">
+            {c}
+          </div>
+        ))}
+      </div>
+
             </div>
             </div>
             </div>
