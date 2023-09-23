@@ -8,6 +8,7 @@ import Menu from "./components/Menu";
 import pinkTea from "./photo/pinkTea.png";
 import axios from "axios";
 import CommentForm from "./CommentForm";
+import sob from "./photo/sob.png"; 
 
 const RecipeDetail = () => {
   const { state } = useLocation(); // 전달된 상태를 가져옴
@@ -232,27 +233,39 @@ const RecipeDetail = () => {
       <div className={`overlap ${isMenuOpen ? "content-shifted" : ""}`}>
         <div className="overlap">
           <div className="line"></div>
-          <div className="bg" />
+          <div className="bg">
+            <div className="cock-basic-info">
+              <div className="cock-basic-info-img">
+              <img
+  className="rectangle"
+  alt="Rectangle"
+  src={sob}
+/>
+
+              </div>
+
+              {/* 칵테일 이름 */}
+              <div className="cock-info-column">
+              <div className="text-wrapper-1">Morning Cocktail</div>
+              <div className="text-wrapper-2">모닝 칵테일</div>
+              <p className="text-wrapper-16">
+              새콤달콤한 칵테일. 아주 약간의 탄산이 있고 목넘김이 부드럽다. <br/>위스키가 들어가 강한 맛이 느껴질 것
+같지만 생각보다 쎄지 않다.
+                </p>
+            </div>
+              </div>
+
+         
+            </div>
           <div className="bg-2">
             <div className="cocktialInfo">
               {/* 포스터 이미지 불러오기 API */}
-              <img
-          className="rectangle"
-          alt="Rectangle"
-          src={drinkImgPath}
-        />
-
-              {/* 칵테일 이름 */}
-              <div className="text-wrapper-1">{cocktailName}</div>
-              {/* <div className="text-wrapper-2">모닝 칵테일</div> */}
-              <p className="text-wrapper-16">
-              {instruction}
-                </p>
+             
               {/* 소개 */}
               {/* <div className="text-wrapper-3">칵테일 사진</div> */}
 
               {/* 재료 */}
-              {/* <h2 className="indeTitle">재료</h2>
+              <h2 className="indeTitle">재료</h2>
               <div className="indelist">
                 <div className="indegroup">
                   <div className="overlap-2">
@@ -313,9 +326,9 @@ const RecipeDetail = () => {
                     </div>
                   </div>
                 </div>
-              </div> */}
+              </div>
               {/* 일단 각주 처리  밑에 자료 코드 다시 짬 */}
-              <h2 className="indeTitle">재료</h2>
+              {/* <h2 className="indeTitle">재료</h2> */}
       <div className="indelist">
         {ingredients.map((ingredient, index) => (
           <div className="indegroup" key={index}>
@@ -375,6 +388,7 @@ const RecipeDetail = () => {
           </div>
         ))}
       </div>
+
 
             </div>
             </div>
