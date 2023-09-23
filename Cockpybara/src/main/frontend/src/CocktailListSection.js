@@ -1,20 +1,32 @@
-// CocktailListSection.js
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './CocktailListSection.css';
 import image1 from "./photo/image1.png";
-import pinkTea from "./photo/pinkTea.png";
 import good from "./photo/good.png";
 import chat from "./photo/chat.png";
 import axios from 'axios'; 
+import pinkTea from "./photo/pinkTea.png"; 
 
 const CocktailListSection = () => {
   const [cocktailList, setCocktailList] = useState([]);
   const [sortBy, setSortBy] = useState('recommended');
   const [selectedButton, setSelectedButton] = useState('recommended');
   const [showCommentPopup, setShowCommentPopup] = useState(false);
-  const [userData, setUserData] = useState({ username: '' }); // 초기값을 비워둡니다.
+  const [userData, setUserData] = useState({
+    usernames: [
+      '과제하는 푸바오',
+      '행복한 카피바라',
+      '졸린 여우',
+      '배고픈 고양이'
+    ],
+    username: '' // 처음 랜덤 사용자 이름 설정하지 않음
+  });
 
+  const generateRandomUsername = () => {
+    const usernames = userData.usernames;
+    const randomUsername = usernames[Math.floor(Math.random() * usernames.length)];
+    return randomUsername;
+  };
 
   const handleCommentButtonClick = () => {
     setShowCommentPopup(true);
@@ -30,35 +42,29 @@ const CocktailListSection = () => {
       }
     };
 
-    const fetchCocktailData = async () => {
-      try {
-        const response = await axios.get('/community/period-cocktails');
-        setCocktailList(response.data);
-      } catch (error) {
-        console.error('Error fetching cocktail data:', error);
-      }
-    };
-
     const fetchUserData = async () => {
       try {
         const response = await axios.get('/community'); // 백엔드 API에서 사용자 데이터를 가져옵니다.
-        setUserData({ username: response.data.username }); // 사용자 데이터를 업데이트합니다.
+        setUserData(prevUserData => ({
+          ...prevUserData,
+          username: generateRandomUsername() // 처음 랜덤 사용자 이름 설정
+        })); // 사용자 데이터를 업데이트합니다.
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
     };
 
-    fetchUserData(); 
-    fetchCocktailData();
+    fetchData(); 
+    fetchUserData();
 
-    // 더미 데이터를 사용하여 프론트에서 확인할 수 있도록 함
-    // const dummyData = [
-    //   { id: 1, name: 'Mojito', description: 'Refreshing cocktail with mint and lime', taste: 'Sweet', recommended: true },
-    //   { id: 2, name: 'Cosmopolitan', description: 'Classic cocktail with vodka and cranberry juice', taste: 'Sour', recommended: true },
-    //   { id: 3, name: 'Martini', description: 'Sophisticated cocktail with gin and vermouth', taste: 'Dry', recommended: false },
-    //   // 더 많은 칵테일들...
-    // ];
-    // setCocktailList(dummyData);
+    //더미 데이터를 사용하여 프론트에서 확인할 수 있도록 함
+    const dummyData = [
+      { id: 1, name: 'Mojito', description: 'Refreshing cocktail with mint and lime', taste: 'Sweet', recommended: true },
+      { id: 2, name: 'Cosmopolitan', description: 'Classic cocktail with vodka and cranberry juice', taste: 'Sour', recommended: true },
+      { id: 3, name: 'Martini', description: 'Sophisticated cocktail with gin and vermouth', taste: 'Dry', recommended: false },
+      // 더 많은 칵테일들...
+    ];
+    setCocktailList(dummyData);
   }, []);
 
   // 추천 상태 변경 함수
@@ -107,22 +113,6 @@ const CocktailListSection = () => {
     return `${minutes}분`;
   };
 
-  // API 호출로 데이터를 가져오는 부분을 주석처리해둡니다.
-  // fetchCocktailData(); // 가정: API를 호출하여 데이터를 가져오는 함수
-
-  // const fetchCocktailData = async () => {
-  //   try {
-  //     const response = await fetch('your-api-url-here'); // API의 실제 URL을 입력하세요
-  //     if (!response.ok) {
-  //       throw new Error('Network response was not ok');
-  //     }
-  //     const data = await response.json();
-  //     setCocktailList(data); // 가져온 데이터를 상태로 업데이트
-  //   } catch (error) {
-  //     console.error('Error fetching cocktail data:', error);
-  //   }
-  // };
-
   const handleRecommendationToggle = async (cocktailId) => {
     try {
       // 백엔드에 추천 상태를 업데이트하는 요청을 보냅니다.
@@ -152,8 +142,6 @@ const CocktailListSection = () => {
       console.error('Error updating recommendation:', error);
     }
   };
-
-  
 
   return (
     <div className="cockList-box">
@@ -187,11 +175,11 @@ const CocktailListSection = () => {
                 <div className="cockList-contents-user-info">
                   {/* 백엔드에서 가져온 유저 정보를 표시 */}
                   <div className="user-profile-image">
-                    <img src={cocktail.userImage} alt={userData.username} />
+                    <img src={image1} alt={userData.username} />
                   </div>
                   <div className="user-profile-text">
-                    <p id="name">{userData.username}</p>
-                    <p id="time">{getTimeAgo("2023-08-09T10:30:00")}전</p>
+                    <p id="name">행복한 카피바라</p>
+                    <p id="time">{getTimeAgo("2023-09-23T10:30:00")}전</p>
                   </div>
                 </div>
                 <div className="cockList-Cockinfo-box">
@@ -222,7 +210,7 @@ const CocktailListSection = () => {
             src={cocktail.imageUrl} // 백엔드에서 이미지 URL을 가져옴
             alt={cocktail.name}
           /> */}
-                <img src={cocktail.imageUrl} alt={cocktail.name} />
+                <img src={pinkTea} alt={cocktail.name} />
               </div>
             </li>
           ))}
