@@ -227,12 +227,7 @@
       bottom: 7px;
       left: 17px;
     }
-  
-    .commentBox {
-      display: flex;
-      
-    }
-  
+ 
     .comment{
       color: #000000;
       text-align: left;
@@ -294,11 +289,127 @@ letter-spacing: -0.08594rem;
       align-items: center;
     }
 
-    .cock-info-column{ 
-
-margin-left: 20rem;
-    }
+.cock-info-column{ 
+  margin-left: 8rem;
+}
 
     .cock-basic-info-img{ 
 margin-left: 25rem;
     }
+
+    /* 코멘트 */
+    .comment-info{ 
+      display: flex;
+      margin-left: 22%;
+    }
+
+    .commentList{ 
+      background-color: yellowgreen;
+    }
+
+    .comment-title{ 
+    color: #000;
+    font-family: Pretendard;
+    font-size: 1.75rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    }
+
+    .commnent-btn{ 
+      margin-left: 70rem;
+      
+    }
+
+    .commnent-btn button{ 
+      width: 7.9375rem;
+      height: 2.375rem;
+      flex-shrink: 0;
+      border-radius: 6.25rem;
+      border: 1.5px solid #8C8C8C;
+      background: #FFF;
+      color: #000;
+      font-family: Pretendard;
+      font-size: 1.25rem;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+    }
+
+
+
+.commentList{ 
+  background-color: lightseagreen;
+  margin-top: 1.69rem;
+  width: 82.5rem;
+  height: 15.125rem;
+  flex-shrink: 0;border-radius: 0.9375rem;
+  background: #FFF;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
+  margin-left: 22%;
+  display: flex;
+  /* align-items: center; */
+}
+
+.comment-user-img{ 
+  display: inline-block;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.3rem; 
+  margin-left: 1.3rem;
+}
+
+.commnet-text-box{ 
+  margin-left: 2.49rem;
+  display: flex;
+  flex-direction: column;
+  margin-top: 2.25rem;
+}
+
+.comment-top-box{ 
+  display: flex;
+  justify-content: space-between;
+}
+
+.comment-top-title{ 
+  color: #000;
+font-family: Pretendard;
+font-size: 1.875rem;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+}
+
+.commnet-top-star{ 
+  margin-left: 30rem;
+}
+
+.commnet-intro-box{ 
+  color: #5A5A5A;
+font-family: Pretendard;
+font-size: 1.375rem;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+margin-top: 1.25rem;
+}
+
+.comment-flavor-box{ 
+  margin-top: 2.56rem;
+}
+
+.comment-flavor-box button{ 
+  width: 10.5625rem;
+height: 2.8125rem;
+flex-shrink: 0;
+border-radius: 3.125rem;
+border: 1.5px solid #8C8C8C;
+background: #FFF;
+color: #000;
+font-family: Pretendard;
+font-size: 1.25rem;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+margin-right: 1.12rem;  
+}

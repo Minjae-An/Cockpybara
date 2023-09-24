@@ -9,9 +9,11 @@ import pinkTea from "./photo/pinkTea.png";
 import axios from "axios";
 import CommentForm from "./CommentForm";
 import sob from "./photo/sob.png"; 
+import cockImg from "./photo/cock-circle.png"; 
+import star from "./photo/star.png"; 
 
 const RecipeDetail = () => {
-  const { state } = useLocation(); // 전달된 상태를 가져옴
+  const { state } = useLocation(); 
   const [instruction, setInstruction] = useState("");
   const [commentPopupVisible, setCommentPopupVisible] = useState(false);
   const [comment, setComment] = useState("");
@@ -22,7 +24,7 @@ const RecipeDetail = () => {
   const [searchValue, setSearchValue] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [drinkImgPath, setDrinkImgPath] = useState("");
-  const [cocktailName, setCocktailName] = useState(""); // 상태 추가
+  const [cocktailName, setCocktailName] = useState(""); 
   const [ingredients, setIngredients] = useState([]);
   const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
 
@@ -39,7 +41,6 @@ const RecipeDetail = () => {
     setComment(e.target.value);
   };
 
-
   const navigate = useNavigate();
 
   const handleSearchChange = (e) => {
@@ -47,7 +48,7 @@ const RecipeDetail = () => {
   };
 
   const handleVectorClick = () => {
-    setIsMenuOpen((prevIsMenuOpen) => !prevIsMenuOpen); // 이전 상태 값을 이용하여 토글
+    setIsMenuOpen((prevIsMenuOpen) => !prevIsMenuOpen); 
   };
 
   const handleSearch = () => {
@@ -105,10 +106,8 @@ const RecipeDetail = () => {
     setCommentPopupVisible(false);
   };
 
-  // Get the cocktailId from the URL parameter
   const { cocktailId } = useParams();
 
-  // Sample dummy cocktail data for demonstration
   const dummyCocktails = [
     {
       id: 1,
@@ -181,8 +180,6 @@ const RecipeDetail = () => {
 
   console.log("Selected Cocktail:", selectedCocktail); // 선택된 칵테일 로깅
   console.log("Recipe Detail:", state); // 전달된 레시피 디테일 로깅
-
-  // Render the cocktail details
 
   return (
     <div>
@@ -369,28 +366,62 @@ const RecipeDetail = () => {
 
               {/* 코멘트 */}
               <div className="commentBox">
-                <h2 className="comment">코멘트</h2>
-                <button className="commentButton" onClick={handleCommentButtonClick}>
-        코멘트 달기
-      </button>
+                  {/* <h2 className="comment">코멘트</h2> */}
+                  {/* 댓글 달기 버튼
+                  <button className="commentButton" onClick={handleCommentButtonClick}>
+                    코멘트 달기
+                  </button>
+                  <div>
+                    코멘트코멘트코멘트코멘트
+                  </div> */}
+                  {/* 댓글 모달 */}
+                  {/* {isCommentModalOpen && (
+                    <div className="commentModal">
+                      <textarea value={comment} onChange={handleCommentChange} />
+                      <button onClick={handleCommentSubmit}>Submit</button>
+                    </div>
+                  )} */}
+                  {/* 댓글 목록 */}
+                  {/* <div className="comments">
+                    {comments.map((c, index) => (
+                      <div key={index} className="commentItem">
+                        {c}
+                      </div>
+                    ))}
+                  </div> */}
+                  <div className="comment-info">
+                    <div className="comment-title">
+                      코멘트
+                    </div>
+                    <div className="commnent-btn">
+                      <button>코멘트 달기</button>
+                    </div>
+                  </div>
+                  <div className="commentList">
+                    <div className="comment-user-img">
+                      <img src={cockImg}  style={{ width: '200px' }} />
+                    </div>
+                    <div className="commnet-text-box">
+                      <div className="comment-top-box">
+                        <div className="comment-top-title">
+                          @ 올리브가 올라간 카피바라
+                        </div>
+                        <div className="commnet-top-star">
+                          <img src={star}/>
+                        </div>
+                      </div>
+                      <div className="commnet-intro-box">
+                        평소에 칵테일을 자주 만들어 먹는데 간단하고 좋았어요!
+                      </div>
+                      <div className="comment-flavor-box">
+                        <button>상큼한 맛</button>
+                        <button>달달한 맛</button>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              {/* 코멘트 끝 */}
 
-      {isCommentModalOpen && (
-        <div className="commentModal">
-          <textarea value={comment} onChange={handleCommentChange} />
-          <button onClick={handleCommentSubmit}>Submit</button>
-        </div>
-      )}
-
-      <div className="comments">
-        {comments.map((c, index) => (
-          <div key={index} className="commentItem">
-            {c}
-          </div>
-        ))}
-      </div>
-
-
-            </div>
             </div>
             </div>
             </div>
