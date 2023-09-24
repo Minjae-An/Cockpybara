@@ -1,0 +1,63 @@
+/* 임시 색 지정 */
+
+/* 전체 박스 */
+.joinComplete-box{ 
+    margin-top: 10.38rem;
+}
+
+.joinComplete-title{ 
+    color: #000;
+    text-align: center;
+    font-family: Poller One;
+    font-size: 2.375rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.joinComplete-main{ 
+    display: flex;
+    margin-left: 40.81rem;
+    margin-top: 8rem;
+}
+
+.joinComplete-main-contents{ 
+    display: inline-block;
+}
+
+.joinComplete-main-message{ 
+    color: #000;
+    font-family: Pretendard;
+    font-size: 1.5625rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-left: 3rem;    
+}
+
+.joinComplete-main-login-btn{ 
+    margin-top: 20.25rem;
+}
+
+.joinComplete-main-login-btn button{ 
+    width: 26.4375rem;
+    height: 3.0625rem;
+    flex-shrink: 0;
+    border-radius: 0.3125rem;
+    background: #000;
+    color: #FFF;
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 0.9375rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.joinComplete-image{ 
+    width: 26.3125rem;
+    height: 32.9375rem;
+    flex-shrink: 0;
+    display: inline-block;
+}
+
