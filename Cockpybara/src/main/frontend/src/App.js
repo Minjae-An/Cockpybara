@@ -21,6 +21,7 @@ import CockMojito from './cockMojito';
 import Cosmopolitan from './cosmopolitan'; 
 import OldFashioned from './oldFashioned'; 
 import JoinComplete from './JoinComplete';
+import Martini from './Martini'; 
 
 
 
@@ -77,9 +78,10 @@ function App() {
         <Route path="/footerV2" element={<FooterV2/>} />{/*확인용*/}
         <Route path="/user/my-recipe-2" element={<AddRecipe2/>} />{/*확인용*/}
         <Route path="/recipe/detail/1" element={<CockMojito/>} />
-        <Route path="/recipe/detail/4" element={<Cosmopolitan/>} />
+        <Route path="/recipe/detail/2" element={<Cosmopolitan/>} />
         <Route path="/recipe/detail/6" element={<OldFashioned/>} />
         <Route path="/JoinComplete" element={<JoinComplete/>} />
+        <Route path="/recipe/detail/4" element={<Martini/>} />
       </Routes>
     </div>
   );
