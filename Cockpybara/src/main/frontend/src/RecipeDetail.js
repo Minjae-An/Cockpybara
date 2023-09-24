@@ -11,6 +11,7 @@ import CommentForm from "./CommentForm";
 import sob from "./photo/sob.png"; 
 import cockImg from "./photo/cock-circle.png"; 
 import star from "./photo/star.png"; 
+import userCock from "./photo/cock-circle.png"; 
 
 const RecipeDetail = () => {
   const { state } = useLocation(); 
@@ -222,8 +223,11 @@ const RecipeDetail = () => {
                 />
                 <img src={searchImage} alt="검색" onClick={handleSearch} />
               </div>
-              <Link to="/login">
-              <button className="detailLogin">로그인</button>
+              <Link to="/user/{userId}/my-page">
+              <button className="detailLogin">
+                <img src={userCock}   width="90"  />
+              </button>
+              {/* 이미지 변경 후 경로 변경 */}
             </Link>
             </div>
           </div>

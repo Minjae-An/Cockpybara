@@ -5,7 +5,7 @@ import pinkTea from "./photo/pinkTea.png";
 import "./Recipe.css";
 import searchImage from "./photo/Search.png";
 import Menu from "./components/Menu";
-
+import userCock from "./photo/cock-circle.png"; 
 
 const Recipe = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -416,9 +416,12 @@ const Recipe = () => {
                 />
                 <img src={searchImage} alt="검색" onClick={handleSearch}/>
               </div>
-              <Link to="/login">
-                <button className="detailLogin">로그인</button>
-              </Link></div>
+              <Link to="/user/{userId}/my-page">
+              <button className="detailLogin">
+                <img src={userCock}   width="90"  />
+              </button>
+              {/* 이미지 변경 후 경로 변경 */}
+            </Link></div>
           </div>
         </div>
         <div className={`content ${isMenuOpen ? "content-shifted" : ""}`}>

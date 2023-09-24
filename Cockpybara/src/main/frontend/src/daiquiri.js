@@ -10,6 +10,7 @@ import axios from "axios";
 import CommentForm from "./CommentForm";
 import cockImg from "./photo/cock-circle.png";
 import star from "./photo/star.png"; 
+import userCock from "./photo/cock-circle.png";
 
 const daiquiri = () => {
   const { state } = useLocation(); 
@@ -221,7 +222,12 @@ const daiquiri = () => {
                 />
                 <img src={searchImage} alt="검색" onClick={handleSearch} />
               </div>
-              <div className="detailLogin">로그인</div>
+              <Link to="/user/{userId}/my-page">
+              <button className="detailLogin">
+                <img src={userCock}   width="90"  />
+              </button>
+              {/* 이미지 변경 후 경로 변경 */}
+            </Link>
             </div>
           </div>
         </div>
