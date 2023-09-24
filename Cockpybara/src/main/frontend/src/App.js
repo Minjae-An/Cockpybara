@@ -80,7 +80,7 @@ function App() {
         <Route path="/user/my-recipe-2" element={<AddRecipe2/>} />{/*확인용*/}
         <Route path="/recipe/detail/1" element={<CockMojito/>} />
         <Route path="/recipe/detail/2" element={<Cosmopolitan/>} />
-        <Route path="/recipe/detail/6" element={<OldFashioned/>} />
+        <Route path="/recipe/detail/3" element={<OldFashioned/>} />
         <Route path="/JoinComplete" element={<JoinComplete/>} />
         <Route path="/recipe/detail/4" element={<Martini/>} />
         <Route path="/recipe/detail/5" element={<Daiquiri/>} />
