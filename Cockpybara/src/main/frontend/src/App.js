@@ -22,6 +22,7 @@ import Cosmopolitan from './cosmopolitan';
 import OldFashioned from './oldFashioned'; 
 import JoinComplete from './JoinComplete';
 import Martini from './Martini'; 
+import Daiquiri from './daiquiri'; 
 
 
 function App() {
@@ -81,6 +82,7 @@ function App() {
         <Route path="/recipe/detail/6" element={<OldFashioned/>} />
         <Route path="/JoinComplete" element={<JoinComplete/>} />
         <Route path="/recipe/detail/4" element={<Martini/>} />
+        <Route path="/recipe/detail/5" element={<Daiquiri/>} />
       </Routes>
     </div>
   );
