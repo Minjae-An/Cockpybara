@@ -4,14 +4,31 @@ import './MonthlyPopularSection.css';
 import Clicked from "./photo/Clicked.png";
 import UnClicked from "./photo/UnClicked.png";
 import arrow from "./photo/arrow.png";
-import image1 from "./photo/image1.png"; 
+import image1 from "./photo/image1.png";
 
+
+const imgSrc = [
+  "http://www.thecocktaildb.com/images/media/drink/rxtqps1478251029.jpg",
+  "http://www.thecocktaildb.com/images/media/drink/kpsajh1504368362.jpg",
+  "http://www.thecocktaildb.com/images/media/drink/vrwquq1478252802.jpg",
+  "http://www.thecocktaildb.com/images/media/drink/71t8581504353095.jpg",
+  "http://www.thecocktaildb.com/images/media/drink/usuuur1439906797.jpg",
+  "http://www.thecocktaildb.com/images/media/drink/cpf4j51504371346.jpg",
+  "http://www.thecocktaildb.com/images/media/drink/tutwwv1439907127.jpg",
+  "http://www.thecocktaildb.com/images/media/drink/o56h041504352725.jpg",
+  "http://www.thecocktaildb.com/images/media/drink/2dwae41504885321.jpg",
+  "http://www.thecocktaildb.com/images/media/drink/vak0e51504389504.jpg",
+  "http://www.thecocktaildb.com/images/media/drink/quqyqp1480879103.jpg",
+  "http://www.thecocktaildb.com/images/media/drink/vvpxwy1439907208.jpg",
+  "http://www.thecocktaildb.com/images/media/drink/wtyxvx1472405831.jpg",
+  "http://www.thecocktaildb.com/images/media/drink/twyrrp1439907470.jpg"
+]
 const MonthlyPopularSection = () => {
   const [popularData, setPopularData] = useState([
     {
       id: "1",
       title: "Mojito",
-      image:  image1,
+      image:  imgSrc[0],
       description: "A refreshing cocktail with rum, lime, mint, and soda water.",
       ingredient: ["Rum", "Lime", "Mint", "Sugar", "Soda Water"],
       tastes: ["신 맛", "달달한 맛", "짠 맛"],
@@ -21,7 +38,7 @@ const MonthlyPopularSection = () => {
     {
       id: "2",
       title: "Cosmopolitan",
-      image: image1,
+      image: imgSrc[1],
       description: "A classic cocktail with vodka, triple sec, and cranberry juice.",
       ingredient: ["Vodka", "Triple Sec", "Lime Juice", "Cranberry Juice"],
       tastes: ["짠 맛"],
@@ -31,7 +48,7 @@ const MonthlyPopularSection = () => {
     {
       id: "3",
       title: "Old Fashioned",
-      image: image1,
+      image: imgSrc[2],
       description: "A timeless cocktail with bourbon, sugar, and bitters.",
       ingredient: ["Bourbon", "Sugar", "Bitters", "Orange Peel"],
       tastes: ["달달한 맛"],
@@ -41,7 +58,7 @@ const MonthlyPopularSection = () => {
     {
       id: "4",
       title: "Martini",
-      image: image1,
+      image: imgSrc[3],
       description: "A classic cocktail with gin, dry vermouth, and olives.",
       ingredient: ["Gin", "Dry Vermouth", "Olives"],
       tastes: ["달달한 맛"],
@@ -51,7 +68,7 @@ const MonthlyPopularSection = () => {
     {
       id: "5",
       title: "Daiquiri",
-      image: image1,
+      image: imgSrc[4],
       description: "A classic cocktail with rum, lime juice, and simple syrup.",
       ingredient: ["Rum", "Lime Juice", "Simple Syrup"],
       tastes: ["신 맛", "짠 맛"],
@@ -61,7 +78,7 @@ const MonthlyPopularSection = () => {
     {
       id: "6",
       title: "Piña Colada",
-      image: image1,
+      image: imgSrc[5],
       description: "A tropical cocktail with rum, coconut cream, and pineapple juice.",
       ingredient: ["Rum", "Coconut Cream", "Pineapple Juice"],
       tastes: ["달달한 맛", "짠 맛"],
@@ -71,7 +88,7 @@ const MonthlyPopularSection = () => {
     {
       id: "7",
       title: "Negroni",
-      image: image1,
+      image: imgSrc[6],
       description: "A classic cocktail with gin, Campari, and sweet vermouth.",
       ingredient: ["Gin", "Campari", "Sweet Vermouth"],
       tastes: ["신 맛", "짠 맛"],
@@ -81,7 +98,7 @@ const MonthlyPopularSection = () => {
     {
       id: "8",
       title: "Whiskey Sour",
-      image: image1,
+      image: imgSrc[7],
       description: "A whiskey-based cocktail with lemon juice and simple syrup.",
       ingredient: ["Bourbon", "Lemon Juice", "Simple Syrup"],
       tastes: ["달달한 맛", "짠 맛"],
@@ -90,18 +107,18 @@ const MonthlyPopularSection = () => {
     },
     {
       id: "9",
-      title: "Mojito",
-      image: image1,
+      title: "Malibu Twister",
+      image: imgSrc[8],
       description: "A refreshing cocktail with rum, lime, mint, and soda water.",
       ingredient: ["Rum", "Lime", "Mint", "Sugar", "Soda Water"],
-      tastes: ["신 맛", "달달한 맛", "짠 맛"],
+      tastes: ["달달한 맛"],
       popularity: 1,
       date: "2023-09-24",
     },
     {
       id: "10",
       title: "Blue Lagoon",
-      image: image1,
+      image: imgSrc[9],
       description: "A vibrant blue cocktail with vodka, blue curaçao, and lemonade.",
       ingredient: ["Vodka", "Blue Curaçao", "Lemonade"],
       tastes: ["신 맛", "달달한 맛"],
@@ -111,7 +128,7 @@ const MonthlyPopularSection = () => {
     {
       id: "11",
       title: "Tequila Sunrise",
-      image: image1,
+      image: imgSrc[10],
       description: "A colorful cocktail with tequila, orange juice, and grenadine syrup.",
       ingredient: ["Tequila", "Orange Juice", "Grenadine Syrup"],
       tastes: ["신 맛", "달달한 맛"],
@@ -121,7 +138,7 @@ const MonthlyPopularSection = () => {
     {
       id: "12",
       title: "Sazerac",
-      image: image1,
+      image: imgSrc[11],
       description: "A classic New Orleans cocktail with rye whiskey and absinthe.",
       ingredient: ["Rye Whiskey", "Absinthe", "Sugar Cube", "Peychaud's Bitters"],
       tastes: ["달달한 맛", "신 맛", "짠 맛"],
@@ -131,7 +148,7 @@ const MonthlyPopularSection = () => {
     {
       id: "13",
       title: "Gin and Tonic",
-      image: image1,
+      image: imgSrc[12],
       description: "A simple and refreshing cocktail with gin and tonic water.",
       ingredient: ["Gin", "Tonic Water", "Lime Wedge"],
       tastes: ["짠 맛"],
@@ -141,7 +158,7 @@ const MonthlyPopularSection = () => {
     {
       id: "14",
       title: "Mai Tai",
-      image: image1,
+      image: imgSrc[13],
       description: "A tropical cocktail with light and dark rum, lime, and orgeat syrup.",
       ingredient: ["Light Rum", "Dark Rum", "Lime Juice", "Orgeat Syrup"],
       tastes: ["달달한 맛", "신 맛"],
