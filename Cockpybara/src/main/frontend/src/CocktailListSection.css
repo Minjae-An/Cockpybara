@@ -194,3 +194,8 @@ button.recommend-button.recommended {
     padding: 8px 16px;
     cursor: pointer;
 }
+
+.user-profile-image {
+    width:50px;
+    height: auto;
+}

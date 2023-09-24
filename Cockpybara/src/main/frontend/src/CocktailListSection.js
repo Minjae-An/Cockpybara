@@ -4,6 +4,7 @@ import './CocktailListSection.css';
 import image1 from "./photo/image1.png";
 import good from "./photo/good.png";
 import chat from "./photo/chat.png";
+import userSample from "./photo/user_sample.png"
 import axios from 'axios';
 
 const CocktailListSection = () => {
@@ -26,6 +27,13 @@ const CocktailListSection = () => {
         const randomUsername = usernames[Math.floor(Math.random() * usernames.length)];
         return randomUsername;
     };
+
+    const generateRandomUser=()=>{
+        const usernames=userData.usernames;
+        const userImg=userData.userImages;
+        const idx=Math.floor(Math.random()*usernames.length);
+        return {username: usernames[idx], userImage: userImg[idx]};
+    }
 
     const handleCommentButtonClick = () => {
         setShowCommentPopup(true);
@@ -261,9 +269,8 @@ const CocktailListSection = () => {
                         <li key={cocktail.id}>
                             <div className="cockList-contents-text">
                                 <div className="cockList-contents-user-info">
-                                    {/* 백엔드에서 가져온 유저 정보를 표시 */}
-                                    <div className="user-profile-image">
-                                        <img src={image1} alt={userData.username}/>
+                                    <div>
+                                        <img className="user-profile-image" src={userSample} alt={userData.username}/>
                                     </div>
                                     <div className="user-profile-text">
                                         <p id="name">{generateRandomUsername()}</p>
