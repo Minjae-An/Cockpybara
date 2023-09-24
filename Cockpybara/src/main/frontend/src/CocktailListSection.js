@@ -1,230 +1,318 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {Link} from 'react-router-dom';
 import './CocktailListSection.css';
 import image1 from "./photo/image1.png";
 import good from "./photo/good.png";
 import chat from "./photo/chat.png";
-import axios from 'axios'; 
-import pinkTea from "./photo/pinkTea.png"; 
+import axios from 'axios';
 
 const CocktailListSection = () => {
-  const [cocktailList, setCocktailList] = useState([]);
-  const [sortBy, setSortBy] = useState('recommended');
-  const [selectedButton, setSelectedButton] = useState('recommended');
-  const [showCommentPopup, setShowCommentPopup] = useState(false);
-  const [userData, setUserData] = useState({
-    usernames: [
-      '과제하는 푸바오',
-      '행복한 카피바라',
-      '졸린 여우',
-      '배고픈 고양이'
-    ],
-    username: '' // 처음 랜덤 사용자 이름 설정하지 않음
-  });
+    const [cocktailList, setCocktailList] = useState([]);
+    const [sortBy, setSortBy] = useState('recommended');
+    const [selectedButton, setSelectedButton] = useState('recommended');
+    const [showCommentPopup, setShowCommentPopup] = useState(false);
+    const [userData, setUserData] = useState({
+        usernames: [
+            '과제하는 푸바오',
+            '행복한 카피바라',
+            '졸린 여우',
+            '배고픈 고양이'
+        ],
+        username: '' // 처음 랜덤 사용자 이름 설정하지 않음
+    });
 
-  const generateRandomUsername = () => {
-    const usernames = userData.usernames;
-    const randomUsername = usernames[Math.floor(Math.random() * usernames.length)];
-    return randomUsername;
-  };
-
-  const handleCommentButtonClick = () => {
-    setShowCommentPopup(true);
-  };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('/community/period-cocktails');
-        setCocktailList(response.data);
-      } catch (error) {
-        console.error('Error fetching cocktail data:', error);
-      }
+    const generateRandomUsername = () => {
+        const usernames = userData.usernames;
+        const randomUsername = usernames[Math.floor(Math.random() * usernames.length)];
+        return randomUsername;
     };
 
-    const fetchUserData = async () => {
-      try {
-        const response = await axios.get('/community'); // 백엔드 API에서 사용자 데이터를 가져옵니다.
-        setUserData(prevUserData => ({
-          ...prevUserData,
-          username: generateRandomUsername() // 처음 랜덤 사용자 이름 설정
-        })); // 사용자 데이터를 업데이트합니다.
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
+    const handleCommentButtonClick = () => {
+        setShowCommentPopup(true);
     };
 
-    fetchData(); 
-    fetchUserData();
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('/community/period-cocktails');
+                setCocktailList(response.data);
+            } catch (error) {
+                console.error('Error fetching cocktail data:', error);
+            }
+        };
 
-    //더미 데이터를 사용하여 프론트에서 확인할 수 있도록 함
-    const dummyData = [
-      { id: 1, name: 'Mojito', description: 'Refreshing cocktail with mint and lime', taste: 'Sweet', recommended: true },
-      { id: 2, name: 'Cosmopolitan', description: 'Classic cocktail with vodka and cranberry juice', taste: 'Sour', recommended: true },
-      { id: 3, name: 'Martini', description: 'Sophisticated cocktail with gin and vermouth', taste: 'Dry', recommended: false },
-      // 더 많은 칵테일들...
-    ];
-    setCocktailList(dummyData);
-  }, []);
+        const fetchUserData = async () => {
+            try {
+                const response = await axios.get('/community'); // 백엔드 API에서 사용자 데이터를 가져옵니다.
+                setUserData(prevUserData => ({
+                    ...prevUserData,
+                    username: generateRandomUsername() // 처음 랜덤 사용자 이름 설정
+                })); // 사용자 데이터를 업데이트합니다.
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
+        };
 
-  // 추천 상태 변경 함수
-  const toggleRecommendation = (id) => {
-    setCocktailList((prevCocktails) =>
-      prevCocktails.map((cocktail) =>
-        cocktail.id === id ? { ...cocktail, recommended: !cocktail.recommended } : cocktail
-      )
-    );
-  };
+        fetchData();
+        fetchUserData();
 
-  const handleSortByClick = (sortType) => {
-    setSortBy(sortType);
-    setSelectedButton(sortType);
+        const imgSrc = [
+            'http://www.thecocktaildb.com/images/media/drink/wwpyvr1461919316.jpg',
+            'http://www.thecocktaildb.com/images/media/drink/ywxwqs1461867097.jpg',
+            'http://www.thecocktaildb.com/images/media/drink/vqyxqx1472669095.jpg',
+            'http://www.thecocktaildb.com/images/media/drink/xxsxqy1472668106.jpg',
+            'http://www.thecocktaildb.com/images/media/drink/xvwusr1472669302.jpg',
+            'http://www.thecocktaildb.com/images/media/drink/ssxvww1472669166.jpg',
+            'http://www.thecocktaildb.com/images/media/drink/wysqut1461867176.jpg',
+            'http://www.thecocktaildb.com/images/media/drink/vyrvxt1461919380.jpg',
+            'http://www.thecocktaildb.com/images/media/drink/tqxyxx1472719737.jpg',
+            'http://www.thecocktaildb.com/images/media/drink/rsvtrr1472668201.jpg'
+        ]
 
-    if (sortType === 'alphabetical') {
-      // 가나다순으로 정렬하는 로직을 추가합니다.
-      setCocktailList(prevCocktails =>
-        prevCocktails.slice().sort((a, b) => a.name.localeCompare(b.name))
-      );
+        //더미 데이터를 사용하여 프론트에서 확인할 수 있도록 함
+        const dummyData = [
+            {
+                id: 1,
+                name: 'Mojito',
+                description: 'Refreshing cocktail with mint and lime',
+                taste: 'Sweet',
+                recommended: true,
+                imgSrc: imgSrc[0]
+            },
+            {
+                id: 2,
+                name: 'Cosmopolitan',
+                description: 'Classic cocktail with vodka and cranberry juice',
+                taste: 'Sour',
+                recommended: true,
+                imgSrc: imgSrc[1]
+            },
+            {
+                id: 3,
+                name: 'Martini',
+                description: 'Sophisticated cocktail with gin and vermouth',
+                taste: 'Dry',
+                recommended: false,
+                imgSrc: imgSrc[2]
+            },
+            {
+                id: 4,
+                name: 'A Night In Old Mandalay',
+                description: 'It typically features a blend of ingredients that evoke the spirit of Mandalay, an ancient city in Myanmar (formerly Burma).'
+                ,
+                taste: 'Sparkling',
+                recommended: false,
+                imgSrc: imgSrc[3]
+            },
+            {
+                id: 5,
+                name: '747',
+                description: 'specialty drink for september',
+                taste: 'Dry',
+                recommended: true,
+                imgSrc: imgSrc[4]
+            },
+            {
+                id: 6,
+                name: '9 0.5 Weeks',
+                description: 'Sweet cocktail need 9 0.5 weeks to made origin',
+                taste: 'Sweet',
+                recommended: true,
+                imgSrc: imgSrc[5]
+            },
+            {
+                id: 7,
+                name: 'A Day at the Beach',
+                description: 'Refreshing cocktail, nice to drink at beach',
+                taste: 'Sour',
+                recommended: false,
+                imgSrc: imgSrc[6]
+            },
+            {
+                id: 8,
+                name: 'A Furlong Too Late',
+                description: 'Nice cocktail drink late at night',
+                taste: 'Dry',
+                recommended: false,
+                imgSrc: imgSrc[7]
+            },
+            {
+                id: 9,
+                name: 'A Gilligan\'s Island',
+                description: 'Classic cocktail with rum and fruit juice',
+                taste: 'Sour',
+                recommended: false,
+                imgSrc: imgSrc[8]
+            },
+            {
+                id: 10,
+                name: 'A Night In Old Mandalay',
+                description: 'Classic cocktail sold at Night Jazz Bar',
+                taste: 'Dry',
+                recommended: false,
+                imgSrc: imgSrc[9]
+            },
+            // 더 많은 칵테일들...
+        ];
+        setCocktailList(dummyData);
+    }, []);
+
+    // 추천 상태 변경 함수
+    const toggleRecommendation = (id) => {
+        setCocktailList((prevCocktails) =>
+            prevCocktails.map((cocktail) =>
+                cocktail.id === id ? {...cocktail, recommended: !cocktail.recommended} : cocktail
+            )
+        );
+    };
+
+    const handleSortByClick = (sortType) => {
+        setSortBy(sortType);
+        setSelectedButton(sortType);
+
+        if (sortType === 'alphabetical') {
+            // 가나다순으로 정렬하는 로직을 추가합니다.
+            setCocktailList(prevCocktails =>
+                prevCocktails.slice().sort((a, b) => a.name.localeCompare(b.name))
+            );
+        }
+    };
+
+    const filterCocktails = () => {
+        let filteredCocktails = cocktailList;
+
+        // 필터링 로직을 적용합니다.
+        if (sortBy === 'popular') {
+            filteredCocktails = filteredCocktails.filter(cocktail => cocktail.recommended);
+        } else if (sortBy === 'latest') {
+            // 최신순 필터링 로직 추가
+            filteredCocktails = filteredCocktails.sort((a, b) => b.id - a.id); // 가장 높은 ID 값부터 정렬
+        } else if (sortBy === 'alphabetical') {
+            // 가나다순 필터링 로직 추가
+            filteredCocktails = filteredCocktails.sort((a, b) => a.name.localeCompare(b.name)); // 이름순으로 정렬
+        }
+
+        // 최대 3개만 표시
+        return filteredCocktails.slice(0, 4);
+    };
+
+    const getRandomTimeAgo=()=>{
+        const minutes=Math.floor(Math.random()*100);
+        return `${minutes}분`
     }
-  };
-  
-  const filterCocktails = () => {
-    let filteredCocktails = cocktailList;
 
-    // 필터링 로직을 적용합니다.
-    if (sortBy === 'popular') {
-      filteredCocktails = filteredCocktails.filter(cocktail => cocktail.recommended);
-    } else if (sortBy === 'latest') {
-      // 최신순 필터링 로직 추가
-      filteredCocktails = filteredCocktails.sort((a, b) => b.id - a.id); // 가장 높은 ID 값부터 정렬
-    } else if (sortBy === 'alphabetical') {
-      // 가나다순 필터링 로직 추가
-      filteredCocktails = filteredCocktails.sort((a, b) => a.name.localeCompare(b.name)); // 이름순으로 정렬
-    }
+    const handleRecommendationToggle = async (cocktailId) => {
+        try {
+            // 백엔드에 추천 상태를 업데이트하는 요청을 보냅니다.
+            // (실제 백엔드와 연결할 때는 주석 해제하고 사용하시면 됩니다)
+            // const response = await fetch(`/api/updateRecommendation/${cocktailId}`, {
+            //   method: 'POST',
+            //   // 필요한 헤더나 데이터를 추가할 수 있습니다.
+            // });
 
-    // 최대 3개만 표시
-    return filteredCocktails.slice(0, 3);
-  };
+            // if (!response.ok) {
+            //   throw new Error('Network response was not ok');
+            // }
 
-  const getTimeAgo = (postedTime) => {
-    const now = new Date();
-    const diffInMillis = now - new Date(postedTime);
-    const minutes = Math.floor(diffInMillis / (1000 * 60));
-    return `${minutes}분`;
-  };
+            // 추천 상태를 프론트에서 업데이트합니다.
+            setCocktailList((prevCocktails) =>
+                prevCocktails.map((cocktail) => {
+                    if (cocktail.id === cocktailId) {
+                        const updatedCocktail = {...cocktail, recommended: !cocktail.recommended};
+                        console.log('Updated Cocktail:', updatedCocktail); // 업데이트된 칵테일 정보 출력
+                        return updatedCocktail;
+                    } else {
+                        return cocktail;
+                    }
+                })
+            );
+        } catch (error) {
+            console.error('Error updating recommendation:', error);
+        }
+    };
 
-  const handleRecommendationToggle = async (cocktailId) => {
-    try {
-      // 백엔드에 추천 상태를 업데이트하는 요청을 보냅니다.
-      // (실제 백엔드와 연결할 때는 주석 해제하고 사용하시면 됩니다)
-      // const response = await fetch(`/api/updateRecommendation/${cocktailId}`, {
-      //   method: 'POST',
-      //   // 필요한 헤더나 데이터를 추가할 수 있습니다.
-      // });
-
-      // if (!response.ok) {
-      //   throw new Error('Network response was not ok');
-      // }
-
-      // 추천 상태를 프론트에서 업데이트합니다.
-      setCocktailList((prevCocktails) =>
-        prevCocktails.map((cocktail) => {
-          if (cocktail.id === cocktailId) {
-            const updatedCocktail = { ...cocktail, recommended: !cocktail.recommended };
-            console.log('Updated Cocktail:', updatedCocktail); // 업데이트된 칵테일 정보 출력
-            return updatedCocktail;
-          } else {
-            return cocktail;
-          }
-        })
-      );
-    } catch (error) {
-      console.error('Error updating recommendation:', error);
-    }
-  };
-
-  return (
-    <div className="cockList-box">
-      <div className="selectList-box">
-        <div className="selectList-contents">
-          <button
-            className={selectedButton === 'popular' ? 'selected' : ''}
-            onClick={() => handleSortByClick('popular')}
-          >
-            인기순
-          </button>
-          <button
-            className={selectedButton === 'latest' ? 'selected' : ''}
-            onClick={() => handleSortByClick('latest')}
-          >
-            최신순
-          </button>
-          <button
-            className={selectedButton === 'alphabetical' ? 'selected' : ''}
-            onClick={() => handleSortByClick('alphabetical')}
-          >
-            가나다순
-          </button>
-        </div>
-      </div>
-      <div className="cockList-contents">
-        <ul>
-          {filterCocktails().map((cocktail) => (
-            <li key={cocktail.id}>
-              <div className="cockList-contents-text">
-                <div className="cockList-contents-user-info">
-                  {/* 백엔드에서 가져온 유저 정보를 표시 */}
-                  <div className="user-profile-image">
-                    <img src={image1} alt={userData.username} />
-                  </div>
-                  <div className="user-profile-text">
-                    <p id="name">행복한 카피바라</p>
-                    <p id="time">{getTimeAgo("2023-09-23T10:30:00")}전</p>
-                  </div>
-                </div>
-                <div className="cockList-Cockinfo-box">
-                  <p id="cock-name">
-                    {/* Wrap the cocktail name in a Link */}
-                    <Link to={`/recipe/detail/${cocktail.id}`}>{cocktail.name}</Link>
-                  </p>
-                  <div className="cockList-Cockinfo-explan">
-                    <p id="explan">{cocktail.description}</p>
-                    <p id="taste">{cocktail.taste}</p>
-                  </div>
-                  <div className="cockList-Cockinfo-recommended">
+    return (
+        <div className="cockList-box">
+            <div className="selectList-box">
+                <div className="selectList-contents">
                     <button
-                      className={`recommend-button ${cocktail.recommended ? 'recommended' : ''}`}
-                      onClick={() => handleRecommendationToggle(cocktail.id)}
+                        className={selectedButton === 'popular' ? 'selected' : ''}
+                        onClick={() => handleSortByClick('popular')}
                     >
-                      <img src={good} alt="따봉버튼" />
+                        인기순
                     </button>
-                    <button className="comment-button" onClick={handleCommentButtonClick}>
-                      <img src={chat} alt="댓글 아이콘" />
+                    <button
+                        className={selectedButton === 'latest' ? 'selected' : ''}
+                        onClick={() => handleSortByClick('latest')}
+                    >
+                        최신순
                     </button>
-                  </div>
+                    <button
+                        className={selectedButton === 'alphabetical' ? 'selected' : ''}
+                        onClick={() => handleSortByClick('alphabetical')}
+                    >
+                        가나다순
+                    </button>
                 </div>
-              </div>
-              <div className="cockList-contents-image">
-                {/* 이미지를 백엔드에서 가져올 때의 코드 */}
-                {/* <img
+            </div>
+            <div className="cockList-contents">
+                <ul>
+                    {filterCocktails().map((cocktail) => (
+                        <li key={cocktail.id}>
+                            <div className="cockList-contents-text">
+                                <div className="cockList-contents-user-info">
+                                    {/* 백엔드에서 가져온 유저 정보를 표시 */}
+                                    <div className="user-profile-image">
+                                        <img src={image1} alt={userData.username}/>
+                                    </div>
+                                    <div className="user-profile-text">
+                                        <p id="name">{generateRandomUsername()}</p>
+                                        <p id="time">{getRandomTimeAgo()}전</p>
+                                    </div>
+                                </div>
+                                <div className="cockList-Cockinfo-box">
+                                    <p id="cock-name">
+                                        {/* Wrap the cocktail name in a Link */}
+                                        <Link to={`/recipe/detail/${cocktail.id}`}>{cocktail.name}</Link>
+                                    </p>
+                                    <div className="cockList-Cockinfo-explan">
+                                        <p id="explan">{cocktail.description}</p>
+                                        <p id="taste">{cocktail.taste}</p>
+                                    </div>
+                                    <div className="cockList-Cockinfo-recommended">
+                                        <button
+                                            className={`recommend-button ${cocktail.recommended ? 'recommended' : ''}`}
+                                            onClick={() => handleRecommendationToggle(cocktail.id)}
+                                        >
+                                            <img src={good} alt="따봉버튼"/>
+                                        </button>
+                                        <button className="comment-button" onClick={handleCommentButtonClick}>
+                                            <img src={chat} alt="댓글 아이콘"/>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                {/* 이미지를 백엔드에서 가져올 때의 코드 */}
+                                {/* <img
             src={cocktail.imageUrl} // 백엔드에서 이미지 URL을 가져옴
             alt={cocktail.name}
           /> */}
-                <img src={pinkTea} alt={cocktail.name} />
-              </div>
-            </li>
-          ))}
-        </ul>
-        {showCommentPopup && (
-        <div className="comment-popup">
-          {/* 팝업 창 내용 */}
-          <p>댓글을 작성하세요.</p>
-          <button onClick={() => setShowCommentPopup(false)}>닫기</button>
+                                <img className="cockList-contents-image" src={cocktail.imgSrc} alt={cocktail.name}/>
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+                {showCommentPopup && (
+                    <div className="comment-popup">
+                        {/* 팝업 창 내용 */}
+                        <p>댓글을 작성하세요.</p>
+                        <button onClick={() => setShowCommentPopup(false)}>닫기</button>
+                    </div>
+                )}
+            </div>
         </div>
-      )}
-      </div>
-    </div>
-  );
+    );
 };
 
 export default CocktailListSection;
