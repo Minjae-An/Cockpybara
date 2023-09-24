@@ -63,7 +63,7 @@ const About = () => {
                 <div className="be-top-explan-box">
                   <img src={uinon}/>
                   <div className="text-over-image">
-                    안민재소개문구안민재소개문구안민재소개문구안민재소개문구안민재소개문구안민재소개문구안민재소개문구안민재소개문구안민재소개문구안민재소개문구
+                    안정성과 확장성을 고려하여 스프링부트를 기반으로 개발하여 사용자들에게 항상 높은 성능과 무결성을 제공합니다
                   </div>
                 </div>
               </div>
@@ -71,7 +71,7 @@ const About = () => {
                 <div className="be-bottom-explan-box">
                   <img src={uinon2}/>
                   <div className="text-over-image">
-                    김지수소개문구김지수소개문구김지수소개문구김지수소개문구김지수소개문구김지수소개문구김지수소개문구김지수소개문구김지수소개문구김지수소개문구
+                    AWS S3와 마리아 DB를 적절하게 사용하여 이미지 저장을 효율적으로 하고, 레시피 관련된 정보를 신속하게 찾도록 구성했습니다
                   </div>
                 </div>
                 <div className="be-bottom-img-box">
@@ -90,7 +90,7 @@ const About = () => {
                 <div className="fe-top-explan-box">
                   <img src={uinon}/>
                   <div className="text-over-image">
-                    전소진소개문구전소진소개문구전소진소개문구전소진소개문구전소진소개문구전소진소개문구전소진소개문구전소진소개문구전소진소개문구전소진소개문구
+                    리액트를 사용하여 사용자 친화적이고 직관적인 사용자 인터페이스를 제공하며, 레시피 월간순위 및 최근순위 등의 커뮤니티 기능을 구현했습니다
                   </div>
                 </div>
               </div>
@@ -98,7 +98,7 @@ const About = () => {
                 <div className="fe-bottom-explan-box">
                   <img src={uinon2}/>
                   <div className="text-over-image">
-                    신승헤소개문구신승헤소개문구신승헤소개문구신승헤소개문구신승헤소개문구신승헤소개문구신승헤소개문구신승헤소개문구신승헤소개문구신승헤소개문구
+                    내 마이페이지를 통해 사용자가 등록한 레시피와 즐겨찾기한 레시피를 편리하게 관리할 수 있도록 기능을 제공하며, 사용자 경험을 최적화했습니다
                   </div>
                 </div>
                 <div className="fe-bottom-img-box">
