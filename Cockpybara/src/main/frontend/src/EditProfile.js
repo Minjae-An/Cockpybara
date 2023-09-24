@@ -5,6 +5,7 @@ import Menu from './components/Menu.js'
 import searchImage from "./photo/Search.png";
 import camera from "./photo/SLR Camera.png";
 import defaultProfileImage from "./photo/cock-circle.png"; // 기본 프로필 사진
+import userCock from "./photo/cock-circle.png";
 
 export const EditProfile = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -136,9 +137,12 @@ export const EditProfile = () => {
                 />
                 <img src={searchImage} alt="검색" onClick={handleSearch} />
               </div>
-              <Link to="/login">
-              <button className="detailLogin">로그인</button>
-              </Link>
+              <Link to="/user/{userId}/my-page">
+              <button className="detailLogin">
+                <img src={userCock}   width="90"  />
+              </button>
+              {/* 이미지 변경 후 경로 변경 */}
+            </Link>
             </div>
           </div>
         </div>
