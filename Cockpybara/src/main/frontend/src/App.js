@@ -23,7 +23,7 @@ import OldFashioned from './oldFashioned';
 import JoinComplete from './JoinComplete';
 import Martini from './Martini'; 
 import Daiquiri from './daiquiri'; 
-
+import EditProfile from './EditProfile';
 
 
 function App() {
@@ -84,6 +84,7 @@ function App() {
         <Route path="/JoinComplete" element={<JoinComplete/>} />
         <Route path="/recipe/detail/4" element={<Martini/>} />
         <Route path="/recipe/detail/5" element={<Daiquiri/>} />
+        <Route path="/user/editProfile" element={<EditProfile/>} />{/*확인용*/}
       </Routes>
     </div>
   );

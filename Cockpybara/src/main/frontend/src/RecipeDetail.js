@@ -222,7 +222,9 @@ const RecipeDetail = () => {
                 />
                 <img src={searchImage} alt="검색" onClick={handleSearch} />
               </div>
-              <div className="detailLogin">로그인</div>
+              <Link to="/login">
+              <button className="detailLogin">로그인</button>
+            </Link>
             </div>
           </div>
         </div>
