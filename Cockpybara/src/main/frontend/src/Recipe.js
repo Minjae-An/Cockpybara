@@ -318,7 +318,7 @@ const Recipe = () => {
   const navigateToMyRecipe = useNavigate();
 
   const navigateToAddRecipe = () => {
-    navigateToMyRecipe("/user/my-recipe-2"); // 변경된 경로로 이동
+    navigateToMyRecipe("/user/my-recipe"); // 변경된 경로로 이동
   };
 
   const handleSortChange = (e) => {
