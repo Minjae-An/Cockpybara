@@ -8,8 +8,8 @@
     /* background-color: lightskyblue; */
     /* display: grid;
     place-items: center; */
-    margin-left: 25rem;
-
+    margin-top: 5%;
+   margin-left: 18%;
 }
 
 /*당신의 레시피를 소개해 주세요!*/
@@ -20,6 +20,7 @@
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+    margin-bottom: 5%;
 }
 
 /*add-photo*/
@@ -422,6 +423,9 @@
     justify-content: center;
     margin-top: 8.75rem;
     display: flex;
+    justify-content: center;
+    margin-left: -21%;
+    align-items: center;
 }
 
 .add-button button {
@@ -439,9 +443,11 @@
     background: #000;
     display: block;
     margin: 0 auto;
+    left: -20px;
+    margin-bottom: 30px;
 }
 
 .submit-button {
-    display: block;
+    display: flex;
     margin: 0 auto;
 }
