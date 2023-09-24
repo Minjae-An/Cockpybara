@@ -12,7 +12,7 @@ const JoinComplete = () => {
       <div className="joinComplete-main">
         <div className="joinComplete-main-contents">
           <div className="joinComplete-main-message">
-            이름받아와야함 님,<br /> 가입을 축하합니다.
+            카피바라 님,<br /> 가입을 축하합니다.
           </div>
           <div className="joinComplete-main-login-btn">
             <button>
