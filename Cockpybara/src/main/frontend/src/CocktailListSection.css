@@ -61,9 +61,13 @@
 
 .cockList-contents-image {
     margin-left: 175px;
-    width: 227px;
-    height: 227px;
+    max-width: 227px;
+    max-height: 227px;
+    width: auto;
+    height: auto;
     flex-shrink: 0;
+    object-fit: cover;
+    border-radius: 30%;
 }
 
 .user-profile-text {

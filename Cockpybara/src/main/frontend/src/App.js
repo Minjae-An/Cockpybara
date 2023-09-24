@@ -19,6 +19,8 @@ import FooterV2 from './footerV2';
 import AddRecipe2 from './AddRecipe2';
 import CockMojito from './cockMojito';
 import Cosmopolitan from './cosmopolitan'; 
+import JoinComplete from './JoinComplete';
+
 
 
 function App() {
@@ -75,6 +77,7 @@ function App() {
         <Route path="/user/my-recipe-2" element={<AddRecipe2/>} />{/*확인용*/}
         <Route path="/recipe/detail/1" element={<CockMojito/>} />
         <Route path="/recipe/detail/4" element={<Cosmopolitan/>} />
+        <Route path="/JoinComplete" element={<JoinComplete/>} />
       </Routes>
     </div>
   );

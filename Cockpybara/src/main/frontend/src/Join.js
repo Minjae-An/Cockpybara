@@ -25,6 +25,10 @@ const Join = () => {
     }
   };
 
+  const handleLoginClick = () => {
+    navigate('/JoinComplete'); // 이동하고자 하는 경로로 수정해주세요
+  };
+
   const handleEmailChange = (e) => {
     const newEmail = e.target.value;
 
@@ -194,7 +198,7 @@ const Join = () => {
               <br />
               <input className="join-input-birth" type="date" value={birth} onChange={handleBirthChange} />
               <br />
-              <button className="join-button-final" type="submit">
+              <button className="join-button-final" type="submit" onClick={handleLoginClick}>
                 가입하기
               </button>
             </div>
