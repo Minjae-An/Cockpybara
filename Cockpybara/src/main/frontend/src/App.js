@@ -20,6 +20,9 @@ import AddRecipe2 from './AddRecipe2';
 import CockMojito from './cockMojito';
 import Cosmopolitan from './cosmopolitan'; 
 import OldFashioned from './oldFashioned'; 
+import JoinComplete from './JoinComplete';
+
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -76,6 +79,7 @@ function App() {
         <Route path="/recipe/detail/1" element={<CockMojito/>} />
         <Route path="/recipe/detail/4" element={<Cosmopolitan/>} />
         <Route path="/recipe/detail/6" element={<OldFashioned/>} />
+        <Route path="/JoinComplete" element={<JoinComplete/>} />
       </Routes>
     </div>
   );
