@@ -712,11 +712,12 @@
 }
 
 .screen .overlap-group-3 {
-  background-image: url(./photo/pinkTea.png);
+  background-image: url("http://www.thecocktaildb.com/images/media/drink/rxtqps1478251029.jpg");
   background-size: 100% 100%;
   height: 300px;
   position: relative;
   width: 300px;
+  border-radius: 20px;
 }
 
 .screen .text-wrapper-18 {
@@ -754,11 +755,12 @@
 }
 
 .screen .overlap-group-4 {
-  background-image: url(./photo/pinkTea.png);
+  background-image: url("http://www.thecocktaildb.com/images/media/drink/vrwquq1478252802.jpg");
   background-size: 100% 100%;
   height: 300px;
   position: relative;
   width: 300px;
+  border-radius: 20px;
 }
 
 .screen .group-8 {
@@ -770,11 +772,12 @@
 }
 
 .screen .overlap-group-5 {
-  background-image: url(./photo/pinkTea.png);
+  background-image: url("http://www.thecocktaildb.com/images/media/drink/71t8581504353095.jpg");
   background-size: 100% 100%;
   height: 300px;
   position: relative;
   width: 300px;
+  border-radius: 20px;
 }
 
 .screen .group-9 {
@@ -786,11 +789,12 @@
 }
 
 .screen .overlap-group-6 {
-  background-image: url(./photo/pinkTea.png);
+  background-image: url("http://www.thecocktaildb.com/images/media/drink/usuuur1439906797.jpg");
   background-size: 100% 100%;
   height: 300px;
   position: relative;
   width: 300px;
+  border-radius: 20px;
 }
 
 .screen .group-10 {
@@ -802,11 +806,12 @@
 }
 
 .screen .overlap-group-7 {
-  background-image: url(./photo/pinkTea.png);
+  background-image: url("http://www.thecocktaildb.com/images/media/drink/rxtqps1478251029.jpg");
   background-size: 100% 100%;
   height: 300px;
   position: relative;
   width: 300px;
+  border-radius: 20px;
 }
 
 .screen .group-11 {
@@ -818,11 +823,12 @@
 }
 
 .screen .overlap-group-8 {
-  background-image: url(./photo/pinkTea.png);
+  background-image: url("http://www.thecocktaildb.com/images/media/drink/kpsajh1504368362.jpg");
   background-size: 100% 100%;
   height: 300px;
   position: relative;
   width: 300px;
+  border-radius: 20px;
 }
 
 .screen .group-12 {
@@ -834,9 +840,10 @@
 }
 
 .screen .overlap-group-9 {
-  background-image: url(./photo/pinkTea.png);
+  background-image: url('http://www.thecocktaildb.com/images/media/drink/kpsajh1504368362.jpg');
   background-size: 100% 100%;
   height: 300px;
   position: relative;
   width: 300px;
+  border-radius: 20px;
 }

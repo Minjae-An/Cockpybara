@@ -5,6 +5,7 @@ import Menu from "./components/Menu.js";
 import searchImage from "./photo/Search.png";
 import cockpyPhoto from "./photo/cock-circle.png";
 import polygon from "./photo/polygon.png"
+
 export const MyPage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
@@ -74,8 +75,8 @@ export const MyPage = () => {
               />
               <img src={searchImage} alt="검색" onClick={handleSearch} />
             </div>
-            <Link to="/login">
-              <button className="detailLogin">로그인</button>
+            <Link to="/user/{userId}/my-page">
+              <img className="detailLogin" src={cockpyPhoto} alt="로그인" />
             </Link>
           </div>
         </div>
@@ -115,16 +116,13 @@ export const MyPage = () => {
               </Link>
               <button className="rectangle-7"></button>
               <div className="view-3">
-                {/* <div className="overlap-3"></div> */}
               </div>
               <div className="flexcontainer">
                 <p className="text">
                   <span className="span">
                     회원님이 등록한 레시피 중<br />
+                    가장 먼저 뜨면 좋을 레시피를 등록해 주세요.
                   </span>
-                  <div className="span">
-                    프로필에 가장 먼저 뜨면 좋을 레시피를 등록해 주세요.
-                  </div>
                 </p>
               </div>
             </div>
@@ -179,7 +177,7 @@ export const MyPage = () => {
 </svg>
 
                 </div>
-                <Link to='/recipe'>
+                <Link to='/user/my-recipe'>
                 <button className="text-wrapper-16">레시피 등록하기</button>
                 </Link>
               </div>
@@ -273,8 +271,8 @@ export const MyPage = () => {
                     
                   </div>
                 </div>
-                <Link to ='recipe/detail/7'>
-                <div className="text-wrapper-19">Negroni</div>
+                <Link to ='recipe/detail/2'>
+                <div className="text-wrapper-19">Cosmopolitan</div>
                 </Link>
               </div>
             </div>
@@ -282,8 +280,8 @@ export const MyPage = () => {
               <div className="overlap-6">
                 <div className="group-6">
                   <div className="overlap-group-9">
-                  <Link to ='recipe/detail/6'>
-                    <div className="text-wrapper-19">Piña Colada</div>
+                  <Link to ='recipe/detail/2'>
+                    <div className="text-wrapper-19">Cosmopolitan</div>
                     </Link>
                   </div>
                 </div>
