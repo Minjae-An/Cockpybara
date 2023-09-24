@@ -10,7 +10,7 @@ ul.menu-list {
 .about {
   color: #2070ad;
   text-align: left;
-  font: 700 18px "Pretendard", sans-serif;
+  font: 700 25px "Pretendard", sans-serif;
   position: absolute;
   left: 25px;
   top: 173px;
@@ -19,7 +19,7 @@ ul.menu-list {
 .community {
   color: #2070ad;
   text-align: left;
-  font: 700 18px "Pretendard", sans-serif;
+  font: 700 25px "Pretendard", sans-serif;
   position: absolute;
   left: 25px;
   top: 360px;
@@ -37,7 +37,7 @@ ul.menu-list {
 .recipe {
   color: #2070ad;
   text-align: left;
-  font: 700 18px "Pretendard", sans-serif;
+  font: 700 25px "Pretendard", sans-serif;
   position: absolute;
   left: 25px;
   top: 266px;
@@ -46,7 +46,7 @@ ul.menu-list {
 .login {
   color: #2070ad;
   text-align: left;
-  font: 700 18px "Pretendard", sans-serif;
+  font: 700 25px "Pretendard", sans-serif;
   position: absolute;
   left: 25px;
   top: 603px;
@@ -55,7 +55,7 @@ ul.menu-list {
 .join {
   color: #2070ad;
   text-align: left;
-  font: 700 18px "Pretendard", sans-serif;
+  font: 700 25px "Pretendard", sans-serif;
   position: absolute;
   left: 25px;
   top: 651px;

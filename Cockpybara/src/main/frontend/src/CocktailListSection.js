@@ -65,16 +65,20 @@ const CocktailListSection = () => {
         fetchUserData();
 
         const imgSrc = [
-            'http://www.thecocktaildb.com/images/media/drink/wwpyvr1461919316.jpg',
-            'http://www.thecocktaildb.com/images/media/drink/ywxwqs1461867097.jpg',
-            'http://www.thecocktaildb.com/images/media/drink/vqyxqx1472669095.jpg',
-            'http://www.thecocktaildb.com/images/media/drink/xxsxqy1472668106.jpg',
-            'http://www.thecocktaildb.com/images/media/drink/xvwusr1472669302.jpg',
-            'http://www.thecocktaildb.com/images/media/drink/ssxvww1472669166.jpg',
-            'http://www.thecocktaildb.com/images/media/drink/wysqut1461867176.jpg',
-            'http://www.thecocktaildb.com/images/media/drink/vyrvxt1461919380.jpg',
-            'http://www.thecocktaildb.com/images/media/drink/tqxyxx1472719737.jpg',
-            'http://www.thecocktaildb.com/images/media/drink/rsvtrr1472668201.jpg'
+            "http://www.thecocktaildb.com/images/media/drink/rxtqps1478251029.jpg",
+            "http://www.thecocktaildb.com/images/media/drink/kpsajh1504368362.jpg",
+            "http://www.thecocktaildb.com/images/media/drink/vrwquq1478252802.jpg",
+            "http://www.thecocktaildb.com/images/media/drink/71t8581504353095.jpg",
+            "http://www.thecocktaildb.com/images/media/drink/usuuur1439906797.jpg",
+            "http://www.thecocktaildb.com/images/media/drink/cpf4j51504371346.jpg",
+            "http://www.thecocktaildb.com/images/media/drink/tutwwv1439907127.jpg",
+            "http://www.thecocktaildb.com/images/media/drink/o56h041504352725.jpg",
+            "http://www.thecocktaildb.com/images/media/drink/2dwae41504885321.jpg",
+            "http://www.thecocktaildb.com/images/media/drink/vak0e51504389504.jpg",
+            "http://www.thecocktaildb.com/images/media/drink/quqyqp1480879103.jpg",
+            "http://www.thecocktaildb.com/images/media/drink/vvpxwy1439907208.jpg",
+            "http://www.thecocktaildb.com/images/media/drink/wtyxvx1472405831.jpg",
+            "http://www.thecocktaildb.com/images/media/drink/twyrrp1439907470.jpg"
         ]
 
         //더미 데이터를 사용하여 프론트에서 확인할 수 있도록 함

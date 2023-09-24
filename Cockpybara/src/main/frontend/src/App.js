@@ -84,6 +84,15 @@ function App() {
         <Route path="/JoinComplete" element={<JoinComplete/>} />
         <Route path="/recipe/detail/4" element={<Martini/>} />
         <Route path="/recipe/detail/5" element={<Daiquiri/>} />
+        <Route path="/recipe/detail/6" element={<CockMojito/>} />
+        <Route path="/recipe/detail/7" element={<CockMojito/>} />
+        <Route path="/recipe/detail/8" element={<CockMojito/>} />
+        <Route path="/recipe/detail/9" element={<CockMojito/>} />
+        <Route path="/recipe/detail/10" element={<CockMojito/>} />
+        <Route path="/recipe/detail/11" element={<CockMojito/>} />
+        <Route path="/recipe/detail/12" element={<CockMojito/>} />
+        <Route path="/recipe/detail/13" element={<CockMojito/>} />
+        <Route path="/recipe/detail/14" element={<CockMojito/>} />
       </Routes>
     </div>
   );
