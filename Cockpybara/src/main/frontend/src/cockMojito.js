@@ -8,8 +8,7 @@ import Menu from "./components/Menu";
 import pinkTea from "./photo/pinkTea.png";
 import axios from "axios";
 import CommentForm from "./CommentForm";
-import sob from "./photo/sob.png"; 
-import cockImg from "./photo/cock-circle.png"; 
+import cockImg from "./photo/cock-circle.png";
 import star from "./photo/star.png"; 
 
 const cockMojito = () => {
@@ -234,9 +233,10 @@ const cockMojito = () => {
             <div className="cock-basic-info">
               <div className="cock-basic-info-img">
               <img
-  className="rectangle"
+  className="cockList-contents-image"
   alt="Rectangle"
-  src={sob}
+  src="http://www.thecocktaildb.com/images/media/drink/rxtqps1478251029.jpg"
+
 />
 
               </div>
