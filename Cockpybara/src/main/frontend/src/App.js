@@ -17,6 +17,7 @@ import DetailHeader from './DetailHeader';
 import Footer from './footer';
 import FooterV2 from './footerV2';
 import AddRecipe2 from './AddRecipe2';
+import CockMojito from './cockMojito';
 
 
 function App() {
@@ -71,6 +72,7 @@ function App() {
         <Route path="/footer" element={<Footer/>} />{/*확인용*/}
         <Route path="/footerV2" element={<FooterV2/>} />{/*확인용*/}
         <Route path="/user/my-recipe-2" element={<AddRecipe2/>} />{/*확인용*/}
+        <Route path="/recipe/detail/1" element={<CockMojito/>} />
       </Routes>
     </div>
   );
