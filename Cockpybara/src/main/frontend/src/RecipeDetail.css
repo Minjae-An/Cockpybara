@@ -10,7 +10,21 @@
     justify-content: space-between; /* �붿냼�ㅼ쓣 醫뚯슦濡� 遺꾨같�⑸땲��. */
     align-items: center;
   }
-  
+
+.mainHome {
+    color: #404040;
+    font-family: "Pretendard-Bold", Helvetica;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: normal;
+    position: relative;
+    white-space: nowrap;
+    display: flex;
+    justify-content: center;
+    margin-left: 4rem;
+}
+
   .headerbox {
     display: flex;
   }

@@ -64,6 +64,9 @@ export const MyPage = () => {
             <Link to="/community">
               <div className="menuCommunity">Community</div>
             </Link>
+            <Link to="/">
+              <div className="mainHome">Cockpybara</div>
+            </Link>
           </div>
           <div className="rightComponent">
             <div className="search-wrap">

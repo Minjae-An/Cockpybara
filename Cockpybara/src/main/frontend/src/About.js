@@ -17,10 +17,10 @@ const About = () => {
   };
   const handleImageClick = () => {
     // "/"로 이동하려면 다음과 같이 사용할 수 있습니다.
-    //window.location.href = '/';
+    window.location.href = '/';
 
     // 이전 페이지로 이동하려면 다음과 같이 사용할 수 있습니다.
-    window.history.back();
+    //window.history.back();
   };
 
   return (

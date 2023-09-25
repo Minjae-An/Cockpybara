@@ -218,15 +218,15 @@ const Recipe = () => {
     ];
 
     // filteredCocktails를 정의합니다.
-    const filteredCocktails = mockCocktails.filter((cocktail) => {
-      if (searchQuery && searchQuery.trim() !== "") {
-        return (
-            cocktail.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
-            (selectedTastes.length === 0 ||
-                cocktail.tastes.some((taste) => selectedTastes.includes(taste)))
-        );
-      } else {
-        if (selectedIngredients.length === 0 && selectedTastes.length === 0) {
+          const filteredCocktails = mockCocktails.filter((cocktail) => {
+            if (searchQuery && searchQuery.trim() !== "") {
+              return (
+                  cocktail.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
+                  (selectedTastes.length === 0 ||
+                      cocktail.tastes.some((taste) => selectedTastes.includes(taste)))
+              );
+            } else {
+              if (selectedIngredients.length === 0 && selectedTastes.length === 0) {
           return true;
         } else {
           return (
@@ -404,6 +404,9 @@ const Recipe = () => {
               </Link>
               <Link to="/community">
                 <div className="menuCommunity">Community</div>
+              </Link>
+              <Link to="/">
+                <div className="mainHome">Cockpybara</div>
               </Link>
             </div>
             <div className="rightComponent">
