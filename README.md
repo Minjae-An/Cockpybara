@@ -15,7 +15,7 @@ Cockpybara는 Cocktail과 사람들에게 친근감 있는 동물로 알려진 c
 형태를 제공합니다.
 <br/><br/>  
 
-### 개발배경 및 목적
+### 개발 배경 및 목적
 소주와 맥주 중심으로 이뤄지던 대한민국 주류 시장의 판도가 바뀌었습니다. 코로나19로 인한 사회적
 거리두기는 획일적인 문화와 고질적인 업무 술자리에서 벗어나 좀 더 개인의 취향에 맞는 주류를
 지향하는 문화를 촉발시켰고, 다양한 주류와 재료를 취향에 따라 혼합하여 즐기는
@@ -26,30 +26,30 @@ Cockpybara는 Cocktail과 사람들에게 친근감 있는 동물로 알려진 c
 <br/><br/>  
 
 ## 멤버
-#### 프론트
+#### Frontend
 |전소진                                    | 신승혜                                |
 |-------------------------------------|-------------------------------------|
 |<img src="https://github.com/Minjae-An/Cockpybara/blob/feature/%23190/Cockpybara/src/main/resources/assests/pjJun.jpg" height="200px">|<img src="https://github.com/Minjae-An/Cockpybara/blob/feature/%23190/Cockpybara/src/main/resources/assests/pjSin.jpg" height="200px">|
-#### 백엔드
+#### Backend
 | 안민재                                   | 김지수                               |      
 |---------------------------------------|---------------------------------------|
 |<img src="https://github.com/Minjae-An/Cockpybara/blob/feature/%23190/Cockpybara/src/main/resources/assests/pjAn.jpg" height="200px">|<img src="https://github.com/Minjae-An/Cockpybara/blob/feature/%23190/Cockpybara/src/main/resources/assests/pjKim.jpg" height="200px">|
 
 <br/><br/>    
 
-## 셋업
+## set up
 - mariaDB에 프로젝트를 생성, 필요한 키값(url, username, password)를 properties에서 추가한다.
 - JPA사용을 위한, JPA관련된 설정 properties에 추가한다.
 - Naver Object Storage 연결을 위한 endpoint, region을 환경변수에 저장하고 properties에서 추가한다.
 - 이미지 업로딩에 필요한 AWS S3 액세스 키와 시크릿 키를 환경변수에 저장하고 properties에서 추가한다.
 <br/><br/>     
 
-### 실행 방법
+### How to run
 - 터미널 창에 `npm run build`를 입력해 빌드해준뒤, `npm run start`로 실행한다
 <br/><br/><br/>    
 
 <div>
-	<h2>📚 기술 📚</h2>
+	<h2>📚 Skills 📚</h2>
 </div>
 
 - HTML/CSS/JavaScript
@@ -59,29 +59,29 @@ Cockpybara는 Cocktail과 사람들에게 친근감 있는 동물로 알려진 c
 - Spring data JPA
 - MariaDB
 
-### 개발툴
+### Tools
 - Git & Github
 - Github Projects & Issues
 - Swagger
 - Notion
 <br/><br/>  
 
-## 스크린샷
-- 메인 화면
+## Screenshot
+- main
 <img src="https://github.com/Minjae-An/Cockpybara/blob/feature/%23190/Cockpybara/src/main/resources/assests/main_image.JPG" height="500px">
 <br/>
 
-- 칵테일레시피 검색 화면
+- Cocktail recipe search
 <img src="https://github.com/Minjae-An/Cockpybara/blob/feature/%23190/Cockpybara/src/main/resources/assests/cocktail_search_image.JPG" height="500px">
 <br/>
 
 
-- 칵테일 레시피 상세내용 화면
+- Cocktail recipe detail
 <img src="https://github.com/Minjae-An/Cockpybara/blob/feature/%23190/Cockpybara/src/main/resources/assests/recipe_detail_image.JPG" height="500px">
 <br/>
 
 
-- 커뮤니티 화면(주간&월간 레시피 순위, 최근 레시피)
+- Community(Weekly & monthly recipe rankings, recent recipes)
 <img src="https://github.com/Minjae-An/Cockpybara/blob/feature/%23190/Cockpybara/src/main/resources/assests/community_image.JPG" height="500px">
 <br/>
 
